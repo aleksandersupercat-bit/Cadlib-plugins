@@ -1,0 +1,2 @@
+<!-- Add this line into plugins_cadlib.xml before </Plugins> -->
+<Plugin name="DTMXtest.dll"/>
