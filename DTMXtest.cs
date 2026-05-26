@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 using CADLib;
@@ -99,6 +100,8 @@ namespace DTMXtest
 
         private TextBox _pythonCodeTextBox;
         private TextBox _pythonOutputTextBox;
+        private TextBox _objectIdsTextBox;
+        private TextBox _objectSearchResultTextBox;
 
         public DTMXtestForm(CADLibrary library, IDatabaseBrowser browser)
         {
@@ -174,9 +177,58 @@ namespace DTMXtest
                 AutoSize = false
             };
 
+            var lblObjectIds = new Label
+            {
+                Left = 20,
+                Top = 235,
+                Width = 800,
+                Height = 22,
+                Text = "idObject для поиска (через пробел, перенос строки, запятую или точку с запятой):"
+            };
+
+            _objectIdsTextBox = new TextBox
+            {
+                Left = 20,
+                Top = 260,
+                Width = 620,
+                Height = 80,
+                Multiline = true,
+                ScrollBars = ScrollBars.Vertical,
+                WordWrap = true,
+                Font = new Font("Consolas", 10),
+                Text = "6826836 6826837 6826838"
+            };
+
+            var btnFindByIds = new Button
+            {
+                Text = "3. Найти и выделить по idObject",
+                Left = 660,
+                Top = 260,
+                Width = 240,
+                Height = 40
+            };
+            btnFindByIds.Click += (s, e) => FindAndSelectObjectsByIds();
+
+            _objectSearchResultTextBox = new TextBox
+            {
+                Left = 20,
+                Top = 360,
+                Width = 880,
+                Height = 210,
+                Multiline = true,
+                ScrollBars = ScrollBars.Both,
+                WordWrap = false,
+                Font = new Font("Consolas", 9),
+                ReadOnly = true
+            };
+
             panel.Controls.Add(btnInspect);
             panel.Controls.Add(btnSummary);
             panel.Controls.Add(note);
+            panel.Controls.Add(lblObjectIds);
+            panel.Controls.Add(_objectIdsTextBox);
+            panel.Controls.Add(btnFindByIds);
+            panel.Controls.Add(_objectSearchResultTextBox);
             tab.Controls.Add(panel);
         }
 
@@ -390,6 +442,423 @@ namespace DTMXtest
             }
 
             ShowTextWindow("CADLib PART_TYPE Summary", lines, 700, 500);
+        }
+
+        private void FindAndSelectObjectsByIds()
+        {
+            var lines = new List<string>();
+
+            try
+            {
+                if (_library == null)
+                {
+                    _objectSearchResultTextBox.Text = "CADLibrary недоступна.";
+                    return;
+                }
+
+                var ids = ParseObjectIds(_objectIdsTextBox.Text);
+
+                if (ids.Count == 0)
+                {
+                    _objectSearchResultTextBox.Text = "Введите один или несколько idObject, например: 6826836 6826837 6826838";
+                    return;
+                }
+
+                var foundObjects = new List<CLibObjectInfo>();
+                var foundIds = new List<int>();
+                var notFound = new List<int>();
+
+                lines.Add("=== ПОИСК ПО idObject ===");
+                lines.Add("");
+                lines.Add("Запрошено idObject: " + ids.Count);
+                lines.Add("");
+                lines.Add("idObject | Category | PART_TYPE | Name");
+                lines.Add(new string('-', 140));
+
+                foreach (int id in ids)
+                {
+                    CLibObjectInfo obj = FindObjectById(id);
+
+                    if (obj == null)
+                    {
+                        notFound.Add(id);
+                        lines.Add(id + " | <не найден>");
+                        continue;
+                    }
+
+                    foundObjects.Add(obj);
+                    foundIds.Add(obj.idObject);
+
+                    lines.Add(
+                        obj.idObject + " | " +
+                        SafeToString(() => obj.idObjectCategory) + " | " +
+                        ReadParam(obj, "PART_TYPE") + " | " +
+                        SafeToString(() => obj.Name)
+                    );
+                }
+
+                lines.Add("");
+                lines.Add("Найдено: " + foundObjects.Count);
+                lines.Add("Не найдено: " + notFound.Count);
+
+                if (notFound.Count > 0)
+                    lines.Add("Не найдены idObject: " + string.Join(" ", notFound));
+
+                bool selectionChanged = SetLibrarySelectedObjects(foundIds);
+                lines.Add("Массовое выделение найденных объектов: " + (selectionChanged ? "выполнено" : "без изменений или недоступно"));
+
+                if (foundIds.Count > 0)
+                {
+                    HierarchySelectionResult hierarchySelection = SelectObjectInHierarchy(foundIds[0]);
+                    lines.Add("Переход в иерархии к первому найденному объекту (" + foundIds[0] + "): " + (hierarchySelection.Success ? "выполнен" : "недоступен"));
+                    lines.Add("Путь idObject для иерархии: " + hierarchySelection.PathText);
+
+                    if (!string.IsNullOrEmpty(hierarchySelection.TargetType))
+                        lines.Add("Контрол иерархии: " + hierarchySelection.TargetType);
+
+                    if (!string.IsNullOrEmpty(hierarchySelection.Message))
+                        lines.Add("Детали перехода: " + hierarchySelection.Message);
+
+                    TryInvokeNoArg(_browser, "RefreshActiveObject", true);
+                    TryInvokeNoArg(_browser, "UpdateWindow");
+                    TryInvokeNoArg(_browser, "UpdateButtons");
+                }
+            }
+            catch (Exception ex)
+            {
+                lines.Add("ОШИБКА:");
+                lines.Add(ex.ToString());
+            }
+
+            _objectSearchResultTextBox.Text = string.Join("\r\n", lines);
+        }
+
+        private static List<int> ParseObjectIds(string text)
+        {
+            var ids = new List<int>();
+            var seen = new HashSet<int>();
+
+            if (string.IsNullOrWhiteSpace(text))
+                return ids;
+
+            string[] tokens = text.Split(new[] { ' ', '\t', '\r', '\n', ',', ';' }, StringSplitOptions.RemoveEmptyEntries);
+
+            foreach (string token in tokens)
+            {
+                int id;
+
+                if (!int.TryParse(token.Trim(), out id))
+                    continue;
+
+                if (seen.Add(id))
+                    ids.Add(id);
+            }
+
+            return ids;
+        }
+
+        private CLibObjectInfo FindObjectById(int idObject)
+        {
+            try
+            {
+                return _library.GetLibraryCustomObject(idObject);
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        private bool SetLibrarySelectedObjects(IList<int> ids)
+        {
+            if (ids == null || ids.Count == 0)
+                return false;
+
+            object result = InvokeMethod(_library, "SetSelectedObjects", ids);
+
+            if (result is bool)
+                return (bool)result;
+
+            result = InvokeMethod(_library, "SetSelectedObjects", ToArray(ids));
+
+            if (result is bool)
+                return (bool)result;
+
+            if (ids.Count == 1)
+            {
+                result = InvokeMethod(_library, "SetSingleSelection", ids[0]);
+
+                if (result is bool)
+                    return (bool)result;
+            }
+
+            return result != null;
+        }
+
+        private static int[] ToArray(IList<int> ids)
+        {
+            var result = new int[ids.Count];
+
+            for (int i = 0; i < ids.Count; i++)
+                result[i] = ids[i];
+
+            return result;
+        }
+
+        private HierarchySelectionResult SelectObjectInHierarchy(int idObject)
+        {
+            var selectionResult = new HierarchySelectionResult();
+
+            if (_browser == null)
+            {
+                selectionResult.Message = "DBBrowser недоступен.";
+                return selectionResult;
+            }
+
+            int[] path = BuildObjectPath(idObject);
+            selectionResult.PathText = path.Length == 0 ? "<пустой>" : string.Join(" -> ", path);
+
+            var candidates = GetHierarchySelectionTargets();
+
+            foreach (object candidate in candidates)
+            {
+                if (!HasMethod(candidate, "SelectChildObjectByPath"))
+                    continue;
+
+                object result = InvokeMethod(candidate, "SelectChildObjectByPath", path);
+
+                if (result != null)
+                {
+                    TrySelectReturnedNode(candidate, result);
+
+                    selectionResult.Success = true;
+                    selectionResult.TargetType = candidate.GetType().FullName;
+                    selectionResult.Message = "SelectChildObjectByPath(path) вернул " + result.GetType().FullName + ".";
+                    return selectionResult;
+                }
+
+                result = InvokeMethod(candidate, "SelectChildObjectByPath", new[] { idObject });
+
+                if (result != null)
+                {
+                    TrySelectReturnedNode(candidate, result);
+
+                    selectionResult.Success = true;
+                    selectionResult.TargetType = candidate.GetType().FullName;
+                    selectionResult.Message = "SelectChildObjectByPath(idObject) вернул " + result.GetType().FullName + ".";
+                    return selectionResult;
+                }
+
+                if (string.IsNullOrEmpty(selectionResult.TargetType))
+                    selectionResult.TargetType = candidate.GetType().FullName;
+            }
+
+            if (string.IsNullOrEmpty(selectionResult.Message))
+                selectionResult.Message = "Метод SelectChildObjectByPath найден не был или вернул null.";
+
+            return selectionResult;
+        }
+
+        private List<object> GetHierarchySelectionTargets()
+        {
+            var targets = new List<object>();
+
+            AddUniqueTarget(targets, _browser);
+            AddNestedSelectionTargets(targets, _browser);
+
+            var browserControl = _browser as Control;
+
+            if (browserControl != null)
+                AddControlTargets(targets, browserControl);
+
+            return targets;
+        }
+
+        private static void AddNestedSelectionTargets(List<object> targets, object source)
+        {
+            if (source == null)
+                return;
+
+            Type type = source.GetType();
+            BindingFlags flags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
+
+            foreach (PropertyInfo property in type.GetProperties(flags))
+            {
+                if (property.GetIndexParameters().Length > 0)
+                    continue;
+
+                TryAddMemberTarget(targets, source, property);
+            }
+
+            foreach (FieldInfo field in type.GetFields(flags))
+                TryAddMemberTarget(targets, source, field);
+        }
+
+        private static void TryAddMemberTarget(List<object> targets, object source, MemberInfo member)
+        {
+            try
+            {
+                object value = null;
+
+                var property = member as PropertyInfo;
+
+                if (property != null)
+                    value = property.GetValue(source, null);
+
+                var field = member as FieldInfo;
+
+                if (field != null)
+                    value = field.GetValue(source);
+
+                if (value == null || value is string)
+                    return;
+
+                Type valueType = value.GetType();
+
+                if (valueType.IsValueType)
+                    return;
+
+                if (HasMethod(value, "SelectChildObjectByPath") || value is Control)
+                    AddUniqueTarget(targets, value);
+
+                var control = value as Control;
+
+                if (control != null)
+                    AddControlTargets(targets, control);
+            }
+            catch
+            {
+            }
+        }
+
+        private static void AddControlTargets(List<object> targets, Control root)
+        {
+            if (root == null)
+                return;
+
+            AddUniqueTarget(targets, root);
+
+            foreach (Control child in root.Controls)
+                AddControlTargets(targets, child);
+        }
+
+        private static void AddUniqueTarget(List<object> targets, object target)
+        {
+            if (target == null)
+                return;
+
+            foreach (object existing in targets)
+            {
+                if (ReferenceEquals(existing, target))
+                    return;
+            }
+
+            targets.Add(target);
+        }
+
+        private static void TrySelectReturnedNode(object target, object result)
+        {
+            var node = result as TreeNode;
+
+            if (node != null)
+            {
+                InvokeMethod(target, "SetSelectedNode", node);
+                node.EnsureVisible();
+            }
+        }
+
+        private int[] BuildObjectPath(int idObject)
+        {
+            var path = new List<int>();
+            var seen = new HashSet<int>();
+            int current = idObject;
+
+            while (current > 0 && seen.Add(current))
+            {
+                path.Insert(0, current);
+
+                object parent = InvokeMethod(_library, "GetParentObject", current);
+
+                if (parent == null)
+                    break;
+
+                int parentId;
+
+                try
+                {
+                    parentId = Convert.ToInt32(parent);
+                }
+                catch
+                {
+                    break;
+                }
+
+                if (parentId <= 0 || parentId == current)
+                    break;
+
+                current = parentId;
+            }
+
+            return path.ToArray();
+        }
+
+        private sealed class HierarchySelectionResult
+        {
+            public bool Success { get; set; }
+            public string PathText { get; set; }
+            public string TargetType { get; set; }
+            public string Message { get; set; }
+        }
+
+        private static bool HasMethod(object target, string methodName)
+        {
+            if (target == null)
+                return false;
+
+            MethodInfo[] methods = target.GetType().GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+
+            foreach (MethodInfo method in methods)
+            {
+                if (method.Name == methodName)
+                    return true;
+            }
+
+            return false;
+        }
+
+        private static object InvokeMethod(object target, string methodName, params object[] args)
+        {
+            if (target == null)
+                return null;
+
+            Type type = target.GetType();
+            MethodInfo[] methods = type.GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+
+            foreach (MethodInfo method in methods)
+            {
+                if (method.Name != methodName)
+                    continue;
+
+                ParameterInfo[] parameters = method.GetParameters();
+
+                if (parameters.Length != args.Length)
+                    continue;
+
+                try
+                {
+                    return method.Invoke(target, args);
+                }
+                catch
+                {
+                }
+            }
+
+            return null;
+        }
+
+        private static void TryInvokeNoArg(object target, string methodName, params object[] args)
+        {
+            InvokeMethod(target, methodName, args);
         }
 
         private void ExecutePythonFromEditor()

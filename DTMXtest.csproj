@@ -10,6 +10,7 @@
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <LangVersion>latest</LangVersion>
+    <CADLibBinPath Condition=" '$(CADLibBinPath)' == '' ">C:\Program Files\CSoft\Model Studio CS\3.1\MIA\bin</CADLibBinPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -36,35 +37,35 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="CADLibControls">
-      <HintPath>C:\Program Files\CSoft\Model Studio CS\3.1\MIA\bin\CADLibControls.dll</HintPath>
+      <HintPath>$(CADLibBinPath)\CADLibControls.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="CADLibKernel">
-      <HintPath>C:\Program Files\CSoft\Model Studio CS\3.1\MIA\bin\CADLibKernel.dll</HintPath>
+      <HintPath>$(CADLibBinPath)\CADLibKernel.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="CSProject3D">
-      <HintPath>C:\Program Files\CSoft\Model Studio CS\3.1\MIA\bin\CSProject3D.dll</HintPath>
+      <HintPath>$(CADLibBinPath)\CSProject3D.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="CSAppServices">
-      <HintPath>C:\Program Files\CSoft\Model Studio CS\3.1\MIA\bin\CSAppServices.dll</HintPath>
+      <HintPath>$(CADLibBinPath)\CSAppServices.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="IronPython">
-      <HintPath>C:\Program Files\CSoft\Model Studio CS\3.1\MIA\bin\IronPython.dll</HintPath>
+      <HintPath>$(CADLibBinPath)\IronPython.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="IronPython.Modules">
-      <HintPath>C:\Program Files\CSoft\Model Studio CS\3.1\MIA\bin\IronPython.Modules.dll</HintPath>
+      <HintPath>$(CADLibBinPath)\IronPython.Modules.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.Scripting">
-      <HintPath>C:\Program Files\CSoft\Model Studio CS\3.1\MIA\bin\Microsoft.Scripting.dll</HintPath>
+      <HintPath>$(CADLibBinPath)\Microsoft.Scripting.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.Dynamic">
-      <HintPath>C:\Program Files\CSoft\Model Studio CS\3.1\MIA\bin\Microsoft.Dynamic.dll</HintPath>
+      <HintPath>$(CADLibBinPath)\Microsoft.Dynamic.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>

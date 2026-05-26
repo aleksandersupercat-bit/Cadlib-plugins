@@ -15,13 +15,19 @@ The project targets .NET Framework 4.8 and expects CADLib / Model Studio CS asse
 The referenced assemblies are configured in `DTMXtest.csproj`, for example:
 
 ```xml
-<HintPath>C:\Program Files\CSoft\Model Studio CS\3.1\MIA\bin\CADLibKernel.dll</HintPath>
+<CADLibBinPath>C:\Program Files\CSoft\Model Studio CS\3.1\MIA\bin</CADLibBinPath>
 ```
 
 Build:
 
 ```powershell
 dotnet build .\DTMXtest.csproj -c Release
+```
+
+If CADLib / Model Studio CS is installed in a different directory, override the path:
+
+```powershell
+dotnet build .\DTMXtest.csproj -c Release /p:CADLibBinPath="D:\Path\To\MIA\bin"
 ```
 
 ## Install
