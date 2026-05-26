@@ -617,6 +617,8 @@ namespace DTMXtest
 
             int[] path = BuildObjectPath(idObject);
             selectionResult.PathText = path.Length == 0 ? "<пустой>" : string.Join(" -> ", path);
+            selectionResult.Message = "RootObject=" + SafeInvokeInt(_library, "GetRootObject", idObject) +
+                                      "; ParentObject=" + SafeInvokeInt(_library, "GetParentObject", idObject);
 
             var candidates = GetHierarchySelectionTargets();
 
@@ -633,7 +635,7 @@ namespace DTMXtest
 
                     selectionResult.Success = true;
                     selectionResult.TargetType = candidate.GetType().FullName;
-                    selectionResult.Message = "SelectChildObjectByPath(path) вернул " + result.GetType().FullName + ".";
+                    selectionResult.Message = AppendDetail(selectionResult.Message, "SelectChildObjectByPath(path) вернул " + result.GetType().FullName + ".");
                     return selectionResult;
                 }
 
@@ -645,7 +647,7 @@ namespace DTMXtest
 
                     selectionResult.Success = true;
                     selectionResult.TargetType = candidate.GetType().FullName;
-                    selectionResult.Message = "SelectChildObjectByPath(idObject) вернул " + result.GetType().FullName + ".";
+                    selectionResult.Message = AppendDetail(selectionResult.Message, "SelectChildObjectByPath(idObject) вернул " + result.GetType().FullName + ".");
                     return selectionResult;
                 }
 
@@ -653,8 +655,7 @@ namespace DTMXtest
                     selectionResult.TargetType = candidate.GetType().FullName;
             }
 
-            if (string.IsNullOrEmpty(selectionResult.Message))
-                selectionResult.Message = "Метод SelectChildObjectByPath найден не был или вернул null.";
+            selectionResult.Message = AppendDetail(selectionResult.Message, "Метод SelectChildObjectByPath найден не был или вернул null.");
 
             return selectionResult;
         }
@@ -780,7 +781,19 @@ namespace DTMXtest
                 object parent = InvokeMethod(_library, "GetParentObject", current);
 
                 if (parent == null)
-                    break;
+                {
+                    CLibObjectInfo currentObject = FindObjectById(current);
+                    parent = ReadIntMember(currentObject, "idParentObject");
+
+                    if (parent == null)
+                        parent = ReadIntMember(currentObject, "idParent");
+
+                    if (parent == null)
+                        parent = ReadIntMember(currentObject, "ParentObjectId");
+
+                    if (parent == null)
+                        break;
+                }
 
                 int parentId;
 
@@ -800,6 +813,48 @@ namespace DTMXtest
             }
 
             return path.ToArray();
+        }
+
+        private static object ReadIntMember(object target, string memberName)
+        {
+            if (target == null)
+                return null;
+
+            BindingFlags flags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
+            Type type = target.GetType();
+
+            FieldInfo field = type.GetField(memberName, flags);
+
+            if (field != null)
+                return field.GetValue(target);
+
+            PropertyInfo property = type.GetProperty(memberName, flags);
+
+            if (property != null && property.GetIndexParameters().Length == 0)
+                return property.GetValue(target, null);
+
+            return null;
+        }
+
+        private static string SafeInvokeInt(object target, string methodName, int value)
+        {
+            object result = InvokeMethod(target, methodName, value);
+
+            if (result == null)
+                return "<null>";
+
+            return Convert.ToString(result);
+        }
+
+        private static string AppendDetail(string current, string detail)
+        {
+            if (string.IsNullOrEmpty(current))
+                return detail;
+
+            if (string.IsNullOrEmpty(detail))
+                return current;
+
+            return current + " " + detail;
         }
 
         private sealed class HierarchySelectionResult
