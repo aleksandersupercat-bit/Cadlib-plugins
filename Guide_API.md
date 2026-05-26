@@ -31,6 +31,17 @@
 | Отчёты / публикация / сервисы | `CSAppServices.CHTMLReport`, `ObjectPublisher`, `XExchange`, `DbConnectParameters` | Требует проверки на конкретной версии. |
 | Команды nanoCAD / Model Studio | nanoCAD .NET plugin: `CommandMethod`, HostMgd/Teigha | Это другой слой, не CADLib Plugin API. |
 
+## Практические пометки по использованию
+
+Ниже короткие примечания не как отдельный учебник, а как подсказки по тем методам, которые реально пригодились в рабочем плагине и скриптах.
+
+- `ICADLibPlugin.GetMenu(...)` и `ICADLibPlugin.GetToolbars(...)` — базовые точки, если нужно добавить кнопку или пункт меню в интерфейс CADLib/Model Studio через C#-плагин. Для обычного PythonPlugin это не замена полноценному UI-контейнеру.
+- `ICADLibMainPlugin.GetMainFormMenu(...)` и `ICADLibMainPlugin.GetMainFormToolBar(...)` — работают только у плагина с главной формой. Если вернуть `null`, то другие плагины не смогут встраивать свои пункты и кнопки в главное меню/панель.
+- `IDatabaseBrowser.CurrentFolder`, `IDatabaseBrowser.GetSelectedObjects(...)`, `IDatabaseBrowser.GetSelectionPath(...)`, `IDatabaseBrowser.UpdateButtons(...)` — полезны для сценариев, где UI должен реагировать на текущую папку, выделение и состояние браузера БД.
+- `CADLibraryBase.GetParamDefId(...)`, `CADLibraryBase.GetObjectParametersByValues(...)`, `CADLibraryBase.GetObjectParameters(...)` — рабочая связка для поиска и индексации по параметрам. Для `PART_TYPE` именно эта схема удобна для массовых выборок и построения списков значений.
+- `SelectChildObjectByPath(...)` в дереве браузера может быть доступен не во всех контекстах и в живом хосте иногда возвращает `null`; на него лучше не опираться как на единственный путь навигации по иерархии.
+- В PythonPlugin обычно доступны `Library`, `DBBrowser`, `CLMainForm`. Если нужен дополнительный мост для диагностики или записи логов, удобнее добавлять его в главную форму плагина и вызывать из Python через `CLMainForm`.
+
 ---
 
 # Часть A. Архитектура расширения, плагины, события и UI
@@ -105,6 +116,7 @@ CADLib / Model Studio application
 - Тип: `interface`
 - XML-описание: Абстрактный класс, реализованный во всех плагинах. Извлекается вызовом метода CADLibPluginEntryPoint.RegisterPlugin(PluginsManager manager).
 - Практический смысл: Базовый интерфейс обычного плагина. Через него плагин отдаёт меню, панели инструментов и реагирует на состояние интерфейса.
+- Практическая пометка: если нужен элемент интерфейса в верхней панели или меню Model Studio, в первую очередь смотрят на `GetMenu(...)` и `GetToolbars(...)`.
 
 Методы:
 - `GetMenu(WinForms.MenuStrip())` — Метод для получения главного меню плагина, для последующего объединения элементов
@@ -144,6 +156,7 @@ CADLib / Model Studio application
 - Тип: `interface`
 - XML-описание: Интерфейс, главного плагина, создающего окно Интерфес содержит методы типа GetCurrentSelection
 - Практический смысл: Главный интерфейс браузера БД: активный объект, активный файл, текущая папка, выбранные объекты/файлы, обновление окна и каталога.
+- Практическая пометка: для выборок и поисков чаще всего удобнее брать `CurrentFolder`, `GetSelectedObjects(...)` и `GetSelectionPath(...)`, а не пытаться сразу работать через визуальное дерево.
 
 Свойства:
 - `Library: CADLib.CADLibrary`
@@ -171,6 +184,7 @@ CADLib / Model Studio application
 - Наследование: `CADLib.PluginsManager` → `System.Object`
 - XML-описание: Класс для управления плагинами
 - Практический смысл: Менеджер загрузки и объединения плагинов: главное окно, меню, панели инструментов, DBBrowser, Library.
+- Практическая пометка: если плагин должен встроиться в интерфейс, именно `PluginsManager` обычно склеивает меню и панели от разных расширений.
 - Статические методы: `AreMenuItemsEqual`, `FindMenuItem`, `MergeInterfaceMenus`, `MergeInterfaceToolbars`, `ScanAndAddMenu`
 
 Свойства:

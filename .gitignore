@@ -9,3 +9,5 @@ obj/
 *.exe
 *.log
 README_DTMXtest.md
+LOG/
+Python/autotest_status.json

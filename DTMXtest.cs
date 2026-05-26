@@ -4,6 +4,7 @@ using System.Drawing;
 using System.IO;
 using System.Reflection;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using CADLib;
 using CADLibKernel;
@@ -97,19 +98,41 @@ namespace DTMXtest
     {
         private readonly CADLibrary _library;
         private readonly IDatabaseBrowser _browser;
+        private readonly string _logFilePath;
+        private string _loadedPythonScriptPath;
+        private string _pythonAutoLogFilePath;
+        private string _pythonAutoStatusFilePath;
+        private Timer _pythonAutoRetryTimer;
+        private bool _pythonAutoRunActive;
+        private bool _pythonAutoRunInProgress;
+        private DateTime _pythonAutoScriptWriteTimeUtc;
 
         private TextBox _pythonCodeTextBox;
         private TextBox _pythonOutputTextBox;
+        private Label _pythonAutoStatusLabel;
         private TextBox _objectIdsTextBox;
         private TextBox _objectSearchResultTextBox;
+        private ComboBox _partTypeComboBox;
+        private ComboBox _childComboBox;
+        private ComboBox _parameterComboBox;
+        private TextBox _searchValueTextBox;
+        private TextBox _dataSearchResultTextBox;
+        private TextBox _dataSearchLogTextBox;
+        private bool _isLoadingDataSearch;
+        private List<string> _partTypeCache;
+        private readonly Dictionary<string, List<CLibObjectInfo>> _rootObjectsByPartTypeCache = new Dictionary<string, List<CLibObjectInfo>>(StringComparer.CurrentCultureIgnoreCase);
+        private readonly Dictionary<string, List<string>> _childNamesByPartTypeCache = new Dictionary<string, List<string>>(StringComparer.CurrentCultureIgnoreCase);
+        private readonly Dictionary<string, List<CLibObjectInfo>> _candidateObjectsCache = new Dictionary<string, List<CLibObjectInfo>>(StringComparer.CurrentCultureIgnoreCase);
+        private readonly Dictionary<string, List<string>> _parameterNamesCache = new Dictionary<string, List<string>>(StringComparer.CurrentCultureIgnoreCase);
 
         public DTMXtestForm(CADLibrary library, IDatabaseBrowser browser)
         {
             _library = library;
             _browser = browser;
+            _logFilePath = CreateLogFilePath();
 
             Text = "DTMXtest";
-            Width = 950;
+            Width = 1200;
             Height = 700;
             StartPosition = FormStartPosition.CenterScreen;
             FormBorderStyle = FormBorderStyle.Sizable;
@@ -117,6 +140,23 @@ namespace DTMXtest
             MinimizeBox = true;
 
             BuildUi();
+            Load += (s, e) =>
+            {
+                LogDataSearch("Форма DTMXtest запущена. Лог: " + _logFilePath);
+                LoadPartTypes();
+            };
+        }
+
+        protected override void OnFormClosed(FormClosedEventArgs e)
+        {
+            if (_pythonAutoRetryTimer != null)
+            {
+                _pythonAutoRetryTimer.Stop();
+                _pythonAutoRetryTimer.Dispose();
+                _pythonAutoRetryTimer = null;
+            }
+
+            base.OnFormClosed(e);
         }
 
         private void BuildUi()
@@ -127,12 +167,15 @@ namespace DTMXtest
             };
 
             var tabSelection = new TabPage("Выделение CADLib");
+            var tabDataSearch = new TabPage("Поиск данных");
             var tabPython = new TabPage("Python");
 
             BuildSelectionTab(tabSelection);
+            BuildDataSearchTab(tabDataSearch);
             BuildPythonTab(tabPython);
 
             tabs.TabPages.Add(tabSelection);
+            tabs.TabPages.Add(tabDataSearch);
             tabs.TabPages.Add(tabPython);
 
             Controls.Add(tabs);
@@ -232,6 +275,406 @@ namespace DTMXtest
             tab.Controls.Add(panel);
         }
 
+        private void BuildDataSearchTab(TabPage tab)
+        {
+            var panel = new Panel
+            {
+                Dock = DockStyle.Fill,
+                Padding = new Padding(16)
+            };
+
+            int labelTop = 22;
+            int inputTop = 18;
+
+            var lblPartType = CreateSearchLabel("Тип изделия", 20, labelTop, 65);
+            _partTypeComboBox = CreateSearchComboBox(90, inputTop, 220);
+            _partTypeComboBox.Name = "Тип изделия";
+            _partTypeComboBox.Enter += (s, e) => LoadPartTypes();
+            _partTypeComboBox.SelectedIndexChanged += (s, e) => LoadChildNames();
+
+            var lblChild = CreateSearchLabel("Дочерний", 330, labelTop, 60);
+            _childComboBox = CreateSearchComboBox(395, inputTop, 165);
+            _childComboBox.Name = "Дочерний";
+            _childComboBox.Enter += (s, e) => LoadChildNames();
+            _childComboBox.SelectedIndexChanged += (s, e) => LoadParameterNames();
+
+            var lblParam = CreateSearchLabel("Параметр", 580, labelTop, 60);
+            _parameterComboBox = CreateSearchComboBox(645, inputTop, 280);
+            _parameterComboBox.Name = "Параметр";
+            _parameterComboBox.Enter += (s, e) => LoadParameterNames();
+
+            var lblValue = CreateSearchLabel("Значение", 945, labelTop, 60);
+            _searchValueTextBox = new TextBox
+            {
+                Left = 1010,
+                Top = inputTop,
+                Width = 115,
+                Height = 24
+            };
+
+            var btnSearch = new Button
+            {
+                Text = "ПОИСК",
+                Left = 20,
+                Top = 62,
+                Width = 140,
+                Height = 36
+            };
+            btnSearch.Click += (s, e) => ExecuteDataSearch();
+
+            _dataSearchResultTextBox = new TextBox
+            {
+                Left = 20,
+                Top = 115,
+                Width = 1085,
+                Height = 340,
+                Multiline = true,
+                ScrollBars = ScrollBars.Both,
+                WordWrap = false,
+                Font = new Font("Consolas", 9),
+                ReadOnly = true
+            };
+
+            _dataSearchLogTextBox = new TextBox
+            {
+                Left = 20,
+                Top = 465,
+                Width = 1085,
+                Height = 150,
+                Multiline = true,
+                ScrollBars = ScrollBars.Both,
+                WordWrap = false,
+                Font = new Font("Consolas", 9),
+                ReadOnly = true
+            };
+
+            panel.Controls.Add(lblPartType);
+            panel.Controls.Add(_partTypeComboBox);
+            panel.Controls.Add(lblChild);
+            panel.Controls.Add(_childComboBox);
+            panel.Controls.Add(lblParam);
+            panel.Controls.Add(_parameterComboBox);
+            panel.Controls.Add(lblValue);
+            panel.Controls.Add(_searchValueTextBox);
+            panel.Controls.Add(btnSearch);
+            panel.Controls.Add(_dataSearchResultTextBox);
+            panel.Controls.Add(_dataSearchLogTextBox);
+
+            tab.Enter += (s, e) => LoadPartTypes();
+            tab.VisibleChanged += (s, e) => LoadPartTypes();
+            tab.Controls.Add(panel);
+        }
+
+        private static Label CreateSearchLabel(string text, int left, int top, int width)
+        {
+            return new Label
+            {
+                Text = text,
+                Left = left,
+                Top = top,
+                Width = width,
+                Height = 24
+            };
+        }
+
+        private static ComboBox CreateSearchComboBox(int left, int top, int width)
+        {
+            return new ComboBox
+            {
+                Left = left,
+                Top = top,
+                Width = width,
+                Height = 24,
+                DropDownStyle = ComboBoxStyle.DropDownList,
+                DropDownHeight = 360,
+                IntegralHeight = false,
+                MaxDropDownItems = 30,
+                AutoCompleteMode = AutoCompleteMode.None,
+                AutoCompleteSource = AutoCompleteSource.None
+            };
+        }
+
+        private static string CreateLogFilePath()
+        {
+            string logDir = Path.Combine(GetProjectRoot(), "LOG");
+            Directory.CreateDirectory(logDir);
+
+            return Path.Combine(logDir, "DTMXtest_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".txt");
+        }
+
+        private static string CreatePythonAutoLogFilePath()
+        {
+            string logDir = Path.Combine(GetProjectRoot(), "LOG");
+            Directory.CreateDirectory(logDir);
+
+            return Path.Combine(logDir, "log_python_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".txt");
+        }
+
+        private static string GetProjectRoot()
+        {
+            string projectRoot = @"C:\pdf_ingest\DTMXtest";
+
+            if (Directory.Exists(projectRoot))
+                return projectRoot;
+
+            return AppDomain.CurrentDomain.BaseDirectory;
+        }
+
+        private static string GetDefaultPythonDiagnosticsPath()
+        {
+            return Path.Combine(GetProjectRoot(), "Python", "diagnostics.py");
+        }
+
+        private static string GetPythonScriptsDir()
+        {
+            string dir = Path.Combine(GetProjectRoot(), "Python");
+            Directory.CreateDirectory(dir);
+            return dir;
+        }
+
+        private static string GetPythonAutoStatusFilePath()
+        {
+            return Path.Combine(GetPythonScriptsDir(), "autotest_status.json");
+        }
+
+        public string LogFilePath
+        {
+            get { return _logFilePath; }
+        }
+
+        public string PythonLogFilePath
+        {
+            get { return string.IsNullOrEmpty(_pythonAutoLogFilePath) ? _logFilePath : _pythonAutoLogFilePath; }
+        }
+
+        public string PythonAutoStatusFilePath
+        {
+            get { return string.IsNullOrEmpty(_pythonAutoStatusFilePath) ? GetPythonAutoStatusFilePath() : _pythonAutoStatusFilePath; }
+        }
+
+        public void WriteLog(string message)
+        {
+            LogDataSearch(message);
+        }
+
+        public void WritePythonLog(string message)
+        {
+            AppendPythonAutoLog(message);
+        }
+
+        public string[] GetPartTypesForPython()
+        {
+            return GetParameterValuesForPython("PART_TYPE");
+        }
+
+        public string[] GetParameterValuesForPython(string paramName)
+        {
+            if (_library == null || string.IsNullOrWhiteSpace(paramName))
+                return new string[0];
+
+            int paramDefId = _library.GetParamDefId(paramName);
+
+            if (paramDefId <= 0)
+                return new string[0];
+
+            return GetParameterValueList(paramDefId).ToArray();
+        }
+
+        public CLibObjectInfo[] GetObjectsByPartTypeForPython(string partType)
+        {
+            if (_library == null || string.IsNullOrWhiteSpace(partType))
+                return new CLibObjectInfo[0];
+
+            int paramDefId = _library.GetParamDefId("PART_TYPE");
+
+            if (paramDefId <= 0)
+                return new CLibObjectInfo[0];
+
+            var objects = _library.GetObjectParametersByValues(paramDefId, partType.Trim(), true, ';');
+            var result = new List<CLibObjectInfo>();
+
+            foreach (object item in SafeEnumerate(objects))
+            {
+                var obj = item as CLibObjectInfo;
+
+                if (obj != null)
+                    result.Add(obj);
+            }
+
+            return result.ToArray();
+        }
+
+        public Parameter[] GetObjectParametersForPython(int objectId)
+        {
+            if (_library == null || objectId <= 0)
+                return new Parameter[0];
+
+            var result = new List<Parameter>();
+
+            foreach (Parameter parameter in _library.GetObjectParameters(objectId))
+                result.Add(parameter);
+
+            return result.ToArray();
+        }
+
+        public void RunPythonFile(string path)
+        {
+            LoadPythonScriptFromFile(path);
+            ExecutePythonFromEditor();
+        }
+
+        private void LogDataSearch(string message)
+        {
+            string line = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") + " | " + message;
+
+            try
+            {
+                File.AppendAllText(_logFilePath, line + Environment.NewLine, Encoding.UTF8);
+            }
+            catch
+            {
+            }
+
+            if (_dataSearchLogTextBox == null)
+                return;
+
+            try
+            {
+                if (_dataSearchLogTextBox.InvokeRequired)
+                    _dataSearchLogTextBox.BeginInvoke(new Action(() => _dataSearchLogTextBox.AppendText(line + Environment.NewLine)));
+                else
+                    _dataSearchLogTextBox.AppendText(line + Environment.NewLine);
+            }
+            catch
+            {
+            }
+        }
+
+        private void AppendPythonAutoLog(string message)
+        {
+            string logPath = PythonLogFilePath;
+            string line = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") + " | " + message;
+
+            try
+            {
+                File.AppendAllText(logPath, line + Environment.NewLine, Encoding.UTF8);
+            }
+            catch
+            {
+            }
+        }
+
+        private void WritePythonAutoStatus(string state, string note)
+        {
+            string path = PythonAutoStatusFilePath;
+
+            try
+            {
+                string json =
+                    "{" + Environment.NewLine +
+                    "  \"state\": \"" + EscapeJson(state) + "\"," + Environment.NewLine +
+                    "  \"script\": \"" + EscapeJson(_loadedPythonScriptPath ?? string.Empty) + "\"," + Environment.NewLine +
+                    "  \"log\": \"" + EscapeJson(PythonLogFilePath) + "\"," + Environment.NewLine +
+                    "  \"updated_at\": \"" + EscapeJson(DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss.fffzzz")) + "\"," + Environment.NewLine +
+                    "  \"script_write_time_utc\": \"" + EscapeJson(_pythonAutoScriptWriteTimeUtc.ToString("O")) + "\"," + Environment.NewLine +
+                    "  \"note\": \"" + EscapeJson(note ?? string.Empty) + "\"" + Environment.NewLine +
+                    "}";
+
+                File.WriteAllText(path, json, Encoding.UTF8);
+            }
+            catch (Exception ex)
+            {
+                AppendPythonAutoLog("Could not write protocol status file:\r\n" + ex);
+            }
+        }
+
+        private string ReadPythonAutoStatusState()
+        {
+            try
+            {
+                string path = PythonAutoStatusFilePath;
+
+                if (!File.Exists(path))
+                    return "<missing>";
+
+                string text = File.ReadAllText(path, Encoding.UTF8);
+                return ExtractJsonString(text, "state") ?? "<unknown>";
+            }
+            catch (Exception ex)
+            {
+                AppendPythonAutoLog("Could not read protocol status file:\r\n" + ex);
+                return "<read_error>";
+            }
+        }
+
+        private static string ExtractJsonString(string text, string propertyName)
+        {
+            if (string.IsNullOrEmpty(text) || string.IsNullOrEmpty(propertyName))
+                return null;
+
+            string marker = "\"" + propertyName + "\"";
+            int propertyIndex = text.IndexOf(marker, StringComparison.OrdinalIgnoreCase);
+
+            if (propertyIndex < 0)
+                return null;
+
+            int colonIndex = text.IndexOf(':', propertyIndex + marker.Length);
+
+            if (colonIndex < 0)
+                return null;
+
+            int quoteIndex = text.IndexOf('"', colonIndex + 1);
+
+            if (quoteIndex < 0)
+                return null;
+
+            var sb = new StringBuilder();
+
+            for (int i = quoteIndex + 1; i < text.Length; i++)
+            {
+                char ch = text[i];
+
+                if (ch == '\\' && i + 1 < text.Length)
+                {
+                    i++;
+                    char escaped = text[i];
+
+                    if (escaped == '"' || escaped == '\\' || escaped == '/')
+                        sb.Append(escaped);
+                    else if (escaped == 'n')
+                        sb.Append('\n');
+                    else if (escaped == 'r')
+                        sb.Append('\r');
+                    else if (escaped == 't')
+                        sb.Append('\t');
+                    else
+                        sb.Append(escaped);
+
+                    continue;
+                }
+
+                if (ch == '"')
+                    return sb.ToString();
+
+                sb.Append(ch);
+            }
+
+            return null;
+        }
+
+        private static string EscapeJson(string value)
+        {
+            if (value == null)
+                return string.Empty;
+
+            return value
+                .Replace("\\", "\\\\")
+                .Replace("\"", "\\\"")
+                .Replace("\r", "\\r")
+                .Replace("\n", "\\n")
+                .Replace("\t", "\\t");
+        }
+
         private void BuildPythonTab(TabPage tab)
         {
             var root = new SplitContainer
@@ -268,6 +711,30 @@ namespace DTMXtest
             };
             btnLoadSample.Click += (s, e) => _pythonCodeTextBox.Text = GetDefaultPythonScript();
 
+            var btnLoadDiagnostics = new Button
+            {
+                Text = "Загрузить диагностику",
+                Width = 170,
+                Height = 30
+            };
+            btnLoadDiagnostics.Click += (s, e) => LoadPythonScriptFromFile(GetDefaultPythonDiagnosticsPath());
+
+            var btnRunLatest = new Button
+            {
+                Text = "Запустить последний",
+                Width = 170,
+                Height = 30
+            };
+            btnRunLatest.Click += (s, e) => RunLatestPythonScript();
+
+            var btnAutoRun = new Button
+            {
+                Text = "Автотест 1 мин",
+                Width = 150,
+                Height = 30
+            };
+            btnAutoRun.Click += async (s, e) => await StartPythonAutoRunAsync();
+
             var btnClearOutput = new Button
             {
                 Text = "Очистить вывод",
@@ -278,6 +745,9 @@ namespace DTMXtest
 
             toolbar.Controls.Add(btnRun);
             toolbar.Controls.Add(btnLoadSample);
+            toolbar.Controls.Add(btnLoadDiagnostics);
+            toolbar.Controls.Add(btnRunLatest);
+            toolbar.Controls.Add(btnAutoRun);
             toolbar.Controls.Add(btnClearOutput);
 
             _pythonCodeTextBox = new TextBox
@@ -298,8 +768,16 @@ namespace DTMXtest
                 Height = 24
             };
 
+            _pythonAutoStatusLabel = new Label
+            {
+                Text = "Автотест: ожидание",
+                Dock = DockStyle.Top,
+                Height = 20
+            };
+
             topPanel.Controls.Add(_pythonCodeTextBox);
             topPanel.Controls.Add(lblCode);
+            topPanel.Controls.Add(_pythonAutoStatusLabel);
             topPanel.Controls.Add(toolbar);
 
             _pythonOutputTextBox = new TextBox
@@ -326,6 +804,9 @@ namespace DTMXtest
             root.Panel2.Controls.Add(bottomPanel);
 
             tab.Controls.Add(root);
+
+            _pythonAutoRetryTimer = new Timer { Interval = 10000 };
+            _pythonAutoRetryTimer.Tick += async (s, e) => await OnPythonAutoRetryTimerAsync();
         }
 
         private IList<CLibObjectInfo> GetSelectedObjects()
@@ -444,6 +925,481 @@ namespace DTMXtest
             ShowTextWindow("CADLib PART_TYPE Summary", lines, 700, 500);
         }
 
+        private void LoadPartTypes()
+        {
+            if (_isLoadingDataSearch || _library == null || _partTypeComboBox == null)
+                return;
+
+            if (_partTypeCache != null && _partTypeComboBox.Items.Count > 0)
+                return;
+
+            try
+            {
+                _isLoadingDataSearch = true;
+                string current = GetComboText(_partTypeComboBox);
+
+                if (_partTypeCache == null)
+                {
+                    LogDataSearch("Индексация PART_TYPE: старт.");
+                    int partTypeParamId = _library.GetParamDefId("PART_TYPE");
+                    _partTypeCache = GetParameterValueList(partTypeParamId);
+                    LogDataSearch("Индексация PART_TYPE: найдено значений " + _partTypeCache.Count + ".");
+                }
+
+                FillComboBox(_partTypeComboBox, _partTypeCache, current, false);
+                LogDataSearch("Список PART_TYPE загружен в UI: " + _partTypeComboBox.Items.Count + ".");
+            }
+            catch (Exception ex)
+            {
+                _dataSearchResultTextBox.Text = "Ошибка загрузки PART_TYPE:\r\n" + ex;
+                LogDataSearch("Ошибка загрузки PART_TYPE: " + ex);
+            }
+            finally
+            {
+                _isLoadingDataSearch = false;
+            }
+        }
+
+        private void LoadChildNames()
+        {
+            if (_isLoadingDataSearch || _library == null || _childComboBox == null)
+                return;
+
+            bool reloadParameters = false;
+
+            try
+            {
+                _isLoadingDataSearch = true;
+                string current = GetComboText(_childComboBox);
+                string partType = GetComboText(_partTypeComboBox);
+                LogDataSearch("Загрузка дочерних элементов для PART_TYPE='" + partType + "'.");
+                List<string> childNames = GetCachedChildNames(partType);
+
+                FillComboBox(_childComboBox, childNames, current, true);
+                LogDataSearch("Список дочерних элементов загружен в UI: " + _childComboBox.Items.Count + ".");
+                reloadParameters = true;
+            }
+            catch (Exception ex)
+            {
+                _dataSearchResultTextBox.Text = "Ошибка загрузки дочерних элементов:\r\n" + ex;
+                LogDataSearch("Ошибка загрузки дочерних элементов: " + ex);
+            }
+            finally
+            {
+                _isLoadingDataSearch = false;
+            }
+
+            if (reloadParameters)
+                LoadParameterNames();
+        }
+
+        private void LoadParameterNames()
+        {
+            if (_isLoadingDataSearch || _library == null || _parameterComboBox == null)
+                return;
+
+            try
+            {
+                _isLoadingDataSearch = true;
+                string current = GetComboText(_parameterComboBox);
+                string partType = GetComboText(_partTypeComboBox);
+                string childName = GetComboText(_childComboBox);
+                LogDataSearch("Загрузка параметров для PART_TYPE='" + partType + "', Дочерний='" + childName + "'.");
+                List<string> paramNames = GetCachedParameterNames(partType, childName);
+
+                FillComboBox(_parameterComboBox, paramNames, current, false);
+                LogDataSearch("Список параметров загружен в UI: " + _parameterComboBox.Items.Count + ".");
+            }
+            catch (Exception ex)
+            {
+                _dataSearchResultTextBox.Text = "Ошибка загрузки параметров:\r\n" + ex;
+                LogDataSearch("Ошибка загрузки параметров: " + ex);
+            }
+            finally
+            {
+                _isLoadingDataSearch = false;
+            }
+        }
+
+        private void ExecuteDataSearch()
+        {
+            var lines = new List<string>();
+
+            try
+            {
+                string partType = GetComboText(_partTypeComboBox);
+                string childName = GetComboText(_childComboBox);
+                string parameterName = ExtractParameterName(GetComboText(_parameterComboBox));
+                string expectedValue = (_searchValueTextBox.Text ?? string.Empty).Trim();
+                LogDataSearch("Поиск: PART_TYPE='" + partType + "', Дочерний='" + childName + "', Параметр='" + parameterName + "', Значение='" + expectedValue + "'.");
+
+                if (string.IsNullOrWhiteSpace(partType))
+                {
+                    _dataSearchResultTextBox.Text = "Выберите тип изделия PART_TYPE.";
+                    LogDataSearch("Поиск остановлен: не выбран PART_TYPE.");
+                    return;
+                }
+
+                if (string.IsNullOrWhiteSpace(parameterName))
+                {
+                    _dataSearchResultTextBox.Text = "Выберите параметр.";
+                    LogDataSearch("Поиск остановлен: не выбран параметр.");
+                    return;
+                }
+
+                var matchedObjects = new List<CLibObjectInfo>();
+
+                lines.Add("=== ПОИСК ДАННЫХ ===");
+                lines.Add("");
+                lines.Add("Тип изделия: " + partType);
+                lines.Add("Дочерний: " + (string.IsNullOrWhiteSpace(childName) ? "<root>" : childName));
+                lines.Add("Параметр: " + parameterName);
+                lines.Add("Значение: " + (string.IsNullOrWhiteSpace(expectedValue) ? "<любое>" : expectedValue));
+                lines.Add("");
+                lines.Add("idObject | PART_TYPE | Name | " + parameterName);
+                lines.Add(new string('-', 160));
+
+                foreach (CLibObjectInfo obj in GetDataSearchCandidateObjects())
+                {
+                    string actualValue = ReadParam(obj, parameterName);
+
+                    if (!IsValueMatch(actualValue, expectedValue))
+                        continue;
+
+                    matchedObjects.Add(obj);
+                    lines.Add(
+                        obj.idObject + " | " +
+                        ReadParam(obj, "PART_TYPE") + " | " +
+                        SafeToString(() => obj.Name) + " | " +
+                        actualValue
+                    );
+                }
+
+                lines.Add("");
+                lines.Add("Найдено: " + matchedObjects.Count);
+                LogDataSearch("Поиск завершен. Найдено объектов: " + matchedObjects.Count + ".");
+
+            }
+            catch (Exception ex)
+            {
+                lines.Add("ОШИБКА:");
+                lines.Add(ex.ToString());
+                LogDataSearch("Ошибка поиска: " + ex);
+            }
+
+            _dataSearchResultTextBox.Text = string.Join("\r\n", lines);
+        }
+
+        private List<CLibObjectInfo> GetDataSearchCandidateObjects()
+        {
+            string partType = GetComboText(_partTypeComboBox);
+            string childName = GetComboText(_childComboBox);
+            string key = MakeCandidateKey(partType, childName);
+            List<CLibObjectInfo> cached;
+
+            if (_candidateObjectsCache.TryGetValue(key, out cached))
+                return cached;
+
+            var result = new List<CLibObjectInfo>();
+
+            foreach (CLibObjectInfo root in GetRootObjectsByPartType(partType))
+            {
+                if (string.IsNullOrWhiteSpace(childName))
+                {
+                    result.Add(root);
+                    continue;
+                }
+
+                foreach (CLibObjectInfo child in GetChildObjects(root))
+                {
+                    if (string.Equals(SafeToString(() => child.Name), childName, StringComparison.CurrentCultureIgnoreCase))
+                        result.Add(child);
+                }
+            }
+
+            _candidateObjectsCache[key] = result;
+            return result;
+        }
+
+        private List<CLibObjectInfo> GetRootObjectsByPartType(string partType)
+        {
+            partType = (partType ?? string.Empty).Trim();
+
+            List<CLibObjectInfo> cached;
+
+            if (_rootObjectsByPartTypeCache.TryGetValue(partType, out cached))
+                return cached;
+
+            var result = new List<CLibObjectInfo>();
+
+            if (string.IsNullOrWhiteSpace(partType) || _library == null)
+                return result;
+
+            int partTypeParamId = _library.GetParamDefId("PART_TYPE");
+            var objects = _library.GetObjectParametersByValues(partTypeParamId, partType.Trim(), true, ';');
+
+            if (objects != null)
+                result.AddRange(objects);
+
+            result.Sort((a, b) => string.Compare(SafeToString(() => a.Name), SafeToString(() => b.Name), StringComparison.CurrentCultureIgnoreCase));
+
+            _rootObjectsByPartTypeCache[partType] = result;
+            return result;
+        }
+
+        private List<CLibObjectInfo> GetChildObjects(CLibObjectInfo root)
+        {
+            var result = new List<CLibObjectInfo>();
+
+            if (root == null || _library == null)
+                return result;
+
+            var children = _library.GetChildObjects(root);
+
+            if (children != null)
+                result.AddRange(children);
+
+            result.Sort((a, b) => string.Compare(SafeToString(() => a.Name), SafeToString(() => b.Name), StringComparison.CurrentCultureIgnoreCase));
+
+            return result;
+        }
+
+        private List<string> GetCachedChildNames(string partType)
+        {
+            partType = (partType ?? string.Empty).Trim();
+
+            List<string> cached;
+
+            if (_childNamesByPartTypeCache.TryGetValue(partType, out cached))
+            {
+                LogDataSearch("Дочерние элементы взяты из кэша для PART_TYPE='" + partType + "': " + cached.Count + ".");
+                return cached;
+            }
+
+            var childNames = new SortedDictionary<string, string>(StringComparer.CurrentCultureIgnoreCase);
+            int rootCount = 0;
+
+            foreach (CLibObjectInfo root in GetRootObjectsByPartType(partType))
+            {
+                rootCount++;
+
+                foreach (CLibObjectInfo child in GetChildObjects(root))
+                {
+                    string name = SafeToString(() => child.Name);
+
+                    if (!string.IsNullOrWhiteSpace(name) && !childNames.ContainsKey(name))
+                        childNames.Add(name, name);
+                }
+            }
+
+            cached = new List<string>(childNames.Values);
+            _childNamesByPartTypeCache[partType] = cached;
+            LogDataSearch("Дочерние элементы проиндексированы для PART_TYPE='" + partType + "': root=" + rootCount + ", childNames=" + cached.Count + ".");
+            return cached;
+        }
+
+        private List<string> GetCachedParameterNames(string partType, string childName)
+        {
+            partType = (partType ?? string.Empty).Trim();
+            childName = (childName ?? string.Empty).Trim();
+
+            string key = MakeCandidateKey(partType, childName);
+            List<string> cached;
+
+            if (_parameterNamesCache.TryGetValue(key, out cached))
+            {
+                LogDataSearch("Параметры взяты из кэша для ключа '" + key + "': " + cached.Count + ".");
+                return cached;
+            }
+
+            var paramNames = new SortedDictionary<string, string>(StringComparer.CurrentCultureIgnoreCase);
+            int objectCount = 0;
+
+            foreach (CLibObjectInfo obj in GetDataSearchCandidateObjects())
+            {
+                objectCount++;
+
+                foreach (Parameter parameter in _library.GetObjectParameters(obj.idObject))
+                {
+                    string name = SafeToString(() => parameter.name);
+                    string caption = SafeToString(() => parameter.caption);
+                    string display = string.IsNullOrWhiteSpace(caption) || caption == name ? name : name + " / " + caption;
+
+                    if (!string.IsNullOrWhiteSpace(name) && !paramNames.ContainsKey(display))
+                        paramNames.Add(display, display);
+                }
+            }
+
+            cached = new List<string>(paramNames.Values);
+            _parameterNamesCache[key] = cached;
+            LogDataSearch("Параметры проиндексированы для ключа '" + key + "': objects=" + objectCount + ", params=" + cached.Count + ".");
+            return cached;
+        }
+
+        private static string MakeCandidateKey(string partType, string childName)
+        {
+            return (partType ?? string.Empty).Trim() + "\u001f" + (childName ?? string.Empty).Trim();
+        }
+
+        private List<string> GetParameterValueList(int paramDefId)
+        {
+            var values = new SortedDictionary<string, string>(StringComparer.CurrentCultureIgnoreCase);
+
+            AddParameterValues(values, SafeEnumerate(_library.GetParamValuesList(paramDefId)));
+            AddParameterValues(values, SafeEnumerate(InvokeMethod(_library, "GetParameterValues", paramDefId, false, false)));
+            AddParameterValues(values, SafeEnumerate(InvokeMethod(_library, "GetParameterValues", paramDefId, false, true)));
+            AddParameterValues(values, SafeEnumerate(InvokeMethod(_library, "GetParamDefValues", paramDefId)));
+            AddParameterValues(values, SafeEnumerate(InvokeMethod(_library, "GetParamDefValuesExtended", paramDefId)));
+
+            return new List<string>(values.Values);
+        }
+
+        private static IEnumerable<object> SafeEnumerate(object value)
+        {
+            var enumerable = value as System.Collections.IEnumerable;
+
+            if (enumerable == null)
+                yield break;
+
+            foreach (object item in enumerable)
+                yield return item;
+        }
+
+        private static void AddParameterValues(SortedDictionary<string, string> target, IEnumerable<object> values)
+        {
+            foreach (object value in values)
+            {
+                string text = ExtractValueText(value);
+
+                if (!string.IsNullOrWhiteSpace(text) && !target.ContainsKey(text))
+                    target.Add(text, text);
+            }
+        }
+
+        private static string ExtractValueText(object value)
+        {
+            if (value == null)
+                return string.Empty;
+
+            if (value is string)
+                return Convert.ToString(value);
+
+            object propertyValue = ReadMemberValue(value, "Value");
+
+            if (propertyValue == null)
+                propertyValue = ReadMemberValue(value, "mValue");
+
+            if (propertyValue == null)
+                propertyValue = ReadMemberValue(value, "value");
+
+            if (propertyValue == null)
+                propertyValue = value;
+
+            return Convert.ToString(propertyValue);
+        }
+
+        private static object ReadMemberValue(object target, string memberName)
+        {
+            if (target == null)
+                return null;
+
+            BindingFlags flags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
+            Type type = target.GetType();
+
+            PropertyInfo property = type.GetProperty(memberName, flags);
+
+            if (property != null && property.GetIndexParameters().Length == 0)
+            {
+                try
+                {
+                    return property.GetValue(target, null);
+                }
+                catch
+                {
+                }
+            }
+
+            FieldInfo field = type.GetField(memberName, flags);
+
+            if (field != null)
+            {
+                try
+                {
+                    return field.GetValue(target);
+                }
+                catch
+                {
+                }
+            }
+
+            return null;
+        }
+
+        private static void FillComboBox(ComboBox comboBox, IList<string> values, string current, bool includeEmpty)
+        {
+            comboBox.BeginUpdate();
+            comboBox.Items.Clear();
+
+            if (includeEmpty)
+                comboBox.Items.Add(string.Empty);
+
+            foreach (string value in values)
+            {
+                if (!string.IsNullOrWhiteSpace(value))
+                    comboBox.Items.Add(value);
+            }
+
+            int selectedIndex = -1;
+
+            for (int i = 0; i < comboBox.Items.Count; i++)
+            {
+                if (string.Equals(Convert.ToString(comboBox.Items[i]), current, StringComparison.CurrentCultureIgnoreCase))
+                {
+                    selectedIndex = i;
+                    break;
+                }
+            }
+
+            comboBox.SelectedIndex = selectedIndex;
+            comboBox.EndUpdate();
+        }
+
+        private static string GetComboText(ComboBox comboBox)
+        {
+            if (comboBox == null)
+                return string.Empty;
+
+            if (comboBox.SelectedItem != null)
+                return Convert.ToString(comboBox.SelectedItem).Trim();
+
+            return (comboBox.Text ?? string.Empty).Trim();
+        }
+
+        private static string ExtractParameterName(string displayText)
+        {
+            if (string.IsNullOrWhiteSpace(displayText))
+                return string.Empty;
+
+            int separator = displayText.IndexOf(" / ", StringComparison.Ordinal);
+
+            if (separator >= 0)
+                return displayText.Substring(0, separator).Trim();
+
+            return displayText.Trim();
+        }
+
+        private static bool IsValueMatch(string actualValue, string expectedValue)
+        {
+            if (string.IsNullOrWhiteSpace(expectedValue))
+                return true;
+
+            return string.Equals(
+                actualValue == null ? string.Empty : actualValue.Trim(),
+                expectedValue.Trim(),
+                StringComparison.CurrentCultureIgnoreCase
+            );
+        }
+
         private void FindAndSelectObjectsByIds()
         {
             var lines = new List<string>();
@@ -509,7 +1465,7 @@ namespace DTMXtest
 
                 if (foundIds.Count > 0)
                 {
-                    HierarchySelectionResult hierarchySelection = SelectObjectInHierarchy(foundIds[0]);
+                    HierarchySelectionResult hierarchySelection = SelectObjectsInHierarchy(foundIds);
                     lines.Add("Переход в иерархии к первому найденному объекту (" + foundIds[0] + "): " + (hierarchySelection.Success ? "выполнен" : "недоступен"));
                     lines.Add("Путь idObject для иерархии: " + hierarchySelection.PathText);
 
@@ -605,7 +1561,7 @@ namespace DTMXtest
             return result;
         }
 
-        private HierarchySelectionResult SelectObjectInHierarchy(int idObject)
+        private HierarchySelectionResult SelectObjectsInHierarchy(IList<int> ids)
         {
             var selectionResult = new HierarchySelectionResult();
 
@@ -615,12 +1571,58 @@ namespace DTMXtest
                 return selectionResult;
             }
 
+            if (ids == null || ids.Count == 0)
+            {
+                selectionResult.Message = "Нет найденных объектов для перехода.";
+                return selectionResult;
+            }
+
+            int idObject = ids[0];
             int[] path = BuildObjectPath(idObject);
             selectionResult.PathText = path.Length == 0 ? "<пустой>" : string.Join(" -> ", path);
             selectionResult.Message = "RootObject=" + SafeInvokeInt(_library, "GetRootObject", idObject) +
                                       "; ParentObject=" + SafeInvokeInt(_library, "GetParentObject", idObject);
 
             var candidates = GetHierarchySelectionTargets();
+            int[] idsArray = ToArray(ids);
+
+            foreach (object candidate in candidates)
+            {
+                MethodInvokeResult result = TryInvokeMethod(candidate, "ViewObjectsOnTree", ids);
+
+                if (!result.Invoked)
+                    result = TryInvokeMethod(candidate, "ViewObjectsOnTree", idsArray);
+
+                if (result.Invoked)
+                {
+                    TryInvokeMethod(candidate, "HighlightObject", idObject);
+                    TryInvokeMethod(candidate, "SelectObject", idObject);
+
+                    selectionResult.Success = true;
+                    selectionResult.TargetType = candidate.GetType().FullName;
+                    selectionResult.Message = AppendDetail(selectionResult.Message, "ViewObjectsOnTree(ids) выполнен.");
+                    return selectionResult;
+                }
+            }
+
+            foreach (object candidate in candidates)
+            {
+                MethodInvokeResult result = TryInvokeMethod(candidate, "ViewObjects", ids);
+
+                if (!result.Invoked)
+                    result = TryInvokeMethod(candidate, "ViewObjects", idsArray);
+
+                if (result.Invoked)
+                {
+                    TryInvokeMethod(candidate, "HighlightObject", idObject);
+                    TryInvokeMethod(candidate, "SelectObject", idObject);
+
+                    selectionResult.Success = true;
+                    selectionResult.TargetType = candidate.GetType().FullName;
+                    selectionResult.Message = AppendDetail(selectionResult.Message, "ViewObjects(ids) выполнен.");
+                    return selectionResult;
+                }
+            }
 
             foreach (object candidate in candidates)
             {
@@ -865,6 +1867,12 @@ namespace DTMXtest
             public string Message { get; set; }
         }
 
+        private sealed class MethodInvokeResult
+        {
+            public bool Invoked { get; set; }
+            public object ReturnValue { get; set; }
+        }
+
         private static bool HasMethod(object target, string methodName)
         {
             if (target == null)
@@ -883,8 +1891,16 @@ namespace DTMXtest
 
         private static object InvokeMethod(object target, string methodName, params object[] args)
         {
+            MethodInvokeResult result = TryInvokeMethod(target, methodName, args);
+            return result.Invoked ? result.ReturnValue : null;
+        }
+
+        private static MethodInvokeResult TryInvokeMethod(object target, string methodName, params object[] args)
+        {
+            var result = new MethodInvokeResult();
+
             if (target == null)
-                return null;
+                return result;
 
             Type type = target.GetType();
             MethodInfo[] methods = type.GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
@@ -901,14 +1917,16 @@ namespace DTMXtest
 
                 try
                 {
-                    return method.Invoke(target, args);
+                    result.ReturnValue = method.Invoke(target, args);
+                    result.Invoked = true;
+                    return result;
                 }
                 catch
                 {
                 }
             }
 
-            return null;
+            return result;
         }
 
         private static void TryInvokeNoArg(object target, string methodName, params object[] args)
@@ -921,6 +1939,7 @@ namespace DTMXtest
             try
             {
                 _pythonOutputTextBox.Clear();
+                LogDataSearch("Python: запуск скрипта.");
 
                 var engine = Python.CreateEngine();
                 var scope = engine.CreateScope();
@@ -966,10 +1985,338 @@ namespace DTMXtest
                     sb.AppendLine("Скрипт выполнен без текстового вывода.");
 
                 _pythonOutputTextBox.Text = sb.ToString();
+                LogDataSearch("Python: скрипт выполнен.");
+                LogDataSearch("Python output:\r\n" + sb);
             }
             catch (Exception ex)
             {
                 _pythonOutputTextBox.Text = "ОШИБКА ВЫПОЛНЕНИЯ PYTHON:\r\n" + ex;
+                LogDataSearch("Python: ошибка выполнения:\r\n" + ex);
+            }
+        }
+
+        private PythonExecutionResult ExecutePythonCode(string code, string scriptPath, string logPath)
+        {
+            var result = new PythonExecutionResult();
+
+            try
+            {
+                var engine = Python.CreateEngine();
+                var scope = engine.CreateScope();
+
+                scope.SetVariable("Library", _library);
+                scope.SetVariable("DBBrowser", _browser);
+                scope.SetVariable("CLMainForm", this);
+                scope.SetVariable("ScriptPath", scriptPath ?? string.Empty);
+                scope.SetVariable("LogFilePath", logPath ?? string.Empty);
+                scope.SetVariable("PythonLogFilePath", PythonLogFilePath);
+
+                engine.Runtime.LoadAssembly(typeof(CADLibrary).Assembly);
+                engine.Runtime.LoadAssembly(typeof(CLibObjectInfo).Assembly);
+                engine.Runtime.LoadAssembly(typeof(Form).Assembly);
+                engine.Runtime.LoadAssembly(typeof(Color).Assembly);
+
+                using (var output = new MemoryStream())
+                using (var error = new MemoryStream())
+                {
+                    engine.Runtime.IO.SetOutput(output, Encoding.UTF8);
+                    engine.Runtime.IO.SetErrorOutput(error, Encoding.UTF8);
+
+                    var source = engine.CreateScriptSourceFromString(code ?? string.Empty);
+                    source.Execute(scope);
+
+                    result.Stdout = Encoding.UTF8.GetString(output.ToArray());
+                    result.Stderr = Encoding.UTF8.GetString(error.ToArray());
+                }
+
+                result.Success =
+                    string.IsNullOrEmpty(result.Stderr) &&
+                    !ContainsPythonErrorMarker(result.Stdout);
+            }
+            catch (Exception ex)
+            {
+                result.Success = false;
+                result.ExceptionText = ex.ToString();
+            }
+
+            result.DisplayText = BuildPythonDisplayText(result);
+
+            try
+            {
+                File.AppendAllText(logPath, result.DisplayText + Environment.NewLine, Encoding.UTF8);
+            }
+            catch
+            {
+            }
+
+            return result;
+        }
+
+        private static string BuildPythonDisplayText(PythonExecutionResult result)
+        {
+            var sb = new StringBuilder();
+
+            if (!string.IsNullOrEmpty(result.Stdout))
+            {
+                sb.AppendLine("=== STDOUT ===");
+                sb.AppendLine(result.Stdout);
+            }
+
+            if (!string.IsNullOrEmpty(result.Stderr))
+            {
+                sb.AppendLine("=== STDERR ===");
+                sb.AppendLine(result.Stderr);
+            }
+
+            if (!string.IsNullOrEmpty(result.ExceptionText))
+            {
+                sb.AppendLine("=== EXCEPTION ===");
+                sb.AppendLine(result.ExceptionText);
+            }
+
+            if (sb.Length == 0)
+                sb.AppendLine("Script completed without text output.");
+
+            return sb.ToString();
+        }
+
+        private static bool ContainsPythonErrorMarker(string text)
+        {
+            if (string.IsNullOrEmpty(text))
+                return false;
+
+            return text.IndexOf(" ERROR:", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                text.IndexOf("CRITICAL:", StringComparison.OrdinalIgnoreCase) >= 0;
+        }
+
+        private void LoadPythonScriptFromFile(string path)
+        {
+            try
+            {
+                if (!File.Exists(path))
+                {
+                    _pythonOutputTextBox.Text = "Файл Python-скрипта не найден:\r\n" + path;
+                    LogDataSearch("Python: файл скрипта не найден: " + path);
+                    return;
+                }
+
+                _loadedPythonScriptPath = Path.GetFullPath(path);
+                _pythonCodeTextBox.Text = File.ReadAllText(path, Encoding.UTF8);
+                _pythonOutputTextBox.Text = "Загружен Python-скрипт:\r\n" + path;
+                LogDataSearch("Python: загружен скрипт " + path);
+            }
+            catch (Exception ex)
+            {
+                _pythonOutputTextBox.Text = "Ошибка загрузки Python-скрипта:\r\n" + ex;
+                LogDataSearch("Python: ошибка загрузки скрипта:\r\n" + ex);
+            }
+        }
+
+        private void RunLatestPythonScript()
+        {
+            try
+            {
+                string dir = GetPythonScriptsDir();
+                string latestPath = null;
+                DateTime latestWriteTime = DateTime.MinValue;
+
+                foreach (string path in Directory.GetFiles(dir, "*.py"))
+                {
+                    DateTime writeTime = File.GetLastWriteTime(path);
+
+                    if (latestPath == null || writeTime > latestWriteTime)
+                    {
+                        latestPath = path;
+                        latestWriteTime = writeTime;
+                    }
+                }
+
+                if (latestPath == null)
+                {
+                    _pythonOutputTextBox.Text = "В папке Python нет .py файлов:\r\n" + dir;
+                    LogDataSearch("Python: в папке нет сценариев: " + dir);
+                    return;
+                }
+
+                LogDataSearch("Python: запуск последнего сценария " + latestPath);
+                RunPythonFile(latestPath);
+            }
+            catch (Exception ex)
+            {
+                _pythonOutputTextBox.Text = "Ошибка запуска последнего Python-сценария:\r\n" + ex;
+                LogDataSearch("Python: ошибка запуска последнего сценария:\r\n" + ex);
+            }
+        }
+
+        private async Task StartPythonAutoRunAsync()
+        {
+            if (_pythonAutoRunInProgress)
+                return;
+
+            string path = _loadedPythonScriptPath;
+
+            if (string.IsNullOrEmpty(path) || !File.Exists(path))
+                path = FindLatestPythonScriptPath();
+
+            if (string.IsNullOrEmpty(path) || !File.Exists(path))
+            {
+                _pythonOutputTextBox.Text = "Auto retry: no Python script file found.";
+                return;
+            }
+
+            _loadedPythonScriptPath = Path.GetFullPath(path);
+            _pythonAutoLogFilePath = CreatePythonAutoLogFilePath();
+            _pythonAutoStatusFilePath = GetPythonAutoStatusFilePath();
+            _pythonAutoRunActive = true;
+
+            AppendPythonAutoLog("Auto retry started. Script: " + _loadedPythonScriptPath);
+            AppendPythonAutoLog("Protocol status file: " + _pythonAutoStatusFilePath);
+            AppendPythonAutoLog("Auto test mode: after an error CADLib polls status/script changes every 10 seconds.");
+            AppendPythonAutoLog("Log: " + _pythonAutoLogFilePath);
+            WritePythonAutoStatus("running", "manual start");
+            SetPythonAutoStatus("Autotest: running");
+
+            await RunPythonAutoAttemptAsync("manual start");
+        }
+
+        private async Task OnPythonAutoRetryTimerAsync()
+        {
+            if (_pythonAutoRetryTimer != null)
+                _pythonAutoRetryTimer.Stop();
+
+            if (!_pythonAutoRunActive || _pythonAutoRunInProgress)
+                return;
+
+            if (string.IsNullOrEmpty(_loadedPythonScriptPath) || !File.Exists(_loadedPythonScriptPath))
+            {
+                AppendPythonAutoLog("Auto retry stopped: script file is missing.");
+                WritePythonAutoStatus("stopped", "script file is missing");
+                SetPythonAutoStatus("Autotest: stopped, script missing");
+                _pythonAutoRunActive = false;
+                return;
+            }
+
+            DateTime currentWriteTimeUtc = File.GetLastWriteTimeUtc(_loadedPythonScriptPath);
+            string protocolState = ReadPythonAutoStatusState();
+
+            if (currentWriteTimeUtc > _pythonAutoScriptWriteTimeUtc ||
+                string.Equals(protocolState, "ready_to_run", StringComparison.OrdinalIgnoreCase))
+            {
+                AppendPythonAutoLog("Auto retry detected ready signal. State=" + protocolState + "; scriptChanged=" + (currentWriteTimeUtc > _pythonAutoScriptWriteTimeUtc));
+                WritePythonAutoStatus("running", "ready signal received");
+                await RunPythonAutoAttemptAsync("ready signal");
+                return;
+            }
+
+            AppendPythonAutoLog("Auto retry heartbeat: waiting for ready_to_run or script change. State=" + protocolState);
+            SetPythonAutoStatus("Autotest: waiting, polling 10 sec");
+
+            if (_pythonAutoRetryTimer != null)
+                _pythonAutoRetryTimer.Start();
+        }
+
+        private async Task RunPythonAutoAttemptAsync(string reason)
+        {
+            if (_pythonAutoRunInProgress)
+                return;
+
+            _pythonAutoRunInProgress = true;
+
+            try
+            {
+                string path = _loadedPythonScriptPath;
+                _pythonAutoScriptWriteTimeUtc = File.GetLastWriteTimeUtc(path);
+                string code = File.ReadAllText(path, Encoding.UTF8);
+
+                SetPythonAutoStatus("Автотест: выполнение (" + reason + ")");
+                AppendPythonAutoLog("Attempt started: " + reason + ". Script write time UTC: " + _pythonAutoScriptWriteTimeUtc.ToString("O"));
+
+                var result = await Task.Run(() => ExecutePythonCode(code, path, _pythonAutoLogFilePath));
+
+                _pythonCodeTextBox.Text = code;
+                _pythonOutputTextBox.Text = result.DisplayText;
+
+                if (result.Success)
+                {
+                    AppendPythonAutoLog("Attempt completed successfully. Auto retry finished.");
+                    AppendPythonAutoLog("Script completed successfully. Polling stopped.");
+                    WritePythonAutoStatus("success", "script completed successfully");
+                    _pythonOutputTextBox.Text = result.DisplayText + Environment.NewLine + "Autotest: script completed successfully. Polling stopped.";
+                    SetPythonAutoStatus("Autotest: success");
+                    _pythonAutoRunActive = false;
+
+                    if (_pythonAutoRetryTimer != null)
+                        _pythonAutoRetryTimer.Stop();
+                }
+                else
+                {
+                    AppendPythonAutoLog("Attempt failed. Polling every 10 seconds for ready_to_run or script changes.");
+                    AppendPythonAutoLog("Status protocol: Codex may set state=codex_working, then state=ready_to_run.");
+                    WritePythonAutoStatus("waiting_fix", "script failed; waiting for script change or ready_to_run");
+                    _pythonOutputTextBox.Text = result.DisplayText + Environment.NewLine + "Autotest: error. Polling every 10 seconds.";
+                    SetPythonAutoStatus("Autotest: error, polling 10 sec");
+
+                    if (_pythonAutoRetryTimer != null)
+                    {
+                        _pythonAutoRetryTimer.Stop();
+                        _pythonAutoRetryTimer.Start();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                AppendPythonAutoLog("Auto retry internal error:\r\n" + ex);
+                AppendPythonAutoLog("Auto test internal error. Polling every 10 seconds.");
+                WritePythonAutoStatus("waiting_fix", "internal auto test error");
+                _pythonOutputTextBox.Text = "Auto retry internal error:\r\n" + ex + Environment.NewLine + "Autotest: error. Polling every 10 seconds.";
+                SetPythonAutoStatus("Autotest: error, polling 10 sec");
+
+                if (_pythonAutoRetryTimer != null)
+                {
+                    _pythonAutoRetryTimer.Stop();
+                    _pythonAutoRetryTimer.Start();
+                }
+            }
+            finally
+            {
+                _pythonAutoRunInProgress = false;
+            }
+        }
+
+        private static string FindLatestPythonScriptPath()
+        {
+            string dir = GetPythonScriptsDir();
+            string latestPath = null;
+            DateTime latestWriteTime = DateTime.MinValue;
+
+            foreach (string path in Directory.GetFiles(dir, "*.py"))
+            {
+                DateTime writeTime = File.GetLastWriteTime(path);
+
+                if (latestPath == null || writeTime > latestWriteTime)
+                {
+                    latestPath = path;
+                    latestWriteTime = writeTime;
+                }
+            }
+
+            return latestPath;
+        }
+
+        private void SetPythonAutoStatus(string text)
+        {
+            if (_pythonAutoStatusLabel == null)
+                return;
+
+            try
+            {
+                if (_pythonAutoStatusLabel.InvokeRequired)
+                    _pythonAutoStatusLabel.BeginInvoke(new Action(() => _pythonAutoStatusLabel.Text = text));
+                else
+                    _pythonAutoStatusLabel.Text = text;
+            }
+            catch
+            {
             }
         }
 
@@ -1008,6 +2355,15 @@ namespace DTMXtest
                 form.Controls.Add(tb);
                 form.ShowDialog();
             }
+        }
+
+        private sealed class PythonExecutionResult
+        {
+            public bool Success;
+            public string Stdout;
+            public string Stderr;
+            public string ExceptionText;
+            public string DisplayText;
         }
 
         private static string GetDefaultPythonScript()
