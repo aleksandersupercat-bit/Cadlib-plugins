@@ -5597,3 +5597,168 @@ for obj in objects:
 4. Какой объектный тип возвращает `Library.GetObjectsList(filter)` в конкретной версии CADLib.
 5. Какие методы требуют транзакции `BeginTransaction / CommitTransaction / RollbackTransaction`.
 6. Какие операции меняют БД необратимо: создание параметров, удаление объектов, копирование, импорт.
+
+---
+
+# Часть B. Практические заметки по кастомизации интерфейса Model Studio
+
+Ниже собраны практические выводы из реальной настройки модуля `NANOWATER` в `Model Studio CS`. Это не общая теория по API, а рабочая памятка по тому, как на практике добавлять вкладки/кнопки и как диагностировать ситуацию, когда интерфейс модуля перестаёт загружаться.
+
+## 1. Как в Model Studio устроена загрузка интерфейса модуля
+
+Для модуля Water фактическая цепочка загрузки интерфейса оказалась такой:
+
+1. В `C:\Users\atsarkov\AppData\Roaming\Nanosoft\nanoCAD x64 24.1\Config\cfg.ini` секция `[\Configuration\Water]` должна указывать на `CfgFile=sWater.cfg`.
+2. Файл `C:\Users\atsarkov\AppData\Roaming\Nanosoft\nanoCAD x64 24.1\Config\Water.cfg` подключает модульный корневой конфиг:
+   - `#include "C:\Program Files\CSoft\Model Studio CS\NANOWATER\water.cfg"`
+3. Корневой `C:\Program Files\CSoft\Model Studio CS\NANOWATER\water.cfg` подключает:
+   - `Support\WATER\ms_main.cfg`
+   - `Support\WATER\water.cfg`
+   - `Support\WATER\msestimate.cfg`
+4. В этом же корневом `water.cfg` задаются ribbon-пакеты:
+   - `Support\WATER\MSMAIN.cuix`
+   - `Support\WATER\water.cuix`
+   - `Support\WATER\msestimate.cuix`
+
+Практический вывод: если нужно вернуть или исправить интерфейс модуля, проверять нужно не только `CUIX`, но и всю цепочку `cfg.ini -> user Water.cfg -> module water.cfg -> *.cuix`.
+
+## 2. Главная причина, почему могут пропасть кнопки и вкладки
+
+В реальной диагностике проблема оказалась не в `RibbonRoot.cui`, а в неверной привязке модуля Water в пользовательском конфиге.
+
+Критический симптом:
+
+- в `C:\Users\atsarkov\AppData\Roaming\Nanosoft\nanoCAD x64 24.1\Config\cfg.ini`
+- в секции `[\Configuration\Water]`
+- вместо `CfgFile=sWater.cfg` оказался указан чужой конфиг, например путь к `heatvent.cfg`
+
+Из-за этого модуль Water начинал загружать не свой интерфейс, а конфигурацию другого модуля. Внешне это проявлялось так:
+
+- не появлялись нужные вкладки и кнопки;
+- менялись названия меню;
+- могли подгружаться чужие разделы;
+- создавалось впечатление, что «сломался ribbon», хотя корневая проблема была в неправильном `CfgFile`.
+
+Рабочее решение:
+
+- проверить `C:\Users\atsarkov\AppData\Roaming\Nanosoft\nanoCAD x64 24.1\Config\cfg.ini`;
+- убедиться, что для `[\Configuration\Water]` стоит именно `CfgFile=sWater.cfg`;
+- после правки полностью перезапустить `nanoCAD` / `Model Studio`.
+
+## 3. Проблема кодировки и иероглифов
+
+Для `Support\WATER\water.cfg` важно учитывать кодировку.
+
+Практически подтверждено:
+
+- `C:\Program Files\CSoft\Model Studio CS\NANOWATER\Support\WATER\water.cfg` в битом состоянии читался как `cp1251`;
+- после перекодирования в `UTF-8 BOM` кириллица стала отображаться корректно;
+- для сравнения полезно смотреть на рабочие cfg-файлы других модулей, например `C:\Program Files\CSoft\Model Studio CS\NANOHEATVENT\Support\HEATVENT\heatvent.cfg`.
+
+Практический вывод:
+
+- если названия групп, меню или статусы в интерфейсе показываются «иероглифами», сначала нужно проверить кодировку `water.cfg`;
+- безопасный рабочий формат для этого файла в нашем кейсе — `UTF-8 BOM`.
+
+## 4. Фича 1. Как добавить вкладку `DTMXtest`, группу и кнопку
+
+Ниже — рабочая схема, которая была проверена на модуле `NANOWATER`.
+
+### 4.1 Что именно редактируется
+
+Основной файл ленты для Water:
+
+- `C:\Program Files\CSoft\Model Studio CS\NANOWATER\Support\WATER\water.cuix`
+
+Дополнительно может использоваться:
+
+- `C:\Program Files\CSoft\Model Studio CS\NANOWATER\Support\WATER\MSMAIN.cuix`
+
+Практически оказалось достаточно правки `water.cuix` для:
+
+- новой вкладки `DTMXtest`;
+- кнопки `DMTX` в группе/панели этой вкладки;
+- кнопки `DMTX` в существующем блоке `Разное`.
+
+### 4.2 Какую команду лучше использовать
+
+Для кнопки `DMTX` сначала был создан отдельный макрос-дубликат, но наиболее надёжный вариант оказался другим:
+
+- привязывать кнопку напрямую к штатному `MenuMacroID="pipe_draw_pipeline"`
+
+Почему так лучше:
+
+- штатный макрос уже существует внутри `water.cuix`;
+- у него уже корректно настроены команда, подсказка и изображения;
+- привязка к встроенному `MenuMacroID` срабатывает надёжнее, чем ссылка на самодельный дублирующий макрос.
+
+Рабочая привязка кнопки:
+
+- `MenuMacroID="pipe_draw_pipeline"`
+
+Команда встроенного макроса:
+
+- `^C^C_pipe_draw_pipeline`
+
+### 4.3 Пошаговый алгоритм
+
+1. Сделать бэкап `water.cuix`.
+2. Распаковать `water.cuix` как zip-архив во временную папку.
+3. В `RibbonRoot.cui`:
+   - найти существующий split/button-блок `Разное`;
+   - добавить `RibbonCommandButton` с `Text="DMTX"` и `MenuMacroID="pipe_draw_pipeline"`;
+   - создать новый `RibbonPanelSource` для `DTMXtest`;
+   - создать новый `RibbonTabSource` для `DTMXtest`;
+   - добавить в новую вкладку кнопку `DMTX`, также с `MenuMacroID="pipe_draw_pipeline"`.
+4. Сохранить XML в `UTF-8 BOM`.
+5. Собрать `water.cuix` обратно.
+6. Полностью перезапустить `Model Studio`.
+
+### 4.4 Минимум, который должен появиться после патча
+
+После успешной модификации в интерфейсе должны быть видны:
+
+- новая вкладка `DTMXtest`;
+- кнопка `DMTX` на вкладке `DTMXtest`;
+- кнопка `DMTX` в блоке `Разное`;
+- по нажатию должен запускаться штатный сценарий `Отрисовать трубопровод`.
+
+## 5. Что проверять, если после патча кнопок нет
+
+Если после изменения `CUIX` кнопки не появились, идти нужно в таком порядке:
+
+1. Проверить `C:\Users\atsarkov\AppData\Roaming\Nanosoft\nanoCAD x64 24.1\Config\cfg.ini`
+   - секция `[\Configuration\Water]`
+   - строка `CfgFile=sWater.cfg`
+2. Проверить `C:\Users\atsarkov\AppData\Roaming\Nanosoft\nanoCAD x64 24.1\Config\Water.cfg`
+   - должен быть include на `C:\Program Files\CSoft\Model Studio CS\NANOWATER\water.cfg`
+3. Проверить `C:\Program Files\CSoft\Model Studio CS\NANOWATER\water.cfg`
+   - должны быть подключены `MSMAIN.cuix` и `water.cuix`
+4. Проверить кодировку `C:\Program Files\CSoft\Model Studio CS\NANOWATER\Support\WATER\water.cfg`
+   - если текст битый, сначала исправить кодировку
+5. Проверить, что кнопка в `RibbonRoot.cui` привязана именно к рабочему `MenuMacroID`
+   - в нашем кейсе это `pipe_draw_pipeline`
+6. После любых правок полностью закрыть и заново открыть приложение
+
+## 6. Что проверять, если кнопка видна, но ничего не делает
+
+Если кнопка в ribbon отображается, но по нажатию ничего не происходит, нужно проверять не только наличие кнопки, но и её привязку:
+
+- кнопка может ссылаться на пользовательский макрос, который визуально существует, но обрабатывается хостом не так, как штатный;
+- в таком случае лучше не дублировать команду, а использовать уже существующий встроенный `MenuMacroID`.
+
+Практически подтверждённое решение для нашего кейса:
+
+- заменить `MenuMacroID="DTMX_WATER_BUTTON"` на `MenuMacroID="pipe_draw_pipeline"`
+
+После этого кнопка `DMTX` начала корректно запускать действие.
+
+## 7. Практический итог по Model Studio
+
+На текущем этапе можно считать подтверждёнными следующие выводы:
+
+- для задач по ribbon в Model Studio критична не только правка `CUIX`, но и корректная цепочка `cfg`;
+- отсутствие кнопок в интерфейсе чаще всего нужно начинать диагностировать с `cfg.ini`, а не с ribbon XML;
+- для Water важна корректная кодировка `Support\WATER\water.cfg`;
+- новые кнопки в ribbon безопаснее привязывать к уже существующим штатным `MenuMacroID`, если такие есть;
+- для модуля `NANOWATER` рабочая точка кастомизации ribbon — `C:\Program Files\CSoft\Model Studio CS\NANOWATER\Support\WATER\water.cuix`.
