@@ -333,6 +333,40 @@ function Add-RibbonTabIfMissing {
     return $true
 }
 
+function Add-RibbonButtonToPipelineRowIfMissing {
+    param(
+        [xml]$Document,
+        [string]$ButtonText,
+        [string]$MacroId
+    )
+
+    $row = $Document.SelectSingleNode("//RibbonPanelSource[@Text='Трубопровод']/RibbonRow/RibbonRowPanel[RibbonRow/RibbonSplitButton[@CommandID='pipe_draw_pipeline']]/RibbonRow")
+    if (-not $row) {
+        throw "Pipeline ribbon row not found."
+    }
+
+    $existing = $row.SelectSingleNode("RibbonCommandButton[@Text='$ButtonText' and @MenuMacroID='$MacroId']")
+    if ($existing) {
+        return $false
+    }
+
+    $button = New-XmlElement -Document $Document -Name "RibbonCommandButton" -Attributes @{
+        UID = (New-Uid "RBNU_DTMX_STANDALONE")
+        Id = "AcRibbonCommandButton"
+        Text = $ButtonText
+        ButtonStyle = "LargeWithText"
+        MenuMacroID = $MacroId
+        KeyTip = ""
+    }
+    Add-TextElement -Document $Document -Parent $button -Name "TooltipTitle" -Text $ButtonText -Attributes @{
+        xlate = "true"
+        UID = (New-Uid "XLS_DTMX")
+    } | Out-Null
+    Add-ModifiedRev -Document $Document -Parent $button
+    [void]$row.AppendChild($button)
+    return $true
+}
+
 function Save-XmlUtf8Bom {
     param(
         [xml]$Document,
@@ -448,6 +482,13 @@ Patch-Cuix -CuixPath $waterPath -ApplyChanges {
     }
     else {
         $summary.Add("water: ribbon button already exists in split 'Р Р°Р·РЅРѕРµ'")
+    }
+
+    if (Add-RibbonButtonToPipelineRowIfMissing -Document $ribbonRoot -ButtonText $ButtonText -MacroId $waterBuiltInMacroId) {
+        $summary.Add("water: added standalone ribbon button in pipeline panel")
+    }
+    else {
+        $summary.Add("water: standalone ribbon button already exists in pipeline panel")
     }
 
     if ($AddRibbonTab) {

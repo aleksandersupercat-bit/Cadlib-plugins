@@ -1,4 +1,4 @@
-# CADLib / Model Studio / nanoCAD API — единый дедуплицированный справочник
+﻿# CADLib / Model Studio / nanoCAD API — единый дедуплицированный справочник
 
 Версия: `1.0-unified-deduplicated`, дата сборки: `2026-05-18`.
 
@@ -17,7 +17,7 @@
 2. Для `CADLibKernel` и `CSAppServices` описания оставлены как восстановленные по DLL/сигнатурам, если XML-комментария нет.
 3. Повторяющиеся вводные фрагменты, одинаковые описания слоёв и повторные практические выводы сведены к одному месту.
 4. Не удалялись технические списки методов/событий/типов, даже если они частично пересекаются: для справочника это полезнее, чем агрессивное сокращение.
-5. Широкие таблицы сохранены, но HTML-версия обёрнута в адаптивный контейнер с горизонтальной прокруткой.
+5. Широкие таблицы сохранены; при необходимости их лучше сокращать или разбивать точечно, а не оборачивать весь документ в HTML-блоки.
 
 ## Быстрая карта принятия решений
 
@@ -27,7 +27,7 @@
 | Кнопка/меню в CADLib | C# plugin layer: `ICADLibPlugin`, `PluginsManager`, `GetMenu`, `GetToolbars` | PythonPlugin не является полноценным UI-plugin контуром. |
 | Работа с объектами/параметрами БД | `CADLibraryBase`, `CADLib.CADLibrary`, `CLibObjectInfo`, `CLibParamDefInfo`, `CLibFilterItem` | Ядро справочника для массовых операций. |
 | 3D-выбор, текущий вид, mesh/shape | `CSProject3D.CAD3DLibrary`, `Viewer3DCtrl`, `ModelStudio.Graphics3D.*` | Для 3D-модели и графического представления. |
- | Расширение дерева каталогов | `FolderPlugin`, `CreateFolderObject`, `ReportObjectPicked`, `GetObjectMenuItems` | Для специальных папок, контекстного меню и обработки double-click. | 
+| Расширение дерева каталогов | `FolderPlugin`, `CreateFolderObject`, `ReportObjectPicked`, `GetObjectMenuItems` | Для специальных папок, контекстного меню и обработки double-click. | 
 | Отчёты / публикация / сервисы | `CSAppServices.CHTMLReport`, `ObjectPublisher`, `XExchange`, `DbConnectParameters` | Требует проверки на конкретной версии. |
 | Команды nanoCAD / Model Studio | nanoCAD .NET plugin: `CommandMethod`, HostMgd/Teigha | Это другой слой, не CADLib Plugin API. |
 
@@ -2163,9 +2163,9 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 
 | DLL | Роль | Практическое значение | Уровень уверенности |
 |---|---|---|---|
- | `CADLibKernel.dll` | Ядро работы с БД CADLib: объекты, параметры, фильтры, категории, файлы, права, экспорт/импорт | Главный слой автоматизации через `Library` / `CADLibraryBase` | Высокий по сигнатурам и примерам | 
+| `CADLibKernel.dll` | Ядро работы с БД CADLib: объекты, параметры, фильтры, категории, файлы, права, экспорт/импорт | Главный слой автоматизации через `Library` / `CADLibraryBase` | Высокий по сигнатурам и примерам | 
 | `CSProject3D.dll` | 3D-проект, 3D-графика, выбор объектов, публикации, структуры проекта, mesh/shape | Работа с 3D-представлением объектов и CADLib-проектом | Высокий, есть XML |
- | `CADLibControls.dll` | UI-слой: формы, диалоги, браузеры, редакторы параметров, фильтры интерфейса | Создание пользовательских интерфейсных надстроек, диалогов и команд | Высокий, есть XML | 
+| `CADLibControls.dll` | UI-слой: формы, диалоги, браузеры, редакторы параметров, фильтры интерфейса | Создание пользовательских интерфейсных надстроек, диалогов и команд | Высокий, есть XML | 
 | `CSAppServices.dll` | Сервисный слой: подключение к БД, HTML-отчёты, публикация объектов, служебные DTO | Подключение, отчёты, SQL/DBMS-сервисные функции | Средний, XML нет |
 
 ## 3. Статистика разобранных сборок
@@ -2181,13 +2181,13 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 
 | Задача | Основные классы / объекты | Что можно делать |
 |---|---|---|
- | Активная БД CADLib | `Library`, `CADLibKernel.CADLibraryBase`, `CSAppServices.DbConnectParameters` | Получать соединение, текущую БД, выполнять операции с объектами и параметрами | 
+| Активная БД CADLib | `Library`, `CADLibKernel.CADLibraryBase`, `CSAppServices.DbConnectParameters` | Получать соединение, текущую БД, выполнять операции с объектами и параметрами | 
 | Объекты БД | `CLibObjectInfo`, `ObjectData`, методы `CADLibraryBase` | Получать списки объектов, копировать, создавать дочерние объекты, удалять, менять имя/UID/положение |
 | Фильтры и выборки | `CLibFilterItem`, `CreateFilter`, `GetObjectsList` | Создавать условия отбора по параметрам и категориям, получать наборы объектов |
- | Параметры | `CLibParamDefInfo`, `CLibParamCategoryInfo`, `CLibParamValue`, `CreateParamDef`, `SetParameter` | Создавать определения параметров, категории, назначать значения объектам | 
+| Параметры | `CLibParamDefInfo`, `CLibParamCategoryInfo`, `CLibParamValue`, `CreateParamDef`, `SetParameter` | Создавать определения параметров, категории, назначать значения объектам | 
 | UI / браузер | `DBBrowser`, `CADLibControls`, формы `ParametersEditForm`, фильтр-диалоги | Обновлять активный объект, каталог, создавать диалоги и UI-команды |
 | 3D-графика | `CSProject3D.CAD3DLibrary`, `CSMesh`, `MeshInfoEx`, `AddObject3DShape`, `Download3DMesh` | Выделять 3D-объекты, добавлять/удалять 3D-тела, читать/писать mesh |
- | Отчёты и экспорт | `CSAppServices.CHTMLReport`, `ObjectPublisher`, `ExportParameters`, `ImportParameters` | Генерировать HTML-отчёты, экспортировать/импортировать параметры и объекты | 
+| Отчёты и экспорт | `CSAppServices.CHTMLReport`, `ObjectPublisher`, `ExportParameters`, `ImportParameters` | Генерировать HTML-отчёты, экспортировать/импортировать параметры и объекты | 
 
 ## 5. Ключевые классы и назначение
 
@@ -2722,17 +2722,17 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 | `DrawUnselected(System.Drawing.Graphics)` | метод | Draw all Unselected shapes |
 | `DrawSelected(System.Drawing.Graphics,System.Single,System.Single,System.Single)` | метод | Draw all Selected shapes |
 | `DrawSelected(System.Drawing.Graphics)` | метод | Draw all Selected shapes |
- | `addPoly(System.Single,System.Single,S...` | метод | Adds Polygon | 
- | `addGraph(System.Single,System.Single,...` | метод | Adds Graph | 
- | `addColorPoinySet(System.Single,System...` | метод | Adds Polygon | 
+| `addPoly(System.Single,System.Single,S...` | метод | Adds Polygon | 
+| `addGraph(System.Single,System.Single,...` | метод | Adds Graph | 
+| `addColorPoinySet(System.Single,System...` | метод | Adds Polygon | 
 | `addRect(System.Single,System.Single,System.Single,System.Single,System.Drawing.Color,System.Drawing.Color,System.Single,System.Boolean)` | метод | Adds Rect |
- | `addLink(System.Single,System.Single,S...` | метод | Adds Link | 
+| `addLink(System.Single,System.Single,S...` | метод | Adds Link | 
 | `addArc(System.Single,System.Single,System.Single,System.Single,System.Drawing.Color,System.Drawing.Color,System.Single,System.Boolean)` | метод | Adds Arc |
 | `addLine(System.Single,System.Single,System.Single,System.Single,System.Drawing.Color,System.Single,System.Drawing.Drawing2D.LineCap)` | метод | Adds Line |
 | `addVLine(System.Single,System.Single,System.Single,System.Single,System.Drawing.Color,System.Single)` | метод | Adds VLine |
 | `addOLine(System.Single,System.Single,System.Single,System.Single,System.Drawing.Color,System.Single)` | метод | Adds OLine |
- | `addTextBox(System.Single,System.Singl...` | метод | Adds TextBox | 
- | `addSimpleTextBox(System.Single,System...` | метод | Adds SimpleTextBox | 
+| `addTextBox(System.Single,System.Singl...` | метод | Adds TextBox | 
+| `addSimpleTextBox(System.Single,System...` | метод | Adds SimpleTextBox | 
 | `addRRect(System.Single,System.Single,System.Single,System.Single,System.Drawing.Color,System.Drawing.Color,System.Single,System.Boolean)` | метод | Adds RoundRect |
 | `addImgBox(System.Single,System.Single,System.Single,System.Single,System.String,System.Drawing.Color,System.Single)` | метод | Adds ImageBox |
 | `addEllipse(System.Single,System.Single,System.Single,System.Single,System.Drawing.Color,System.Drawing.Color,System.Single,System.Boolean)` | метод | Adds Ellipse |
@@ -2744,30 +2744,30 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 
 | Член | Тип | Описание |
 |---|---|---|
- | `PopupMenuOpening` | событие | Событие, позволяющее изменить текст объекта вверху меню и вызывающиеся перед открытием меню, но после определения ContextMenuLastObject и ContextMenuLastEntity, что позволяет изменить меню в зависимости от выбранного объекта | 
+| `PopupMenuOpening` | событие | Событие, позволяющее изменить текст объекта вверху меню и вызывающиеся перед открытием меню, но после определения ContextMenuLastObject и ContextMenuLastEntity, что позволяет изменить меню в зависимости от выбранного объекта | 
 | `ContextMenuLastObject` | свойство | Объект БД (может быть кастомный) на котором было последний раз активированно контекстное меню |
 | `ContextMenuLastEntity` | свойство | Сущность на которой последней раз было активированно контекстное меню |
 | `multiuserUI` | свойство | Возвращает (если надо создаёт) окно многопользовательской работы |
- | `SetVisibleLandSurfaces(System.Int32[])` | метод | Устанавливает набор видимых поверхностей Загружает недостающие поверхности и удаляет пропавшие из списка видимости Параметры: arrLands — Массив идентификаторов поверхностей для показа idLand[] | 
- | `SetSelectedLandSurfaces(System.Int32[])` | метод | Устанавливает набор выделенных поверхностей Снимает выделение со всех остальных поверхностей Параметры: arrLands — Массив идентификаторов поверхностей для выделения idLand[] | 
- | `FocusOnLandSurfaces(System.Int32[])` | метод | Фокусирует камеру на загруженных поверхностях земли из списка Параметры: arrLands — Массив идентификаторов поверхностей для фокусировки idLand[] | 
+| `SetVisibleLandSurfaces(System.Int32[])` | метод | Устанавливает набор видимых поверхностей Загружает недостающие поверхности и удаляет пропавшие из списка видимости Параметры: arrLands — Массив идентификаторов поверхностей для показа idLand[] | 
+| `SetSelectedLandSurfaces(System.Int32[])` | метод | Устанавливает набор выделенных поверхностей Снимает выделение со всех остальных поверхностей Параметры: arrLands — Массив идентификаторов поверхностей для выделения idLand[] | 
+| `FocusOnLandSurfaces(System.Int32[])` | метод | Фокусирует камеру на загруженных поверхностях земли из списка Параметры: arrLands — Массив идентификаторов поверхностей для фокусировки idLand[] | 
 | `ForbidIfNotInitialized` | метод | Проверяет инициализирован ли трёхмерный движок и выдайт сообщение если нет Возвращает: False усли нет |
- | `SetWorldUnselectedDecoration(System.N...` | метод | Изменяет остальной мир на время выделения. Если указать A составляющую=0, то мир прорисовываться не будет (скрыть) Параметры: color — Цвет (опционально); bWireFrame — Выводить ли проволочную модель | 
- | `SetObjectsCorrection(System.Collectio...` | метод | Добавляет правило коррекции объектов - степень прозрачности и управление видимостью Параметры: objectsIds — Объекты; complexColor — новый цвет (Empty - отменить коррекцию, прозрачность в цвете, Transparent - скрыть, Alpha,0,0,0 - полупрозрачный); bApplyToRender — сразу применится; bAddToCorrectionList — будет активно при последающих загрузках модели; bRedraw — перерисовывать ли 3D | 
- | `SetObjectsCorrection(System.Collectio...` | метод | Добавляет правило коррекции объектов - степень прозрачности и управление видимостью Параметры: objectsIds — Объекты; fAlpha — степень прозрачности (0.0-скрыть 1.0-показать); bApplyToRender — сразу применится; bAddToCorrectionList — будет активно при последающих загрузках модели | 
+| `SetWorldUnselectedDecoration(System.N...` | метод | Изменяет остальной мир на время выделения. Если указать A составляющую=0, то мир прорисовываться не будет (скрыть) Параметры: color — Цвет (опционально); bWireFrame — Выводить ли проволочную модель | 
+| `SetObjectsCorrection(System.Collectio...` | метод | Добавляет правило коррекции объектов - степень прозрачности и управление видимостью Параметры: objectsIds — Объекты; complexColor — новый цвет (Empty - отменить коррекцию, прозрачность в цвете, Transparent - скрыть, Alpha,0,0,0 - полупрозрачный); bApplyToRender — сразу применится; bAddToCorrectionList — будет активно при последающих загрузках модели; bRedraw — перерисовывать ли 3D | 
+| `SetObjectsCorrection(System.Collectio...` | метод | Добавляет правило коррекции объектов - степень прозрачности и управление видимостью Параметры: objectsIds — Объекты; fAlpha — степень прозрачности (0.0-скрыть 1.0-показать); bApplyToRender — сразу применится; bAddToCorrectionList — будет активно при последающих загрузках модели | 
 | `ShowOnModel3D(System.Int32[])` | метод | Показ на модели набора объектов |
 | `ShowClouds3D(System.Int32[])` | метод | Показ набора облаков |
 | `HideClouds3D(System.Int32[])` | метод | Скрытие набора облаков |
 | `SetCloudColor(System.Int32[],System.Drawing.Color,System.Boolean,System.Boolean)` | метод | Изменение цвета |
- | `SetAllObjectsCorrection(System.Drawin...` | метод | Применяет корректировку материала ко всем загруженным объектам Параметры: newColor — новый цвет; fNewAlpha — прозрачность; bRedraw — перерисовывать ли модель | 
- | `SetAllObjectsCorrection(System.Drawin...` | метод | Применяет корректировку материала ко всем загруженным объектам Параметры: complexColor — новый цвет (Empty - отменить коррекцию, прозрачность в цвете, Transparent - скрыть, Alpha,0,0,0 - полупрозрачный); bRedraw — перерисовывать ли модель | 
+| `SetAllObjectsCorrection(System.Drawin...` | метод | Применяет корректировку материала ко всем загруженным объектам Параметры: newColor — новый цвет; fNewAlpha — прозрачность; bRedraw — перерисовывать ли модель | 
+| `SetAllObjectsCorrection(System.Drawin...` | метод | Применяет корректировку материала ко всем загруженным объектам Параметры: complexColor — новый цвет (Empty - отменить коррекцию, прозрачность в цвете, Transparent - скрыть, Alpha,0,0,0 - полупрозрачный); bRedraw — перерисовывать ли модель | 
 | `SetLoadObjectsCorrection(System.Collections.Generic.IEnumerable{System.Int32},System.String,System.Boolean,System.Boolean)` | метод | Will be applied after reload Параметры:  |
 | `Clear` | метод | Clear 3D model representation |
 | `Refresh3D` | метод | Reload previous request from DB |
- | `AskObjectsPickStart(System.Object,Sys...` | метод | Запускает диалог выбора объектов, при выборе каждого объекта вызывается OnObjectPicked Обычно OnObjectPicked добавляет выбраный объект в выбор Library, т.о. можно использовать объект библиотеки для учёта выбранного Параметры: strMessage — Текст для показа в диалоге; bOneObject — Необходим ли один объект (диалог закроется автоматически после его выбора); onDialogClosed — Делегат, вызываемый после закрытия диалога; bOkButton — Наличие кнопки ОК в диалоге (используется, если необходимое число объектов для выбора заранее не известно) | 
+| `AskObjectsPickStart(System.Object,Sys...` | метод | Запускает диалог выбора объектов, при выборе каждого объекта вызывается OnObjectPicked Обычно OnObjectPicked добавляет выбраный объект в выбор Library, т.о. можно использовать объект библиотеки для учёта выбранного Параметры: strMessage — Текст для показа в диалоге; bOneObject — Необходим ли один объект (диалог закроется автоматически после его выбора); onDialogClosed — Делегат, вызываемый после закрытия диалога; bOkButton — Наличие кнопки ОК в диалоге (используется, если необходимое число объектов для выбора заранее не известно) | 
 | `OnRequestEdit2dDrawing` | событие | Действие, говорящее клиентам, что необходимо активировать редактирование/просмотр 2D Если object == null - деактивировать |
- | `RequestEdit2dDrawing(System.Object)` | метод | Сам компонент ничего не делает, а лишь паредаёт вызов данного метода подписчикам OnRequestEdit2dDrawing Параметры: tag2d — Объект для рисования 2D | 
- | `SetAdditionalFilter(System.String,Sys...` | метод | Добавляет/обновляет/удаляет дополнительный именованный фильтр объектов для загрузки (сделано для структурных объектов, т.к. фильтр не должен пересекаться с основным) Для удаления 3D объектов, загруженных по фильтру необходимо передать пустой фильтр. Также имеется возможность управлять разрешением на ограничения пространства для объектов, загруженных по фильтру. Параметры: strFilterName — Имя фильтра (идентификатор); strFilter — Фильтр или пустая строка; bForbidClipping — Запретить обрезать объекты данного фильтра ClipBox-ом | 
+| `RequestEdit2dDrawing(System.Object)` | метод | Сам компонент ничего не делает, а лишь паредаёт вызов данного метода подписчикам OnRequestEdit2dDrawing Параметры: tag2d — Объект для рисования 2D | 
+| `SetAdditionalFilter(System.String,Sys...` | метод | Добавляет/обновляет/удаляет дополнительный именованный фильтр объектов для загрузки (сделано для структурных объектов, т.к. фильтр не должен пересекаться с основным) Для удаления 3D объектов, загруженных по фильтру необходимо передать пустой фильтр. Также имеется возможность управлять разрешением на ограничения пространства для объектов, загруженных по фильтру. Параметры: strFilterName — Имя фильтра (идентификатор); strFilter — Фильтр или пустая строка; bForbidClipping — Запретить обрезать объекты данного фильтра ClipBox-ом | 
 | `GetAdditionalFiltersStatus` | метод | Возвращает список активных дополнительных фильтров и их статус (загружены ли объекты) Возвращает: Список дополнительных фильтров |
 | `CheckCalcCancel(System.String,System.Boolean)` | метод | Спросить, нужно ли остановить работу (например, если найдено очень много объектов для проверки) Параметры:  |
 
@@ -2778,23 +2778,23 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 |---|---|---|
 | `bObjectJustPicked` | свойство | true while in on axNWEViewerCtl1_OnObjectPicked methos |
 | `AppendObjectToSelection(System.Int32)` | метод | Add object to library 3D selection set Параметры: nObj — Object's ID Возвращает: true if selection have changed |
- | `AppendObjectsToSelection(System.Colle...` | метод | Add objects to library selection set Параметры: arrObj — ids to add Возвращает: true if selection have changed | 
- | `SetSelectedObjects(System.Collections...` | метод | Set library selected objects to set Параметры: arrObj — New selected objects set Возвращает: true if selection have changed | 
- | `SelectObjectsWithSameGraphicsAsSelected` | метод | Выделяет объекты, имеющие то же графическое представление, что и выбранные объекты Если у объекта несколько сеток, ты выбираются объекты, имеющие тот же набор сеток без учёта взаиморасположения Возвращает: Количество добавленных к выделению объектв | 
- | `DoAppendObjectToSelection(System.Int3...` | метод | Add Object to selection Параметры: nObj — ID; bRaiseEvent — Should this function rise event Возвращает: true if selection have changed | 
- | `DoAppendObjectsToSelection(System.Col...` | метод | Smart appending objects and event raising Параметры: arrObj — objects set Возвращает: true if selection have changed | 
+| `AppendObjectsToSelection(System.Colle...` | метод | Add objects to library selection set Параметры: arrObj — ids to add Возвращает: true if selection have changed | 
+| `SetSelectedObjects(System.Collections...` | метод | Set library selected objects to set Параметры: arrObj — New selected objects set Возвращает: true if selection have changed | 
+| `SelectObjectsWithSameGraphicsAsSelected` | метод | Выделяет объекты, имеющие то же графическое представление, что и выбранные объекты Если у объекта несколько сеток, ты выбираются объекты, имеющие тот же набор сеток без учёта взаиморасположения Возвращает: Количество добавленных к выделению объектв | 
+| `DoAppendObjectToSelection(System.Int3...` | метод | Add Object to selection Параметры: nObj — ID; bRaiseEvent — Should this function rise event Возвращает: true if selection have changed | 
+| `DoAppendObjectsToSelection(System.Col...` | метод | Smart appending objects and event raising Параметры: arrObj — objects set Возвращает: true if selection have changed | 
 | `SetEmptySelection` | метод | Clear selection Возвращает: true if selection have changed |
 | `SetSingleSelection(System.Int32)` | метод | Set selection to only one object Параметры: nObj — Selected object Возвращает: true if selection have changed |
- | `GetCurrentViewObjects` | метод | Возвращает идентификаторы объектов текущего вида Количество объектов может быть больше, чем количество объектов в фильтре "Текущий вид" т.к. в результат включены объекты текущего вида плагинов | 
+| `GetCurrentViewObjects` | метод | Возвращает идентификаторы объектов текущего вида Количество объектов может быть больше, чем количество объектов в фильтре "Текущий вид" т.к. в результат включены объекты текущего вида плагинов | 
 | `IsCurrentViewAllObjects` | свойство | Показывает ли узел текущий вид все корневые объекты |
- | `CreateLibObjectFromUnmanaged(mstManag...` | метод | Преобразует неуправляемый объект библиотеки в управляемый Параметры: objInfo — Неуправляемый объект CLibObjectInfo Возвращает: Управляемый объект с теми же данными | 
- | `DeleteObject3DShapes(System.Int32)` | метод | Удаляет все трёхмерные тела, связанные с объектом БД Параметры: nObjectId — Идентификатор объекта БД Возвращает: Количество удалённых тел | 
- | `AddObject3DShape(System.Byte[],ModelS...` | метод | Добавляет трёхмерное тело к объекту БД (объект указан в info.nShapeObjectId) Метод не ловит исключения. Добавление обёрнуто в транзакцию. Параметры: graphicsData — Бинарные данные, содержащие трёхмерное тело/кривые в формате *.msm; ptBase — базовая точка сетки (вектор, обратный нормализации сетки), XPG графика приводится без нормализации, таким образом это вектор - разница между XPG и сеткой; xmlData — XPG графика сетки в ненормализованном виде (точка вставки - ноль графики); info — Информация о расположении тела в пространстве (nGrahicsId игнорируется, а после добавления актуализируется, дата модификации актуализируется) Возвращает: В случае успеха идентификатор тела, иначе 0 | 
- | `AddMeshUnique(System.Byte[],System.Do...` | метод | Добавляет/находит в БД уникальную сетку Параметры: mesh — сетка для добавления/поиска; ptBaseX — базовая точка сетки (вектор, обратный нормализации сетки), XPG графика приводится без нормализации, таким образом это вектор - разница между XPG и сеткой; ptBaseY — базовая точка сетки (вектор, обратный нормализации сетки), XPG графика приводится без нормализации, таким образом это вектор - разница между XPG и сеткой; ptBaseZ — базовая точка сетки (вектор, обратный нормализации сетки), XPG графика приводится без нормализации, таким образом это вектор - разница между XPG и сеткой; xpg — xpg данные для добавления; connection — подключение Возвращает: idMesh новой или существующей сетки | 
- | `RetrieveMeshesByHash(CSProject3D.CAD3...` | метод | Считывает сетку и информацию о ней, выбрав её по хэшу и экстентам Параметры: entryForSearch — информация о сетке, которую необходимо найти; fTol — точность с которой будут искаться похожие экстенты; bReadMesh — читать ли данные сетки; bReadXpg — читать ли данные XPG | 
- | `AddMeshToDb(CSProject3D.CAD3DLibrary....` | метод | Добавляет сетку с информацией о ней в таблицу Mesh entry.nIdMesh должен содержать свободный ID для сетки Параметры: entry — информация о сетке с данными Возвращает: entry.nIdMesh | 
- | `AddObject3DShape(ModelStudio.Graphics...` | метод | Добавляет ссылку на сетку к объекту БД (объект указан в info.nShapeObjectId) Идентификатор существующей сетки на которую необходимо ссылаться idMesh также указан в info Метод не ловит исключения Параметры: info — Информация о расположении тела в пространстве (nGrahicsId игнорируется, а после добавления актуализируется, дата модификации актуализируется) Возвращает: В случае успеха идентификатор тела, иначе 0 | 
- | `UpdateObject3DShapeInfo(System.Collec...` | метод | Обновляет информацию об экземплярах трёхмерной графике объекта Параметры: arrInfo — Коллекция актуальной информации для применения к БД | 
+| `CreateLibObjectFromUnmanaged(mstManag...` | метод | Преобразует неуправляемый объект библиотеки в управляемый Параметры: objInfo — Неуправляемый объект CLibObjectInfo Возвращает: Управляемый объект с теми же данными | 
+| `DeleteObject3DShapes(System.Int32)` | метод | Удаляет все трёхмерные тела, связанные с объектом БД Параметры: nObjectId — Идентификатор объекта БД Возвращает: Количество удалённых тел | 
+| `AddObject3DShape(System.Byte[],ModelS...` | метод | Добавляет трёхмерное тело к объекту БД (объект указан в info.nShapeObjectId) Метод не ловит исключения. Добавление обёрнуто в транзакцию. Параметры: graphicsData — Бинарные данные, содержащие трёхмерное тело/кривые в формате *.msm; ptBase — базовая точка сетки (вектор, обратный нормализации сетки), XPG графика приводится без нормализации, таким образом это вектор - разница между XPG и сеткой; xmlData — XPG графика сетки в ненормализованном виде (точка вставки - ноль графики); info — Информация о расположении тела в пространстве (nGrahicsId игнорируется, а после добавления актуализируется, дата модификации актуализируется) Возвращает: В случае успеха идентификатор тела, иначе 0 | 
+| `AddMeshUnique(System.Byte[],System.Do...` | метод | Добавляет/находит в БД уникальную сетку Параметры: mesh — сетка для добавления/поиска; ptBaseX — базовая точка сетки (вектор, обратный нормализации сетки), XPG графика приводится без нормализации, таким образом это вектор - разница между XPG и сеткой; ptBaseY — базовая точка сетки (вектор, обратный нормализации сетки), XPG графика приводится без нормализации, таким образом это вектор - разница между XPG и сеткой; ptBaseZ — базовая точка сетки (вектор, обратный нормализации сетки), XPG графика приводится без нормализации, таким образом это вектор - разница между XPG и сеткой; xpg — xpg данные для добавления; connection — подключение Возвращает: idMesh новой или существующей сетки | 
+| `RetrieveMeshesByHash(CSProject3D.CAD3...` | метод | Считывает сетку и информацию о ней, выбрав её по хэшу и экстентам Параметры: entryForSearch — информация о сетке, которую необходимо найти; fTol — точность с которой будут искаться похожие экстенты; bReadMesh — читать ли данные сетки; bReadXpg — читать ли данные XPG | 
+| `AddMeshToDb(CSProject3D.CAD3DLibrary....` | метод | Добавляет сетку с информацией о ней в таблицу Mesh entry.nIdMesh должен содержать свободный ID для сетки Параметры: entry — информация о сетке с данными Возвращает: entry.nIdMesh | 
+| `AddObject3DShape(ModelStudio.Graphics...` | метод | Добавляет ссылку на сетку к объекту БД (объект указан в info.nShapeObjectId) Идентификатор существующей сетки на которую необходимо ссылаться idMesh также указан в info Метод не ловит исключения Параметры: info — Информация о расположении тела в пространстве (nGrahicsId игнорируется, а после добавления актуализируется, дата модификации актуализируется) Возвращает: В случае успеха идентификатор тела, иначе 0 | 
+| `UpdateObject3DShapeInfo(System.Collec...` | метод | Обновляет информацию об экземплярах трёхмерной графике объекта Параметры: arrInfo — Коллекция актуальной информации для применения к БД | 
 | `SYS3D_X` | поле | Системные параметры для 3D Параметры: strParamName — Имя параметра Возвращает: идентификатор |
 
 #### `CSProject3D.GridManager`
@@ -2810,12 +2810,12 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 | `MainForm3D` | свойство | Главная форма приложения |
 | `#ctor(CSProject3D.MainForm)` | метод | Конструктор плагина с авторегистрацией Параметры: mainForm3D — Главная форма МиА |
 | `LoadVisibleGrids` | метод | Загружает из пользовательских настроек БД список включенных сеток Сетки из списка показывает в 3D за счёт добавления именованных выборок |
- | `GetGridsFolder(CSProject3D.CAD3DLibra...` | метод | Находит или создаёт специальную выборку для объектов осей. Выборке присваивается имя GridsFolderName, которое затем используется для особенной обработки данного каталога (рисование иконки, контекстное меню). Параметры: lib — Библиотека; bForceCreate — Создавать ли выборку Возвращает: Объект выборки или null | 
- | `CreateFolderObject(CADLibKernel.CLibC...` | метод | Создаёт информацию о папке с использованием плагинов Параметры: nID — Идентификатор каталога в БД; strName — Имя папки; strFilter — Фильтр папки; dir — Идентификатор миникаталога БД ([Directories]), если это миникаталог (иначе 0); flags — Флаги папки (столбец в БД) Возвращает: элемент дерева каталогов-категорий | 
- | `TryGetLibraryObject(CADLibKernel.CLib...` | метод | Получение объекта координатной сетки CCoordinateGrid по объекту БД Параметры: libObject — Исходные объект бибилотеки; strStructGroup — Группа даных структурных объектов Возвращает: объект сетки CCoordinateGrid или null, в случае, если libObject-другой объект | 
- | `SwitchGridsVisibility(System.Collecti...` | метод | Изменяет видимость указанных координатных сеток Параметры: grids — Список сеток; bVisible — Показать или скрыть | 
- | `GetObjectMenuItems(CADLibKernel.CLibC...` | метод | Модифицирует контекстное меню объектов окна БД Параметры: folder — Активный каталог; selection — Выбранные объекты; menu — Меню для модификации Возвращает: Всегда пустое множество, т.к. изменяется само меню | 
- | `GetAdditionalCurrenViewObjects` | метод | Получает дополнительные объекты из текущего вида Имеет значение для таких плагинов как "поверхности земли", которые показывают дополнительные объекты во вьювере, но они не отображаются в узле "Текущий вид". Тем не менее данные объекты должны быть обработаны во время выбора опции "Текущий вид" при экспорте или проверке коллизий. Возвращает: Идентификаторы дополнительных объектов, показанные плагином | 
+| `GetGridsFolder(CSProject3D.CAD3DLibra...` | метод | Находит или создаёт специальную выборку для объектов осей. Выборке присваивается имя GridsFolderName, которое затем используется для особенной обработки данного каталога (рисование иконки, контекстное меню). Параметры: lib — Библиотека; bForceCreate — Создавать ли выборку Возвращает: Объект выборки или null | 
+| `CreateFolderObject(CADLibKernel.CLibC...` | метод | Создаёт информацию о папке с использованием плагинов Параметры: nID — Идентификатор каталога в БД; strName — Имя папки; strFilter — Фильтр папки; dir — Идентификатор миникаталога БД ([Directories]), если это миникаталог (иначе 0); flags — Флаги папки (столбец в БД) Возвращает: элемент дерева каталогов-категорий | 
+| `TryGetLibraryObject(CADLibKernel.CLib...` | метод | Получение объекта координатной сетки CCoordinateGrid по объекту БД Параметры: libObject — Исходные объект бибилотеки; strStructGroup — Группа даных структурных объектов Возвращает: объект сетки CCoordinateGrid или null, в случае, если libObject-другой объект | 
+| `SwitchGridsVisibility(System.Collecti...` | метод | Изменяет видимость указанных координатных сеток Параметры: grids — Список сеток; bVisible — Показать или скрыть | 
+| `GetObjectMenuItems(CADLibKernel.CLibC...` | метод | Модифицирует контекстное меню объектов окна БД Параметры: folder — Активный каталог; selection — Выбранные объекты; menu — Меню для модификации Возвращает: Всегда пустое множество, т.к. изменяется само меню | 
+| `GetAdditionalCurrenViewObjects` | метод | Получает дополнительные объекты из текущего вида Имеет значение для таких плагинов как "поверхности земли", которые показывают дополнительные объекты во вьювере, но они не отображаются в узле "Текущий вид". Тем не менее данные объекты должны быть обработаны во время выбора опции "Текущий вид" при экспорте или проверке коллизий. Возвращает: Идентификаторы дополнительных объектов, показанные плагином | 
 
 #### `CSProject3D.ModelRepresen<wbr>tation.ModelRepresentatio<wbr>n`
 **Назначение:** Класс представления модели. Умеет изменять внешний вид модели (раскраска) на основе заданных правил
@@ -2828,9 +2828,9 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 | `Library` | свойство | Объект библиотеки для работы с представлением |
 | `SelectionType` | поле | Источник выборок для представления модели |
 | `#ctor(System.String,CADLib.CADLibrary)` | метод | Создаёт пользовательское представление модели с указанием имени Параметры: strName — Имя представления модели |
- | `#ctor(System.String,System.String,CAD...` | метод | Создаёт пользовательское представление модели с указанием имени и пути в дереве Параметры: strName — Имя представления модели | 
- | `SaveToDB(CADLibKernel.CLibObjectInfo)` | метод | Сохраняет представление модели в БД Параметры: libObject — Объект БД (если необходимо обновить данные) Возвращает: Объект БД представления модели | 
- | `LoadFromDB(CADLibKernel.CLibObjectInfo)` | метод | Загружает представление модели из объекта БД Параметры: libObject — Объект БД Возвращает: true, если данные успешно загружены | 
+| `#ctor(System.String,System.String,CAD...` | метод | Создаёт пользовательское представление модели с указанием имени и пути в дереве Параметры: strName — Имя представления модели | 
+| `SaveToDB(CADLibKernel.CLibObjectInfo)` | метод | Сохраняет представление модели в БД Параметры: libObject — Объект БД (если необходимо обновить данные) Возвращает: Объект БД представления модели | 
+| `LoadFromDB(CADLibKernel.CLibObjectInfo)` | метод | Загружает представление модели из объекта БД Параметры: libObject — Объект БД Возвращает: true, если данные успешно загружены | 
 | `SaveToElement(CADLibKernel.CSElement)` | метод | Сериализация в CElement Параметры: dest — Элемент назначения |
 | `LoadFrom(CADLibKernel.CSElement)` | метод | Десериализация из CElement Параметры: src — Исходный элемент |
 | `Clear` | метод | Очистка представления |
@@ -2844,14 +2844,14 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 |---|---|---|
 | `InitChildren(CADLib.CADLibrary)` | метод | Считывает подчинённые объекты типа CAxis Параметры: lib — Библиотека |
 | `CLIP_BOX_LIMIT_PARAM` | поле | Имя параметра, в котором хранится конфигурация ограничения пространства |
- | `ActivateSpaceClipping(CADLibKernel.CL...` | метод | Активирует режим ограничения пространства 3D Перед этим показывается диалог с настройками ограничения пространства (по каким осям...) Настройки, заданные в диалоге сохраняются либо непосредственно в объекте сетке (this), либо в исходном объекте (подразумевается, что с ним связана сетка, но настройки свои). Параметры: settingsSourceObject — Объект для ассоциации параметров обрезания или null, чтобы использовать параметры текущей сетки | 
+| `ActivateSpaceClipping(CADLibKernel.CL...` | метод | Активирует режим ограничения пространства 3D Перед этим показывается диалог с настройками ограничения пространства (по каким осям...) Настройки, заданные в диалоге сохраняются либо непосредственно в объекте сетке (this), либо в исходном объекте (подразумевается, что с ним связана сетка, но настройки свои). Параметры: settingsSourceObject — Объект для ассоциации параметров обрезания или null, чтобы использовать параметры текущей сетки | 
 | `Manager` | свойство | Управляющий объект |
 | `Children` | свойство | Оси сетки (3: X,Y,Z) |
 | `Node` | свойство | Информация об объекте в дереве объектов |
- | `SetTreeNode(System.Windows.Forms.Tree...` | метод | Данный метод вызывается после применения объекта к узлу дерева (если было) Параметры: tree — Дерево объектов; node — Узел с которым ассоциирован данный объект | 
+| `SetTreeNode(System.Windows.Forms.Tree...` | метод | Данный метод вызывается после применения объекта к узлу дерева (если было) Параметры: tree — Дерево объектов; node — Узел с которым ассоциирован данный объект | 
 | `IsOn` | метод | Является ли координатная сетка видимой Возвращает: true, если поверхность (родитель или все подчинённые поверхности, если есть, видимы) |
 | `SetOn(System.Boolean,System.Boolean)` | метод | Изменить видимость координатной сетки Параметры: bOn — видимость; bForbidClipping — запретить обрезать данную сетку ClipBox-ом |
- | `TryExpandObjectNode(System.Windows.Fo...` | метод | Раскрывает узел объекта Параметры: treeNode — Узел дерева родительского объекта (вызываемого) Возвращает: возвращает true - если плагин заполнил дерево, иначе false - дерево заполняется стандартными средствами | 
+| `TryExpandObjectNode(System.Windows.Fo...` | метод | Раскрывает узел объекта Параметры: treeNode — Узел дерева родительского объекта (вызываемого) Возвращает: возвращает true - если плагин заполнил дерево, иначе false - дерево заполняется стандартными средствами | 
 | `UpdateTreeIcon` | метод | Обновляет иконку дерева после изменения видимости объекта |
 
 #### `CSProject3D.Collisions.Co<wbr>llisionsTree.CollisionsFi<wbr>lter`
@@ -2864,10 +2864,10 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 | `DBFilterPath` | поле | Путь к каталогу БД, полученный с помощью CADLib.FoldersBrowser.GetFoldersPathString |
 | `FilterType` | поле | Тип фильтра: по объекту1, по объекту2 либо по коллизии |
 | `FilterName` | поле | Имя фильтра для вывода пользователю (всплывающая подсказка к кнопке) |
- | `SaveToDbUserProperties(CADLibKernel.C...` | метод | Сохраняет фильтр в пользовательские настройки БД Параметры: filter — фильтр для сохранения или null для удаления настроек (значит, что фильтра нет) | 
- | `LoadFromDbUserProperties(CADLibKernel...` | метод | Загружает фильтр из пользовательских настрое БД Параметры: lib — Библиотека; foldersTree — Дерева для восстановления внешнего фильтра по пути Возвращает: Фильтр, сохранённый в БД или null | 
- | `SaveToDbSharedProperties(CADLibKernel...` | метод | Сохраняет фильтр в настройки БД Параметры: filter — фильтр для сохранения или null для удаления настроек (значит, что фильтра нет) | 
- | `LoadFromDbSharedProperties(CADLibKern...` | метод | Загружает фильтр из настроек БД Параметры: lib — Библиотека; foldersTree — Дерево для восстановления внешнего фильтра по пути Возвращает: Фильтр, сохранённый в БД или null | 
+| `SaveToDbUserProperties(CADLibKernel.C...` | метод | Сохраняет фильтр в пользовательские настройки БД Параметры: filter — фильтр для сохранения или null для удаления настроек (значит, что фильтра нет) | 
+| `LoadFromDbUserProperties(CADLibKernel...` | метод | Загружает фильтр из пользовательских настрое БД Параметры: lib — Библиотека; foldersTree — Дерева для восстановления внешнего фильтра по пути Возвращает: Фильтр, сохранённый в БД или null | 
+| `SaveToDbSharedProperties(CADLibKernel...` | метод | Сохраняет фильтр в настройки БД Параметры: filter — фильтр для сохранения или null для удаления настроек (значит, что фильтра нет) | 
+| `LoadFromDbSharedProperties(CADLibKern...` | метод | Загружает фильтр из настроек БД Параметры: lib — Библиотека; foldersTree — Дерево для восстановления внешнего фильтра по пути Возвращает: Фильтр, сохранённый в БД или null | 
 
 #### `CSProject3D.Forms.Tools.H<wbr>ierarchyTableView.CLibObj<wbr>ectParameterView`
 **Назначение:** Класс для отображения параметра объекта CLibObjectInfo
@@ -2893,9 +2893,9 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 | `m_arrTableAliases` | поле | Используемые в запросе псевдонимы таблиц для метода GetFilterExpressions |
 | `m_strFilterFrom` | поле | Информация о фильтре только этого узла |
 | `m_strFilterWhere` | поле | Информация о фильтре только этого узла |
- | `GetFolderMenuItems(CADLibKernel.CLibC...` | метод | Получение дополнительного меню, для каталога организованного плагином и его подкаталогов | 
- | `TryReadFolderObject(System.Data.IData...` | метод | Считывание корневого объекта данного каталога Метод может быть использован для добавления объектов-наследников CCustomLibObjectInfo Параметры: reader — считанные данные; idx — номер объекта Возвращает: возвращает null если необходимо использовать стандартный механизм чтения объектов | 
- | `ShowObjectsTree(CADLibKernel.CLibCata...` | метод | Заполнение дерева объектов узлами с объектами (в tag узла необходимо записать наследников CLibObjectInfo) Параметры: folder — Каталог для которого необходимо показать объекты (может быть стандартным вложенным каталогом); tvObjects — Дерево объектов назначения; nPageSize — Размер страницы объектов; strMinName — Позиция начала страницы; strMaxName — Позиция конца страницы; bForward — Листание вперёд; bSelect — Выделять ли добавленные узлы дерева Возвращает: Если вернуть false, то будет использован стандартный механизм добавления объектов каталога | 
+| `GetFolderMenuItems(CADLibKernel.CLibC...` | метод | Получение дополнительного меню, для каталога организованного плагином и его подкаталогов | 
+| `TryReadFolderObject(System.Data.IData...` | метод | Считывание корневого объекта данного каталога Метод может быть использован для добавления объектов-наследников CCustomLibObjectInfo Параметры: reader — считанные данные; idx — номер объекта Возвращает: возвращает null если необходимо использовать стандартный механизм чтения объектов | 
+| `ShowObjectsTree(CADLibKernel.CLibCata...` | метод | Заполнение дерева объектов узлами с объектами (в tag узла необходимо записать наследников CLibObjectInfo) Параметры: folder — Каталог для которого необходимо показать объекты (может быть стандартным вложенным каталогом); tvObjects — Дерево объектов назначения; nPageSize — Размер страницы объектов; strMinName — Позиция начала страницы; strMaxName — Позиция конца страницы; bForward — Листание вперёд; bSelect — Выделять ли добавленные узлы дерева Возвращает: Если вернуть false, то будет использован стандартный механизм добавления объектов каталога | 
 
 #### `CSProject3D.ModelRepresentation.MRPlugin`
 **Назначение:** Плагин представлений модели Создаёт виртуальную папку в окне БД
@@ -2907,20 +2907,20 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 | `Library` | свойство | Класс библиотеки |
 | `m_mainForm` | поле | Форма приложения |
 | `ActiveModelRepresentation` | поле | активное представление модели |
- | `UpdateColorProfilesFromModelRepresent...` | метод | Обновления данных в таблице ModelRepresentations Параметры: mr — Представление модели; obj — CLibObjectInfo; isNew — True если представление создано вновь - для представлений из каталога применяются цвета по умолчанию | 
- | `__CreateVirtualFolderObject(CADLibKer...` | метод | Создаёт информацию о папке с использованием плагинов Параметры: nID — Идентификатор каталога в БД; strName — Имя папки; strFilter — Фильтр папки; dir — Идентификатор миникаталога БД ([Directories]), если это миникаталог (иначе 0); flags — Флаги папки (столбец в БД) Возвращает: элемент дерева каталогов-категорий | 
+| `UpdateColorProfilesFromModelRepresent...` | метод | Обновления данных в таблице ModelRepresentations Параметры: mr — Представление модели; obj — CLibObjectInfo; isNew — True если представление создано вновь - для представлений из каталога применяются цвета по умолчанию | 
+| `__CreateVirtualFolderObject(CADLibKer...` | метод | Создаёт информацию о папке с использованием плагинов Параметры: nID — Идентификатор каталога в БД; strName — Имя папки; strFilter — Фильтр папки; dir — Идентификатор миникаталога БД ([Directories]), если это миникаталог (иначе 0); flags — Флаги папки (столбец в БД) Возвращает: элемент дерева каталогов-категорий | 
 
 #### `CSProject3D.ProjectCustomHierarchyPlugin`
 **Назначение:** Плагин иерархии разделов проекта
 
 | Член | Тип | Описание |
 |---|---|---|
- | `GetPCHFolder(CSProject3D.CAD3DLibrary...` | метод | Находит или создаёт специальную выборку для объектов иерархии Разделов проекта Если каталог существует, но id категории не совпадает, то будет возвращено значение null, а создание bForceCreate=true обновит каталог. Если стоит bForceCreate, но категория не найдена - создаётся и возвращается не корректный каталог Параметры: lib — Библиотека; bForceCreate — Создавать ли выборку Возвращает: Объект выборки или null | 
- | `CreateFolderObject(CADLibKernel.CLibC...` | метод | Создаёт информацию о папке с использованием плагинов Параметры: nID — Идентификатор каталога в БД; strName — Имя папки; strFilter — Фильтр папки; dir — Идентификатор миникаталога БД ([Directories]), если это миникаталог (иначе 0); flags — Флаги папки (столбец в БД) Возвращает: элемент дерева каталогов-категорий | 
+| `GetPCHFolder(CSProject3D.CAD3DLibrary...` | метод | Находит или создаёт специальную выборку для объектов иерархии Разделов проекта Если каталог существует, но id категории не совпадает, то будет возвращено значение null, а создание bForceCreate=true обновит каталог. Если стоит bForceCreate, но категория не найдена - создаётся и возвращается не корректный каталог Параметры: lib — Библиотека; bForceCreate — Создавать ли выборку Возвращает: Объект выборки или null | 
+| `CreateFolderObject(CADLibKernel.CLibC...` | метод | Создаёт информацию о папке с использованием плагинов Параметры: nID — Идентификатор каталога в БД; strName — Имя папки; strFilter — Фильтр папки; dir — Идентификатор миникаталога БД ([Directories]), если это миникаталог (иначе 0); flags — Флаги папки (столбец в БД) Возвращает: элемент дерева каталогов-категорий | 
 | `PCHToObjectRelType` | свойство | Возвращает тип связи объекта иерархии с объектом модели или null (если нет типа) Значение кэшируется |
 | `PCHObjToObjectRelType` | свойство | Возвращает тип связи ссылки на объект иерархии Значение кэшируется |
 | `PCHObjToBldRelType` | свойство | Возвращает тип связи ссылки на ЗиС в иерархии Значение кэшируется |
- | `TryGetLibraryObject(CADLibKernel.CLib...` | метод | Запрашивает у плагина объект Параметры: libObject — стандартный объект; strStructGroup — Группа данных структурнуго объекта или null если не структурный Возвращает: Кастомный объект или null | 
+| `TryGetLibraryObject(CADLibKernel.CLib...` | метод | Запрашивает у плагина объект Параметры: libObject — стандартный объект; strStructGroup — Группа данных структурнуго объекта или null если не структурный Возвращает: Кастомный объект или null | 
 | `MenuActiveObjects` | свойство | Объекты для которых действуют пункты меню |
 
 #### `CSProject3D.ProjectCustom<wbr>HierarchyPlugin.CCustomHi<wbr>erachyFolder.CHierarchyOb<wbr>jectFolder`
@@ -2932,9 +2932,9 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 | `m_arrTableAliases` | поле | Используемые в запросе псевдонимы таблиц для метода GetFilterExpressions |
 | `m_strFilterFrom` | поле | Информация о фильтре только этого узла |
 | `m_strFilteWhere` | поле | Информация о фильтре только этого узла |
- | `GetFolderMenuItems(CADLibKernel.CLibC...` | метод | Получение дополнительного меню, для каталога организованного плагином и его подкаталогов | 
- | `TryReadFolderObject(System.Data.IData...` | метод | Считывание корневого объекта данного каталога Метод может быть использован для добавления объектов-наследников CCustomLibObjectInfo Параметры: reader — считанные данные; idx — номер объекта Возвращает: возвращает null если необходимо использовать стандартный механизм чтения объектов | 
- | `ShowObjectsTree(CADLibKernel.CLibCata...` | метод | Заполнение дерева объектов узлами с объектами (в tag узла необходимо записать наследников CLibObjectInfo) Параметры: folder — Каталог для которого необходимо показать объекты (может быть стандартным вложенным каталогом); tvObjects — Дерево объектов назначения; nPageSize — Размер страницы объектов; strMinName — Позиция начала страницы; strMaxName — Позиция конца страницы; bForward — Листание вперёд; bSelect — Выделять ли добавленные узлы дерева Возвращает: Если вернуть false, то будет использован стандартный механизм добавления объектов каталога | 
+| `GetFolderMenuItems(CADLibKernel.CLibC...` | метод | Получение дополнительного меню, для каталога организованного плагином и его подкаталогов | 
+| `TryReadFolderObject(System.Data.IData...` | метод | Считывание корневого объекта данного каталога Метод может быть использован для добавления объектов-наследников CCustomLibObjectInfo Параметры: reader — считанные данные; idx — номер объекта Возвращает: возвращает null если необходимо использовать стандартный механизм чтения объектов | 
+| `ShowObjectsTree(CADLibKernel.CLibCata...` | метод | Заполнение дерева объектов узлами с объектами (в tag узла необходимо записать наследников CLibObjectInfo) Параметры: folder — Каталог для которого необходимо показать объекты (может быть стандартным вложенным каталогом); tvObjects — Дерево объектов назначения; nPageSize — Размер страницы объектов; strMinName — Позиция начала страницы; strMaxName — Позиция конца страницы; bForward — Листание вперёд; bSelect — Выделять ли добавленные узлы дерева Возвращает: Если вернуть false, то будет использован стандартный механизм добавления объектов каталога | 
 
 #### `CSProject3D.ProjectStruct<wbr>ureHierarchyPlugin.CStruc<wbr>tureHierachyFolder.CHiera<wbr>rchyObjectFolder`
 **Назначение:** для каждого подобъекта
@@ -2945,9 +2945,9 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 | `m_arrTableAliases` | поле | Используемые в запросе псевдонимы таблиц для метода GetFilterExpressions |
 | `m_strFilterFrom` | поле | Информация о фильтре только этого узла |
 | `m_strFilteWhere` | поле | Информация о фильтре только этого узла |
- | `GetFolderMenuItems(CADLibKernel.CLibC...` | метод | Получение дополнительного меню, для каталога организованного плагином и его подкаталогов | 
- | `TryReadFolderObject(System.Data.IData...` | метод | Считывание корневого объекта данного каталога Метод может быть использован для добавления объектов-наследников CCustomLibObjectInfo Параметры: reader — считанные данные; idx — номер объекта Возвращает: возвращает null если необходимо использовать стандартный механизм чтения объектов | 
- | `ShowObjectsTree(CADLibKernel.CLibCata...` | метод | Заполнение дерева объектов узлами с объектами (в tag узла необходимо записать наследников CLibObjectInfo) Параметры: folder — Каталог для которого необходимо показать объекты (может быть стандартным вложенным каталогом); tvObjects — Дерево объектов назначения; nPageSize — Размер страницы объектов; strMinName — Позиция начала страницы; strMaxName — Позиция конца страницы; bForward — Листание вперёд; bSelect — Выделять ли добавленные узлы дерева Возвращает: Если вернуть false, то будет использован стандартный механизм добавления объектов каталога | 
+| `GetFolderMenuItems(CADLibKernel.CLibC...` | метод | Получение дополнительного меню, для каталога организованного плагином и его подкаталогов | 
+| `TryReadFolderObject(System.Data.IData...` | метод | Считывание корневого объекта данного каталога Метод может быть использован для добавления объектов-наследников CCustomLibObjectInfo Параметры: reader — считанные данные; idx — номер объекта Возвращает: возвращает null если необходимо использовать стандартный механизм чтения объектов | 
+| `ShowObjectsTree(CADLibKernel.CLibCata...` | метод | Заполнение дерева объектов узлами с объектами (в tag узла необходимо записать наследников CLibObjectInfo) Параметры: folder — Каталог для которого необходимо показать объекты (может быть стандартным вложенным каталогом); tvObjects — Дерево объектов назначения; nPageSize — Размер страницы объектов; strMinName — Позиция начала страницы; strMaxName — Позиция конца страницы; bForward — Листание вперёд; bSelect — Выделять ли добавленные узлы дерева Возвращает: Если вернуть false, то будет использован стандартный механизм добавления объектов каталога | 
 
 #### `CSProject3D.ProjectStructureHierarchyPlugin`
 **Назначение:** Плагин иерархии разделов проекта
@@ -2955,10 +2955,10 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 | Член | Тип | Описание |
 |---|---|---|
 | `StructureObjGroup` | поле | Значение параметра группа данных |
- | `GetPSHFolder(CSProject3D.CAD3DLibrary...` | метод | Находит или создаёт специальную выборку для объектов иерархии Разделов проекта Если каталог существует, но id категории не совпадает, то будет возвращено значение null, а создание bForceCreate=true обновит каталог. Если стоит bForceCreate, но категория не найдена - создаётся и возвращается не корректный каталог Параметры: lib — Библиотека; bForceCreate — Создавать ли выборку Возвращает: Объект выборки или null | 
- | `CreateFolderObject(CADLibKernel.CLibC...` | метод | Создаёт информацию о папке с использованием плагинов Параметры: nID — Идентификатор каталога в БД; strName — Имя папки; strFilter — Фильтр папки; dir — Идентификатор миникаталога БД ([Directories]), если это миникаталог (иначе 0); flags — Флаги папки (столбец в БД) Возвращает: элемент дерева каталогов-категорий | 
+| `GetPSHFolder(CSProject3D.CAD3DLibrary...` | метод | Находит или создаёт специальную выборку для объектов иерархии Разделов проекта Если каталог существует, но id категории не совпадает, то будет возвращено значение null, а создание bForceCreate=true обновит каталог. Если стоит bForceCreate, но категория не найдена - создаётся и возвращается не корректный каталог Параметры: lib — Библиотека; bForceCreate — Создавать ли выборку Возвращает: Объект выборки или null | 
+| `CreateFolderObject(CADLibKernel.CLibC...` | метод | Создаёт информацию о папке с использованием плагинов Параметры: nID — Идентификатор каталога в БД; strName — Имя папки; strFilter — Фильтр папки; dir — Идентификатор миникаталога БД ([Directories]), если это миникаталог (иначе 0); flags — Флаги папки (столбец в БД) Возвращает: элемент дерева каталогов-категорий | 
 | `PSHToObjectRelType` | свойство | Возвращает тип связи объекта иерархии с объектом модели или null (если нет типа) Значение кэшируется |
- | `TryGetLibraryObject(CADLibKernel.CLib...` | метод | Запрашивает у плагина объект Параметры: libObject — стандартный объект; strStructGroup — Группа данных структурнуго объекта или null если не структурный Возвращает: Кастомный объект или null | 
+| `TryGetLibraryObject(CADLibKernel.CLib...` | метод | Запрашивает у плагина объект Параметры: libObject — стандартный объект; strStructGroup — Группа данных структурнуго объекта или null если не структурный Возвращает: Кастомный объект или null | 
 | `MenuActiveObjects` | свойство | Объекты для которых действуют пункты меню |
 
 #### `CSProject3D.SurfaceManage<wbr>r.CSurfaceObject.ESurface<wbr>Type`
@@ -3001,7 +3001,7 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 |---|---|---|
 | `InitChildren(CADLib.CADLibrary)` | метод | Считывает подчинённые объекты типа CAxisPoint Параметры: lib — Библиотека |
 | `Parent` | свойство | Родительский объект |
- | `TryExpandObjectNode(System.Windows.Fo...` | метод | Раскрывает узел объекта Параметры: treeNode — Узел дерева родительского объекта (вызываемого) Возвращает: возвращает true - если плагин заполнил дерево, иначе false - дерево заполняется стандартными средствами | 
+| `TryExpandObjectNode(System.Windows.Fo...` | метод | Раскрывает узел объекта Параметры: treeNode — Узел дерева родительского объекта (вызываемого) Возвращает: возвращает true - если плагин заполнил дерево, иначе false - дерево заполняется стандартными средствами | 
 | `LoadAxisData` | метод | Загружает информацию об оси из библиотеки |
 
 #### `CSProject3D.Forms.Viewer3D.ClipBoxDlg`
@@ -3009,17 +3009,17 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 
 | Член | Тип | Описание |
 |---|---|---|
- | `#ctor(CSProject3D.Forms.Viewer3D.Clip...` | метод | Конструктор диалога ограничения пространства по координатной сетке Параметры: settings — Параметры обрезки (будут обновлены при нажатии ОК); grid — Координатная сетка; activeObject — Объект - владелец настроек для вывода имени | 
+| `#ctor(CSProject3D.Forms.Viewer3D.Clip...` | метод | Конструктор диалога ограничения пространства по координатной сетке Параметры: settings — Параметры обрезки (будут обновлены при нажатии ОК); grid — Координатная сетка; activeObject — Объект - владелец настроек для вывода имени | 
 
 #### `CSProject3D.IDockWindowOwner`
 **Назначение:** Интерфейс работы с палитрами
 
 | Член | Тип | Описание |
 |---|---|---|
- | `RegisterDockForm(System.Windows.Forms...` | метод | Регистрация палитры Необходимо проводить, чтобы указать положение по умолчанию Параметры: dockForm — Объект формы с заданым атрибутом DockableForm; defaultPos — Положение по умолчанию; mode — Распологать окно внутри основного (модель) или снаружи | 
+| `RegisterDockForm(System.Windows.Forms...` | метод | Регистрация палитры Необходимо проводить, чтобы указать положение по умолчанию Параметры: dockForm — Объект формы с заданым атрибутом DockableForm; defaultPos — Положение по умолчанию; mode — Распологать окно внутри основного (модель) или снаружи | 
 | `UnregisterDockForm(System.Windows.Forms.Form)` | метод | Отменяет регистрацию формы Параметры: dockForm — Объект формы с заданым атрибутом DockableForm |
- | `ShowDockForm(System.Windows.Forms.Form)` | метод | Показывает палитру или устанавливает фокус на открытой палитре Параметры: form — Объект формы с заданым атрибутом DockableForm | 
- | `GetFormDockStyle(System.Windows.Forms...` | метод | Способ размещения палитры Параметры: form — Объект формы палитры Возвращает: Способ размещения палитры или None в случае ошибки | 
+| `ShowDockForm(System.Windows.Forms.Form)` | метод | Показывает палитру или устанавливает фокус на открытой палитре Параметры: form — Объект формы с заданым атрибутом DockableForm | 
+| `GetFormDockStyle(System.Windows.Forms...` | метод | Способ размещения палитры Параметры: form — Объект формы палитры Возвращает: Способ размещения палитры или None в случае ошибки | 
 
 #### `CSProject3D.UserTagging.E<wbr>ntities.eVisibilityType`
 **Назначение:** Видимость + Поведение видимости заметки при клике на связанном объекте
@@ -3064,14 +3064,14 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 | Член | Тип | Описание |
 |---|---|---|
 | `CurrentProject` | свойство | Проект выбранный в графике работ |
- | `GetColumnsIdentities` | метод | Упорядоченный набор идентификаторов столбцов из пользовательского файла C:\Users\username\AppData\Roaming\CSoft\Model Studio CS\Library3D\settingsWorksManager.xml | 
+| `GetColumnsIdentities` | метод | Упорядоченный набор идентификаторов столбцов из пользовательского файла C:\Users\username\AppData\Roaming\CSoft\Model Studio CS\Library3D\settingsWorksManager.xml | 
 
 #### `CSProject3D.BuildingsHier<wbr>archyPlugin.CBuildingsHie<wbr>rachyFolder.CUnboundObjec<wbr>tFolder`
 **Назначение:** для объектов, не связанных с иерархией
 
 | Член | Тип | Описание |
 |---|---|---|
- | `GetFolderMenuItems(CADLibKernel.CLibC...` | метод | Получение дополнительного меню, для каталога организованного плагином и его подкаталогов | 
+| `GetFolderMenuItems(CADLibKernel.CLibC...` | метод | Получение дополнительного меню, для каталога организованного плагином и его подкаталогов | 
 | `m_strFilterWhere` | поле | Информация о фильтре только этого узла |
 
 #### `CSProject3D.CAxisPoint`
@@ -3088,7 +3088,7 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 | Член | Тип | Описание |
 |---|---|---|
 | `Size` | свойство | Размер знака коллизии |
- | `GenerateMesh(ModelStudio.Graphics3D.C...` | метод | Генерирует сетку в виде треугольника с (без) ножками в указанных точках Параметры: ptSign — Точка, где будет расположен знак; pt1 — Точка коллизии 1; pt2 — Точка коллизии 2; fSignScale — Масштаб знака; bTwoLegs — Добавлять ли линии к точкам коллизии; condition — Нарушенное условие коллизии или null; signInfo — Результирующая информация о сетке для добавления в БД; ptMeshBase — Базова точка сетки - вектор нормализации (используется для добавления сетки в БД) Возвращает: Бинарные данные сетки в формате msm для добавления в БД | 
+| `GenerateMesh(ModelStudio.Graphics3D.C...` | метод | Генерирует сетку в виде треугольника с (без) ножками в указанных точках Параметры: ptSign — Точка, где будет расположен знак; pt1 — Точка коллизии 1; pt2 — Точка коллизии 2; fSignScale — Масштаб знака; bTwoLegs — Добавлять ли линии к точкам коллизии; condition — Нарушенное условие коллизии или null; signInfo — Результирующая информация о сетке для добавления в БД; ptMeshBase — Базова точка сетки - вектор нормализации (используется для добавления сетки в БД) Возвращает: Бинарные данные сетки в формате msm для добавления в БД | 
 
 #### `CSProject3D.Forms.Tools.H<wbr>ierarchyTableView.Hierarc<wbr>hyTableCellTemplateSelect<wbr>or`
 **Назначение:** Класс селектора шаблона отображения ячейки таблицы в зависимости от типа отображаемого параметра
@@ -3193,7 +3193,7 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 
 | Член | Тип | Описание |
 |---|---|---|
- | `TryReadFolderObject(System.Data.IData...` | метод | Считывание корневого объекта данного каталога Метод может быть использован для добавления объектов-наследников CCustomLibObjectInfo Параметры: reader — считанные данные; idx — номер объекта Возвращает: возвращает null если необходимо использовать стандартный механизм чтения объектов | 
+| `TryReadFolderObject(System.Data.IData...` | метод | Считывание корневого объекта данного каталога Метод может быть использован для добавления объектов-наследников CCustomLibObjectInfo Параметры: reader — считанные данные; idx — номер объекта Возвращает: возвращает null если необходимо использовать стандартный механизм чтения объектов | 
 
 #### `CSProject3D.ModelRepresen<wbr>tation.ModelRepresentatio<wbr>nColor`
 **Назначение:** Вхождение профиля: фильтр, имя, цвет, степень прозрачности
@@ -3417,7 +3417,7 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 | `CopyFrom(CSProject3D.UserTagging.V<wbr>ector2d.Element2dBase)` | метод | Copy the properties from another shape |
 | `Copy` | метод | Clone this shape |
 | `copyGradprop(CSProject3D.UserTagging.V<wbr>ector2d.Element2dBase)` | метод | Copy the gradient properties. |
- | `FillWithLines(System.Drawing.Graphics...` | метод | To fill a shape with parallel lines | 
+| `FillWithLines(System.Drawing.Graphics...` | метод | To fill a shape with parallel lines | 
 | `scaledPenWidth(System.Single)` | метод | Used to define pen with. |
 | `Fit2grid(System.Single)` | метод | Adapt the shape at the gridsize |
 | `CommitRotate(System.Single,System.Single)` | метод | Confirm the rotation |
@@ -3440,16 +3440,16 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 | Член | Тип | Описание |
 |---|---|---|
 | `UnmanagedDB` | свойство | Экземпляр неуправляемой БД CLibDatabase |
- | `SetStatusText(System.Int32,System.Str...` | метод | Задаёт состояние контролов загрузки в строке состояния главного окна Параметры: nLoadingPercent — Процент загрузки: если меньше нуля, то шкала загрузки скрыта если от 0 до 100, то значение загрузки если больше 100, то шкала загрузки в состоянии Marquee; strText — Текст состояния; bExclamation — Показывать ли знак восклицания перед текстом | 
+| `SetStatusText(System.Int32,System.Str...` | метод | Задаёт состояние контролов загрузки в строке состояния главного окна Параметры: nLoadingPercent — Процент загрузки: если меньше нуля, то шкала загрузки скрыта если от 0 до 100, то значение загрузки если больше 100, то шкала загрузки в состоянии Marquee; strText — Текст состояния; bExclamation — Показывать ли знак восклицания перед текстом | 
 | `InitControlMode` | метод | Вызывается при загрузке, если форма используется в качестве контрола Модифицирует меню и прочие функции |
 | `CreateView` | метод | Create new view with dialog Возвращает: 0 if canceled or error otherwise new View's ID |
 | `SaveUserState` | метод | Save to database: folderTree state etc... |
 | `LoadUserState` | метод | Load from database: folderTree state etc... |
 | `AppKey` | свойство | Используется для нахождения пути к настройкам (папка Settings или AppData) |
- | `SelectObjects(System.Collections.Gene...` | метод | Выделяет список объектов Параметры: objectsIDs — Список объектов; bAddToView — Если да - вызывает добавляет выделение в текущий вид; bIsolate — Если да - вызывает опцию "Отобразить на модели" для выделенного списка | 
+| `SelectObjects(System.Collections.Gene...` | метод | Выделяет список объектов Параметры: objectsIDs — Список объектов; bAddToView — Если да - вызывает добавляет выделение в текущий вид; bIsolate — Если да - вызывает опцию "Отобразить на модели" для выделенного списка | 
 | `AttachObjectsToView(System.Collections.Generic.ICollection{System.Int32})` | метод | Добавляет объекты к текущему виду Параметры: objectsIDs — Список объектов |
 | `RemoveObjectsFromView(System.Collections.Generic.ICollection{System.Int32})` | метод | Удаляет объект из текущего вида Параметры: objectsIDs — Список объектов |
- | `TestCloneWholeModel` | метод | Метод для тестов Клонирует объекты всей трёхмерной модели со смещением вправо При клонировании используется эмуляция публикации новой модели (не используется информация о повторе сеток) | 
+| `TestCloneWholeModel` | метод | Метод для тестов Клонирует объекты всей трёхмерной модели со смещением вправо При клонировании используется эмуляция публикации новой модели (не используется информация о повторе сеток) | 
 | `DEBUG_TEST_DbIntersections` | метод | Проверка работы ХП SPGetBoxIntersectedGraphics на клиенте |
 | `DEBUGTEST_DbIntersectionsServerSide` | метод | Проверка работы ХП SPGetBoxIntersectedGraphics на сервере |
 | `DEBUG_TEST_DbLandsGraphics` | метод | Проверка работы ХП SPGetLandsGraphics на клиенте |
@@ -3469,12 +3469,12 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 | `m_Library` | поле | Класс библиотеки |
 | `VisibleLands` | свойство | idObject объектов, связанных с включёнными землями для текущего пользователя |
 | `m_mainForm` | поле | Форма приложения |
- | `GetVisibleLandsRecoursive(System.Coll...` | метод | Рекурсивно собираем включенные земли в VisibleLands останавливаясь на включённых | 
+| `GetVisibleLandsRecoursive(System.Coll...` | метод | Рекурсивно собираем включенные земли в VisibleLands останавливаясь на включённых | 
 | `UpdateAndSaveVisibleLands` | метод | Считывает значения видимости из листов и записывает в настройки пользователя в БД |
 | `SetSelectedNode(System.Windows.Forms.TreeNode)` | метод | Вызывается для обновления выделенной земли Параметры:  |
- | `GetSurfacesFolder(CSProject3D.CAD3DLi...` | метод | Находит или создаёт специальную выборку для объектов поверхностей. Выборке присваивается имя SurfacesFolderName, которое затем используется для особенной обработки данного каталога (рисование иконки, контекстное меню). Параметры: lib — Библиотека; bForceCreate — Создавать ли выборку Возвращает: Объект выборки или null | 
- | `CreateFolderObject(CADLibKernel.CLibC...` | метод | Создаёт информацию о папке с использованием плагинов Параметры: nID — Идентификатор каталога в БД; strName — Имя папки; strFilter — Фильтр папки; dir — Идентификатор миникаталога БД ([Directories]), если это миникаталог (иначе 0); flags — Флаги папки (столбец в БД) Возвращает: элемент дерева каталогов-категорий | 
- | `GetAdditionalCurrenViewObjects` | метод | Получает дополнительные объекты из текущего вида Имеет значение для таких плагинов как "поверхности земли", которые показывают дополнительные объекты во вьювере, но они не отображаются в узле "Текущий вид". Тем не менее данные объекты должны быть обработаны во время выбора опции "Текущий вид" при экспорте или проверке коллизий. Возвращает: Идентификаторы дополнительных объектов, показанные плагином | 
+| `GetSurfacesFolder(CSProject3D.CAD3DLi...` | метод | Находит или создаёт специальную выборку для объектов поверхностей. Выборке присваивается имя SurfacesFolderName, которое затем используется для особенной обработки данного каталога (рисование иконки, контекстное меню). Параметры: lib — Библиотека; bForceCreate — Создавать ли выборку Возвращает: Объект выборки или null | 
+| `CreateFolderObject(CADLibKernel.CLibC...` | метод | Создаёт информацию о папке с использованием плагинов Параметры: nID — Идентификатор каталога в БД; strName — Имя папки; strFilter — Фильтр папки; dir — Идентификатор миникаталога БД ([Directories]), если это миникаталог (иначе 0); flags — Флаги папки (столбец в БД) Возвращает: элемент дерева каталогов-категорий | 
+| `GetAdditionalCurrenViewObjects` | метод | Получает дополнительные объекты из текущего вида Имеет значение для таких плагинов как "поверхности земли", которые показывают дополнительные объекты во вьювере, но они не отображаются в узле "Текущий вид". Тем не менее данные объекты должны быть обработаны во время выбора опции "Текущий вид" при экспорте или проверке коллизий. Возвращает: Идентификаторы дополнительных объектов, показанные плагином | 
 
 #### `CSProject3D.Works.TaskInfo`
 **Назначение:** Работа с 3D-графикой объектов: формы, сетки, меши, вершины, материалы, геометрическое представление.
@@ -3503,14 +3503,14 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 | `HierarchyObjGroup` | поле | Значение параметра группа данных |
 | `Library` | свойство | Класс библиотеки |
 | `MainForm` | свойство | Форма приложения |
- | `GetHierarchyFolder(CSProject3D.CAD3DL...` | метод | Находит или создаёт специальную выборку для объектов иерархии ЗиС Если каталог существует, но id категории не совпадает, то будет возвращено значение null, а создание bForceCreate=true обновит каталог. Если стоит bForceCreate, но категория не найдена - создаётся и возвращается не корректный каталог Параметры: lib — Библиотека; bForceCreate — Создавать ли выборку Возвращает: Объект выборки или null | 
- | `CreateFolderObject(CADLibKernel.CLibC...` | метод | Создаёт информацию о папке с использованием плагинов Параметры: nID — Идентификатор каталога в БД; strName — Имя папки; strFilter — Фильтр папки; dir — Идентификатор миникаталога БД ([Directories]), если это миникаталог (иначе 0); flags — Флаги папки (столбец в БД) Возвращает: элемент дерева каталогов-категорий | 
+| `GetHierarchyFolder(CSProject3D.CAD3DL...` | метод | Находит или создаёт специальную выборку для объектов иерархии ЗиС Если каталог существует, но id категории не совпадает, то будет возвращено значение null, а создание bForceCreate=true обновит каталог. Если стоит bForceCreate, но категория не найдена - создаётся и возвращается не корректный каталог Параметры: lib — Библиотека; bForceCreate — Создавать ли выборку Возвращает: Объект выборки или null | 
+| `CreateFolderObject(CADLibKernel.CLibC...` | метод | Создаёт информацию о папке с использованием плагинов Параметры: nID — Идентификатор каталога в БД; strName — Имя папки; strFilter — Фильтр папки; dir — Идентификатор миникаталога БД ([Directories]), если это миникаталог (иначе 0); flags — Флаги папки (столбец в БД) Возвращает: элемент дерева каталогов-категорий | 
 | `m_coordGripRelationOld` | поле | Тип связи с сеткой для старых версий БД (обратная совместимость) |
 | `HierarchyToObjectRelType` | свойство | Возвращает тип связи(ЗиС) объекта иерархии с объектом модели или null (если нет типа) Значение кэшируется |
 | `HierarchySituationToObjectRelType` | свойство | Возвращает тип связи(Ситуация) объекта иерархии с объектом модели или null (если нет типа) Значение кэшируется |
 | `HierarchySystemToObjectRelType` | свойство | Возвращает тип связи(Система) объекта иерархии с объектом модели или null (если нет типа) Значение кэшируется |
 | `PSHToObjectRelType` | свойство | Возвращает тип связи объекта иерархии с объектом модели или null (если нет типа) Значение кэшируется |
- | `TryGetLibraryObject(CADLibKernel.CLib...` | метод | Запрашивает у плагина объект Параметры: libObject — стандартный объект; strStructGroup — Группа данных структурнуго объекта или null если не структурный Возвращает: Кастомный объект или null | 
+| `TryGetLibraryObject(CADLibKernel.CLib...` | метод | Запрашивает у плагина объект Параметры: libObject — стандартный объект; strStructGroup — Группа данных структурнуго объекта или null если не структурный Возвращает: Кастомный объект или null | 
 | `MenuActiveObjects` | свойство | Объекты для которых действуют пункты меню |
 
 #### `CSProject3D.CLPPublicationsManager`
@@ -3526,9 +3526,9 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 | `PublicationsActive` | поле | Активность публикации |
 | `#ctor(CSProject3D.MainForm)` | метод | Конструктор плагина с авторегистрацией Параметры: mainForm3D — Главная форма МиА |
 | `DeletePublish(CADLibKernel.CLibObjectInfo)` | метод | удаление публикации и всех связаных с ней объектов Параметры: publ — объект публикации |
- | `GetPublicationFolder(CSProject3D.CAD3...` | метод | Находит или создаёт специальную выборку для объектов осей. Выборке присваивается имя GridsFolderName, которое затем используется для особенной обработки данного каталога (рисование иконки, контекстное меню). Параметры: lib — Библиотека; bForceCreate — Создавать ли выборку Возвращает: Объект выборки или null | 
- | `TryGetLibraryObject(CADLibKernel.CLib...` | метод | Получение объекта координатной сетки CCoordinateGrid по объекту БД Параметры: libObject — Исходные объект бибилотеки; strStructGroup — Группа даных структурных объектов Возвращает: объект сетки CCoordinateGrid или null, в случае, если libObject-другой объект | 
- | `CreateFolderObject(CADLibKernel.CLibC...` | метод | Создаёт информацию о папке с использованием плагинов Параметры: nID — Идентификатор каталога в БД; strName — Имя папки; strFilter — Фильтр папки; dir — Идентификатор миникаталога БД ([Directories]), если это миникаталог (иначе 0); flags — Флаги папки (столбец в БД) Возвращает: элемент дерева каталогов-категорий | 
+| `GetPublicationFolder(CSProject3D.CAD3...` | метод | Находит или создаёт специальную выборку для объектов осей. Выборке присваивается имя GridsFolderName, которое затем используется для особенной обработки данного каталога (рисование иконки, контекстное меню). Параметры: lib — Библиотека; bForceCreate — Создавать ли выборку Возвращает: Объект выборки или null | 
+| `TryGetLibraryObject(CADLibKernel.CLib...` | метод | Получение объекта координатной сетки CCoordinateGrid по объекту БД Параметры: libObject — Исходные объект бибилотеки; strStructGroup — Группа даных структурных объектов Возвращает: объект сетки CCoordinateGrid или null, в случае, если libObject-другой объект | 
+| `CreateFolderObject(CADLibKernel.CLibC...` | метод | Создаёт информацию о папке с использованием плагинов Параметры: nID — Идентификатор каталога в БД; strName — Имя папки; strFilter — Фильтр папки; dir — Идентификатор миникаталога БД ([Directories]), если это миникаталог (иначе 0); flags — Флаги папки (столбец в БД) Возвращает: элемент дерева каталогов-категорий | 
 
 #### `CSProject3D.Collisions.CollisionPlugin`
 **Назначение:** Работа с 3D-графикой объектов: формы, сетки, меши, вершины, материалы, геометрическое представление.
@@ -3542,9 +3542,9 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 | `HierarchyLevelTypeBuilding` | поле | Для инициализации параметров Связь с первым объектом и Связь со вторым объектом |
 | `m_Library` | поле | Класс библиотеки |
 | `m_MainForm` | поле | Форма приложения |
- | `GetCollisionsCatId(CSProject3D.CAD3DL...` | метод | Возвращает ID категории объектов коллизий с возможностью её создания Параметры: lib — Библиотека для работы; bCreateIfNone — Следует ли создавать категорию, если таковой нет; mainThreadControl — Элемент управления основного потока, для использования данного метода из фонового потока (необходим для загрузки иконки) Возвращает: ID категории объектов коллизий | 
- | `GetCollisionsFolder(CSProject3D.CAD3D...` | метод | Находит или создаёт специальную выборку для объектов коллизий. Если каталог существует, но id категории не совпадает, то будет возвращено значение null, а создание bForceCreate=true обновит каталог. Выборке присваивается имя CollisionsFolderName, которое затем используется для особенной обработки данного каталога (рисование иконки, контекстное меню). Если стоит bForceCreate, но категория коллизий не найдена - создаётся и возвращается не корректный каталог Параметры: lib — Библиотека; bForceCreate — Создавать ли выборку Возвращает: Объект выборки или null | 
- | `CreateFolderObject(CADLibKernel.CLibC...` | метод | Создаёт информацию о папке с использованием плагинов Параметры: nID — Идентификатор каталога в БД; strName — Имя папки; strFilter — Фильтр папки; dir — Идентификатор миникаталога БД ([Directories]), если это миникаталог (иначе 0); flags — Флаги папки (столбец в БД) Возвращает: элемент дерева каталогов-категорий | 
+| `GetCollisionsCatId(CSProject3D.CAD3DL...` | метод | Возвращает ID категории объектов коллизий с возможностью её создания Параметры: lib — Библиотека для работы; bCreateIfNone — Следует ли создавать категорию, если таковой нет; mainThreadControl — Элемент управления основного потока, для использования данного метода из фонового потока (необходим для загрузки иконки) Возвращает: ID категории объектов коллизий | 
+| `GetCollisionsFolder(CSProject3D.CAD3D...` | метод | Находит или создаёт специальную выборку для объектов коллизий. Если каталог существует, но id категории не совпадает, то будет возвращено значение null, а создание bForceCreate=true обновит каталог. Выборке присваивается имя CollisionsFolderName, которое затем используется для особенной обработки данного каталога (рисование иконки, контекстное меню). Если стоит bForceCreate, но категория коллизий не найдена - создаётся и возвращается не корректный каталог Параметры: lib — Библиотека; bForceCreate — Создавать ли выборку Возвращает: Объект выборки или null | 
+| `CreateFolderObject(CADLibKernel.CLibC...` | метод | Создаёт информацию о папке с использованием плагинов Параметры: nID — Идентификатор каталога в БД; strName — Имя папки; strFilter — Фильтр папки; dir — Идентификатор миникаталога БД ([Directories]), если это миникаталог (иначе 0); flags — Флаги папки (столбец в БД) Возвращает: элемент дерева каталогов-категорий | 
 
 #### `CSProject3D.SurfaceManager.CSurfaceObject`
 **Назначение:** Работа с 3D-графикой объектов: формы, сетки, меши, вершины, материалы, геометрическое представление.
@@ -3559,19 +3559,19 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 | `ParentFolder` | свойство | Родительский каталог в случае, если Parent == null |
 | `UpdateTreeIcon` | метод | Обновляет иконку дерева после изменения видимости объекта |
 | `Node` | свойство | Информация об объекте в дереве объектов |
- | `SetTreeNode(System.Windows.Forms.Tree...` | метод | Данный методы вызывается после применения объекта узлу дерева (если было) Параметры: tree — Дерево объектов; node — Узел с которым ассоциирован данный объект | 
- | `TryExpandObjectNode(System.Windows.Fo...` | метод | Раскрывает узел объекта Параметры: treeNode — Узел дерева родительского объекта (вызываемого) Возвращает: возвращает true - если плагин заполнил дерево, иначе false - дерево заполняется стандартными средствами | 
+| `SetTreeNode(System.Windows.Forms.Tree...` | метод | Данный методы вызывается после применения объекта узлу дерева (если было) Параметры: tree — Дерево объектов; node — Узел с которым ассоциирован данный объект | 
+| `TryExpandObjectNode(System.Windows.Fo...` | метод | Раскрывает узел объекта Параметры: treeNode — Узел дерева родительского объекта (вызываемого) Возвращает: возвращает true - если плагин заполнил дерево, иначе false - дерево заполняется стандартными средствами | 
 
 #### `CSProject3D.Collisions.CollisionsForm`
 **Назначение:** UI-слой CADLib: формы, диалоги, браузер БД, панели и команды интерфейса.
 
 | Член | Тип | Описание |
 |---|---|---|
- | `m_strToolTipSizeGenerator` | поле | Длина данной строки определит максимальный размер тултипа и соответственно размер картинки Другого способа не нашёл для задания размера, учитываемого в отступах от краёв экрана | 
- | `HasCollisionPreview(Aga.Controls.Tree...` | метод | Для показа значка фотоаппарата на коллизиях, где есть скриншот Параметры: node — Узел дереве - коллизия Возвращает: Картинка для контрола | 
+| `m_strToolTipSizeGenerator` | поле | Длина данной строки определит максимальный размер тултипа и соответственно размер картинки Другого способа не нашёл для задания размера, учитываемого в отступах от краёв экрана | 
+| `HasCollisionPreview(Aga.Controls.Tree...` | метод | Для показа значка фотоаппарата на коллизиях, где есть скриншот Параметры: node — Узел дереве - коллизия Возвращает: Картинка для контрола | 
 | `SaveCollisionToDb(CollisionEngine.CollisionObject)` | метод | Сохраняет или добавляет коллизию в БД, открытую в окне Параметры: collision — Объект коллизии |
- | `RefreshData(System.Boolean)` | метод | Обновляет данные окна коллизий После смены библиотеки данный метод вызывается из LoadUserState(), и будет работать отлько после этого Параметры: | 
- | `CollisionsFilterColl` | свойство | Позволяет установить или выявить наличие пользовательского фильтра Свойство может возвращать и принимать значение null - нет фильтра Изменение фильтра автоматически заставляет обновиться список коллизий | 
+| `RefreshData(System.Boolean)` | метод | Обновляет данные окна коллизий После смены библиотеки данный метод вызывается из LoadUserState(), и будет работать отлько после этого Параметры: | 
+| `CollisionsFilterColl` | свойство | Позволяет установить или выявить наличие пользовательского фильтра Свойство может возвращать и принимать значение null - нет фильтра Изменение фильтра автоматически заставляет обновиться список коллизий | 
 | `SaveUserState` | метод | Сохраняет настройки окна в пользовательские настройки БД (Загрузка настроек происходит в RefreshData при смене библиотеки) |
 
 #### `CSProject3D.Collisions.Wizard.WizardForm`
@@ -3595,11 +3595,11 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 | `MainForm` | свойство | Форма приложения |
 | `ShowDocContentMI` | свойство | Пункт контекстного меню "Показать файл" |
 | `Content2dAccessMI` | свойство | Пункт контекстного меню окна 3д "представления" |
- | `GetFolderDocumentsQuery(CSProject3D.D...` | метод | Строит запрос на все карточки файлов или части файлов указанного каталога Параметры: folder — Каталог (родительский обхект файлов) Возвращает: Строку запроса для фильтра | 
- | `GetObjectMenuItems(CADLibKernel.CLibC...` | метод | Получение дополнительного меню для объектов Параметры: folder — Активный каталог (плагина или его подчинённый); selection — Выбранные в дереве объекты; menu — Меню в которое будут добавлены дополнительные пункты (для возможности заблокировать их видимость) Возвращает: Список дополнительных пунктов меню | 
- | `GetPDHFolder(CSProject3D.CAD3DLibrary...` | метод | Находит или создаёт специальную выборку для объектов иерархии файлов проекта Если каталог существует, но id категории не совпадает, то будет возвращено значение null, а создание bForceCreate=true обновит каталог. Если стоит bForceCreate, но категория не найдена - создаётся и возвращается не корректный каталог Параметры: lib — Библиотека; bForceCreate — Создавать ли выборку Возвращает: Объект выборки или null | 
- | `CreateFolderObject(CADLibKernel.CLibC...` | метод | Создаёт информацию о папке с использованием плагинов Параметры: nID — Идентификатор каталога в БД; strName — Имя папки; strFilter — Фильтр папки; dir — Идентификатор миникаталога БД ([Directories]), если это миникаталог (иначе 0); flags — Флаги папки (столбец в БД) Возвращает: элемент дерева каталогов-категорий | 
- | `TryGetLibraryObject(CADLibKernel.CLib...` | метод | Запрашивает у плагина объект Параметры: libObject — стандартный объект; strStructGroup — Группа данных структурнуго объекта или null если не структурный Возвращает: Кастомный объект или null | 
+| `GetFolderDocumentsQuery(CSProject3D.D...` | метод | Строит запрос на все карточки файлов или части файлов указанного каталога Параметры: folder — Каталог (родительский обхект файлов) Возвращает: Строку запроса для фильтра | 
+| `GetObjectMenuItems(CADLibKernel.CLibC...` | метод | Получение дополнительного меню для объектов Параметры: folder — Активный каталог (плагина или его подчинённый); selection — Выбранные в дереве объекты; menu — Меню в которое будут добавлены дополнительные пункты (для возможности заблокировать их видимость) Возвращает: Список дополнительных пунктов меню | 
+| `GetPDHFolder(CSProject3D.CAD3DLibrary...` | метод | Находит или создаёт специальную выборку для объектов иерархии файлов проекта Если каталог существует, но id категории не совпадает, то будет возвращено значение null, а создание bForceCreate=true обновит каталог. Если стоит bForceCreate, но категория не найдена - создаётся и возвращается не корректный каталог Параметры: lib — Библиотека; bForceCreate — Создавать ли выборку Возвращает: Объект выборки или null | 
+| `CreateFolderObject(CADLibKernel.CLibC...` | метод | Создаёт информацию о папке с использованием плагинов Параметры: nID — Идентификатор каталога в БД; strName — Имя папки; strFilter — Фильтр папки; dir — Идентификатор миникаталога БД ([Directories]), если это миникаталог (иначе 0); flags — Флаги папки (столбец в БД) Возвращает: элемент дерева каталогов-категорий | 
+| `TryGetLibraryObject(CADLibKernel.CLib...` | метод | Запрашивает у плагина объект Параметры: libObject — стандартный объект; strStructGroup — Группа данных структурнуго объекта или null если не структурный Возвращает: Кастомный объект или null | 
 
 #### `CSProject3D.Forms.VideoRecorderControl`
 **Назначение:** UI-слой CADLib: формы, диалоги, браузер БД, панели и команды интерфейса.
@@ -3608,9 +3608,9 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 |---|---|---|
 | `RecordingStart` | событие | см. DefaultRecordingBehaviour |
 | `RecordingStop` | событие | см. DefaultRecordingBehaviour |
- | `DefaultRecordingBehaviour` | свойство | Если да, то нажатие кнопки запись запустит стандартную запись вьювера, иначе нажатие на запись вызовет событие RecordingStart, остановка записи вызовет RecordingStop | 
- | `StartRecording(System.String)` | метод | Начинает запись видео В случае DefaultRecordingBehaviour==false просто переводит элемент управления в режим "Запись" Параметры: videoFileName — Файл назначения для DefaultRecordingBehaviour | 
- | `StopRecording` | метод | Останавливает запись видео В случае DefaultRecordingBehaviour==false просто переводит элемент управления в режим "Остановлено" Возвращает: Да, если видео успешно создано | 
+| `DefaultRecordingBehaviour` | свойство | Если да, то нажатие кнопки запись запустит стандартную запись вьювера, иначе нажатие на запись вызовет событие RecordingStart, остановка записи вызовет RecordingStop | 
+| `StartRecording(System.String)` | метод | Начинает запись видео В случае DefaultRecordingBehaviour==false просто переводит элемент управления в режим "Запись" Параметры: videoFileName — Файл назначения для DefaultRecordingBehaviour | 
+| `StopRecording` | метод | Останавливает запись видео В случае DefaultRecordingBehaviour==false просто переводит элемент управления в режим "Остановлено" Возвращает: Да, если видео успешно создано | 
 | `StartRecordInAutoFileName` | метод | Начинает запись видео по автоматически сгенерированному пути |
 
 #### `CSProject3D.LayoutManager`
@@ -3625,8 +3625,8 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 | `LayoutsGroup` | поле | имя параметра категории листов |
 | `m_Library` | поле | Класс библиотеки |
 | `m_MainForm` | поле | Форма приложения |
- | `GetLayoutsFolder(CSProject3D.CAD3DLib...` | метод | Находит или создаёт специальную выборку для объектов листов. Если каталог существует, но id категории не совпадает, то будет возвращено значение null, а создание bForceCreate=true обновит каталог. Если стоит bForceCreate, но категория не найдена - создаётся и возвращается не корректный каталог Параметры: lib — Библиотека; bForceCreate — Создавать ли выборку Возвращает: Объект выборки или null | 
- | `CreateFolderObject(CADLibKernel.CLibC...` | метод | Создаёт информацию о папке с использованием плагинов Параметры: nID — Идентификатор каталога в БД; strName — Имя папки; strFilter — Фильтр папки; dir — Идентификатор миникаталога БД ([Directories]), если это миникаталог (иначе 0); flags — Флаги папки (столбец в БД) Возвращает: элемент дерева каталогов-категорий | 
+| `GetLayoutsFolder(CSProject3D.CAD3DLib...` | метод | Находит или создаёт специальную выборку для объектов листов. Если каталог существует, но id категории не совпадает, то будет возвращено значение null, а создание bForceCreate=true обновит каталог. Если стоит bForceCreate, но категория не найдена - создаётся и возвращается не корректный каталог Параметры: lib — Библиотека; bForceCreate — Создавать ли выборку Возвращает: Объект выборки или null | 
+| `CreateFolderObject(CADLibKernel.CLibC...` | метод | Создаёт информацию о папке с использованием плагинов Параметры: nID — Идентификатор каталога в БД; strName — Имя папки; strFilter — Фильтр папки; dir — Идентификатор миникаталога БД ([Directories]), если это миникаталог (иначе 0); flags — Флаги папки (столбец в БД) Возвращает: элемент дерева каталогов-категорий | 
 
 #### `CSProject3D.Forms.RelationsControl`
 **Назначение:** UI-слой CADLib: формы, диалоги, браузер БД, панели и команды интерфейса.
@@ -3637,7 +3637,7 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 | `m_nActiveOneObjectId` | поле | Выбранный конкретный объект для страницы (если 0, то обобщение для всех выбранных объектов) |
 | `GetSelectedObjects` | метод | Возвращает все выделенные узлы объектов Возвращает: Список всех выбранных в дереве типов связи |
 | `GetSelectedLinkTypes` | метод | Возвращает все выделенные узлы типов связи Возвращает: Список всех выбранных в дереве типов связи |
- | `GetSelectedLinksObjects(System.Collec...` | метод | Поиск всех корневых и некорневых объектов, находящихся в выбранных связях Параметры: notRootItems — Сюда попадут выбранные не корневые объекты Возвращает: выбранные корневые объекты | 
+| `GetSelectedLinksObjects(System.Collec...` | метод | Поиск всех корневых и некорневых объектов, находящихся в выбранных связях Параметры: notRootItems — Сюда попадут выбранные не корневые объекты Возвращает: выбранные корневые объекты | 
 
 #### `CADLibControls.FilterGrid`
 **Назначение:** UI-слой CADLib: формы, диалоги, браузер БД, панели и команды интерфейса.
@@ -3655,11 +3655,11 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 | Член | Тип | Описание |
 |---|---|---|
 | `Node` | свойство | Информация об объекте в дереве объектов |
- | `GetFolderMenuItems(CADLibKernel.CLibC...` | метод | Получение дополнительного меню, для каталога организованного плагином и его подкаталогов | 
+| `GetFolderMenuItems(CADLibKernel.CLibC...` | метод | Получение дополнительного меню, для каталога организованного плагином и его подкаталогов | 
 | `Manager` | свойство | Управляющий объект |
- | `TryReadFolderObject(System.Data.IData...` | метод | Считывание корневого объекта данного каталога Метод может быть использован для добавления объектов-наследников CCustomLibObjectInfo Параметры: reader — считанные данные; idx — номер объекта Возвращает: возвращает null если необходимо использовать стандартный механизм чтения объектов | 
- | `ExpandFolderNode(CADLib.CADLibrary,Sy...` | метод | Раскрытие каталога (вверху в окне БД) в TreeView Параметры: lib — Библиотека, выполняющая операцию; tree — Дерево, владеющее узлом; treeNode — Узел в который следует добавлять подузлы; bRecursive — Следует ли раскрывать всю иерархию; bUseClassifiers — Добавлять ли классификаторы в иерархию | 
- | `ShowObjectsTree(CADLibKernel.CLibCata...` | метод | Заполнение узлами осуществляется стандартным механизмом Объекты преобразуются в CCoordinateGrid через вызов метода TryReadFolderObject Параметры: folder — Каталог для которого необходимо показать объекты (может быть стандартным вложенным каталогом); tvObjects — Дерево объектов назначения; nPageSize — Размер страницы объектов; strMinName — Позиция начала страницы; strMaxName — Позиция конца страницы; bForward — Листание вперёд; bSelect — Выделять ли добавленные узлы дерева Возвращает: Возвращает false, чтобы был использован стандартный механизм добавления объектов каталога | 
+| `TryReadFolderObject(System.Data.IData...` | метод | Считывание корневого объекта данного каталога Метод может быть использован для добавления объектов-наследников CCustomLibObjectInfo Параметры: reader — считанные данные; idx — номер объекта Возвращает: возвращает null если необходимо использовать стандартный механизм чтения объектов | 
+| `ExpandFolderNode(CADLib.CADLibrary,Sy...` | метод | Раскрытие каталога (вверху в окне БД) в TreeView Параметры: lib — Библиотека, выполняющая операцию; tree — Дерево, владеющее узлом; treeNode — Узел в который следует добавлять подузлы; bRecursive — Следует ли раскрывать всю иерархию; bUseClassifiers — Добавлять ли классификаторы в иерархию | 
+| `ShowObjectsTree(CADLibKernel.CLibCata...` | метод | Заполнение узлами осуществляется стандартным механизмом Объекты преобразуются в CCoordinateGrid через вызов метода TryReadFolderObject Параметры: folder — Каталог для которого необходимо показать объекты (может быть стандартным вложенным каталогом); tvObjects — Дерево объектов назначения; nPageSize — Размер страницы объектов; strMinName — Позиция начала страницы; strMaxName — Позиция конца страницы; bForward — Листание вперёд; bSelect — Выделять ли добавленные узлы дерева Возвращает: Возвращает false, чтобы был использован стандартный механизм добавления объектов каталога | 
 | `RootGrids` | свойство | Список загруженных координатных сеток каталога Список пополняется при преобразовании объекта БД в CCoordinateGrid при вызове метода TryReadFolderObject |
 
 #### `CSProject3D.Forms.Relatio<wbr>nsControl.TreeRelationIte<wbr>m`
@@ -3669,11 +3669,11 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 |---|---|---|
 | `CountTextL` | свойство | Текст количества объектов по связи слева |
 | `CountTextR` | свойство | Текст количества объектов по связи справа |
- | `RelObjectsCountL` | свойство | Имеются ли объекты, связанные данным типом связи с объектами контекста контроллера Устанавливается контроллером при вычислении узлов Связи, где связанный объект слева | 
- | `RelObjectsCountR` | свойство | Имеются ли объекты, связанные данным типом связи с объектами контекста контроллера Устанавливается контроллером при вычислении узлов Связи, где связанный объект справа | 
+| `RelObjectsCountL` | свойство | Имеются ли объекты, связанные данным типом связи с объектами контекста контроллера Устанавливается контроллером при вычислении узлов Связи, где связанный объект слева | 
+| `RelObjectsCountR` | свойство | Имеются ли объекты, связанные данным типом связи с объектами контекста контроллера Устанавливается контроллером при вычислении узлов Связи, где связанный объект справа | 
 | `m_linkedObjects` | поле | Связанные объекты (если null, то пока запроса небыло) |
 | `EvaluateLinkedObjects` | метод | Получение связанных объектов при первом раскрытии узла типа связи |
- | `IntersectLinkedObjectsByKeyId(mstMana...` | метод | Поиск общих связей для связанных объектов Параметры: arrLinked — Информацию о связи объектов, отсортированная по ключу; resSet — Результат пересечения всех множеств связей объектов; arrSortedKeys — Массив отсоритрованных запрашиваемых ключей, чтобы выявить объекты без связей | 
+| `IntersectLinkedObjectsByKeyId(mstMana...` | метод | Поиск общих связей для связанных объектов Параметры: arrLinked — Информацию о связи объектов, отсортированная по ключу; resSet — Результат пересечения всех множеств связей объектов; arrSortedKeys — Массив отсоритрованных запрашиваемых ключей, чтобы выявить объекты без связей | 
 
 #### `CSProject3D.Forms.dbViewerModalDlg`
 **Назначение:** UI-слой CADLib: формы, диалоги, браузер БД, панели и команды интерфейса.
@@ -3692,11 +3692,11 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 |---|---|---|
 | `LoadLandsHierarchy` | метод | Загружает всю иерархию поверхностей в модель |
 | `FolderOrder` | свойство | Поверхности идут после стандартных папок |
- | `SetTreeNode(System.Windows.Forms.Tree...` | метод | Данный методы вызывается после применения каталога узлу дерева (если было) Параметры: node — Узел с которым ассоциирован данный каталог | 
- | `GetFolderMenuItems(CADLibKernel.CLibC...` | метод | Получение дополнительного меню, для каталога организованного плагином и его подкаталогов | 
+| `SetTreeNode(System.Windows.Forms.Tree...` | метод | Данный методы вызывается после применения каталога узлу дерева (если было) Параметры: node — Узел с которым ассоциирован данный каталог | 
+| `GetFolderMenuItems(CADLibKernel.CLibC...` | метод | Получение дополнительного меню, для каталога организованного плагином и его подкаталогов | 
 | `Manager` | свойство | родительский каталог |
- | `TryReadFolderObject(System.Data.IData...` | метод | Считывание корневого объекта данного каталога Метод может быть использован для добавления объектов-наследников CCustomLibObjectInfo Параметры: reader — считанные данные; idx — номер объекта Возвращает: возвращает null если необходимо использовать стандартный механизм чтения объектов | 
- | `ShowObjectsTree(CADLibKernel.CLibCata...` | метод | Заполнение дерева объектов узлами с объектами (в tag узла необходимо записать наследников CLibObjectInfo) Параметры: folder — Каталог для которого необходимо показать объекты (может быть стандартным вложенным каталогом); tvObjects — Дерево объектов назначения; nPageSize — Размер страницы объектов; strMinName — Позиция начала страницы; strMaxName — Позиция конца страницы; bForward — Листание вперёд; bSelect — Выделять ли добавленные узлы дерева Возвращает: Если вернуть false, то будет использован стандартный механизм добавления объектов каталога | 
+| `TryReadFolderObject(System.Data.IData...` | метод | Считывание корневого объекта данного каталога Метод может быть использован для добавления объектов-наследников CCustomLibObjectInfo Параметры: reader — считанные данные; idx — номер объекта Возвращает: возвращает null если необходимо использовать стандартный механизм чтения объектов | 
+| `ShowObjectsTree(CADLibKernel.CLibCata...` | метод | Заполнение дерева объектов узлами с объектами (в tag узла необходимо записать наследников CLibObjectInfo) Параметры: folder — Каталог для которого необходимо показать объекты (может быть стандартным вложенным каталогом); tvObjects — Дерево объектов назначения; nPageSize — Размер страницы объектов; strMinName — Позиция начала страницы; strMaxName — Позиция конца страницы; bForward — Листание вперёд; bSelect — Выделять ли добавленные узлы дерева Возвращает: Если вернуть false, то будет использован стандартный механизм добавления объектов каталога | 
 
 #### `CSProject3D.UserTagging.U<wbr>serTaggingCollection`
 **Назначение:** Работа с 3D-графикой объектов: формы, сетки, меши, вершины, материалы, геометрическое представление.
@@ -3704,11 +3704,11 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 | Член | Тип | Описание |
 |---|---|---|
 | `ActivateTag(CSProject3D.UserTagging.E<wbr>ntities.UserTaggingBase)` | метод | Используется при клике по гиперссылки Параметры: tag — Тэг для активации |
- | `AddTag(CSProject3D.UserTagging.UserTa...` | метод | Adding new tag with user dialog Параметры: taggingKind — Type of tag to be created; afterCreate — Will be called after creating new instance of Tag and before acquiring parameters | 
- | `AddTagRet(CSProject3D.UserTagging.Use...` | метод | Adding new tag with user dialog. Return created tag Параметры: taggingKind — Type of tag to be created; afterCreate — Will be called after creating new instance of Tag and before acquiring parameters | 
- | `AddTag(CSProject3D.UserTagging.Entiti...` | метод | Adding new tag with accepted parameters Also saving tag to DB Параметры: newTag — Tag to be added; bNotifyListeners — Should collection changed events be issued | 
- | `ResolveActivationConflicts(CSProject3...` | метод | Разрешает конфликты автоматической активации, путём отключения её у других конфликтующих заметок Данный анализ производится, только если у обеих заметок одинаковый набор связанных объектов Параметры: predefinedTag — Заметка, оставляемая неизменной | 
- | `TryGetElements(System.Xml.Linq.XEleme...` | метод | Возвращает подэлементы указанного XElement, с указанным именем Параметры: xElement — Исходный элемент; xElementName — Имя подэлемента; xElements — Подэлементы Возвращает: True если найден ходь один подэлемент | 
+| `AddTag(CSProject3D.UserTagging.UserTa...` | метод | Adding new tag with user dialog Параметры: taggingKind — Type of tag to be created; afterCreate — Will be called after creating new instance of Tag and before acquiring parameters | 
+| `AddTagRet(CSProject3D.UserTagging.Use...` | метод | Adding new tag with user dialog. Return created tag Параметры: taggingKind — Type of tag to be created; afterCreate — Will be called after creating new instance of Tag and before acquiring parameters | 
+| `AddTag(CSProject3D.UserTagging.Entiti...` | метод | Adding new tag with accepted parameters Also saving tag to DB Параметры: newTag — Tag to be added; bNotifyListeners — Should collection changed events be issued | 
+| `ResolveActivationConflicts(CSProject3...` | метод | Разрешает конфликты автоматической активации, путём отключения её у других конфликтующих заметок Данный анализ производится, только если у обеих заметок одинаковый набор связанных объектов Параметры: predefinedTag — Заметка, оставляемая неизменной | 
+| `TryGetElements(System.Xml.Linq.XEleme...` | метод | Возвращает подэлементы указанного XElement, с указанным именем Параметры: xElement — Исходный элемент; xElementName — Имя подэлемента; xElements — Подэлементы Возвращает: True если найден ходь один подэлемент | 
 | `Import(System.Xml.Linq.XElement,CADLib.CADLibrary,CSProject3D.UserTagging.U<wbr>serTaggingCollection)` | метод | импорт заметок из XML-файла MALT |
 
 #### `CSProject3D.WorkMgmtCtl3D`
@@ -3717,7 +3717,7 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 | Член | Тип | Описание |
 |---|---|---|
 | `IsFactPeriods` | свойство | Рассматривать ли работы из группы "Факт" (выбирается в выпадающем списке) |
- | `m_floatingForm` | поле | Окно в котором показывается диаграмма работ (чтобы была возможность разместить её на другом мониторе) Два режима: либо диаграмма в окне, либо на контроле | 
+| `m_floatingForm` | поле | Окно в котором показывается диаграмма работ (чтобы была возможность разместить её на другом мониторе) Два режима: либо диаграмма в окне, либо на контроле | 
 | `btnFloatWnd_Click(System.Object,System.EventArgs)` | метод | Кнопка активации/деактивации плавающего окна |
 | `btnShowNonAssignedObjects_Click(System.Object,System.EventArgs)` | метод | Отобразить 3D-объекты, не связанные с работами Параметры:  |
 
@@ -3726,7 +3726,7 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 
 | Член | Тип | Описание |
 |---|---|---|
- | `SECONDS_IN_THE_END` | поле | Оставляем это время в конце видео ролика, чтобы успеть показать последнюю дату Данное время также добавлено, т.к. расчётная длительность скрипта немного не соответствует реальной | 
+| `SECONDS_IN_THE_END` | поле | Оставляем это время в конце видео ролика, чтобы успеть показать последнюю дату Данное время также добавлено, т.к. расчётная длительность скрипта немного не соответствует реальной | 
 | `SECONDS_TO_FADE` | поле | Максимальное время перехода цвета состояния работ |
 | `m_recState` | поле | Текущее состояние записи (устанавливается из потока 3D движка) |
 | `timerTimeUpdater_Tick(System.Object,System.EventArgs)` | метод | Обновления состояния записи (время, процент) |
@@ -3736,17 +3736,17 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 
 | Член | Тип | Описание |
 |---|---|---|
- | `WorkFilterDateTime(System.Collections...` | метод | Проверяет применимость списка работ по выбранному фильтру (для типов DateTime) Параметры: Compare — Тип сравнения (больше, меньше и пр.); ParamName — Наименование параметра, чьё значение сравниваем; FilterValue — Значение фильтра | 
- | `WorkFilterString(System.Collections.G...` | метод | Проверяет применимость списка работ по выбранному фильтру (для типов String) Параметры: Compare — Тип сравнения (начинается, содержит и пр.); ParamName — Наименование параметра, чьё значение сравниваем; FilterValue — Значение фильтра | 
- | `WorkFilterNumeric(System.Collections....` | метод | Проверяет применимость списка работ по выбранному фильтру (для типов int, double и пр.) Параметры: Compare — Тип сравнения (больше, меньше и пр.); ParamName — Наименование параметра, чьё значение сравниваем; FilterValue — Значение фильтра | 
+| `WorkFilterDateTime(System.Collections...` | метод | Проверяет применимость списка работ по выбранному фильтру (для типов DateTime) Параметры: Compare — Тип сравнения (больше, меньше и пр.); ParamName — Наименование параметра, чьё значение сравниваем; FilterValue — Значение фильтра | 
+| `WorkFilterString(System.Collections.G...` | метод | Проверяет применимость списка работ по выбранному фильтру (для типов String) Параметры: Compare — Тип сравнения (начинается, содержит и пр.); ParamName — Наименование параметра, чьё значение сравниваем; FilterValue — Значение фильтра | 
+| `WorkFilterNumeric(System.Collections....` | метод | Проверяет применимость списка работ по выбранному фильтру (для типов int, double и пр.) Параметры: Compare — Тип сравнения (больше, меньше и пр.); ParamName — Наименование параметра, чьё значение сравниваем; FilterValue — Значение фильтра | 
 
 #### `CADLibControls.FilterDialog`
 **Назначение:** UI-слой CADLib: формы, диалоги, браузер БД, панели и команды интерфейса.
 
 | Член | Тип | Описание |
 |---|---|---|
- | `SetOfflineMode(System.Action{CADLibCo...` | метод | Установка значений колбэков для использования без библиотеки Параметры: addParamsAction — Действие по нажатию на кнопку добавления параметров; getParametersValue — Предикат получения вариантов значения параметра; getConditions — Предикат получения списка операторов сравнения для фильтра по параметру, либо по умолчанию | 
- | `AddOfflineConditions(System.Collectio...` | метод | Добавление условий фильтрации в таблицу (Для использования без библиотеки) Параметры: conditions — список строк таблицы | 
+| `SetOfflineMode(System.Action{CADLibCo...` | метод | Установка значений колбэков для использования без библиотеки Параметры: addParamsAction — Действие по нажатию на кнопку добавления параметров; getParametersValue — Предикат получения вариантов значения параметра; getConditions — Предикат получения списка операторов сравнения для фильтра по параметру, либо по умолчанию | 
+| `AddOfflineConditions(System.Collectio...` | метод | Добавление условий фильтрации в таблицу (Для использования без библиотеки) Параметры: conditions — список строк таблицы | 
 | `GetOfflineConditions` | метод | Возвращает условия фильтрации (Для использования без библиотеки) Возвращает: условия фильтрации |
 
 #### `CSProject3D.Forms.Relatio<wbr>nsControl.TreeController`
@@ -3759,7 +3759,7 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 | `ShowTypeMode` | свойство | Какие типы связей показывать Все, Активные или конкретный тип |
 | `ShowParticularType` | свойство | Какой тип связи показывать, если выбран режим rtParticular |
 | `RebuildTree` | метод | Перестраивает дерево |
- | `MakeArgs(System.Collections.Generic.I...` | метод | Делает аргументы по узлам. У всех узлов ДОЛЖЕН БЫТЬ ОДИН РОДИТЕЛЬ Параметры: | 
+| `MakeArgs(System.Collections.Generic.I...` | метод | Делает аргументы по узлам. У всех узлов ДОЛЖЕН БЫТЬ ОДИН РОДИТЕЛЬ Параметры: | 
 
 #### `CSProject3D.Forms.WorkStatusesForm`
 **Назначение:** UI-слой CADLib: формы, диалоги, браузер БД, панели и команды интерфейса.
@@ -3777,7 +3777,7 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 |---|---|---|
 | `GetArrFieldsConnection` | метод | Возвращает массив сапоставлений полей CadLib и CSV |
 | `GetUserSelectedCustomFields` | метод | Возвращает массив сапоставлений выбранных дополнительных полей |
- | `CheckXMLProfileName(System.String)` | метод | Проверяет существование профиля с заданным именем false - не существует, true - существует Параметры: ProfileName — Заданное имя профиля | 
+| `CheckXMLProfileName(System.String)` | метод | Проверяет существование профиля с заданным именем false - не существует, true - существует Параметры: ProfileName — Заданное имя профиля | 
 
 #### `CSProject3D.BuildingsHier<wbr>archyPlugin.CBuildingsHie<wbr>rachyFolder`
 **Назначение:** Работа с 3D-графикой объектов: формы, сетки, меши, вершины, материалы, геометрическое представление.
@@ -3785,19 +3785,19 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 | Член | Тип | Описание |
 |---|---|---|
 | `FolderOrder` | свойство | здания и сооружения сверху |
- | `TryReadFolderObject(System.Data.IData...` | метод | Считывание корневого объекта данного каталога Метод может быть использован для добавления объектов-наследников CCustomLibObjectInfo Параметры: reader — считанные данные; idx — номер объекта Возвращает: возвращает null если необходимо использовать стандартный механизм чтения объектов | 
- | `GetFolderMenuItems(CADLibKernel.CLibC...` | метод | Получение дополнительного меню, для каталога организованного плагином и его подкаталогов | 
- | `ExpandSubFolderNode(CADLib.CADLibrary...` | метод | Вызывается при раскрытии некастомных каталогов, вложенных в данный Параметры: lib — Библиотека, выполняющая операцию; expandingFolder — Раскрываемый каталог (подчинённый плагиновскому); tree — Дерево, владеющее узлом; treeNode — Узел в который следует добавлять подузлы; bRecursive — Следует ли раскрывать всю иерархию; bUseClassifiers — Добавлять ли классификаторы в иерархию | 
- | `SetTreeNode(System.Windows.Forms.Tree...` | метод | Данный методы вызывается после применения каталога узлу дерева (если было) Параметры: node — Узел с которым ассоциирован данный каталог | 
+| `TryReadFolderObject(System.Data.IData...` | метод | Считывание корневого объекта данного каталога Метод может быть использован для добавления объектов-наследников CCustomLibObjectInfo Параметры: reader — считанные данные; idx — номер объекта Возвращает: возвращает null если необходимо использовать стандартный механизм чтения объектов | 
+| `GetFolderMenuItems(CADLibKernel.CLibC...` | метод | Получение дополнительного меню, для каталога организованного плагином и его подкаталогов | 
+| `ExpandSubFolderNode(CADLib.CADLibrary...` | метод | Вызывается при раскрытии некастомных каталогов, вложенных в данный Параметры: lib — Библиотека, выполняющая операцию; expandingFolder — Раскрываемый каталог (подчинённый плагиновскому); tree — Дерево, владеющее узлом; treeNode — Узел в который следует добавлять подузлы; bRecursive — Следует ли раскрывать всю иерархию; bUseClassifiers — Добавлять ли классификаторы в иерархию | 
+| `SetTreeNode(System.Windows.Forms.Tree...` | метод | Данный методы вызывается после применения каталога узлу дерева (если было) Параметры: node — Узел с которым ассоциирован данный каталог | 
 
 #### `CSProject3D.CAD3DLibrary.<wbr>ShapesVersion15Updater`
 **Назначение:** Центральный объект доступа к БД/библиотеке CADLib: соединение, объекты, параметры, структуры, операции импорта/экспорта.
 
 | Член | Тип | Описание |
 |---|---|---|
- | `UpdateShape(CSProject3D.CAD3DLibrary....` | метод | Производит обновление старой сетки из таблицы Shapes в новую в таблицах Mesh, Graphics Параметры: shape — старая фигура для преобразования; nWorker — номер работника для логирования ошибок; bOnServer — производить на сервере или не клиенте; sqlConnection — подключение | 
+| `UpdateShape(CSProject3D.CAD3DLibrary....` | метод | Производит обновление старой сетки из таблицы Shapes в новую в таблицах Mesh, Graphics Параметры: shape — старая фигура для преобразования; nWorker — номер работника для логирования ошибок; bOnServer — производить на сервере или не клиенте; sqlConnection — подключение | 
 | `WorkerProc(System.Object)` | метод | Процедура для многопоточного обновления сетки Параметры: nWorkerNum — номер потока - отрицательный номер для обновления на сервере |
- | `LogErrors(CADLibControls.Forms.AsyncP...` | метод | Выводит на форму ошибки, переданные работниками | 
+| `LogErrors(CADLibControls.Forms.AsyncP...` | метод | Выводит на форму ошибки, переданные работниками | 
 | `GetOldShapesList` | метод | Возвращает список idShape фигур в таблице старой графики [Shapes] Возвращает: Список идентификаторов сеток |
 | `CheckAndUpdateOldShapes` | метод | Проверяет имеются ли в библиотеки старая графика и если да, то преобразует её в новую (версии 1.5) |
 
@@ -3810,7 +3810,7 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 | `Library` | свойство | Библиотека главной формы |
 | `DATA_GROUP_AXIS_PIPE_CAPTION` | поле | Категория публикаций - имя группы структурных данных Значение параметра CADLibraryBase.SYS_CATEGORY_GROUP |
 | `#ctor(CSProject3D.MainForm)` | метод | Конструктор плагина с авторегистрацией Параметры: mainForm3D — Главная форма МиА |
- | `TryGetLibraryObject(CADLibKernel.CLib...` | метод | Получение объекта по объекту БД Параметры: libObject — Исходные объект бибилотеки; strStructGroup — Группа даных структурных объектов Возвращает: объект сетки CCoordinateGrid или null, в случае, если libObject-другой объект | 
+| `TryGetLibraryObject(CADLibKernel.CLib...` | метод | Получение объекта по объекту БД Параметры: libObject — Исходные объект бибилотеки; strStructGroup — Группа даных структурных объектов Возвращает: объект сетки CCoordinateGrid или null, в случае, если libObject-другой объект | 
 
 #### `CSProject3D.CLayerManager`
 **Назначение:** Работа с 3D-графикой объектов: формы, сетки, меши, вершины, материалы, геометрическое представление.
@@ -3821,15 +3821,15 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 | `Library` | свойство | Библиотека главной формы |
 | `LayersCatGroup` | поле | Категория публикаций - имя группы структурных данных Значение параметра CADLibraryBase.SYS_CATEGORY_GROUP |
 | `#ctor(CSProject3D.MainForm)` | метод | Конструктор плагина с авторегистрацией Параметры: mainForm3D — Главная форма МиА |
- | `TryGetLibraryObject(CADLibKernel.CLib...` | метод | Получение объекта по объекту БД Параметры: libObject — Исходные объект бибилотеки; strStructGroup — Группа даных структурных объектов Возвращает: объект сетки CCoordinateGrid или null, в случае, если libObject-другой объект | 
+| `TryGetLibraryObject(CADLibKernel.CLib...` | метод | Получение объекта по объекту БД Параметры: libObject — Исходные объект бибилотеки; strStructGroup — Группа даных структурных объектов Возвращает: объект сетки CCoordinateGrid или null, в случае, если libObject-другой объект | 
 
 #### `CSProject3D.Collisions.Wizard.ProfilePage`
 **Назначение:** Работа с 3D-графикой объектов: формы, сетки, меши, вершины, материалы, геометрическое представление.
 
 | Член | Тип | Описание |
 |---|---|---|
- | `#ctor(WizardFormLib.WizardFormBase,CS...` | метод | Constructor that assumes the page type is "intermediate" Параметры: parent — The parent WizardFormBase-derived form | 
- | `InitPage` | метод | This method serves as a common constructor initialization location, and serves mainly to set the desired size of the container panel in the wizard form (see WizardFormBase for more info). I didn't want to do this here but it was the only way I could get the form to resize itself appropriately - it needed to size itself according to the size of the largest wizard page. | 
+| `#ctor(WizardFormLib.WizardFormBase,CS...` | метод | Constructor that assumes the page type is "intermediate" Параметры: parent — The parent WizardFormBase-derived form | 
+| `InitPage` | метод | This method serves as a common constructor initialization location, and serves mainly to set the desired size of the container panel in the wizard form (see WizardFormBase for more info). I didn't want to do this here but it was the only way I could get the form to resize itself appropriately - it needed to size itself according to the size of the largest wizard page. | 
 
 #### `CSProject3D.DBViewerForm`
 **Назначение:** UI-слой CADLib: формы, диалоги, браузер БД, панели и команды интерфейса.
@@ -3837,7 +3837,7 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 | Член | Тип | Описание |
 |---|---|---|
 | `HighlightSelection` | метод | Подсвечивает выбранные галочками объекты (с проверкой) |
- | `foldersTreeMenu_Opening(System.Object...` | метод | Сложное определение видимости и активности пунктов контекстного меню каталогов Параметры: | 
+| `foldersTreeMenu_Opening(System.Object...` | метод | Сложное определение видимости и активности пунктов контекстного меню каталогов Параметры: | 
 
 #### `CSProject3D.Forms.Form2D`
 **Назначение:** UI-слой CADLib: формы, диалоги, браузер БД, панели и команды интерфейса.
@@ -3845,7 +3845,7 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 | Член | Тип | Описание |
 |---|---|---|
 | `#ctor(CSProject3D.CAD3DLibrary,CSProject3D.MainForm)` | метод | флаг сброса выбора связанного объекта |
- | `ShowFiltered(System.String,System.Str...` | метод | Применяет новый фильтр к окну показа схемы Здесь же при первом вызове инициализируется компонент Параметры: | 
+| `ShowFiltered(System.String,System.Str...` | метод | Применяет новый фильтр к окну показа схемы Здесь же при первом вызове инициализируется компонент Параметры: | 
 
 #### `CSProject3D.Forms.frmLinkToPropOrCode`
 **Назначение:** UI-слой CADLib: формы, диалоги, браузер БД, панели и команды интерфейса.
@@ -3868,8 +3868,8 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 
 | Член | Тип | Описание |
 |---|---|---|
- | `IsDefaultValue(Aga.Controls.Tree.Tree...` | метод | определения не редактируемого значения по умолчанию Параметры: node — Узел дереве - коллизия Возвращает: true если это значение по умолчанию и только для чтения | 
- | `RefreshData(System.Boolean)` | метод | Обновляет данные окна коллизий После смены библиотеки данный метод вызывается из LoadUserState(), и будет работать отлько после этого Параметры: | 
+| `IsDefaultValue(Aga.Controls.Tree.Tree...` | метод | определения не редактируемого значения по умолчанию Параметры: node — Узел дереве - коллизия Возвращает: true если это значение по умолчанию и только для чтения | 
+| `RefreshData(System.Boolean)` | метод | Обновляет данные окна коллизий После смены библиотеки данный метод вызывается из LoadUserState(), и будет работать отлько после этого Параметры: | 
 
 #### `CSProject3D.ProjectCustom<wbr>HierarchyPlugin.CCustomHi<wbr>erachyFolder`
 **Назначение:** Работа с 3D-графикой объектов: формы, сетки, меши, вершины, материалы, геометрическое представление.
@@ -3877,10 +3877,10 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 | Член | Тип | Описание |
 |---|---|---|
 | `FolderOrder` | свойство | ниже чем здания и сооружения сверху |
- | `TryReadFolderObject(System.Data.IData...` | метод | Считывание корневого объекта данного каталога Метод может быть использован для добавления объектов-наследников CCustomLibObjectInfo Параметры: reader — считанные данные; idx — номер объекта Возвращает: возвращает null если необходимо использовать стандартный механизм чтения объектов | 
- | `GetFolderMenuItems(CADLibKernel.CLibC...` | метод | Получение дополнительного меню, для каталога организованного плагином и его подкаталогов | 
- | `ExpandSubFolderNode(CADLib.CADLibrary...` | метод | Вызывается при раскрытии некастомных каталогов, вложенных в данный Параметры: lib — Библиотека, выполняющая операцию; expandingFolder — Раскрываемый каталог (подчинённый плагиновскому); tree — Дерево, владеющее узлом; treeNode — Узел в который следует добавлять подузлы; bRecursive — Следует ли раскрывать всю иерархию; bUseClassifiers — Добавлять ли классификаторы в иерархию | 
- | `SetTreeNode(System.Windows.Forms.Tree...` | метод | Данный методы вызывается после применения каталога узлу дерева (если было) Параметры: node — Узел с которым ассоциирован данный каталог | 
+| `TryReadFolderObject(System.Data.IData...` | метод | Считывание корневого объекта данного каталога Метод может быть использован для добавления объектов-наследников CCustomLibObjectInfo Параметры: reader — считанные данные; idx — номер объекта Возвращает: возвращает null если необходимо использовать стандартный механизм чтения объектов | 
+| `GetFolderMenuItems(CADLibKernel.CLibC...` | метод | Получение дополнительного меню, для каталога организованного плагином и его подкаталогов | 
+| `ExpandSubFolderNode(CADLib.CADLibrary...` | метод | Вызывается при раскрытии некастомных каталогов, вложенных в данный Параметры: lib — Библиотека, выполняющая операцию; expandingFolder — Раскрываемый каталог (подчинённый плагиновскому); tree — Дерево, владеющее узлом; treeNode — Узел в который следует добавлять подузлы; bRecursive — Следует ли раскрывать всю иерархию; bUseClassifiers — Добавлять ли классификаторы в иерархию | 
+| `SetTreeNode(System.Windows.Forms.Tree...` | метод | Данный методы вызывается после применения каталога узлу дерева (если было) Параметры: node — Узел с которым ассоциирован данный каталог | 
 
 #### `CSProject3D.ProjectStruct<wbr>ureHierarchyPlugin.CStruc<wbr>tureHierachyFolder`
 **Назначение:** Работа с 3D-графикой объектов: формы, сетки, меши, вершины, материалы, геометрическое представление.
@@ -3897,8 +3897,8 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 
 | Член | Тип | Описание |
 |---|---|---|
- | `#ctor(WizardFormLib.WizardFormBase,CS...` | метод | Constructor that assumes the page type is "intermediate" Параметры: parent — The parent WizardFormBase-derived form | 
- | `btnCreateSurface_Click(System.Object,...` | метод | Создать группу с названием Поверхность и сразу добавить в нее параметры для отбора объектов типа Поверхность Параметры: | 
+| `#ctor(WizardFormLib.WizardFormBase,CS...` | метод | Constructor that assumes the page type is "intermediate" Параметры: parent — The parent WizardFormBase-derived form | 
+| `btnCreateSurface_Click(System.Object,...` | метод | Создать группу с названием Поверхность и сразу добавить в нее параметры для отбора объектов типа Поверхность Параметры: | 
 
 #### `CSProject3D.Forms.Expertise.SendNotesForm`
 **Назначение:** UI-слой CADLib: формы, диалоги, браузер БД, панели и команды интерфейса.
@@ -3912,7 +3912,7 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 
 | Член | Тип | Описание |
 |---|---|---|
- | `CreateParamSet` | метод | Создание в БД набора общих параметров проекта. Вызывается автоматически при создании новой модели. Метод добавлен специально для доступа извне к необходимому функционалу ProjOptions для работы с БД (который, конечно, лучше вынести из класса диалога). Параметры: | 
+| `CreateParamSet` | метод | Создание в БД набора общих параметров проекта. Вызывается автоматически при создании новой модели. Метод добавлен специально для доступа извне к необходимому функционалу ProjOptions для работы с БД (который, конечно, лучше вынести из класса диалога). Параметры: | 
 
 #### `CSProject3D.Forms.ProjectDocumentsForm`
 **Назначение:** UI-слой CADLib: формы, диалоги, браузер БД, панели и команды интерфейса.
@@ -3935,7 +3935,7 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 |---|---|---|
 | `UpdateFromProfile` | метод | Актуализирует объект представления на основе данных из MRProfile |
 | `m_treeNode` | свойство | Информация об объекте в дереве объектов |
- | `SetTreeNode(System.Windows.Forms.Tree...` | метод | Данный методы вызывается после применения объекта узлу дерева (если было) Параметры: tree — Дерево объектов; node — Узел с которым ассоциирован данный объект | 
+| `SetTreeNode(System.Windows.Forms.Tree...` | метод | Данный методы вызывается после применения объекта узлу дерева (если было) Параметры: tree — Дерево объектов; node — Узел с которым ассоциирован данный объект | 
 | `UpdateTreeIcon` | метод | Обновляет иконку дерева после изменения активности объекта |
 
 #### `CSProject3D.ObjectPropertiesForm`
@@ -3943,7 +3943,7 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 
 | Член | Тип | Описание |
 |---|---|---|
- | `ShowObjectProperties(CADLibKernel.CLi...` | метод | Показывает свойства объекта и переводит элемент управления свойств в режим одиночного показа Параметры: activeObject — Объект для показа Возвращает: Да, если что-то поменялось | 
+| `ShowObjectProperties(CADLibKernel.CLi...` | метод | Показывает свойства объекта и переводит элемент управления свойств в режим одиночного показа Параметры: activeObject — Объект для показа Возвращает: Да, если что-то поменялось | 
 
 #### `CSProject3D.Publications.PublicationsForm`
 **Назначение:** UI-слой CADLib: формы, диалоги, браузер БД, панели и команды интерфейса.
@@ -3957,23 +3957,23 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 
 | Член | Тип | Описание |
 |---|---|---|
- | `#ctor(CSProject3D.Viewer3DCtrl,CSProj...` | метод | Tag edit dialog constructor Параметры: viewer — Viewer to pick objects links; tagToEdit — Tag to be edited; onFinish — Callback to be executed when dialog is finished. If null - links are not enabled | 
+| `#ctor(CSProject3D.Viewer3DCtrl,CSProj...` | метод | Tag edit dialog constructor Параметры: viewer — Viewer to pick objects links; tagToEdit — Tag to be edited; onFinish — Callback to be executed when dialog is finished. If null - links are not enabled | 
 
 #### `CSProject3D.UserTagging.D<wbr>ialogs.TagCommentDialogTy<wbr>pical`
 **Назначение:** UI-слой CADLib: формы, диалоги, браузер БД, панели и команды интерфейса.
 
 | Член | Тип | Описание |
 |---|---|---|
- | `#ctor(CSProject3D.Viewer3DCtrl,CSProj...` | метод | Tag edit dialog constructor Параметры: viewer — Viewer to pick objects links; tagToEdit — Tag to be edited; onFinish — Callback to be executed when dialog is finished. If null - links are not enabled | 
+| `#ctor(CSProject3D.Viewer3DCtrl,CSProj...` | метод | Tag edit dialog constructor Параметры: viewer — Viewer to pick objects links; tagToEdit — Tag to be edited; onFinish — Callback to be executed when dialog is finished. If null - links are not enabled | 
 
 #### `CSProject3D.Works.MPJXWorkImporter`
 **Назначение:** Работа с 3D-графикой объектов: формы, сетки, меши, вершины, материалы, геометрическое представление.
 
 | Член | Тип | Описание |
 |---|---|---|
- | `ImportUpdateTaskCSV(CADLibWorkMgmt.Pr...` | метод | Режим обновления задач для csv Параметры: prj — Проект в котором обновляем; task — Текущая обрабатываемая задача (из файла); idPar — Идентификатор ролителя; arrPWorks — Массив существующих работ | 
- | `ImportUpdateTask(CADLibWorkMgmt.Proje...` | метод | Режим обновления задач для остальных форматов Параметры: prj — Проект в котором обновляем; task — Текущая обрабатываемая задача (из файла); arrPWorks — Массив существующих работ | 
- | `ImportTaskSuccessor(CSProject3D.Works...` | метод | Связи между работами Связь является направленной и идёт от работы idPredecessor к работе idSuccessor Поля predDate и succDate определяют место подсоединения связи: 0 = начало работы, 1 = окончание работы | 
+| `ImportUpdateTaskCSV(CADLibWorkMgmt.Pr...` | метод | Режим обновления задач для csv Параметры: prj — Проект в котором обновляем; task — Текущая обрабатываемая задача (из файла); idPar — Идентификатор ролителя; arrPWorks — Массив существующих работ | 
+| `ImportUpdateTask(CADLibWorkMgmt.Proje...` | метод | Режим обновления задач для остальных форматов Параметры: prj — Проект в котором обновляем; task — Текущая обрабатываемая задача (из файла); arrPWorks — Массив существующих работ | 
+| `ImportTaskSuccessor(CSProject3D.Works...` | метод | Связи между работами Связь является направленной и идёт от работы idPredecessor к работе idSuccessor Поля predDate и succDate определяют место подсоединения связи: 0 = начало работы, 1 = окончание работы | 
 
 #### `CSProject3D.Works.WorkLibForm`
 **Назначение:** UI-слой CADLib: формы, диалоги, браузер БД, панели и команды интерфейса.
@@ -3983,10 +3983,10 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 
 | Член | Тип | Описание |
 |---|---|---|
- | `EvaluateTransitions(System.Collection...` | метод | Точка входа расчётов Вычисляет сценарий раскраски сцены в виде временных точек с изменениями цветов Параметры: rootWorks — Список корневых работ; bFactPeriods — Факт или план; startDate — Дата начала расчётов (минимальная); endDate — Дата окончания расчётов (максимальная) | 
- | `CollectDatesPoints(System.Collections...` | метод | Собирает все даты начал и окончаний работ, как точки в которые может меняться раскраска В список дат не включены дата начала и конца! Учитываются только работы со связанными объектами! Параметры: works — Список корневых работ; resDates — Массив для складывания результата; bFactPeriods — Факт или план; startDate — Минимальная валидная дата; endDate — Максимальная валидная дата | 
- | `EvaluateSnapshot(System.Collections.G...` | метод | На основе предыдущих состояний и текущей даты вычисляет новые переходы цветов | 
- | `CollectAllWorksObjects(System.Func{CA...` | метод | Рекурсивно собирает все объекты, связанные с работами, удовлетворяющими условию fnIsWorkToInclude Параметры: fnIsWorkToInclude — Функция, принимающая работу или задание и возвращающая ДА, если работу следует учитывать при сборе объектов; subworks — Набор корневыз работ по которым осуществляется сбор; arrResObjectsIds — Коллекция, куда будут помещены объекты - результат | 
+| `EvaluateTransitions(System.Collection...` | метод | Точка входа расчётов Вычисляет сценарий раскраски сцены в виде временных точек с изменениями цветов Параметры: rootWorks — Список корневых работ; bFactPeriods — Факт или план; startDate — Дата начала расчётов (минимальная); endDate — Дата окончания расчётов (максимальная) | 
+| `CollectDatesPoints(System.Collections...` | метод | Собирает все даты начал и окончаний работ, как точки в которые может меняться раскраска В список дат не включены дата начала и конца! Учитываются только работы со связанными объектами! Параметры: works — Список корневых работ; resDates — Массив для складывания результата; bFactPeriods — Факт или план; startDate — Минимальная валидная дата; endDate — Максимальная валидная дата | 
+| `EvaluateSnapshot(System.Collections.G...` | метод | На основе предыдущих состояний и текущей даты вычисляет новые переходы цветов | 
+| `CollectAllWorksObjects(System.Func{CA...` | метод | Рекурсивно собирает все объекты, связанные с работами, удовлетворяющими условию fnIsWorkToInclude Параметры: fnIsWorkToInclude — Функция, принимающая работу или задание и возвращающая ДА, если работу следует учитывать при сборе объектов; subworks — Набор корневыз работ по которым осуществляется сбор; arrResObjectsIds — Коллекция, куда будут помещены объекты - результат | 
 
 #### `CADLibControls.CLibLinkedFilterDialog`
 **Назначение:** UI-слой CADLib: формы, диалоги, браузер БД, панели и команды интерфейса.
@@ -4005,7 +4005,7 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 
 | Член | Тип | Описание |
 |---|---|---|
- | `ApplyToModelObjects(CSProject3D.CAD3D...` | метод | Связывает данный объект иерархии с объектами модели Старые связи с иерархией удаляются Параметры: destObjects — Список объектов модели | 
+| `ApplyToModelObjects(CSProject3D.CAD3D...` | метод | Связывает данный объект иерархии с объектами модели Старые связи с иерархией удаляются Параметры: destObjects — Список объектов модели | 
 | `m_hierarchyLevel` | поле | Уровень иерархии |
 | `CoordinateGridId` | свойство | Идентификатор связанной координатной сетки |
 
@@ -4023,7 +4023,7 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 
 | Член | Тип | Описание |
 |---|---|---|
- | `SelectInModel_Click(System.Object,Sys...` | метод | Выбрать в 3D-модели все коллизии, относящиеся к текущему узлу раздела Коллизии Отличие в том, что выбирать сами коллизии для этого не нужно Параметры: | 
+| `SelectInModel_Click(System.Object,Sys...` | метод | Выбрать в 3D-модели все коллизии, относящиеся к текущему узлу раздела Коллизии Отличие в том, что выбирать сами коллизии для этого не нужно Параметры: | 
 | `RemoveFromView_Click(System.Object,System.EventArgs)` | метод | Удалить из текущего вида Параметры:  |
 | `HideFromView_Click(System.Object,System.EventArgs)` | метод | Скрыть из вида Параметры:  |
 
@@ -4032,21 +4032,21 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 
 | Член | Тип | Описание |
 |---|---|---|
- | `#ctor(WizardFormLib.WizardFormBase,CS...` | метод | Constructor that assumes the page type is "intermediate" Параметры: parent — The parent WizardFormBase-derived form | 
+| `#ctor(WizardFormLib.WizardFormBase,CS...` | метод | Constructor that assumes the page type is "intermediate" Параметры: parent — The parent WizardFormBase-derived form | 
 
 #### `CSProject3D.Collisions.Wizard.ExecutingPage`
 **Назначение:** Работа с 3D-графикой объектов: формы, сетки, меши, вершины, материалы, геометрическое представление.
 
 | Член | Тип | Описание |
 |---|---|---|
- | `#ctor(WizardFormLib.WizardFormBase,CS...` | метод | Constructor that assumes the page type is "intermediate" Параметры: parent — The parent WizardFormBase-derived form | 
+| `#ctor(WizardFormLib.WizardFormBase,CS...` | метод | Constructor that assumes the page type is "intermediate" Параметры: parent — The parent WizardFormBase-derived form | 
 
 #### `CSProject3D.Collisions.Wi<wbr>zard.ProfileSetupPage2`
 **Назначение:** Работа с 3D-графикой объектов: формы, сетки, меши, вершины, материалы, геометрическое представление.
 
 | Член | Тип | Описание |
 |---|---|---|
- | `#ctor(WizardFormLib.WizardFormBase,CS...` | метод | Constructor that assumes the page type is "intermediate" Параметры: parent — The parent WizardFormBase-derived form | 
+| `#ctor(WizardFormLib.WizardFormBase,CS...` | метод | Constructor that assumes the page type is "intermediate" Параметры: parent — The parent WizardFormBase-derived form | 
 
 #### `CSProject3D.Controls.Work<wbr>Mgmt.ColumnsEditor.DataCo<wbr>lumnEditorContext`
 **Назначение:** UI-слой CADLib: формы, диалоги, браузер БД, панели и команды интерфейса.
@@ -4055,7 +4055,7 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 |---|---|---|
 | `SelectedIndex` | свойство | Индекс текущего элемента |
 | `SelectedItem` | свойство | Текущий элемент |
- | `Move(CSProject3D.Controls.WorkMgmt.Co...` | метод | Меняет местами элементы списка Параметры: source — Список значений; sourceIndex — Индекс источника; targetIndex — Индекс назначения Возвращает: True если перемещение удалось | 
+| `Move(CSProject3D.Controls.WorkMgmt.Co...` | метод | Меняет местами элементы списка Параметры: source — Список значений; sourceIndex — Индекс источника; targetIndex — Индекс назначения Возвращает: True если перемещение удалось | 
 
 #### `CSProject3D.DocumentsFold<wbr>erPlugin.CRootFolder`
 **Назначение:** Работа с 3D-графикой объектов: формы, сетки, меши, вершины, материалы, геометрическое представление.
@@ -4063,8 +4063,8 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 | Член | Тип | Описание |
 |---|---|---|
 | `FolderOrder` | свойство | ниже чем РП |
- | `SetTreeNode(System.Windows.Forms.Tree...` | метод | Данный методы вызывается после применения каталога узлу дерева (если было) Параметры: node — Узел с которым ассоциирован данный каталог | 
- | `GetFolderMenuItems(CADLibKernel.CLibC...` | метод | Получение дополнительного меню, для каталога организованного плагином и его подкаталогов | 
+| `SetTreeNode(System.Windows.Forms.Tree...` | метод | Данный методы вызывается после применения каталога узлу дерева (если было) Параметры: node — Узел с которым ассоциирован данный каталог | 
+| `GetFolderMenuItems(CADLibKernel.CLibC...` | метод | Получение дополнительного меню, для каталога организованного плагином и его подкаталогов | 
 
 #### `CSProject3D.Forms.EncodingOpenFileDialog`
 **Назначение:** UI-слой CADLib: формы, диалоги, браузер БД, панели и команды интерфейса.
@@ -4081,7 +4081,7 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 | Член | Тип | Описание |
 |---|---|---|
 | `OwnerPlugin` | свойство | родительский плагин |
- | `ExpandSubFolderNode(CADLib.CADLibrary...` | метод | Вызывается при раскрытии некастомных каталогов, вложенных в данный Параметры: lib — Библиотека, выполняющая операцию; expandingFolder — Раскрываемый каталог (подчинённый плагиновскому); tree — Дерево, владеющее узлом; treeNode — Узел в который следует добавлять подузлы; bRecursive — Следует ли раскрывать всю иерархию; bUseClassifiers — Добавлять ли классификаторы в иерархию | 
+| `ExpandSubFolderNode(CADLib.CADLibrary...` | метод | Вызывается при раскрытии некастомных каталогов, вложенных в данный Параметры: lib — Библиотека, выполняющая операцию; expandingFolder — Раскрываемый каталог (подчинённый плагиновскому); tree — Дерево, владеющее узлом; treeNode — Узел в который следует добавлять подузлы; bRecursive — Следует ли раскрывать всю иерархию; bUseClassifiers — Добавлять ли классификаторы в иерархию | 
 | `FolderOrder` | свойство | Листы идут после коллизий |
 
 #### `CSProject3D.Properties3D.ColorTypeConverter`
@@ -4150,8 +4150,8 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 
 | Член | Тип | Описание |
 |---|---|---|
- | `SetFilterNoRefresh(CSProject3D.Collis...` | метод | Устанавливает фильтр объектов без обновления дерева Параметры: | 
- | `AssignFilter(CSProject3D.Collisions.C...` | метод | Фильтр объектов коллизии Установка приводит к обновлению списка | 
+| `SetFilterNoRefresh(CSProject3D.Collis...` | метод | Устанавливает фильтр объектов без обновления дерева Параметры: | 
+| `AssignFilter(CSProject3D.Collisions.C...` | метод | Фильтр объектов коллизии Установка приводит к обновлению списка | 
 
 #### `CSProject3D.DocumentsFolderPlugin.CSubFolder`
 **Назначение:** Работа с 3D-графикой объектов: формы, сетки, меши, вершины, материалы, геометрическое представление.
@@ -4159,7 +4159,7 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 | Член | Тип | Описание |
 |---|---|---|
 | `FolderObject` | свойство | Объект на основе которого сделан данный каталог |
- | `GetFolderMenuItems(CADLibKernel.CLibC...` | метод | Получение дополнительного меню, для каталога организованного плагином и его подкаталогов | 
+| `GetFolderMenuItems(CADLibKernel.CLibC...` | метод | Получение дополнительного меню, для каталога организованного плагином и его подкаталогов | 
 
 #### `CSProject3D.Forms.RelationsControl.TreeItem`
 **Назначение:** UI-слой CADLib: формы, диалоги, браузер БД, панели и команды интерфейса.
@@ -4175,7 +4175,7 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 | Член | Тип | Описание |
 |---|---|---|
 | `IsLeftLink` | свойство | Находится ли данный связанный объект в таблице связей слева |
- | `SelectObject(CADLib.DirectoryBrowserC...` | метод | Выбирает объект в МиА Параметры: browser — Окно БД для выбора подчинённого объекта; viewer — Вьювер для эмуляции клика по объекту или null | 
+| `SelectObject(CADLib.DirectoryBrowserC...` | метод | Выбирает объект в МиА Параметры: browser — Окно БД для выбора подчинённого объекта; viewer — Вьювер для эмуляции клика по объекту или null | 
 
 #### `CSProject3D.ModelRepresen<wbr>tation.MRFolderFilter`
 **Назначение:** Описание условия фильтрации/выборки объектов или файлов по параметрам, категориям, классификаторам.
@@ -4183,7 +4183,7 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 | Член | Тип | Описание |
 |---|---|---|
 | `FolderOrder` | свойство | порядок следования идет после коллизий |
- | `TryReadFolderObject(System.Data.IData...` | метод | Считывание корневого объекта данного каталога Метод может быть использован для добавления объектов-наследников CCustomLibObjectInfo Параметры: reader — считанные данные; idx — номер объекта Возвращает: возвращает null если необходимо использовать стандартный механизм чтения объектов | 
+| `TryReadFolderObject(System.Data.IData...` | метод | Считывание корневого объекта данного каталога Метод может быть использован для добавления объектов-наследников CCustomLibObjectInfo Параметры: reader — считанные данные; idx — номер объекта Возвращает: возвращает null если необходимо использовать стандартный механизм чтения объектов | 
 
 #### `CSProject3D.ModelRepresen<wbr>tation.MRPlugin.MRFolderF<wbr>ilter`
 **Назначение:** Описание условия фильтрации/выборки объектов или файлов по параметрам, категориям, классификаторам.
@@ -4193,7 +4193,7 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 
 | Член | Тип | Описание |
 |---|---|---|
- | `ApplyToModelObjects(CSProject3D.CAD3D...` | метод | Связывает данный объект иерархии с объектами модели Старые связи с иерархией удаляются Параметры: destObjects — Список объектов модели | 
+| `ApplyToModelObjects(CSProject3D.CAD3D...` | метод | Связывает данный объект иерархии с объектами модели Старые связи с иерархией удаляются Параметры: destObjects — Список объектов модели | 
 | `m_hierarchyLevel` | поле | Уровень иерархии |
 
 #### `CSProject3D.ProjectStruct<wbr>ureHierarchyPlugin.CPSHOb<wbr>ject`
@@ -4236,7 +4236,7 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 | Член | Тип | Описание |
 |---|---|---|
 | `NeedRedraw` | событие | need to ReportRedrawNeeded shapes All=true : ReportRedrawNeeded all graphic All=false : ReportRedrawNeeded only selected objects |
- | `ReportRedrawNeeded(System.Boolean)` | метод | redraws this.m_shapes on this control All=true : ReportRedrawNeeded all graphic All=false : ReportRedrawNeeded only selected objects | 
+| `ReportRedrawNeeded(System.Boolean)` | метод | redraws this.m_shapes on this control All=true : ReportRedrawNeeded all graphic All=false : ReportRedrawNeeded only selected objects | 
 
 #### `CSProject3D.WorkMaterialO<wbr>verrideSettings.MaterialO<wbr>verrideTypeConverter`
 **Назначение:** Работа с 3D-графикой объектов: формы, сетки, меши, вершины, материалы, геометрическое представление.
@@ -4251,7 +4251,7 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 
 | Член | Тип | Описание |
 |---|---|---|
- | `GetTabControlImageIndexByKey(System.S...` | метод | По каким-то причинам не получается показать картинку на вкладке по ImageKey Этот метод получает индекс картинки по ключу Параметры: strImageKey — ключ Возвращает: индекс картинки | 
+| `GetTabControlImageIndexByKey(System.S...` | метод | По каким-то причинам не получается показать картинку на вкладке по ImageKey Этот метод получает индекс картинки по ключу Параметры: strImageKey — ключ Возвращает: индекс картинки | 
 
 #### `CSProject3D.CSSettings3D`
 **Назначение:** Работа с 3D-графикой объектов: формы, сетки, меши, вершины, материалы, геометрическое представление.
@@ -4279,7 +4279,7 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 
 | Член | Тип | Описание |
 |---|---|---|
- | `GetIsDifferent(CSProject3D.Properties...` | метод | For multi select | 
+| `GetIsDifferent(CSProject3D.Properties...` | метод | For multi select | 
 
 #### `CSProject3D.UserTagging.E<wbr>ntities.DrawingTag2d`
 **Назначение:** Работа с 3D-графикой объектов: формы, сетки, меши, вершины, материалы, геометрическое представление.
@@ -4300,7 +4300,7 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 
 | Член | Тип | Описание |
 |---|---|---|
- | `Invoke3DSynchronously(System.Action)` | метод | Выполняет работу синхронно в потоке движка Если данный метод уже выполняется из потока движка, то работа выполняется напрямую, иначе происходит ожидание с определённым timeout Параметры: task — Работа для выполнения | 
+| `Invoke3DSynchronously(System.Action)` | метод | Выполняет работу синхронно в потоке движка Если данный метод уже выполняется из потока движка, то работа выполняется напрямую, иначе происходит ожидание с определённым timeout Параметры: task — Работа для выполнения | 
 
 #### `CSProject3D.Works.CSVReader`
 **Назначение:** Работа с 3D-графикой объектов: формы, сетки, меши, вершины, материалы, геометрическое представление.
@@ -4386,29 +4386,29 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 
 | Член | Тип | Описание |
 |---|---|---|
- | `#ctor` | метод | Initializes the text colors, creates dictionaries for RTF colors and font families, and stores the horizontal and vertical resolution of the RichTextBox's graphics context. | 
+| `#ctor` | метод | Initializes the text colors, creates dictionaries for RTF colors and font families, and stores the horizontal and vertical resolution of the RichTextBox's graphics context. | 
 | `#ctor(CADLibControls.RtfColor)` | метод | Calls the default constructor then sets the text color. Параметры:  |
 | `#ctor(CADLibControls.RtfColor,CADLibControls.RtfColor)` | метод | Calls the default constructor then sets te text and highlight colors. Параметры:  |
 | `AppendRtf(System.String)` | метод | Assumes the string passed as a paramter is valid RTF text and attempts to append it as RTF to the content of the control. Параметры:  |
- | `InsertRtf(System.String)` | метод | Assumes that the string passed as a parameter is valid RTF text and attempts to insert it as RTF into the content of the control. Параметры: | 
+| `InsertRtf(System.String)` | метод | Assumes that the string passed as a parameter is valid RTF text and attempts to insert it as RTF into the content of the control. Параметры: | 
 | `AppendTextAsRtf(System.String)` | метод | Appends the text using the current font, text, and highlight colors. Параметры:  |
 | `AppendTextAsRtf(System.String,System.Drawing.Font)` | метод | Appends the text using the given font, and current text and highlight colors. Параметры:  |
- | `AppendTextAsRtf(System.String,System....` | метод | Appends the text using the given font and text color, and the current highlight color. Параметры: | 
- | `AppendTextAsRtf(System.String,System....` | метод | Appends the text using the given font, text, and highlight colors. Simply moves the caret to the end of the RichTextBox's text and makes a call to insert. Параметры: | 
+| `AppendTextAsRtf(System.String,System....` | метод | Appends the text using the given font and text color, and the current highlight color. Параметры: | 
+| `AppendTextAsRtf(System.String,System....` | метод | Appends the text using the given font, text, and highlight colors. Simply moves the caret to the end of the RichTextBox's text and makes a call to insert. Параметры: | 
 | `InsertTextAsRtf(System.String)` | метод | Inserts the text using the current font, text, and highlight colors. Параметры:  |
 | `InsertTextAsRtf(System.String,System.Drawing.Font)` | метод | Inserts the text using the given font, and current text and highlight colors. Параметры:  |
- | `InsertTextAsRtf(System.String,System....` | метод | Inserts the text using the given font and text color, and the current highlight color. Параметры: | 
- | `InsertTextAsRtf(System.String,System....` | метод | Inserts the text using the given font, text, and highlight colors. The text is wrapped in RTF codes so that the specified formatting is kept. You can only assign valid RTF to the RichTextBox.Rtf property, else an exception is thrown. The RTF string should follow this format ... {\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{[FONTS]}{\colortbl ;[COLORS]}} \viewkind4\uc1\pard\cf1\f0\fs20 [DOCUMENT AREA] } Параметры: | 
- | `GetDocumentArea(System.String,System....` | метод | Creates the Document Area of the RTF being inserted. The document area (in this case) consists of the text being added as RTF and all the formatting specified in the Font object passed in. This should have the form ... \viewkind4\uc1\pard\cf1\f0\fs20 [DOCUMENT AREA] } Параметры: Возвращает: The document area as a string. | 
- | `InsertImage(System.Drawing.Image,Syst...` | метод | Inserts an image into the RichTextBox. The image is wrapped in a Windows Format Metafile, because although Microsoft discourages the use of a WMF, the RichTextBox (and even MS Word), wraps an image in a WMF before inserting the image into a document. The WMF is attached in HEX format (a string of HEX numbers). The RTF Specification v1.6 says that you should be able to insert bitmaps, .jpegs, .gifs, .pngs, and Enhanced Metafiles (.emf) directly into an RTF document without the WMF wrapper. This works fine with MS Word, however, when you don't wrap images in a WMF, WordPad and RichTextBoxes simply ignore them. Both use the riched20.dll or msfted.dll. Параметры: | 
- | `GetRtfImage(System.Drawing.Image,Syst...` | метод | Creates the RTF control string that describes the image being inserted. This description (in this case) specifies that the image is an MM_ANISOTROPIC metafile, meaning that both X and Y axes can be scaled independently. The control string also gives the images current dimensions, and its target dimensions, so if you want to control the size of the image being inserted, this would be the place to do it. The prefix should have the form ... {\pict\wmetafile8\picw[A]\pich[B]\picwgoal[C]\pichgoal[D] where ... A = current width of the metafile in hundredths of millimeters (0.01mm) = Image Width in Inches * Number of (0.01mm) per inch = (Image Width in Pixels / Graphics Context's Horizontal Resolution) * 2540 = (Image Width in Pixels / Graphics.DpiX) * 2540 B = current height of the metafile in hundredths of millimeters (0.01mm) = Image Height in Inches * Number of (0.01mm) per inch = (Image Height in Pixels / Graphics Context's Vertical Resolution) * 2540 = (Image Height in Pixels / Graphics.DpiX) * 2540 C = target width of the metafile in twips = Image Width in Inches * Number of twips per inch = (Image Width in Pixels / Graphics Context's Horizontal Resolution) * 1440 = (Image Width in Pixels / Graphics.DpiX) * 1440 D = target height of the metafile in twips = Image Height in Inches * Number of twips per inch = (Image Height in Pixels / Graphics Context's Horizontal Resolution) * 1440 = (Image Height in Pixels / Graphics.DpiX) * 1440 Wraps the image in an Enhanced Metafile by drawing the image onto the graphics context, then converts the Enhanced Metafile to a Windows Metafile, and finally appends the bits of the Windows Metafile in HEX to a string and returns the string. Возвращает: A string containing the bits of a Windows Metafile in HEX | 
- | `GetFontTable(System.Drawing.Font)` | метод | Creates a font table from a font object. When an Insert or Append operation is performed a font is either specified or the default font is used. In any case, on any Insert or Append, only one font is used, thus the font table will always contain a single font. The font table should have the form ... {\fonttbl{\f0\[FAMILY]\fcharset0 [FONT_NAME];} Параметры: | 
- | `GetColorTable(CADLibControls.RtfColor...` | метод | Creates a font table from the RtfColor structure. When an Insert or Append operation is performed, _textColor and _backColor are either specified or the default is used. In any case, on any Insert or Append, only three colors are used. The default color of the RichTextBox (signified by a semicolon (;) without a definition), is always the first color (index 0) in the color table. The second color is always the text color, and the third is always the highlight color (color behind the text). The color table should have the form ... {\colortbl ;[TEXT_COLOR];[HIGHLIGHT_COLOR];} Параметры: | 
- | `RemoveBadChars(System.String)` | метод | Called by overrided RichTextBox.Rtf accessor. Removes the null character from the RTF. This is residue from developing the control for a specific instant messaging protocol and can be ommitted. Параметры: Возвращает: RTF without null character | 
+| `InsertTextAsRtf(System.String,System....` | метод | Inserts the text using the given font and text color, and the current highlight color. Параметры: | 
+| `InsertTextAsRtf(System.String,System....` | метод | Inserts the text using the given font, text, and highlight colors. The text is wrapped in RTF codes so that the specified formatting is kept. You can only assign valid RTF to the RichTextBox.Rtf property, else an exception is thrown. The RTF string should follow this format ... {\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{[FONTS]}{\colortbl ;[COLORS]}} \viewkind4\uc1\pard\cf1\f0\fs20 [DOCUMENT AREA] } Параметры: | 
+| `GetDocumentArea(System.String,System....` | метод | Creates the Document Area of the RTF being inserted. The document area (in this case) consists of the text being added as RTF and all the formatting specified in the Font object passed in. This should have the form ... \viewkind4\uc1\pard\cf1\f0\fs20 [DOCUMENT AREA] } Параметры: Возвращает: The document area as a string. | 
+| `InsertImage(System.Drawing.Image,Syst...` | метод | Inserts an image into the RichTextBox. The image is wrapped in a Windows Format Metafile, because although Microsoft discourages the use of a WMF, the RichTextBox (and even MS Word), wraps an image in a WMF before inserting the image into a document. The WMF is attached in HEX format (a string of HEX numbers). The RTF Specification v1.6 says that you should be able to insert bitmaps, .jpegs, .gifs, .pngs, and Enhanced Metafiles (.emf) directly into an RTF document without the WMF wrapper. This works fine with MS Word, however, when you don't wrap images in a WMF, WordPad and RichTextBoxes simply ignore them. Both use the riched20.dll or msfted.dll. Параметры: | 
+| `GetRtfImage(System.Drawing.Image,Syst...` | метод | Creates the RTF control string that describes the image being inserted. This description (in this case) specifies that the image is an MM_ANISOTROPIC metafile, meaning that both X and Y axes can be scaled independently. The control string also gives the images current dimensions, and its target dimensions, so if you want to control the size of the image being inserted, this would be the place to do it. The prefix should have the form ... {\pict\wmetafile8\picw[A]\pich[B]\picwgoal[C]\pichgoal[D] where ... A = current width of the metafile in hundredths of millimeters (0.01mm) = Image Width in Inches * Number of (0.01mm) per inch = (Image Width in Pixels / Graphics Context's Horizontal Resolution) * 2540 = (Image Width in Pixels / Graphics.DpiX) * 2540 B = current height of the metafile in hundredths of millimeters (0.01mm) = Image Height in Inches * Number of (0.01mm) per inch = (Image Height in Pixels / Graphics Context's Vertical Resolution) * 2540 = (Image Height in Pixels / Graphics.DpiX) * 2540 C = target width of the metafile in twips = Image Width in Inches * Number of twips per inch = (Image Width in Pixels / Graphics Context's Horizontal Resolution) * 1440 = (Image Width in Pixels / Graphics.DpiX) * 1440 D = target height of the metafile in twips = Image Height in Inches * Number of twips per inch = (Image Height in Pixels / Graphics Context's Horizontal Resolution) * 1440 = (Image Height in Pixels / Graphics.DpiX) * 1440 Wraps the image in an Enhanced Metafile by drawing the image onto the graphics context, then converts the Enhanced Metafile to a Windows Metafile, and finally appends the bits of the Windows Metafile in HEX to a string and returns the string. Возвращает: A string containing the bits of a Windows Metafile in HEX | 
+| `GetFontTable(System.Drawing.Font)` | метод | Creates a font table from a font object. When an Insert or Append operation is performed a font is either specified or the default font is used. In any case, on any Insert or Append, only one font is used, thus the font table will always contain a single font. The font table should have the form ... {\fonttbl{\f0\[FAMILY]\fcharset0 [FONT_NAME];} Параметры: | 
+| `GetColorTable(CADLibControls.RtfColor...` | метод | Creates a font table from the RtfColor structure. When an Insert or Append operation is performed, _textColor and _backColor are either specified or the default is used. In any case, on any Insert or Append, only three colors are used. The default color of the RichTextBox (signified by a semicolon (;) without a definition), is always the first color (index 0) in the color table. The second color is always the text color, and the third is always the highlight color (color behind the text). The color table should have the form ... {\colortbl ;[TEXT_COLOR];[HIGHLIGHT_COLOR];} Параметры: | 
+| `RemoveBadChars(System.String)` | метод | Called by overrided RichTextBox.Rtf accessor. Removes the null character from the RTF. This is residue from developing the control for a specific instant messaging protocol and can be ommitted. Параметры: Возвращает: RTF without null character | 
 | `InsertLink(System.String)` | метод | Insert a given text as a link into the RichTextBox at the current insert position. Параметры: text — Text to be inserted |
 | `InsertLink(System.String,System.Int32)` | метод | Insert a given text at a given position as a link. Параметры: text — Text to be inserted; position — Insert position |
- | `InsertLink(System.String,System.String)` | метод | Insert a given text at at the current input position as a link. The link text is followed by a hash (#) and the given hyperlink text, both of them invisible. When clicked on, the whole link text and hyperlink string are given in the LinkClickedEventArgs. Параметры: text — Text to be inserted; hyperlink — Invisible hyperlink string to be inserted | 
- | `InsertLink(System.String,System.Strin...` | метод | Insert a given text at a given position as a link. The link text is followed by a hash (#) and the given hyperlink text, both of them invisible. When clicked on, the whole link text and hyperlink string are given in the LinkClickedEventArgs. Параметры: text — Text to be inserted; hyperlink — Invisible hyperlink string to be inserted; position — Insert position | 
+| `InsertLink(System.String,System.String)` | метод | Insert a given text at at the current input position as a link. The link text is followed by a hash (#) and the given hyperlink text, both of them invisible. When clicked on, the whole link text and hyperlink string are given in the LinkClickedEventArgs. Параметры: text — Text to be inserted; hyperlink — Invisible hyperlink string to be inserted | 
+| `InsertLink(System.String,System.Strin...` | метод | Insert a given text at a given position as a link. The link text is followed by a hash (#) and the given hyperlink text, both of them invisible. When clicked on, the whole link text and hyperlink string are given in the LinkClickedEventArgs. Параметры: text — Text to be inserted; hyperlink — Invisible hyperlink string to be inserted; position — Insert position | 
 | `SetSelectionLink(System.Boolean)` | метод | Set the current selection's link style Параметры: link — true: set link style, false: clear link style |
 | `GetSelectionLink` | метод | Get the link style for the current selection Возвращает: 0: link style not set, 1: link style set, -1: mixed |
 
@@ -4417,7 +4417,7 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 
 | Член | Тип | Описание |
 |---|---|---|
- | `IsActive` | свойство | Показывается ли сейчас форма выполнения фоновой операции Приложение не выполняет UpdateButtons в Application_Idle, если это свойство true Метод set временно активен в свойстве, т.к. это единственный способ запретить обновление кнопок извне | 
+| `IsActive` | свойство | Показывается ли сейчас форма выполнения фоновой операции Приложение не выполняет UpdateButtons в Application_Idle, если это свойство true Метод set временно активен в свойстве, т.к. это единственный способ запретить обновление кнопок извне | 
 | `OperationText` | свойство | Текст текущей операции в окне |
 | `IsAborted` | свойство | Да, если была нажата или вызвана отмена |
 | `IsCriticalError` | свойство | Да, если процесс завершился ошибкой |
@@ -4427,14 +4427,14 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 | `MaxProgress` | свойство | Максимальное (конечное) число прогресса |
 | `ShowDetailButton` | свойство | Показывать ли кнопку "Детали" |
 | `ShowDetails` | свойство | Управление состоянием диалога - показывать или нет детали (да - активирует кнопку "Детали") |
- | `WorkerThread` | свойство | Рабочий поток создаётся автоматически при использовании PerformAsyncWork, либо задаётся при внешнем использовании диалога для возможности принудительной отмены операции | 
+| `WorkerThread` | свойство | Рабочий поток создаётся автоматически при использовании PerformAsyncWork, либо задаётся при внешнем использовании диалога для возможности принудительной отмены операции | 
 | `CurrentProgress` | свойство | Текущий прогресс |
- | `PerformAsyncWork(System.Windows.Forms...` | метод | Статический метод показа формы во время выполнения длительной операции work. Выполняет работу в фоновом потоке с ловлей исключений в качестве критических ошибок и автоматическим вызовом FinishProgress по завершении. Для показа формы использовается метод ShowDialogDelayed. Параметры: parentForm — Родительское окно; work — Работа для выполнения, подразумевается, что она сообщает свой процент выполнения и ведёт логгирование (но не обязательно); strWorkTitle — Название работы на русском языке для заголовка (например Импорт объетов); bSupportAbort — Определяет показывать ли кнопку "Прервать" (см. IsAborted); bSupportReporting — Определяет показывать ли кнопку "Детали" (см. UpdateProgress); nShowProgressDelay — Задержка показа формы в миллисекундах Возвращает: True в случае успешного завершения операции (работы) | 
- | `PerformAsyncWork(System.Action{CADLib...` | метод | Выполняет работу в фоновом потоке с ловлей исключений в качестве критических ошибок и автоматическим вызовом FinishProgress по завершении. Для показа формы использовается метод ShowDialogDelayed. Параметры: work — Работа для выполнения, подразумевается, что она сообщает свой процент выполнения и ведёт логгирование (но не обязательно); strWorkTitle — Название работы на русском языке для заголовка (например Импорт объетов); nShowProgressDelay — Задержка показа формы в миллисекундах Возвращает: True в случае успешного завершения операции (работы) | 
- | `ShowDialogDelayed(System.Int32)` | метод | Показывает диалог с задержкой времени, необходимой для устранения мелькания диалога в случае, если выполнение операции длится меньше, чем указанная задержка. Диалог нельзя будет закрыть до вызова FinishProgress или CriticalError. Параметры: nDelay — Задержка в миллисекундах | 
- | `UpdateProgress(System.Int32,System.St...` | метод | Позволяющий выводить сообщения, процент завершения операции. Может вызываться из любого потока (создан для вызова из потока-работника). Вызов данного метода не обновляет окно сразу, а кэшируется, что позволяет вызывать его с любой частотой. Параметры: nProgress — Процент выполнения, если [0..MAX], Значение "-1", означает только вывод сообщения strMsg (если задано) Значения больше MAX позволяет не показывать процент выполнения (бегунок); strMsg — Сообщение для добавления в лог (без завершающего Enter) Если сообщение начинается со строки "[MSG_BOX]", то оно будет показано в MessageBox | 
- | `FinishProgress` | метод | Вызывается для завершения диалога по окончании операции Данный метод может закрыть диалог, либо оставит его открытым в случае снятой галочки "Закрывать окно по завершении" Вызов данного метода обязателен (при нормальной работе) и производится из потока-работника При возникновении критической ошибки вместо него вызывается CriticalError | 
- | `CriticalError(System.Exception)` | метод | Вызывается в случае критической ошибки из-за который импорт невозможен Параметры: exception — Исключение для логгирования подробностей | 
+| `PerformAsyncWork(System.Windows.Forms...` | метод | Статический метод показа формы во время выполнения длительной операции work. Выполняет работу в фоновом потоке с ловлей исключений в качестве критических ошибок и автоматическим вызовом FinishProgress по завершении. Для показа формы использовается метод ShowDialogDelayed. Параметры: parentForm — Родительское окно; work — Работа для выполнения, подразумевается, что она сообщает свой процент выполнения и ведёт логгирование (но не обязательно); strWorkTitle — Название работы на русском языке для заголовка (например Импорт объетов); bSupportAbort — Определяет показывать ли кнопку "Прервать" (см. IsAborted); bSupportReporting — Определяет показывать ли кнопку "Детали" (см. UpdateProgress); nShowProgressDelay — Задержка показа формы в миллисекундах Возвращает: True в случае успешного завершения операции (работы) | 
+| `PerformAsyncWork(System.Action{CADLib...` | метод | Выполняет работу в фоновом потоке с ловлей исключений в качестве критических ошибок и автоматическим вызовом FinishProgress по завершении. Для показа формы использовается метод ShowDialogDelayed. Параметры: work — Работа для выполнения, подразумевается, что она сообщает свой процент выполнения и ведёт логгирование (но не обязательно); strWorkTitle — Название работы на русском языке для заголовка (например Импорт объетов); nShowProgressDelay — Задержка показа формы в миллисекундах Возвращает: True в случае успешного завершения операции (работы) | 
+| `ShowDialogDelayed(System.Int32)` | метод | Показывает диалог с задержкой времени, необходимой для устранения мелькания диалога в случае, если выполнение операции длится меньше, чем указанная задержка. Диалог нельзя будет закрыть до вызова FinishProgress или CriticalError. Параметры: nDelay — Задержка в миллисекундах | 
+| `UpdateProgress(System.Int32,System.St...` | метод | Позволяющий выводить сообщения, процент завершения операции. Может вызываться из любого потока (создан для вызова из потока-работника). Вызов данного метода не обновляет окно сразу, а кэшируется, что позволяет вызывать его с любой частотой. Параметры: nProgress — Процент выполнения, если [0..MAX], Значение "-1", означает только вывод сообщения strMsg (если задано) Значения больше MAX позволяет не показывать процент выполнения (бегунок); strMsg — Сообщение для добавления в лог (без завершающего Enter) Если сообщение начинается со строки "[MSG_BOX]", то оно будет показано в MessageBox | 
+| `FinishProgress` | метод | Вызывается для завершения диалога по окончании операции Данный метод может закрыть диалог, либо оставит его открытым в случае снятой галочки "Закрывать окно по завершении" Вызов данного метода обязателен (при нормальной работе) и производится из потока-работника При возникновении критической ошибки вместо него вызывается CriticalError | 
+| `CriticalError(System.Exception)` | метод | Вызывается в случае критической ошибки из-за который импорт невозможен Параметры: exception — Исключение для логгирования подробностей | 
 | `RunningOnWin7` | свойство | Determines if the application is running on Windows 7 |
 
 #### `CADLib.CADLibrary.CCustomFilterItem`
@@ -4442,18 +4442,18 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 
 | Член | Тип | Описание |
 |---|---|---|
- | `SetTreeNode(System.Windows.Forms.Tree...` | метод | Данный метод вызывается после применения каталога узлу дерева (если было) Параметры: node — Узел с которым ассоциирован данный каталог | 
- | `ExpandFolderNode(CADLib.CADLibrary,Sy...` | метод | Раскрытие каталога (вверху в окне БД) в TreeView Параметры: lib — Библиотека, выполняющая операцию; tree — Дерево, владеющее узлом; treeNode — Узел в который следует добавлять подузлы; bRecursive — Следует ли раскрывать всю иерархию; bUseClassifiers — Добавлять ли классификаторы в иерархию | 
- | `ExpandSubFolderNode(CADLib.CADLibrary...` | метод | Вызывается при раскрытии некастомных каталогов, вложенных в данный Параметры: lib — Библиотека, выполняющая операцию; expandingFolder — Раскрываемый каталог (подчинённый плагиновскому); tree — Дерево, владеющее узлом; treeNode — Узел в который следует добавлять подузлы; bRecursive — Следует ли раскрывать всю иерархию; bUseClassifiers — Добавлять ли классификаторы в иерархию | 
- | `GetFolderMenuItems(CADLibKernel.CLibC...` | метод | Получение дополнительного меню, для каталога организованного плагином и его подкаталогов | 
- | `GetBlockSubfolderEditMenu(CADLibKerne...` | метод | Следует ли блокировать показ стандартных пунктов меню создания подкаталогов "создать выборку" и т.д. для каталога или подкаталога плагина | 
+| `SetTreeNode(System.Windows.Forms.Tree...` | метод | Данный метод вызывается после применения каталога узлу дерева (если было) Параметры: node — Узел с которым ассоциирован данный каталог | 
+| `ExpandFolderNode(CADLib.CADLibrary,Sy...` | метод | Раскрытие каталога (вверху в окне БД) в TreeView Параметры: lib — Библиотека, выполняющая операцию; tree — Дерево, владеющее узлом; treeNode — Узел в который следует добавлять подузлы; bRecursive — Следует ли раскрывать всю иерархию; bUseClassifiers — Добавлять ли классификаторы в иерархию | 
+| `ExpandSubFolderNode(CADLib.CADLibrary...` | метод | Вызывается при раскрытии некастомных каталогов, вложенных в данный Параметры: lib — Библиотека, выполняющая операцию; expandingFolder — Раскрываемый каталог (подчинённый плагиновскому); tree — Дерево, владеющее узлом; treeNode — Узел в который следует добавлять подузлы; bRecursive — Следует ли раскрывать всю иерархию; bUseClassifiers — Добавлять ли классификаторы в иерархию | 
+| `GetFolderMenuItems(CADLibKernel.CLibC...` | метод | Получение дополнительного меню, для каталога организованного плагином и его подкаталогов | 
+| `GetBlockSubfolderEditMenu(CADLibKerne...` | метод | Следует ли блокировать показ стандартных пунктов меню создания подкаталогов "создать выборку" и т.д. для каталога или подкаталога плагина | 
 | `GetFolderIconKey(System.Windows.Forms.ImageList)` | метод | Получение иконки для каталога Параметры:  |
 | `IsFolderVisible` | метод | Если необходимо скрыть каталог из дереве, то метод должен вернуть false Проверяется в момент добавления в дерево Возвращает: Видимость каталога |
- | `FolderOrder` | свойство | Возвращает порядок следования каталога в дереве 0 - естественный порядок как в БД меньше нуля 0 - каталог добавляется в дереве выше естественного порядка, сортируясь среди других пользовательских каталогов больше нуля - каталог добавляется ниже, сортируясь среди других пользовательских каталогов, у которых FolderOrder > 0 | 
- | `TryReadFolderObject(System.Data.IData...` | метод | Считывание корневого объекта данного каталога Метод может быть использован для добавления объектов-наследников CCustomLibObjectInfo Параметры: reader — считанные данные; idx — номер объекта Возвращает: возвращает null если необходимо использовать стандартный механизм чтения объектов | 
- | `ShowObjectsTree(CADLibKernel.CLibCata...` | метод | Заполнение дерева объектов узлами с объектами (в tag узла необходимо записать наследников CLibObjectInfo) Параметры: folder — Каталог для которого необходимо показать объекты (может быть стандартным вложенным каталогом); tvObjects — Дерево объектов назначения; nPageSize — Размер страницы объектов; strMinName — Позиция начала страницы; strMaxName — Позиция конца страницы; bForward — Листание вперёд; bSelect — Выделять ли добавленные узлы дерева Возвращает: Если вернуть false, то будет использован стандартный механизм добавления объектов каталога | 
- | `GetFilterExpressions(System.String@,S...` | метод | Получение выражений для запроса выборки данной папки из БД Используется для формирования корневых фильтров у кастомных папок ", Parameters_STR PT0 where (PT0.idObject = O.idObject) AND (PT0.idParamDef = 1) AND (PT0.Value='Координатные сетки')" strFrom = ", Parameters_STR PT0" strWhere = "(PT0.idObject = O.idObject) AND (PT0.idParamDef = 1) AND (PT0.Value='Координатные сетки')" По умолчанию части запроса извлекаются из CoreFilter, что не желательно, т.к. не используется nTableIndex Параметры: strFrom — Результируюющая строка с дополнительными тиблицами выборки (перед where); strWhere — Результирующая строка с условиями выборки (после where); nTableIndex — Дополнительный номер к псевдонимам таблиц, чтобы избежать их дублирования | 
- | `FindParentCustomItem(CADLibKernel.CLi...` | метод | Поиск плагина, владеющего данным каталогом (текущий или его родители вверх по дереву) Параметры: catalog — Где искать Возвращает: Папку плагина или null | 
+| `FolderOrder` | свойство | Возвращает порядок следования каталога в дереве 0 - естественный порядок как в БД меньше нуля 0 - каталог добавляется в дереве выше естественного порядка, сортируясь среди других пользовательских каталогов больше нуля - каталог добавляется ниже, сортируясь среди других пользовательских каталогов, у которых FolderOrder > 0 | 
+| `TryReadFolderObject(System.Data.IData...` | метод | Считывание корневого объекта данного каталога Метод может быть использован для добавления объектов-наследников CCustomLibObjectInfo Параметры: reader — считанные данные; idx — номер объекта Возвращает: возвращает null если необходимо использовать стандартный механизм чтения объектов | 
+| `ShowObjectsTree(CADLibKernel.CLibCata...` | метод | Заполнение дерева объектов узлами с объектами (в tag узла необходимо записать наследников CLibObjectInfo) Параметры: folder — Каталог для которого необходимо показать объекты (может быть стандартным вложенным каталогом); tvObjects — Дерево объектов назначения; nPageSize — Размер страницы объектов; strMinName — Позиция начала страницы; strMaxName — Позиция конца страницы; bForward — Листание вперёд; bSelect — Выделять ли добавленные узлы дерева Возвращает: Если вернуть false, то будет использован стандартный механизм добавления объектов каталога | 
+| `GetFilterExpressions(System.String@,S...` | метод | Получение выражений для запроса выборки данной папки из БД Используется для формирования корневых фильтров у кастомных папок ", Parameters_STR PT0 where (PT0.idObject = O.idObject) AND (PT0.idParamDef = 1) AND (PT0.Value='Координатные сетки')" strFrom = ", Parameters_STR PT0" strWhere = "(PT0.idObject = O.idObject) AND (PT0.idParamDef = 1) AND (PT0.Value='Координатные сетки')" По умолчанию части запроса извлекаются из CoreFilter, что не желательно, т.к. не используется nTableIndex Параметры: strFrom — Результируюющая строка с дополнительными тиблицами выборки (перед where); strWhere — Результирующая строка с условиями выборки (после where); nTableIndex — Дополнительный номер к псевдонимам таблиц, чтобы избежать их дублирования | 
+| `FindParentCustomItem(CADLibKernel.CLi...` | метод | Поиск плагина, владеющего данным каталогом (текущий или его родители вверх по дереву) Параметры: catalog — Где искать Возвращает: Папку плагина или null | 
 
 #### `CADLibControls.Forms.HRESULT`
 **Назначение:** HRESULT Wrapper This is intended for Library Internal use only.
@@ -4478,14 +4478,14 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 
 | Член | Тип | Описание |
 |---|---|---|
- | `CreateFolderObject(CADLibKernel.CLibC...` | метод | Создаёт информацию о папке с использованием плагинов Вызывается для корневых каталогов Параметры: nID — Идентификатор каталога в БД; strName — Имя папки; strFilter — Фильтр папки; dir — Идентификатор миникаталога БД ([Directories]), если это миникаталог (иначе 0); flags — Флаги папки (столбец в БД) Возвращает: элемент дерева каталогов-категорий | 
- | `CreateVirtualFolderObject(CADLibKerne...` | метод | Создаёт информацию о папке с использованием плагинов(пиртуальная папка) Вызывается для корневых каталогов Возвращает: элемент дерева каталогов-категорий | 
- | `CreateSubFolder(CADLibKernel.CLibCata...` | метод | Вызывается при создании некорневых узлов папок (например в методе ExpandSubfolders) Параметры: | 
- | `CreateSubClassifier(CADLibKernel.CLib...` | метод | Вызывается при создании некорневых узлов классификаторов (например в методе ExpandSubfolders) Параметры: | 
- | `ReportObjectPicked(CADLibKernel.CLibO...` | метод | Вызывается при двойном клики по объекту в 3д - позволяет плагинам обработать клик и запретить форме менять папку Параметры: libObject — Объект по которуму ткнули; strStructGroup — Группа данных структурнуго объекта или null если не структурный; bSupressSelectionFolderHighlighting — Устанавливается в Да, если необходимо запретить выделать папку "выбранные объекты" | 
- | `TryGetLibraryObject(CADLibKernel.CLib...` | метод | Запрашивает у плагина объект Параметры: libObject — стандартный объект; strStructGroup — Группа данных структурнуго объекта или null если не структурный Возвращает: Кастомный объект или null | 
- | `GetObjectMenuItems(CADLibKernel.CLibC...` | метод | Получение дополнительного меню для объектов Параметры: folder — Активный каталог (плагина или его подчинённый); selection — Выбранные в дереве объекты; menu — Меню в которое будут добавлены дополнительные пункты (для возможности заблокировать их видимость) Возвращает: Список дополнительных пунктов меню | 
- | `GetAdditionalCurrenViewObjects` | метод | Получает дополнительные объекты из текущего вида Имеет значение для таких плагинов как "поверхности земли", которые показывают дополнительные объекты во вьювере, но они не отображаются в узле "Текущий вид". Тем не менее данные объекты должны быть обработаны во время выбора опции "Текущий вид" при экспорте или проверке коллизий. Возвращает: Идентификаторы дополнительных объектов, показанные плагином | 
+| `CreateFolderObject(CADLibKernel.CLibC...` | метод | Создаёт информацию о папке с использованием плагинов Вызывается для корневых каталогов Параметры: nID — Идентификатор каталога в БД; strName — Имя папки; strFilter — Фильтр папки; dir — Идентификатор миникаталога БД ([Directories]), если это миникаталог (иначе 0); flags — Флаги папки (столбец в БД) Возвращает: элемент дерева каталогов-категорий | 
+| `CreateVirtualFolderObject(CADLibKerne...` | метод | Создаёт информацию о папке с использованием плагинов(пиртуальная папка) Вызывается для корневых каталогов Возвращает: элемент дерева каталогов-категорий | 
+| `CreateSubFolder(CADLibKernel.CLibCata...` | метод | Вызывается при создании некорневых узлов папок (например в методе ExpandSubfolders) Параметры: | 
+| `CreateSubClassifier(CADLibKernel.CLib...` | метод | Вызывается при создании некорневых узлов классификаторов (например в методе ExpandSubfolders) Параметры: | 
+| `ReportObjectPicked(CADLibKernel.CLibO...` | метод | Вызывается при двойном клики по объекту в 3д - позволяет плагинам обработать клик и запретить форме менять папку Параметры: libObject — Объект по которуму ткнули; strStructGroup — Группа данных структурнуго объекта или null если не структурный; bSupressSelectionFolderHighlighting — Устанавливается в Да, если необходимо запретить выделать папку "выбранные объекты" | 
+| `TryGetLibraryObject(CADLibKernel.CLib...` | метод | Запрашивает у плагина объект Параметры: libObject — стандартный объект; strStructGroup — Группа данных структурнуго объекта или null если не структурный Возвращает: Кастомный объект или null | 
+| `GetObjectMenuItems(CADLibKernel.CLibC...` | метод | Получение дополнительного меню для объектов Параметры: folder — Активный каталог (плагина или его подчинённый); selection — Выбранные в дереве объекты; menu — Меню в которое будут добавлены дополнительные пункты (для возможности заблокировать их видимость) Возвращает: Список дополнительных пунктов меню | 
+| `GetAdditionalCurrenViewObjects` | метод | Получает дополнительные объекты из текущего вида Имеет значение для таких плагинов как "поверхности земли", которые показывают дополнительные объекты во вьювере, но они не отображаются в узле "Текущий вид". Тем не менее данные объекты должны быть обработаны во время выбора опции "Текущий вид" при экспорте или проверке коллизий. Возвращает: Идентификаторы дополнительных объектов, показанные плагином | 
 
 #### `WizardFormLib.WizardPageChain`
 **Назначение:** This class maintains a list of visited wizard pages, and manages visibility of those pages. If a page has been visited on the way to the stop page, it will be in this list.
@@ -4496,10 +4496,10 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 | `PageChain` | свойство | Get the wizard page chain list |
 | `#ctor(WizardFormLib.WizardFormBase)` | метод | Constructor Параметры: parent — The WizardFormBase that conatins this chain |
 | `GetCurrentPage` | метод | Get the current page (the last page in the list). |
- | `GoFirst` | метод | Moves to the first wizard page. All pages except the first page are also removed from the page chain list, and the remaining page is shown. Возвращает: The new current wizard page | 
- | `GoBack` | метод | Moves backwards through the chain of viewed property pages. It removes the last page from the list, and shows the new last page in the list. Возвращает: The new current wizard page | 
- | `GoNext(WizardFormLib.WizardPage)` | метод | Adds the specified page to the list, hides the old current page, and shows the newly added page. Параметры: nextPage — The wizard page to add to the list Возвращает: The new current wizard page | 
- | `SaveData` | метод | Cycles through each page in the list (starting with the first one), and calls the SaveData function in that page. If a page returns false, this method will return the page that faulted. Возвращает: The WizardPage object that failed during the save data process | 
+| `GoFirst` | метод | Moves to the first wizard page. All pages except the first page are also removed from the page chain list, and the remaining page is shown. Возвращает: The new current wizard page | 
+| `GoBack` | метод | Moves backwards through the chain of viewed property pages. It removes the last page from the list, and shows the new last page in the list. Возвращает: The new current wizard page | 
+| `GoNext(WizardFormLib.WizardPage)` | метод | Adds the specified page to the list, hides the old current page, and shows the newly added page. Параметры: nextPage — The wizard page to add to the list Возвращает: The new current wizard page | 
+| `SaveData` | метод | Cycles through each page in the list (starting with the first one), and calls the SaveData function in that page. If a page returns false, this method will return the page that faulted. Возвращает: The WizardPage object that failed during the save data process | 
 
 #### `CADLib.CADLibrary.CCustomLibObjectInfo`
 **Назначение:** объект поддерживаемый плагинами
@@ -4509,9 +4509,9 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 | `OwnerPlugin` | свойство | плагин, владеющий объектом |
 | `GetObjectIconIndex(System.Windows.Forms.ImageList)` | метод | Получение иконки для объекта Параметры:  |
 | `GetObjectIconKey(System.Windows.Forms.ImageList)` | метод | Получение иконки для объекта Параметры:  |
- | `TryExpandObjectNode(System.Windows.Fo...` | метод | Раскрывает узел объекта Параметры: treeNode — Узел дерева родительского объекта (вызываемого) Возвращает: возвращает true - если плагин заполнил дерево, иначе false - дерево заполняется стандартными средствами | 
- | `SetTreeNode(System.Windows.Forms.Tree...` | метод | Данный методы вызывается после применения объекта узлу дерева (если было) Параметры: node — Узел с которым ассоциирован данный объект | 
- | `Need3DFocus` | метод | Позволяет отменить выделение на объекте при двойном клике Возвращает: false, если необходимо отменить стандартное поведение по выделению 3d родителя этого объекта | 
+| `TryExpandObjectNode(System.Windows.Fo...` | метод | Раскрывает узел объекта Параметры: treeNode — Узел дерева родительского объекта (вызываемого) Возвращает: возвращает true - если плагин заполнил дерево, иначе false - дерево заполняется стандартными средствами | 
+| `SetTreeNode(System.Windows.Forms.Tree...` | метод | Данный методы вызывается после применения объекта узлу дерева (если было) Параметры: node — Узел с которым ассоциирован данный объект | 
+| `Need3DFocus` | метод | Позволяет отменить выделение на объекте при двойном клике Возвращает: false, если необходимо отменить стандартное поведение по выделению 3d родителя этого объекта | 
 | `OnMouseDoubleClick(System.Windows.Forms.TreeNode)` | метод | Вызывается при двойно клике по объекту в дереве объектов Параметры:  |
 
 #### `CADLib.PluginsManager`
@@ -4521,11 +4521,11 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 |---|---|---|
 | `MainForm` | свойство | Главная форма из главного плагина После загрузки всех плагинов она будет показана как основная |
 | `ShowSplash` | свойство | Показывать ли сплэш картинку во время зугрузки |
- | `Load(System.String)` | метод | Загружает главный плагин, имеющий главное окно Если загрузка не успешна, то программа прекращает свою работу Параметры: strPluginsConfigPath — путь xml-документа с описанием плагинов | 
+| `Load(System.String)` | метод | Загружает главный плагин, имеющий главное окно Если загрузка не успешна, то программа прекращает свою работу Параметры: strPluginsConfigPath — путь xml-документа с описанием плагинов | 
 | `UpdateButtons(CADLib.LibConnectionState,CADLib.LibFolderState,CADLib.LibObjectState,System.Boolean[])` | метод | Этот метод вызывается плагином во время изменения статуса |
 | `MergeInterfaceMenus(System.Windows.Forms.MenuStrip)` | метод | Объединение меню плагина с главным меню приложения Параметры: menu — Меню плагина |
- | `MergeInterfaceToolbars(System.Windows...` | метод | Объединение панелей инструментов плагина с главной формой Параметры: pluginContainer — Панели инструментво плагина | 
- | `ScanAndAddMenu(System.Windows.Forms.T...` | метод | Рекурсивная часть объединения меню Параметры: curInLevel — Текущее подменю, куда добавлять подпункты; menu — Текущее подменю с подпунктами | 
+| `MergeInterfaceToolbars(System.Windows...` | метод | Объединение панелей инструментов плагина с главной формой Параметры: pluginContainer — Панели инструментво плагина | 
+| `ScanAndAddMenu(System.Windows.Forms.T...` | метод | Рекурсивная часть объединения меню Параметры: curInLevel — Текущее подменю, куда добавлять подпункты; menu — Текущее подменю с подпунктами | 
 
 #### `NCI.Windows.Controls.PromptedTextBox`
 **Назначение:** Draws a textbox with a prompt inside of it, similar to the "Quick Search" box in Outlook 2007, IE7 or the Firefox 2.0 search box. The prompt will disappear when the focus is placed in the textbox, and will not display again if the Text property contains any value. If the Text property is empty, then the prompt will display again when the textbox loses the focus.
@@ -4538,15 +4538,15 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 | `OnPaint(System.Windows.Forms.PaintEventArgs)` | метод | Redraw the control with the prompt Параметры:  |
 | `WndProc(System.Windows.Forms.Message@)` | метод | Overrides the default WndProc for the control Параметры: m — The Windows message structure |
 | `DrawTextPrompt` | метод | Overload to automatically create the Graphics region before drawing the text prompt |
- | `DrawTextPrompt(System.Drawing.Graphics)` | метод | Draws the PromptText in the TextBox.ClientRectangle using the PromptFont and PromptForeColor Параметры: g — The Graphics region to draw the prompt on | 
+| `DrawTextPrompt(System.Drawing.Graphics)` | метод | Draws the PromptText in the TextBox.ClientRectangle using the PromptFont and PromptForeColor Параметры: g — The Graphics region to draw the prompt on | 
 
 #### `CADLib.InterfaceItemState.TrackerSupressor`
 **Назначение:** Класс, необходимый для приостановки синхронизации элемента управления Присвойте экземпляр данного класса полю Tag элемента управления и он не будет участвовать в синхронизации Т.о. появляется возможность использовать сложное поведение в обработчике события Opening меню для безопасности в начале обработчика Opening рекомендуется установить Tag=null
 
 | Член | Тип | Описание |
 |---|---|---|
- | `SupressInterfaceTracking(System.Windo...` | метод | Приостанавливает синхронизацию пункта меню трэкером Параметры: item — Пунк меню, видимость которого необходимо фиксировать; reason — Причина блокировки для отладки (любая строка) Возвращает: Объект блокировки | 
- | `ResumeInterfaceTracking(System.Window...` | метод | Восстанавливает трэкинг пункта меню, возвращает ему исходные параметры Если трэкинг был остановлен много раз, то снимаются все блокировки Параметры: item — Пункт меню для восстановления исходного состояния Возвращает: Да, если был приостановлен трэкинг пункта меню | 
+| `SupressInterfaceTracking(System.Windo...` | метод | Приостанавливает синхронизацию пункта меню трэкером Параметры: item — Пунк меню, видимость которого необходимо фиксировать; reason — Причина блокировки для отладки (любая строка) Возвращает: Объект блокировки | 
+| `ResumeInterfaceTracking(System.Window...` | метод | Восстанавливает трэкинг пункта меню, возвращает ему исходные параметры Если трэкинг был остановлен много раз, то снимаются все блокировки Параметры: item — Пункт меню для восстановления исходного состояния Возвращает: Да, если был приостановлен трэкинг пункта меню | 
 | `MenuItemVisible` | свойство | Используется для хранения исходной видимости пункта меню |
 | `MenuItemEnabled` | свойство | Используется для хранения исходной активности пункта меню |
 | `Tag` | свойство | Используется для хранения исходного тэга пункта меню |
@@ -4559,8 +4559,8 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 |---|---|---|
 | `GetDataBrowser` | метод | Используются только в плагинах с главной формой Возвращает: Интерфейс объекта работы с базой данных |
 | `GetMainForm` | метод | Используются только в плагинах с главной формой Возвращает главную форма, которая будет запущена как основная Возвращает: Главная форма приложения |
- | `GetMainFormToolBar` | метод | Используются только в плагинах с главной формой Возвращает главную панель инструментов, чтобы добавлять кнопки других плагинов Если не указана, то добавление кнопок с других плагинов не производится Возвращает: Панель инструментов главной формы приложения или null | 
- | `GetMainFormMenu` | метод | Используются только в плагинах с главной формой Возвращает главное меню, чтобы другие плагины добавлять пункты других плагинов Если null, то добавление пунктов меню из плагинов не производится Возвращает: Главное меню главной формы приложения или null | 
+| `GetMainFormToolBar` | метод | Используются только в плагинах с главной формой Возвращает главную панель инструментов, чтобы добавлять кнопки других плагинов Если не указана, то добавление кнопок с других плагинов не производится Возвращает: Панель инструментов главной формы приложения или null | 
+| `GetMainFormMenu` | метод | Используются только в плагинах с главной формой Возвращает главное меню, чтобы другие плагины добавлять пункты других плагинов Если null, то добавление пунктов меню из плагинов не производится Возвращает: Главное меню главной формы приложения или null | 
 
 #### `CADLib.CADLibrary.CLinkedObjectsLnkTypesNode`
 **Назначение:** Класс кастомного объекта для узла "Связи" в дереве объектов При раскрытии объект данного класса показывает доступные типы связей в виде узлов CLinkedObjectsNode
@@ -4569,7 +4569,7 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 |---|---|---|
 | `m_arrRelTypes` | поле | Доступные типы связей CLibObjectInfo с другими объектами (получаются из GetLinkedObjectLinksTypes перед вызовом конструктора) |
 | `Need3DFocus` | метод | Блокирует фокус на 3D |
- | `TryExpandObjectNode(System.Windows.Fo...` | метод | Раскрывает узел объекта - выводит по подчинённому узлу CLinkedObjectsNode для каждого доступного типа связи Параметры: treeNode — Узел дерева родительского объекта (вызываемого) Возвращает: true | 
+| `TryExpandObjectNode(System.Windows.Fo...` | метод | Раскрывает узел объекта - выводит по подчинённому узлу CLinkedObjectsNode для каждого доступного типа связи Параметры: treeNode — Узел дерева родительского объекта (вызываемого) Возвращает: true | 
 
 #### `CADLib.DynamicPropertyFilterAttribute`
 **Назначение:** Атрибут для поддержки динамически показываемых свойств
@@ -4578,7 +4578,7 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 |---|---|---|
 | `PropertyName` | свойство | Название свойства, от которого будет зависить видимость |
 | `ShowOn` | свойство | Значения свойства, от которого зависит видимость (через запятую, если несколько), при котором свойство, к которому применен атрибут, будет видимо. |
- | `#ctor(System.String,System.String)` | метод | Конструктор Параметры: propertyName — Название свойства, от которого будет зависеть видимость; value — Значения свойства (через запятую, если несколько), при котором свойство, к которому применен атрибут, будет видимо. | 
+| `#ctor(System.String,System.String)` | метод | Конструктор Параметры: propertyName — Название свойства, от которого будет зависеть видимость; value — Значения свойства (через запятую, если несколько), при котором свойство, к которому применен атрибут, будет видимо. | 
 
 #### `CADLib.ICADLibPlugin`
 **Назначение:** Абстрактный класс, реализованный во всех плагинах. Извлекается вызовом метода CADLibPluginEntryPoint.RegisterPlugin(PluginsManager manager).
@@ -4587,7 +4587,7 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 |---|---|---|
 | `GetMenu` | метод | Метод для получения главного меню плагина, для последующего объединения элементов Возвращает: Главное меню плагина или null |
 | `GetToolbars` | метод | Метод для получения панели инструментов плагина, для последующего объединения контролов с неё Возвращает: Панель инструментов плагина или null |
- | `TrackInterfaceItems(CADLib.InterfaceT...` | метод | Метод для реализации обработки состояния элементов управления в зависимости от состояния интерфейса Возвращает: Массив InterfaceItemState со списком контролов и их поведением или null в случае его отсутствия | 
+| `TrackInterfaceItems(CADLib.InterfaceT...` | метод | Метод для реализации обработки состояния элементов управления в зависимости от состояния интерфейса Возвращает: Массив InterfaceItemState со списком контролов и их поведением или null в случае его отсутствия | 
 
 #### `CADLib.ListSelectDialog`1`
 **Назначение:** Общий диалог для выбора одного или нескольких элементов из списка
@@ -4692,38 +4692,38 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 
 | Член | Тип | Описание |
 |---|---|---|
- | `ExpandClassifier(CADLibKernel.CLibCla...` | метод | Раскрывает классификатор, извлекая подчинённые узлы (см. дерево каталогов - классификаторы) Параметры: parentClassifier — Родительский классификатор; bIncludeNulls — Включать узлы, не имеющие объектов Возвращает: Список подчинённых узлов родительского классификатора | 
- | `CreateFolderObject(CADLibKernel.CLibC...` | метод | Создаёт информацию о папке с использованием плагинов Параметры: nID — Идентификатор каталога в БД; strName — Имя папки; strFilter — Фильтр папки; dir — Идентификатор миникаталога БД ([Directories]), если это миникаталог (иначе 0); flags — Флаги папки (столбец в БД) Возвращает: элемент дерева каталогов-категорий | 
- | `doShowClassifiers(System.Func{System....` | метод | Раскрывает классификатор в дерево в коллекцию treeNodes Параметры: query — Запрос из таблицы классификаторов уже с фильтром по родительскому каталогу; bIsFile — Создаются ли классификаторы файлов; tree — Дерево - владелец узлов; treeNode — Узел для добавления классификаторов; parentFolder — Родительский каталог для информации плагинам; bCollapsed — Если да, то в каждый новый узел добавится фиктивный пустой узел | 
- | `GetRelationTypeIcon(CADLibKernel.CADL...` | метод | Возвращает картинку для типа связи, предоставленную подключенным плагином Это необходимо, т.к. в библиотеке поддерживается только bmp формат иконок Параметры: relationType — тип связи Возвращает: Иконка (кастомная из библиотеки или по умолчанию) | 
+| `ExpandClassifier(CADLibKernel.CLibCla...` | метод | Раскрывает классификатор, извлекая подчинённые узлы (см. дерево каталогов - классификаторы) Параметры: parentClassifier — Родительский классификатор; bIncludeNulls — Включать узлы, не имеющие объектов Возвращает: Список подчинённых узлов родительского классификатора | 
+| `CreateFolderObject(CADLibKernel.CLibC...` | метод | Создаёт информацию о папке с использованием плагинов Параметры: nID — Идентификатор каталога в БД; strName — Имя папки; strFilter — Фильтр папки; dir — Идентификатор миникаталога БД ([Directories]), если это миникаталог (иначе 0); flags — Флаги папки (столбец в БД) Возвращает: элемент дерева каталогов-категорий | 
+| `doShowClassifiers(System.Func{System....` | метод | Раскрывает классификатор в дерево в коллекцию treeNodes Параметры: query — Запрос из таблицы классификаторов уже с фильтром по родительскому каталогу; bIsFile — Создаются ли классификаторы файлов; tree — Дерево - владелец узлов; treeNode — Узел для добавления классификаторов; parentFolder — Родительский каталог для информации плагинам; bCollapsed — Если да, то в каждый новый узел добавится фиктивный пустой узел | 
+| `GetRelationTypeIcon(CADLibKernel.CADL...` | метод | Возвращает картинку для типа связи, предоставленную подключенным плагином Это необходимо, т.к. в библиотеке поддерживается только bmp формат иконок Параметры: relationType — тип связи Возвращает: Иконка (кастомная из библиотеки или по умолчанию) | 
 | `FolderPlugins` | свойство | Возвращает коллекцию плагинов каталогов |
- | `RegisterFolderPlugin(CADLibControls.F...` | метод | Регистрация плагинов для работы с папками-категориями для работы плагин должен быть унаследован от FolderPlugin Плагин также может реализовывать IRelationTypeIconProvider Параметры: | 
+| `RegisterFolderPlugin(CADLibControls.F...` | метод | Регистрация плагинов для работы с папками-категориями для работы плагин должен быть унаследован от FolderPlugin Плагин также может реализовывать IRelationTypeIconProvider Параметры: | 
 | `RemoveFolderPlugin(CADLibControls.FolderPlugin)` | метод | разрегистрация плагина для работы с папками-категориями Параметры:  |
- | `ReportObjectPicked(CADLibKernel.CLibO...` | метод | Вызывается при двойном клики по объекту в 3д - позволяет плагинам обработать клик и запретить форме менять папку Параметры: libObject — Объект по которуму ткнули; strStructGroup — Группа данных структурнуго объекта или null если не структурный; bSupressSelectionFolderHighlighting — Устанавливается в Да, если необходимо запретить выделать папку "выбранные объекты" | 
- | `GetStructureObjectGroup(CADLibKernel....` | метод | Получение группы объекта структурных данных Параметры: nObjectId — Идентификатор объекта из категории структурных данных Возвращает: Группа данных (значение параметра SYS_CATEGORY_GROUP) или null | 
- | `GetLibraryCustomObject(System.Int32)` | метод | Получение кастомного объекта библиотеки по идентификатору Кастомные объекты создаются плагинами В случае, если этот объект не является объектом плагинов - возвращается обычный CLibObjectInfo Параметры: nId — Идентификатор запрашиваемого объекта Возвращает: Кастомный объект или обычный объект или null (если не найден) или исключение | 
- | `GetLibraryCustomObject(CADLibKernel.C...` | метод | Получение кастомного объекта библиотеки по CLibObjectInfo Кастомные объекты создаются плагинами В случае, если этот объект не является объектом плагинов - возвращается обычный CLibObjectInfo Параметры: nId — Идентификатор запрашиваемого объекта Возвращает: Кастомный объект или обычный объект или null (если не найден) или исключение | 
- | `AddRootFiltersToFilter(System.String)` | метод | Добавляет корневые фильтры к строке фильтрации вида , Parameters_STR PT0 where (PT0.idObject = O.idObject) AND (PT0.idParamDef = 1) AND (PT0.Value='Координатные сетки') Параметры: strFilter — Исходный фильтр Возвращает: Исходный фильтр + корневые фильтры + Фильтр на ИСКЛЮЧЕНИЕ ИЗ ВЫБОРКИ структурных объектов, если в исходном фильтре не указано обратного | 
- | `AddStructureObjectsExclude(System.Str...` | метод | Добавляет фильтр на исключение из выборки структурных объектов, если в исходном фильтре не указано обратного Параметры: strBaseQuery — Исходный фильтр с where или без Возвращает: Изменённый фильтр | 
+| `ReportObjectPicked(CADLibKernel.CLibO...` | метод | Вызывается при двойном клики по объекту в 3д - позволяет плагинам обработать клик и запретить форме менять папку Параметры: libObject — Объект по которуму ткнули; strStructGroup — Группа данных структурнуго объекта или null если не структурный; bSupressSelectionFolderHighlighting — Устанавливается в Да, если необходимо запретить выделать папку "выбранные объекты" | 
+| `GetStructureObjectGroup(CADLibKernel....` | метод | Получение группы объекта структурных данных Параметры: nObjectId — Идентификатор объекта из категории структурных данных Возвращает: Группа данных (значение параметра SYS_CATEGORY_GROUP) или null | 
+| `GetLibraryCustomObject(System.Int32)` | метод | Получение кастомного объекта библиотеки по идентификатору Кастомные объекты создаются плагинами В случае, если этот объект не является объектом плагинов - возвращается обычный CLibObjectInfo Параметры: nId — Идентификатор запрашиваемого объекта Возвращает: Кастомный объект или обычный объект или null (если не найден) или исключение | 
+| `GetLibraryCustomObject(CADLibKernel.C...` | метод | Получение кастомного объекта библиотеки по CLibObjectInfo Кастомные объекты создаются плагинами В случае, если этот объект не является объектом плагинов - возвращается обычный CLibObjectInfo Параметры: nId — Идентификатор запрашиваемого объекта Возвращает: Кастомный объект или обычный объект или null (если не найден) или исключение | 
+| `AddRootFiltersToFilter(System.String)` | метод | Добавляет корневые фильтры к строке фильтрации вида , Parameters_STR PT0 where (PT0.idObject = O.idObject) AND (PT0.idParamDef = 1) AND (PT0.Value='Координатные сетки') Параметры: strFilter — Исходный фильтр Возвращает: Исходный фильтр + корневые фильтры + Фильтр на ИСКЛЮЧЕНИЕ ИЗ ВЫБОРКИ структурных объектов, если в исходном фильтре не указано обратного | 
+| `AddStructureObjectsExclude(System.Str...` | метод | Добавляет фильтр на исключение из выборки структурных объектов, если в исходном фильтре не указано обратного Параметры: strBaseQuery — Исходный фильтр с where или без Возвращает: Изменённый фильтр | 
 | `Rootfilters` | свойство | Возвращает примененные корневые фильтры библиотеки |
- | `SetRootFilters(System.Collections.Gen...` | метод | Устанавливает набор корневых фильтров библиотеки, которые будут применены дополнительно к результатам методов ShowFolders и doShowClassifiers, DoCreateClassifier и везде, где используется AddRootFiltersToFilter Параметры: | 
- | `GetSimpleParamDefs(System.Boolean,Sys...` | метод | Возвращает определения параметров в простом виде из видимых категорий Определение содержит имя, заголовок, идентификатор и список категорий Параметры: bSysParams — Включать ли в выборку системные параметры (включая имя); bSysName — Включать ли в выборку системный параметр имя (только имя, если bSysParams==false); bHideUnused — Не включать в выборку неиспользуемые параметры; bExtendedOnly — Включать только параметры из расширенных таблиц; bIndependentOnly — Включать только независемые параметры; bFileSysParams — Возвращать параметры файлов; bReadCategories — Возвращать категории (если нет, то ускоряется чтение, а списки категорий будут установлены в null) | 
- | `UpdatePreviewFile(CADLibKernel.CLibFi...` | метод | Retrieves file graphics and try to load it to the preview PictureBox. If file format is not graphical shows file category icon from largeImages ImageList Written by Zapevalov. Параметры: file — File to retrieve data from; preview — PictureBox to load to; largeImages — ImageList with catigories icons | 
- | `GetFileAssociatedIcon(System.String,S...` | метод | Retrieve windows Registered File Associated Icon Параметры: strFileTypeCaption — Type extension like "DWG"; cloneIcon — The callback that receives associated icon. The callback must clone the icon because it will be destroyed when the method returns. | 
- | `ShowObjectsTree(System.Windows.Forms....` | метод | Заполняет дерево объектами из указанного каталога Параметры: bSelect — Выделяет галочками добавленные узлы-объекты; tvFolders — Если не NULL то хранит папки | 
- | `UpdateCategory(CADLibKernel.CLibCateg...` | метод | Обновляет информацию о категории, либо создаёт новую Необходимые определения параметров должны быть созданы заранее, либо параметры не добавятся При добавлении обновляется поле idCategory Параметры: category — Категория для создания/обновления; guiControl — Элемент управления основного потока для создания иконок из рабочего потока. При вызове из основного потока может быть null | 
- | `UploadIcons(System.Drawing.Image,Syst...` | метод | Добавляет иконки в базу данных Если ImageList используется в элементах управления, то метод должен запускаться в потоке, владеющим ими Параметры: ico16 — Объект маленькой иконки; ico32 — Объект большой икноки; strName — Имя иконки Возвращает: Идентификатор новой иконки, либо Exception | 
- | `UpdateObjectParameterValuesAndComment...` | метод | UpdateObjectParameterValuesAndComments: метод является центральным механизмом обновления параметров объектов и все таковые обновления (кроме добавления/удаления параметров) должгы выполнятся через этот метод. Помимо параметров, указанных в аргументе newData, метод может изменить и другие параметры, а именно параметры-формулы, если таковые имеются у указанного объекта(-ов). При этом параметры-формулы могут быть изменены у объектов поимио указанных в аргументе objects, а именно у объектов, входящих в иерархию(-и) указанного объекта(-ов). То есть: для всех объектов, входящих в иерархию, пересчитываются все параметры-формулы, зависящие прямо или косвенно от указаных в аргументе newData параметров. Параметры: objects — Множество объектов, параметры которых изменились; newData — Новые значения, которые необходимо присвоить параметрам всех объектов из множества objects | 
- | `ShowFileParameters(System.Windows.For...` | метод | Retrieves file parameters into ListView. Written by Zapevalov. Параметры: props — ListView to retrieve info to; file — File to retrieve params from | 
+| `SetRootFilters(System.Collections.Gen...` | метод | Устанавливает набор корневых фильтров библиотеки, которые будут применены дополнительно к результатам методов ShowFolders и doShowClassifiers, DoCreateClassifier и везде, где используется AddRootFiltersToFilter Параметры: | 
+| `GetSimpleParamDefs(System.Boolean,Sys...` | метод | Возвращает определения параметров в простом виде из видимых категорий Определение содержит имя, заголовок, идентификатор и список категорий Параметры: bSysParams — Включать ли в выборку системные параметры (включая имя); bSysName — Включать ли в выборку системный параметр имя (только имя, если bSysParams==false); bHideUnused — Не включать в выборку неиспользуемые параметры; bExtendedOnly — Включать только параметры из расширенных таблиц; bIndependentOnly — Включать только независемые параметры; bFileSysParams — Возвращать параметры файлов; bReadCategories — Возвращать категории (если нет, то ускоряется чтение, а списки категорий будут установлены в null) | 
+| `UpdatePreviewFile(CADLibKernel.CLibFi...` | метод | Retrieves file graphics and try to load it to the preview PictureBox. If file format is not graphical shows file category icon from largeImages ImageList Written by Zapevalov. Параметры: file — File to retrieve data from; preview — PictureBox to load to; largeImages — ImageList with catigories icons | 
+| `GetFileAssociatedIcon(System.String,S...` | метод | Retrieve windows Registered File Associated Icon Параметры: strFileTypeCaption — Type extension like "DWG"; cloneIcon — The callback that receives associated icon. The callback must clone the icon because it will be destroyed when the method returns. | 
+| `ShowObjectsTree(System.Windows.Forms....` | метод | Заполняет дерево объектами из указанного каталога Параметры: bSelect — Выделяет галочками добавленные узлы-объекты; tvFolders — Если не NULL то хранит папки | 
+| `UpdateCategory(CADLibKernel.CLibCateg...` | метод | Обновляет информацию о категории, либо создаёт новую Необходимые определения параметров должны быть созданы заранее, либо параметры не добавятся При добавлении обновляется поле idCategory Параметры: category — Категория для создания/обновления; guiControl — Элемент управления основного потока для создания иконок из рабочего потока. При вызове из основного потока может быть null | 
+| `UploadIcons(System.Drawing.Image,Syst...` | метод | Добавляет иконки в базу данных Если ImageList используется в элементах управления, то метод должен запускаться в потоке, владеющим ими Параметры: ico16 — Объект маленькой иконки; ico32 — Объект большой икноки; strName — Имя иконки Возвращает: Идентификатор новой иконки, либо Exception | 
+| `UpdateObjectParameterValuesAndComment...` | метод | UpdateObjectParameterValuesAndComments: метод является центральным механизмом обновления параметров объектов и все таковые обновления (кроме добавления/удаления параметров) должгы выполнятся через этот метод. Помимо параметров, указанных в аргументе newData, метод может изменить и другие параметры, а именно параметры-формулы, если таковые имеются у указанного объекта(-ов). При этом параметры-формулы могут быть изменены у объектов поимио указанных в аргументе objects, а именно у объектов, входящих в иерархию(-и) указанного объекта(-ов). То есть: для всех объектов, входящих в иерархию, пересчитываются все параметры-формулы, зависящие прямо или косвенно от указаных в аргументе newData параметров. Параметры: objects — Множество объектов, параметры которых изменились; newData — Новые значения, которые необходимо присвоить параметрам всех объектов из множества objects | 
+| `ShowFileParameters(System.Windows.For...` | метод | Retrieves file parameters into ListView. Written by Zapevalov. Параметры: props — ListView to retrieve info to; file — File to retrieve params from | 
 | `m_nThrowExceptions` | поле | Если значение больше нуля, то вместо показа диалога с ошибкой будут выданы исключения |
 | `PushThrowExceptions` | метод | Включает режим, при котором вместо показа диалога с ошибкой будут выданы исключения обёрнутые в LibExceptionWrapper |
 | `PopThrowExceptions` | метод | Отключает режим, при котором вместо показа диалога с ошибкой будут выданы исключения |
 | `ReportError(System.Exception)` | метод | Логирует ошибку Параметры: e — Исключение |
 | `ReportError(System.String)` | метод | Обработка ошибок. Если нет окна прогресса - показывает MessageBox с текстом ошибки Параметры: msg — Текст ошибки |
- | `GetUserGroupBySysName(System.String)` | метод | Поиск группы пользователей по системному имени Параметры: strSysName — Системное имя группы ("ALL" - стандартная группа "Все пользователи") Возвращает: id группы или 0, если такой нет | 
+| `GetUserGroupBySysName(System.String)` | метод | Поиск группы пользователей по системному имени Параметры: strSysName — Системное имя группы ("ALL" - стандартная группа "Все пользователи") Возвращает: id группы или 0, если такой нет | 
 | `ShowDependencies(System.Windows.Forms.TreeView)` | метод | Заполняет дерево для формы Настройка зависимостей параметров Параметры:  |
 | `ShowDependentParameters(System.Windows.Forms.TreeNode)` | метод | Заполняет указанный узел дерева для формы Настройка зависимостей параметров Параметры:  |
- | `FillClassifierObjectsTree(System.Wind...` | метод | Заполняет дерево объектами-ссылками - вложенными в классификатор Параметры: tvObjects — Дерево для добавления объектов; classifierRoot — Классификатор, который будет раскрыт; destBrowser — Контрол для смены каталога в случае двойного клика по объекту | 
+| `FillClassifierObjectsTree(System.Wind...` | метод | Заполняет дерево объектами-ссылками - вложенными в классификатор Параметры: tvObjects — Дерево для добавления объектов; classifierRoot — Классификатор, который будет раскрыт; destBrowser — Контрол для смены каталога в случае двойного клика по объекту | 
 
 #### `WizardFormLib.WizardFormBase`
 **Назначение:** UI-слой CADLib: формы, диалоги, браузер БД, панели и команды интерфейса.
@@ -4750,14 +4750,14 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 | `#ctor` | метод | Constructor |
 | `Raise_WizardPageChangeEvent(WizardFormLib.WizardPageChangeArgs)` | метод | Fires the WizardPageCreatedEvent event. Параметры:  |
 | `Raise_WizardFormStartedEvent(WizardFormLib.WizardFormStartedArgs)` | метод | Fires the WizardFormStartedEvent event. Параметры:  |
- | `graphicPanelTop_Paint(System.Object,S...` | метод | Fired when the graphic panel is painted 0- this should only happen the first time the wizard form is shown. Параметры: | 
+| `graphicPanelTop_Paint(System.Object,S...` | метод | Fired when the graphic panel is painted 0- this should only happen the first time the wizard form is shown. Параметры: | 
 | `PaintTitle` | метод | Paint the title and subtitle text. This should happen whenever the current page is changed. Параметры:  |
- | `PageCreated(WizardFormLib.WizardPage)` | метод | This method allows this object to add the wizard page to the pagePanel container. While we're here, we establish the start and stop page if possible. Параметры: | 
- | `DiscoverPagePanelSize(System.Drawing....` | метод | Called by the wizard page when it's created to allow this object to resize itself. The desired panel size is increased on whatever axis is larger than the current value. Параметры: | 
+| `PageCreated(WizardFormLib.WizardPage)` | метод | This method allows this object to add the wizard page to the pagePanel container. While we're here, we establish the start and stop page if possible. Параметры: | 
+| `DiscoverPagePanelSize(System.Drawing....` | метод | Called by the wizard page when it's created to allow this object to resize itself. The desired panel size is increased on whatever axis is larger than the current value. Параметры: | 
 | `StartWizard` | метод | Seeds the page chain, resizes the form to be large enough to contain the desired size of the pagePanel container, and finally, shows the start page. |
- | `PageIsVisible(WizardFormLib.WizardBut...` | метод | Determines if the specified state has the Visible flag turned on Параметры: state — The state to be checked Возвращает: True if the Visible flag is turned on | 
- | `PageIsEnabled(WizardFormLib.WizardBut...` | метод | Determines if the specified state has the Enabled flag turned on Параметры: state — The state to be checked Возвращает: True if the Enabled flag is turned on | 
- | `UpdateWizardForm(WizardFormLib.Wizard...` | метод | Updates the state of the buttons on the form base on the specified page settings. Параметры: page — The page controlling the button state | 
+| `PageIsVisible(WizardFormLib.WizardBut...` | метод | Determines if the specified state has the Visible flag turned on Параметры: state — The state to be checked Возвращает: True if the Visible flag is turned on | 
+| `PageIsEnabled(WizardFormLib.WizardBut...` | метод | Determines if the specified state has the Enabled flag turned on Параметры: state — The state to be checked Возвращает: True if the Enabled flag is turned on | 
+| `UpdateWizardForm(WizardFormLib.Wizard...` | метод | Updates the state of the buttons on the form base on the specified page settings. Параметры: page — The page controlling the button state | 
 
 #### `WizardFormLib.WizardPage`
 **Назначение:** UI-слой CADLib: формы, диалоги, браузер БД, панели и команды интерфейса.
@@ -4775,13 +4775,13 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 | `ButtonStateHelp` | свойство | The button state (visible/enabled) for the Help button |
 | `NextPages` | свойство | Get the list of "next" pages |
 | `#ctor(WizardFormLib.WizardFormBase)` | метод | Default constructor - creates an Intermediate wizard page. To create a start or stop page, use the overloaded constructor |
- | `#ctor(WizardFormLib.WizardFormBase,Wi...` | метод | Creates a wizard page of the specified type. You can optionally call the other constructor if you're adding anintermediate page. Параметры: parent — The parent wizard form; pageType — The type of page being created (see WizardPageType enum) | 
+| `#ctor(WizardFormLib.WizardFormBase,Wi...` | метод | Creates a wizard page of the specified type. You can optionally call the other constructor if you're adding anintermediate page. Параметры: parent — The parent wizard form; pageType — The type of page being created (see WizardPageType enum) | 
 | `Init(WizardFormLib.WizardFormBase,WizardFormLib.WizardPageType)` | метод | This is a common initialization function called by all of the constructors. Параметры:  |
- | `AddNextPage(WizardFormLib.WizardPage)` | метод | Adds a "next page" item to the list of possible next pages. The derived Wizard page can then decide on its own which page is next based on the values of one/more controls in the derived page. Параметры: nextPage — The page to add as a possible "next" page | 
+| `AddNextPage(WizardFormLib.WizardPage)` | метод | Adds a "next page" item to the list of possible next pages. The derived Wizard page can then decide on its own which page is next based on the values of one/more controls in the derived page. Параметры: nextPage — The page to add as a possible "next" page | 
 | `Raise_WizardPageActivated(WizardFormLib.WizardPageActivateArgs)` | метод | Allows the derived Wizard form to raise the WizardPageActivated event. Параметры:  |
 | `SaveData` | метод | Base method used to save data for all visited wizard pages. This copy of the method always returns true. Возвращает: True if the data was succesfully saved |
- | `GetNextPage` | метод | Get the next page to be shown. This is virtual so that you can override it in order to provide a programmatically determined "next" page. Возвращает: The page that will be displayed next | 
- | `parentForm_WizardPageChange(System.Ob...` | метод | Allows the base class to handle a page change event. Right now, there's nothing to do, but you could add some apppropriate functionalty that suits your application. Параметры: | 
+| `GetNextPage` | метод | Get the next page to be shown. This is virtual so that you can override it in order to provide a programmatically determined "next" page. Возвращает: The page that will be displayed next | 
+| `parentForm_WizardPageChange(System.Ob...` | метод | Allows the base class to handle a page change event. Right now, there's nothing to do, but you could add some apppropriate functionalty that suits your application. Параметры: | 
 | `WizardPage_VisibleChanged(System.Object,System.EventArgs)` | метод | Fired when a page is made visible. Параметры:  |
 
 #### `CADLibControls.Controls.ParametersSelectTree`
@@ -4811,8 +4811,8 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 | `ScrollTo(Aga.Controls.Tree.TreeNodeAdv)` | метод | Make node visible, scroll if needed. All parent nodes of the specified node must be expanded Параметры:  |
 | `CustomToolTip` | свойство | Позволяет указать функцию обработки сложных тултипов |
 | `BoldFont` | свойство | Возвращает шрифт данного элемента управления с установленным флагом "жирный" |
- | `SetRowFontPredicate(System.Func{Aga.C...` | метод | Позволяет задать колбэк для указания шрифта каждой строки дерева Параметры: objectToFont — Функция, преобразующая узел дерева в шрифт | 
- | `SetRowBackgroundColorPredicate(System...` | метод | Позволяет задать колбэк для указания кисти(цвета) фона каждой строки дерева Параметры: objectToRowColor — Функция, преобразующая узел дерева в кисть | 
+| `SetRowFontPredicate(System.Func{Aga.C...` | метод | Позволяет задать колбэк для указания шрифта каждой строки дерева Параметры: objectToFont — Функция, преобразующая узел дерева в шрифт | 
+| `SetRowBackgroundColorPredicate(System...` | метод | Позволяет задать колбэк для указания кисти(цвета) фона каждой строки дерева Параметры: objectToRowColor — Функция, преобразующая узел дерева в кисть | 
 
 #### `CADLib.DirectoryBrowserTreeBase`
 **Назначение:** UI-слой CADLib: формы, диалоги, браузер БД, панели и команды интерфейса.
@@ -4821,10 +4821,10 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 |---|---|---|
 | `SetSelectedNode(System.Windows.Forms.TreeNode)` | метод | Устанавливает выбранный узел дерева Параметры:  |
 | `ShowProps(System.Windows.Forms.TreeNode)` | метод | Вызов события показа свойств объекта Параметры:  |
- | `tvFolders_KeyDown(System.Object,Syste...` | метод | Обработка нажатия клавиш в дереве объектов. Нужно для навигации по дереву в помощью клавиатуры Параметры: | 
- | `tvObjects_KeyDown(System.Object,Syste...` | метод | Обработка нажатия клавиш в дереве объектов. Нужно для навигации по дереву в помощью клавиатуры Параметры: | 
+| `tvFolders_KeyDown(System.Object,Syste...` | метод | Обработка нажатия клавиш в дереве объектов. Нужно для навигации по дереву в помощью клавиатуры Параметры: | 
+| `tvObjects_KeyDown(System.Object,Syste...` | метод | Обработка нажатия клавиш в дереве объектов. Нужно для навигации по дереву в помощью клавиатуры Параметры: | 
 | `tvObjects_MouseDown(System.Object,System.Windows.Forms.MouseEventArgs)` | метод | Обработка события нужно для определения нажатия на область чекбокса Параметры:  |
- | `SelectChildObjectByPath(System.Int32[])` | метод | Выделяет подчинённый объект по указанному пути Параметры: arrPathObjectsIds — Путь к объекту, начиная с корневого (idObject). Возвращает: Ссылку на выбранный объект (как хранится в дереве) или null, если не удалось произвести выбор | 
+| `SelectChildObjectByPath(System.Int32[])` | метод | Выделяет подчинённый объект по указанному пути Параметры: arrPathObjectsIds — Путь к объекту, начиная с корневого (idObject). Возвращает: Ссылку на выбранный объект (как хранится в дереве) или null, если не удалось произвести выбор | 
 
 #### `CADLib.ParametersEditForm`
 **Назначение:** UI-слой CADLib: формы, диалоги, браузер БД, панели и команды интерфейса.
@@ -4846,16 +4846,16 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 | `IsEmpty` | свойство | True если нет выделенных узлов |
 | `Clear` | метод | Очистка списка выделения |
 | `Contains(System.Windows.Forms.TreeNode)` | метод | Определяет содержится ли узел в выделенных Параметры:  Возвращает: True если узел выделен |
- | `Begin(System.Windows.Forms.TreeNode,S...` | метод | Начало множественного выделения Параметры: treeNode — Узел, с которого начинается выделение; keys — Нажатые клавиши (Shift, Ctrl, ...); button — Нажатая кнопка мыши Возвращает: False если узел был выбран повторно и удалён из выделенных | 
- | `End(System.Windows.Forms.TreeNode,Sys...` | метод | Завершение множественного выделения Параметры: treeNode — Последний узел в выделении; keys — Нажатые клавиши (Shift, Ctrl, ...) | 
+| `Begin(System.Windows.Forms.TreeNode,S...` | метод | Начало множественного выделения Параметры: treeNode — Узел, с которого начинается выделение; keys — Нажатые клавиши (Shift, Ctrl, ...); button — Нажатая кнопка мыши Возвращает: False если узел был выбран повторно и удалён из выделенных | 
+| `End(System.Windows.Forms.TreeNode,Sys...` | метод | Завершение множественного выделения Параметры: treeNode — Последний узел в выделении; keys — Нажатые клавиши (Shift, Ctrl, ...) | 
 
 #### `CADLib.DirectoryBrowserCtrl`
 **Назначение:** UI-слой CADLib: формы, диалоги, браузер БД, панели и команды интерфейса.
 
 | Член | Тип | Описание |
 |---|---|---|
- | `RefreshCurrentCatalog(System.Boolean,...` | метод | Обновляет каталог объектов в окне БД Параметры: bKeepSelection — Запоминать выбранные объекты; bKeepPage — Запоминать страницу на которой находились; bShowAll — Показывать все объекты; bResetView — ХЗ; bSelectContents — Выделять галочками все объекты | 
- | `SelectChildObjectByPath(System.Int32[])` | метод | Выделяет подчинённый объект по указанному пути Параметры: arrPathObjectsIds — Путь к объекту, начиная с корневого (idObject). Возвращает: Ссылку на выбранный объект (как хранится в дереве) или null, если не удалось произвести выбор | 
+| `RefreshCurrentCatalog(System.Boolean,...` | метод | Обновляет каталог объектов в окне БД Параметры: bKeepSelection — Запоминать выбранные объекты; bKeepPage — Запоминать страницу на которой находились; bShowAll — Показывать все объекты; bResetView — ХЗ; bSelectContents — Выделять галочками все объекты | 
+| `SelectChildObjectByPath(System.Int32[])` | метод | Выделяет подчинённый объект по указанному пути Параметры: arrPathObjectsIds — Путь к объекту, начиная с корневого (idObject). Возвращает: Ссылку на выбранный объект (как хранится в дереве) или null, если не удалось произвести выбор | 
 | `ObjectSelected` | событие | Собтыие происходит при смене выбранного объекта. Возвращаемое значение не используется. |
 
 #### `CADLibControls.CSStackPanelItem`
@@ -4872,9 +4872,9 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 
 | Член | Тип | Описание |
 |---|---|---|
- | `populateListBox(System.String)` | метод | Called when a "." is pressed - the previous word is found, and if matched in the treeview, the members listbox is populated with items from the tree, which are first sorted. Возвращает: Whether an items are found for the word | 
- | `getLastWord(System.Boolean)` | метод | Searches backwards from the current caret position, until a space or newline is found. Возвращает: The previous word from the carret position | 
- | `selectItem` | метод | Autofills the selected item in the member listbox, by taking everything before and after the "." in the richtextbox, and appending the word in the middle. | 
+| `populateListBox(System.String)` | метод | Called when a "." is pressed - the previous word is found, and if matched in the treeview, the members listbox is populated with items from the tree, which are first sorted. Возвращает: Whether an items are found for the word | 
+| `getLastWord(System.Boolean)` | метод | Searches backwards from the current caret position, until a space or newline is found. Возвращает: The previous word from the carret position | 
+| `selectItem` | метод | Autofills the selected item in the member listbox, by taking everything before and after the "." in the richtextbox, and appending the word in the middle. | 
 
 #### `ObjectTemplates.ObjectTemplateListForm`
 **Назначение:** UI-слой CADLib: формы, диалоги, браузер БД, панели и команды интерфейса.
@@ -4883,7 +4883,7 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 |---|---|---|
 | `tbTemplateCreate_Click(System.Object,System.EventArgs)` | метод | Создать новый шаблон Параметры:  |
 | `tbTemplateAdd_Click(System.Object,System.EventArgs)` | метод | Добавить дочерний шаблон Параметры:  |
- | `AddTemplateParameters(CADLibKernel.CL...` | метод | Добавить к объекту все параметры из шаблона Параметры: | 
+| `AddTemplateParameters(CADLibKernel.CL...` | метод | Добавить к объекту все параметры из шаблона Параметры: | 
 
 #### `CADLib.AddParamsDlgBase`
 **Назначение:** Работа с определениями параметров, категориями параметров, значениями, единицами измерения и зависимостями.
@@ -4901,8 +4901,8 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 | `GetFileName` | метод | Имя файла для настроек (например settings.xml), если не задано, то настройки не сохраняются |
 | `GetName` | метод | Имя настроек для их идентификации |
 | `GetTreePath` | метод | Путь в дуреве настроек в диалоге настроек, если не задан - настройки не добавляются в диалог Узлы дерева в пути разделены символом \| |
- | `HasSaveImplementation` | свойство | Возвращает, да, если для класса реализованы собственные методы SaveSettings и LoadSettings В противном случае будет использован стандартный механизм сохранения и загрузки | 
- | `ParentGrid` | свойство | Таблица свойств, которая показывает данные настройки должна установить это поле перед показом необходимо для возможности вызова модальных диалогов из настроек | 
+| `HasSaveImplementation` | свойство | Возвращает, да, если для класса реализованы собственные методы SaveSettings и LoadSettings В противном случае будет использован стандартный механизм сохранения и загрузки | 
+| `ParentGrid` | свойство | Таблица свойств, которая показывает данные настройки должна установить это поле перед показом необходимо для возможности вызова модальных диалогов из настроек | 
 
 #### `CADLib.DirectoryBrowserClient`
 **Назначение:** UI-слой CADLib: формы, диалоги, браузер БД, панели и команды интерфейса.
@@ -4910,22 +4910,22 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 | Член | Тип | Описание |
 |---|---|---|
 | `VisibleItemsUpdated` | событие | Событие обновления дерева объектов |
- | `SelectChildObjectByPath(System.Int32[])` | метод | Выделяет подчинённый объект по указанному пути Параметры: arrPathObjectsIds — Путь к объекту, начиная с корневого (idObject). Возвращает: Ссылку на выбранный объект (как хранится в дереве) или null, если не удалось произвести выбор | 
+| `SelectChildObjectByPath(System.Int32[])` | метод | Выделяет подчинённый объект по указанному пути Параметры: arrPathObjectsIds — Путь к объекту, начиная с корневого (idObject). Возвращает: Ссылку на выбранный объект (как хранится в дереве) или null, если не удалось произвести выбор | 
 
 #### `CADLib.FoldersBrowser`
 **Назначение:** UI-слой CADLib: формы, диалоги, браузер БД, панели и команды интерфейса.
 
 | Член | Тип | Описание |
 |---|---|---|
- | `GetFolderByPath(System.String)` | метод | Пытается загрузить каталог по указанному пути в дереве Работает также как RestoreFoldersPath, но не меняет выделенный узел и статус свёрнутости узлов Параметры: foldersText — Путь, полученный с помощью GetFoldersPathString() (разделител "\ | \ | \ | ") Возвращает: Каталог БД или null, в случае неудачного поиска. Если целиком путь восстановить не удаётся, то будет возвращена существующая часть пути. | 
- | `GetNodeByPath(System.String,System.Bo...` | метод | Пытается загрузить каталог по указанному пути в дереве Работает также как RestoreFoldersPath, но не меняет выделенный узел и статус свёрнутости узлов Параметры: foldersText — Путь, полученный с помощью GetFoldersPathString() (разделител "\ | \ | \ | ") Возвращает: Каталог или null, в случае неудачного поиска. bFindFullPath - флаг поиска полного соответствия пути если путь целиком не существует, true - если путь целиком не существует возвращенно будет null false - Если целиком путь восстановить не удаётся, то будет возвращена существующая часть пути. | 
+| `GetFolderByPath(System.String)` | метод | Пытается загрузить каталог по указанному пути в дереве Работает также как RestoreFoldersPath, но не меняет выделенный узел и статус свёрнутости узлов Параметры: foldersText — Путь, полученный с помощью GetFoldersPathString() (разделител "\ | \ | \ | ") Возвращает: Каталог БД или null, в случае неудачного поиска. Если целиком путь восстановить не удаётся, то будет возвращена существующая часть пути. | 
+| `GetNodeByPath(System.String,System.Bo...` | метод | Пытается загрузить каталог по указанному пути в дереве Работает также как RestoreFoldersPath, но не меняет выделенный узел и статус свёрнутости узлов Параметры: foldersText — Путь, полученный с помощью GetFoldersPathString() (разделител "\ | \ | \ | ") Возвращает: Каталог или null, в случае неудачного поиска. bFindFullPath - флаг поиска полного соответствия пути если путь целиком не существует, true - если путь целиком не существует возвращенно будет null false - Если целиком путь восстановить не удаётся, то будет возвращена существующая часть пути. | 
 
 #### `CADLib.Dialogs.MultiuserForm`
 **Назначение:** UI-слой CADLib: формы, диалоги, браузер БД, панели и команды интерфейса.
 
 | Член | Тип | Описание |
 |---|---|---|
- | `ResizeImage(System.Drawing.Image,Syst...` | метод | Resize the image to the specified width and height. Параметры: image — The image to resize.; width — The width to resize to.; height — The height to resize to. Возвращает: The resized image. | 
+| `ResizeImage(System.Drawing.Image,Syst...` | метод | Resize the image to the specified width and height. Параметры: image — The image to resize.; width — The width to resize to.; height — The height to resize to. Возвращает: The resized image. | 
 
 #### `CADLib.ObjectPropertiesDlg`
 **Назначение:** Объекты CADLib: данные объекта, иерархия, копирование, создание, удаление, связи и структура.
@@ -4939,7 +4939,7 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 
 | Член | Тип | Описание |
 |---|---|---|
- | `ShowObjectProperties(CADLibKernel.CLi...` | метод | Показывает свойства объекта и переводит элемент управления свойств в режим одиночного показа Параметры: activeObject — Объект для показа; forceShow — Принудительно показать окно общих свойств Возвращает: Да, если что-то поменялось | 
+| `ShowObjectProperties(CADLibKernel.CLi...` | метод | Показывает свойства объекта и переводит элемент управления свойств в режим одиночного показа Параметры: activeObject — Объект для показа; forceShow — Принудительно показать окно общих свойств Возвращает: Да, если что-то поменялось | 
 
 #### `CADLib.ParametersDialog`
 **Назначение:** UI-слой CADLib: формы, диалоги, браузер БД, панели и команды интерфейса.
@@ -4964,9 +4964,9 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 | Член | Тип | Описание |
 |---|---|---|
 | `Front(System.String)` | метод | Транслитирует строку русских символов (по умолчанию стандарт ISO) Параметры: text — Строка с русским текстом |
- | `Front(System.String,CADLibControls.Tr...` | метод | Транслитирует строку русских символов (по умолчанию стандарт ISO) Параметры: text — Строка с русским текстом; type — Вариант ГОСТа | 
+| `Front(System.String,CADLibControls.Tr...` | метод | Транслитирует строку русских символов (по умолчанию стандарт ISO) Параметры: text — Строка с русским текстом; type — Вариант ГОСТа | 
 | `Back(System.String)` | метод | Транслитирует строку обратно в русский текст (по умолчанию стандарт ISO) Параметры: text — Транслитируемая строка |
- | `Back(System.String,CADLibControls.Tra...` | метод | Транслитирует строку обратно в русский текст (по умолчанию стандарт ISO) Параметры: text — Транслитируемая строка; type — Вариант ГОСТа | 
+| `Back(System.String,CADLibControls.Tra...` | метод | Транслитирует строку обратно в русский текст (по умолчанию стандарт ISO) Параметры: text — Транслитируемая строка; type — Вариант ГОСТа | 
 
 #### `ObjectTemplates.CheckTemplateForm`
 **Назначение:** UI-слой CADLib: формы, диалоги, браузер БД, панели и команды интерфейса.
@@ -5003,7 +5003,7 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 
 | Член | Тип | Описание |
 |---|---|---|
- | `#ctor(System.Windows.Forms.Form,Syste...` | метод | Cad lib dock window base constructor This window automatically docks in Panel2 of the given DockSplitContainer Параметры: MainForm — can be null before first FhowForm; DockSplitContainer — can be null before first FhowForm | 
+| `#ctor(System.Windows.Forms.Form,Syste...` | метод | Cad lib dock window base constructor This window automatically docks in Panel2 of the given DockSplitContainer Параметры: MainForm — can be null before first FhowForm; DockSplitContainer — can be null before first FhowForm | 
 | `#ctor` | метод | Default constructor FOR DISIGNER ONLY |
 
 #### `CADLib.PdfFileEditor`
@@ -5014,8 +5014,8 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 
 | Член | Тип | Описание |
 |---|---|---|
- | `MakeMonochrome(System.String)` | метод | Creates a monochrome version of an image Параметры: sourceImageFile — The path to the image to convert to monochrome. The source image is not altered in any way. Возвращает: The monochrome image | 
- | `MakeMonochrome(System.Drawing.Image)` | метод | Creates a monochrome version of an image Параметры: source — The image to convert to monochrome. The source image is not altered in any way. Возвращает: The monochrome image | 
+| `MakeMonochrome(System.String)` | метод | Creates a monochrome version of an image Параметры: sourceImageFile — The path to the image to convert to monochrome. The source image is not altered in any way. Возвращает: The monochrome image | 
+| `MakeMonochrome(System.Drawing.Image)` | метод | Creates a monochrome version of an image Параметры: source — The image to convert to monochrome. The source image is not altered in any way. Возвращает: The monochrome image | 
 
 #### `ObjectTemplates.ObjectTemplateManager`
 **Назначение:** Объекты CADLib: данные объекта, иерархия, копирование, создание, удаление, связи и структура.
@@ -5023,7 +5023,7 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 | Член | Тип | Описание |
 |---|---|---|
 | `CheckTemplateObject(CADLibKernel.CLibObjectInfo,System.Collections.Generic.List{CADLibKernel.CLibObjectInfo})` | метод | Pfuhep Параметры:  |
- | `CheckObject(CADLibKernel.CLibObjectIn...` | метод | Основной метод проверки объекта Выполняет последовательную проверку условий указанного шаблона Параметры: | 
+| `CheckObject(CADLibKernel.CLibObjectIn...` | метод | Основной метод проверки объекта Выполняет последовательную проверку условий указанного шаблона Параметры: | 
 
 #### `Aga.Controls.Tree.InputState`
 **Назначение:** UI-слой CADLib: формы, диалоги, браузер БД, панели и команды интерфейса.
@@ -5037,14 +5037,14 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 
 | Член | Тип | Описание |
 |---|---|---|
- | `SetValuePredicate(System.Func{Aga.Con...` | метод | Позволяет задать колбэк для получения значения поля объекта по узлу дерева Если она задана, то она используется вместо получения значения по имени поля (DataPropertyName) Параметры: getValuePredicate — Функция, преобразующая узел дерева в значение для данного NodeControl | 
+| `SetValuePredicate(System.Func{Aga.Con...` | метод | Позволяет задать колбэк для получения значения поля объекта по узлу дерева Если она задана, то она используется вместо получения значения по имени поля (DataPropertyName) Параметры: getValuePredicate — Функция, преобразующая узел дерева в значение для данного NodeControl | 
 
 #### `Aga.Controls.Tree.NodeCon<wbr>trols.EditableControl`
 **Назначение:** UI-слой CADLib: формы, диалоги, браузер БД, панели и команды интерфейса.
 
 | Член | Тип | Описание |
 |---|---|---|
- | `SetReadOnlyCallback(System.Func{Aga.C...` | метод | Позволяет задать колбэк для получения значения поля объекта по узлу дерева Если она задана, то она используется вместо получения значения по имени поля (DataPropertyName) Параметры: readOnlyCallback — Функция, преобразующая узел дерева в значение для данного NodeControl | 
+| `SetReadOnlyCallback(System.Func{Aga.C...` | метод | Позволяет задать колбэк для получения значения поля объекта по узлу дерева Если она задана, то она используется вместо получения значения по имени поля (DataPropertyName) Параметры: readOnlyCallback — Функция, преобразующая узел дерева в значение для данного NodeControl | 
 
 #### `CADLib.CSSettings`
 **Назначение:** Назначение явно не описано в XML; восстановлено только по имени типа и публичным членам DLL.
@@ -5058,7 +5058,7 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 
 | Член | Тип | Описание |
 |---|---|---|
- | `GetSelStatus` | метод | Тип данного каталога Для DbSettingsItemType.itSpecialFolder: Special Для DbSettingsItemType.itFolder или DbSettingsItemType.itFileFolder смотрит тип каталога (Folder): в МиА следующие значения: Текущий вид: Special Выбранные объекты: Special Все объекты: System Все файлы: System Каталог (выборка): Folder Миникаталог (куда просто можно помещать объекты): Directory Классификатор (имя классификатора, где показываются все объекты): ClassifierRoot Ветвь классификатора (где отфильтрованные объекты): Classifier Виды: Special Вид из видов: Directory Заметки: Special Результаты поиска (Редактирование - Поиск): Search Для остальных типов возвращает LibFolderState.System | 
+| `GetSelStatus` | метод | Тип данного каталога Для DbSettingsItemType.itSpecialFolder: Special Для DbSettingsItemType.itFolder или DbSettingsItemType.itFileFolder смотрит тип каталога (Folder): в МиА следующие значения: Текущий вид: Special Выбранные объекты: Special Все объекты: System Все файлы: System Каталог (выборка): Folder Миникаталог (куда просто можно помещать объекты): Directory Классификатор (имя классификатора, где показываются все объекты): ClassifierRoot Ветвь классификатора (где отфильтрованные объекты): Classifier Виды: Special Вид из видов: Directory Заметки: Special Результаты поиска (Редактирование - Поиск): Search Для остальных типов возвращает LibFolderState.System | 
 
 #### `CADLib.EnumTypeConverter`
 **Назначение:** Назначение явно не описано в XML; восстановлено только по имени типа и публичным членам DLL.
@@ -5100,14 +5100,14 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 
 | Член | Тип | Описание |
 |---|---|---|
- | `GdipEmfToWmfBits(System.IntPtr,System...` | метод | Use the EmfToWmfBits function in the GDI+ specification to convert a Enhanced Metafile to a Windows Metafile Параметры: _hEmf — A handle to the Enhanced Metafile to be converted; _bufferSize — The size of the buffer used to store the Windows Metafile bits returned; _buffer — An array of bytes used to hold the Windows Metafile bits returned; _mappingMode — The mapping mode of the image. This control uses MM_ANISOTROPIC.; _flags — Flags used to specify the format of the Windows Metafile returned | 
+| `GdipEmfToWmfBits(System.IntPtr,System...` | метод | Use the EmfToWmfBits function in the GDI+ specification to convert a Enhanced Metafile to a Windows Metafile Параметры: _hEmf — A handle to the Enhanced Metafile to be converted; _bufferSize — The size of the buffer used to store the Windows Metafile bits returned; _buffer — An array of bytes used to hold the Windows Metafile bits returned; _mappingMode — The mapping mode of the image. This control uses MM_ANISOTROPIC.; _flags — Flags used to specify the format of the Windows Metafile returned | 
 
 #### `WizardFormLib.WizardUtility`
 **Назначение:** UI-слой CADLib: формы, диалоги, браузер БД, панели и команды интерфейса.
 
 | Член | Тип | Описание |
 |---|---|---|
- | `IsDesignTime` | метод | Determines if the programmer is using the designer to modify this control (or controls derived from this class). Возвращает: True if the designer is displaying this control | 
+| `IsDesignTime` | метод | Determines if the programmer is using the designer to modify this control (or controls derived from this class). Возвращает: True if the designer is displaying this control | 
 
 ## 7. DLL без XML: `CADLibKernel` и `CSAppServices`
 
@@ -5156,16 +5156,16 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 | Тип | Назначение / гипотеза | Публичные члены |
 |---|---|---:|
 | `CADLibKernel.CADLibraryBase` | Центральный объект доступа к БД/библиотеке CADLib: соединение, объекты, параметры, структуры, операции импорта/экспорта. | 1094 |
- | `CADLibKernel.ObjectUpdate.GetConnecti...` | Центральный объект доступа к БД/библиотеке CADLib: соединение, объекты, параметры, структуры, операции импорта/экспорта. | 4 | 
- | `CADLibKernel.ObjectUpdate.GetLibraryO...` | Центральный объект доступа к БД/библиотеке CADLib: соединение, объекты, параметры, структуры, операции импорта/экспорта. | 4 | 
- | `CADLibKernel.ObjectUpdate.GetConnecti...` | Центральный объект доступа к БД/библиотеке CADLib: соединение, объекты, параметры, структуры, операции импорта/экспорта. | 4 | 
- | `CADLibKernel.ObjectUpdate.GetLibraryO...` | Центральный объект доступа к БД/библиотеке CADLib: соединение, объекты, параметры, структуры, операции импорта/экспорта. | 4 | 
- | `CADLibKernel.ObjectUpdate.GetLibraryD...` | Центральный объект доступа к БД/библиотеке CADLib: соединение, объекты, параметры, структуры, операции импорта/экспорта. | 4 | 
- | `CADLibKernel.ObjectUpdate.GetLibraryO...` | Центральный объект доступа к БД/библиотеке CADLib: соединение, объекты, параметры, структуры, операции импорта/экспорта. | 4 | 
- | `CADLibKernel.ObjectUpdate.GetLibraryO...` | Центральный объект доступа к БД/библиотеке CADLib: соединение, объекты, параметры, структуры, операции импорта/экспорта. | 4 | 
- | `CADLibKernel.ObjectUpdate.GetLibraryD...` | Центральный объект доступа к БД/библиотеке CADLib: соединение, объекты, параметры, структуры, операции импорта/экспорта. | 4 | 
- | `CADLibKernel.ObjectUpdate.GetLibraryO...` | Центральный объект доступа к БД/библиотеке CADLib: соединение, объекты, параметры, структуры, операции импорта/экспорта. | 4 | 
- | `CADLibKernel.ObjectUpdate.GetLibraryO...` | Центральный объект доступа к БД/библиотеке CADLib: соединение, объекты, параметры, структуры, операции импорта/экспорта. | 4 | 
+| `CADLibKernel.ObjectUpdate.GetConnecti...` | Центральный объект доступа к БД/библиотеке CADLib: соединение, объекты, параметры, структуры, операции импорта/экспорта. | 4 | 
+| `CADLibKernel.ObjectUpdate.GetLibraryO...` | Центральный объект доступа к БД/библиотеке CADLib: соединение, объекты, параметры, структуры, операции импорта/экспорта. | 4 | 
+| `CADLibKernel.ObjectUpdate.GetConnecti...` | Центральный объект доступа к БД/библиотеке CADLib: соединение, объекты, параметры, структуры, операции импорта/экспорта. | 4 | 
+| `CADLibKernel.ObjectUpdate.GetLibraryO...` | Центральный объект доступа к БД/библиотеке CADLib: соединение, объекты, параметры, структуры, операции импорта/экспорта. | 4 | 
+| `CADLibKernel.ObjectUpdate.GetLibraryD...` | Центральный объект доступа к БД/библиотеке CADLib: соединение, объекты, параметры, структуры, операции импорта/экспорта. | 4 | 
+| `CADLibKernel.ObjectUpdate.GetLibraryO...` | Центральный объект доступа к БД/библиотеке CADLib: соединение, объекты, параметры, структуры, операции импорта/экспорта. | 4 | 
+| `CADLibKernel.ObjectUpdate.GetLibraryO...` | Центральный объект доступа к БД/библиотеке CADLib: соединение, объекты, параметры, структуры, операции импорта/экспорта. | 4 | 
+| `CADLibKernel.ObjectUpdate.GetLibraryD...` | Центральный объект доступа к БД/библиотеке CADLib: соединение, объекты, параметры, структуры, операции импорта/экспорта. | 4 | 
+| `CADLibKernel.ObjectUpdate.GetLibraryO...` | Центральный объект доступа к БД/библиотеке CADLib: соединение, объекты, параметры, структуры, операции импорта/экспорта. | 4 | 
+| `CADLibKernel.ObjectUpdate.GetLibraryO...` | Центральный объект доступа к БД/библиотеке CADLib: соединение, объекты, параметры, структуры, операции импорта/экспорта. | 4 | 
 
 #### Коллизии / замечания
 
@@ -5191,17 +5191,17 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 | `CADLibKernel.ObjectUpdate.ParamDefVariant` | Работа с определениями параметров, категориями параметров, значениями, единицами измерения и зависимостями. | 9 |
 | `CADLibKernel.ObjectUpdate.Parameter` | Работа с определениями параметров, категориями параметров, значениями, единицами измерения и зависимостями. | 21 |
 | `CADLibKernel.CLibObjectInfo` | Объекты CADLib: данные объекта, иерархия, копирование, создание, удаление, связи и структура. | 34 |
- | `CADLibKernel.ObjectUpdate.GetClassifi...` | Работа с определениями параметров, категориями параметров, значениями, единицами измерения и зависимостями. | 4 | 
- | `CADLibKernel.ObjectUpdate.GetObjectPa...` | Работа с определениями параметров, категориями параметров, значениями, единицами измерения и зависимостями. | 4 | 
- | `CADLibKernel.ObjectUpdate.GetObjectPa...` | Работа с определениями параметров, категориями параметров, значениями, единицами измерения и зависимостями. | 4 | 
- | `CADLibKernel.ObjectUpdate.GetObjectsB...` | Работа с определениями параметров, категориями параметров, значениями, единицами измерения и зависимостями. | 4 | 
- | `CADLibKernel.ObjectUpdate.GetObjectsB...` | Работа с определениями параметров, категориями параметров, значениями, единицами измерения и зависимостями. | 4 | 
- | `CADLibKernel.ObjectUpdate.GetParamDef...` | Работа с определениями параметров, категориями параметров, значениями, единицами измерения и зависимостями. | 4 | 
- | `CADLibKernel.ObjectUpdate.GetClassifi...` | Работа с определениями параметров, категориями параметров, значениями, единицами измерения и зависимостями. | 4 | 
- | `CADLibKernel.ObjectUpdate.GetObjectPa...` | Работа с определениями параметров, категориями параметров, значениями, единицами измерения и зависимостями. | 4 | 
- | `CADLibKernel.ObjectUpdate.GetObjectPa...` | Работа с определениями параметров, категориями параметров, значениями, единицами измерения и зависимостями. | 4 | 
- | `CADLibKernel.ObjectUpdate.GetObjectsB...` | Работа с определениями параметров, категориями параметров, значениями, единицами измерения и зависимостями. | 4 | 
- | `CADLibKernel.ObjectUpdate.GetObjectsB...` | Работа с определениями параметров, категориями параметров, значениями, единицами измерения и зависимостями. | 4 | 
+| `CADLibKernel.ObjectUpdate.GetClassifi...` | Работа с определениями параметров, категориями параметров, значениями, единицами измерения и зависимостями. | 4 | 
+| `CADLibKernel.ObjectUpdate.GetObjectPa...` | Работа с определениями параметров, категориями параметров, значениями, единицами измерения и зависимостями. | 4 | 
+| `CADLibKernel.ObjectUpdate.GetObjectPa...` | Работа с определениями параметров, категориями параметров, значениями, единицами измерения и зависимостями. | 4 | 
+| `CADLibKernel.ObjectUpdate.GetObjectsB...` | Работа с определениями параметров, категориями параметров, значениями, единицами измерения и зависимостями. | 4 | 
+| `CADLibKernel.ObjectUpdate.GetObjectsB...` | Работа с определениями параметров, категориями параметров, значениями, единицами измерения и зависимостями. | 4 | 
+| `CADLibKernel.ObjectUpdate.GetParamDef...` | Работа с определениями параметров, категориями параметров, значениями, единицами измерения и зависимостями. | 4 | 
+| `CADLibKernel.ObjectUpdate.GetClassifi...` | Работа с определениями параметров, категориями параметров, значениями, единицами измерения и зависимостями. | 4 | 
+| `CADLibKernel.ObjectUpdate.GetObjectPa...` | Работа с определениями параметров, категориями параметров, значениями, единицами измерения и зависимостями. | 4 | 
+| `CADLibKernel.ObjectUpdate.GetObjectPa...` | Работа с определениями параметров, категориями параметров, значениями, единицами измерения и зависимостями. | 4 | 
+| `CADLibKernel.ObjectUpdate.GetObjectsB...` | Работа с определениями параметров, категориями параметров, значениями, единицами измерения и зависимостями. | 4 | 
+| `CADLibKernel.ObjectUpdate.GetObjectsB...` | Работа с определениями параметров, категориями параметров, значениями, единицами измерения и зависимостями. | 4 | 
 | `CADLibKernel.ObjectUpdate<wbr>.GetParamDefsXmlCompleted<wbr>EventArgs` | Работа с определениями параметров, категориями параметров, значениями, единицами измерения и зависимостями. | 4 |
 | `CADLibKernel.ObjectUpdate.ObjectCategory` | Работа с определениями параметров, категориями параметров, значениями, единицами измерения и зависимостями. | 29 |
 | `CADLibKernel.CLibCSVExportObject` | Формирование отчётов, экспорт/импорт данных и документирование содержимого БД. | 17 |
@@ -5217,46 +5217,46 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 | `CADLibKernel.ObjectUpdate.ExpertiseItem` | Объекты CADLib: данные объекта, иерархия, копирование, создание, удаление, связи и структура. | 33 |
 | `CADLibKernel.ObjectUpdate<wbr>.Get3DGraphicsArrayComple<wbr>tedEventArgs` | Работа с 3D-графикой объектов: формы, сетки, меши, вершины, материалы, геометрическое представление. | 6 |
 | `CADLibKernel.ObjectUpdate<wbr>.Get3DGraphicsWithPtCompl<wbr>etedEventArgs` | Работа с 3D-графикой объектов: формы, сетки, меши, вершины, материалы, геометрическое представление. | 6 |
- | `CADLibKernel.ObjectUpdate.GetObject3D...` | Работа с 3D-графикой объектов: формы, сетки, меши, вершины, материалы, геометрическое представление. | 6 | 
+| `CADLibKernel.ObjectUpdate.GetObject3D...` | Работа с 3D-графикой объектов: формы, сетки, меши, вершины, материалы, геометрическое представление. | 6 | 
 | `CADLibKernel.ObjectUpdate<wbr>.Count3DShapesSizeComplet<wbr>edEventHandler` | Работа с 3D-графикой объектов: формы, сетки, меши, вершины, материалы, геометрическое представление. | 4 |
- | `CADLibKernel.ObjectUpdate.DownloadDef...` | Работа с определениями параметров, категориями параметров, значениями, единицами измерения и зависимостями. | 4 | 
+| `CADLibKernel.ObjectUpdate.DownloadDef...` | Работа с определениями параметров, категориями параметров, значениями, единицами измерения и зависимостями. | 4 | 
 | `CADLibKernel.ObjectUpdate<wbr>.Get3DGraphicsArrayComple<wbr>tedEventHandler` | Работа с 3D-графикой объектов: формы, сетки, меши, вершины, материалы, геометрическое представление. | 4 |
 | `CADLibKernel.ObjectUpdate<wbr>.Get3DGraphicsCompletedEv<wbr>entHandler` | Работа с 3D-графикой объектов: формы, сетки, меши, вершины, материалы, геометрическое представление. | 4 |
 | `CADLibKernel.ObjectUpdate<wbr>.Get3DGraphicsWithPtCompl<wbr>etedEventHandler` | Работа с 3D-графикой объектов: формы, сетки, меши, вершины, материалы, геометрическое представление. | 4 |
- | `CADLibKernel.ObjectUpdate.GetFilePara...` | Работа с определениями параметров, категориями параметров, значениями, единицами измерения и зависимостями. | 4 | 
- | `CADLibKernel.ObjectUpdate.GetModelHas...` | Работа с 3D-графикой объектов: формы, сетки, меши, вершины, материалы, геометрическое представление. | 4 | 
- | `CADLibKernel.ObjectUpdate.GetObject3D...` | Работа с 3D-графикой объектов: формы, сетки, меши, вершины, материалы, геометрическое представление. | 4 | 
- | `CADLibKernel.ObjectUpdate.GetObject3D...` | Работа с 3D-графикой объектов: формы, сетки, меши, вершины, материалы, геометрическое представление. | 4 | 
- | `CADLibKernel.ObjectUpdate.GetObject3D...` | Работа с 3D-графикой объектов: формы, сетки, меши, вершины, материалы, геометрическое представление. | 4 | 
- | `CADLibKernel.ObjectUpdate.GetObject3D...` | Работа с 3D-графикой объектов: формы, сетки, меши, вершины, материалы, геометрическое представление. | 4 | 
- | `CADLibKernel.ObjectUpdate.GetObjectPa...` | Работа с определениями параметров, категориями параметров, значениями, единицами измерения и зависимостями. | 4 | 
- | `CADLibKernel.ObjectUpdate.GetObjectPa...` | Работа с определениями параметров, категориями параметров, значениями, единицами измерения и зависимостями. | 4 | 
- | `CADLibKernel.ObjectUpdate.GetObjectPa...` | Работа с определениями параметров, категориями параметров, значениями, единицами измерения и зависимостями. | 4 | 
- | `CADLibKernel.ObjectUpdate.GetObjectsB...` | Работа с определениями параметров, категориями параметров, значениями, единицами измерения и зависимостями. | 4 | 
- | `CADLibKernel.ObjectUpdate.GetObjectsI...` | Работа с определениями параметров, категориями параметров, значениями, единицами измерения и зависимостями. | 4 | 
- | `CADLibKernel.ObjectUpdate.GetObjectsP...` | Работа с определениями параметров, категориями параметров, значениями, единицами измерения и зависимостями. | 4 | 
- | `CADLibKernel.ObjectUpdate.GetObjectsU...` | Работа с определениями параметров, категориями параметров, значениями, единицами измерения и зависимостями. | 4 | 
+| `CADLibKernel.ObjectUpdate.GetFilePara...` | Работа с определениями параметров, категориями параметров, значениями, единицами измерения и зависимостями. | 4 | 
+| `CADLibKernel.ObjectUpdate.GetModelHas...` | Работа с 3D-графикой объектов: формы, сетки, меши, вершины, материалы, геометрическое представление. | 4 | 
+| `CADLibKernel.ObjectUpdate.GetObject3D...` | Работа с 3D-графикой объектов: формы, сетки, меши, вершины, материалы, геометрическое представление. | 4 | 
+| `CADLibKernel.ObjectUpdate.GetObject3D...` | Работа с 3D-графикой объектов: формы, сетки, меши, вершины, материалы, геометрическое представление. | 4 | 
+| `CADLibKernel.ObjectUpdate.GetObject3D...` | Работа с 3D-графикой объектов: формы, сетки, меши, вершины, материалы, геометрическое представление. | 4 | 
+| `CADLibKernel.ObjectUpdate.GetObject3D...` | Работа с 3D-графикой объектов: формы, сетки, меши, вершины, материалы, геометрическое представление. | 4 | 
+| `CADLibKernel.ObjectUpdate.GetObjectPa...` | Работа с определениями параметров, категориями параметров, значениями, единицами измерения и зависимостями. | 4 | 
+| `CADLibKernel.ObjectUpdate.GetObjectPa...` | Работа с определениями параметров, категориями параметров, значениями, единицами измерения и зависимостями. | 4 | 
+| `CADLibKernel.ObjectUpdate.GetObjectPa...` | Работа с определениями параметров, категориями параметров, значениями, единицами измерения и зависимостями. | 4 | 
+| `CADLibKernel.ObjectUpdate.GetObjectsB...` | Работа с определениями параметров, категориями параметров, значениями, единицами измерения и зависимостями. | 4 | 
+| `CADLibKernel.ObjectUpdate.GetObjectsI...` | Работа с определениями параметров, категориями параметров, значениями, единицами измерения и зависимостями. | 4 | 
+| `CADLibKernel.ObjectUpdate.GetObjectsP...` | Работа с определениями параметров, категориями параметров, значениями, единицами измерения и зависимостями. | 4 | 
+| `CADLibKernel.ObjectUpdate.GetObjectsU...` | Работа с определениями параметров, категориями параметров, значениями, единицами измерения и зависимостями. | 4 | 
 | `CADLibKernel.ObjectUpdate<wbr>.GetParamDefIdCompletedEv<wbr>entHandler` | Работа с определениями параметров, категориями параметров, значениями, единицами измерения и зависимостями. | 4 |
- | `CADLibKernel.ObjectUpdate.GetParamDef...` | Работа с определениями параметров, категориями параметров, значениями, единицами измерения и зависимостями. | 4 | 
+| `CADLibKernel.ObjectUpdate.GetParamDef...` | Работа с определениями параметров, категориями параметров, значениями, единицами измерения и зависимостями. | 4 | 
 | `CADLibKernel.ObjectUpdate<wbr>.GetParamDefsCompletedEve<wbr>ntHandler` | Работа с определениями параметров, категориями параметров, значениями, единицами измерения и зависимостями. | 4 |
- | `CADLibKernel.ObjectUpdate.GetParamVal...` | Работа с определениями параметров, категориями параметров, значениями, единицами измерения и зависимостями. | 4 | 
- | `CADLibKernel.ObjectUpdate.GetParamete...` | Работа с определениями параметров, категориями параметров, значениями, единицами измерения и зависимостями. | 4 | 
- | `CADLibKernel.ObjectUpdate.GetSingleOb...` | Работа с 3D-графикой объектов: формы, сетки, меши, вершины, материалы, геометрическое представление. | 4 | 
- | `CADLibKernel.ObjectUpdate.SetObjectPa...` | Работа с определениями параметров, категориями параметров, значениями, единицами измерения и зависимостями. | 4 | 
- | `CADLibKernel.ObjectUpdate.SetObjectPa...` | Работа с определениями параметров, категориями параметров, значениями, единицами измерения и зависимостями. | 4 | 
- | `CADLibKernel.ObjectUpdate.UploadParam...` | Работа с определениями параметров, категориями параметров, значениями, единицами измерения и зависимостями. | 4 | 
- | `CADLibKernel.ObjectUpdateRouter.GetCa...` | Пользователи, группы, роли, права доступа и интеграция с доменной инфраструктурой. | 4 | 
+| `CADLibKernel.ObjectUpdate.GetParamVal...` | Работа с определениями параметров, категориями параметров, значениями, единицами измерения и зависимостями. | 4 | 
+| `CADLibKernel.ObjectUpdate.GetParamete...` | Работа с определениями параметров, категориями параметров, значениями, единицами измерения и зависимостями. | 4 | 
+| `CADLibKernel.ObjectUpdate.GetSingleOb...` | Работа с 3D-графикой объектов: формы, сетки, меши, вершины, материалы, геометрическое представление. | 4 | 
+| `CADLibKernel.ObjectUpdate.SetObjectPa...` | Работа с определениями параметров, категориями параметров, значениями, единицами измерения и зависимостями. | 4 | 
+| `CADLibKernel.ObjectUpdate.SetObjectPa...` | Работа с определениями параметров, категориями параметров, значениями, единицами измерения и зависимостями. | 4 | 
+| `CADLibKernel.ObjectUpdate.UploadParam...` | Работа с определениями параметров, категориями параметров, значениями, единицами измерения и зависимостями. | 4 | 
+| `CADLibKernel.ObjectUpdateRouter.GetCa...` | Пользователи, группы, роли, права доступа и интеграция с доменной инфраструктурой. | 4 | 
 | `CADLibKernel.ObjectUpdate<wbr>Router.GetRolesOfAuthenti<wbr>catedUserCompletedEventHa<wbr>ndler` | Пользователи, группы, роли, права доступа и интеграция с доменной инфраструктурой. | 4 |
 | `CADLibKernel.IsLinkedObjectParam` | Работа с определениями параметров, категориями параметров, значениями, единицами измерения и зависимостями. | 16 |
 | `CADLibKernel.Models.ObjectUpdate.Empty` | Объекты CADLib: данные объекта, иерархия, копирование, создание, удаление, связи и структура. | 13 |
 | `CADLibKernel.Models.ObjectUpdate.Error` | Объекты CADLib: данные объекта, иерархия, копирование, создание, удаление, связи и структура. | 14 |
 | `CADLibKernel.Models.Objec<wbr>tUpdate.FilesCollection` | Объекты CADLib: данные объекта, иерархия, копирование, создание, удаление, связи и структура. | 15 |
- | `CADLibKernel.ObjectUpdate.DownloadDef...` | Работа с определениями параметров, категориями параметров, значениями, единицами измерения и зависимостями. | 4 | 
+| `CADLibKernel.ObjectUpdate.DownloadDef...` | Работа с определениями параметров, категориями параметров, значениями, единицами измерения и зависимостями. | 4 | 
 | `CADLibKernel.ObjectUpdate<wbr>.Get3DGraphicsCompletedEv<wbr>entArgs` | Работа с 3D-графикой объектов: формы, сетки, меши, вершины, материалы, геометрическое представление. | 4 |
- | `CADLibKernel.ObjectUpdate.GetFilePara...` | Работа с определениями параметров, категориями параметров, значениями, единицами измерения и зависимостями. | 4 | 
+| `CADLibKernel.ObjectUpdate.GetFilePara...` | Работа с определениями параметров, категориями параметров, значениями, единицами измерения и зависимостями. | 4 | 
 | `CADLibKernel.ObjectUpdate<wbr>.GetModelExtentsCompleted<wbr>EventArgs` | Объекты CADLib: данные объекта, иерархия, копирование, создание, удаление, связи и структура. | 14 |
- | `CADLibKernel.ObjectUpdate.GetModelHas...` | Работа с 3D-графикой объектов: формы, сетки, меши, вершины, материалы, геометрическое представление. | 4 | 
- | `CADLibKernel.ObjectUpdate.GetObject3D...` | Работа с 3D-графикой объектов: формы, сетки, меши, вершины, материалы, геометрическое представление. | 4 | 
+| `CADLibKernel.ObjectUpdate.GetModelHas...` | Работа с 3D-графикой объектов: формы, сетки, меши, вершины, материалы, геометрическое представление. | 4 | 
+| `CADLibKernel.ObjectUpdate.GetObject3D...` | Работа с 3D-графикой объектов: формы, сетки, меши, вершины, материалы, геометрическое представление. | 4 | 
 | ... | В категории ещё 353 типов; для полного машинного индекса требуется отдельная выгрузка CSV/JSON. | |
 
 #### Отчёты / HTML / экспорт
@@ -5444,9 +5444,9 @@ DBBrowser.CurrentFolder   # текущая папка/узел браузера
 | `CADLibKernel.ObjectUpdate.CFilterItem` | Описание условия фильтрации/выборки объектов или файлов по параметрам, категориям, классификаторам. | 13 |
 | `CADLibKernel.CLibFilterItemCollision` | Описание условия фильтрации/выборки объектов или файлов по параметрам, категориям, классификаторам. | 7 |
 | `CADLibKernel.CLibUserFilterItem` | Описание условия фильтрации/выборки объектов или файлов по параметрам, категориям, классификаторам. | 6 |
- | `CADLibKernel.ObjectUpdate.GetObjectHi...` | Описание условия фильтрации/выборки объектов или файлов по параметрам, категориям, классификаторам. | 4 | 
- | `CADLibKernel.ObjectUpdate.GetObjectHi...` | Описание условия фильтрации/выборки объектов или файлов по параметрам, категориям, классификаторам. | 4 | 
- | `CADLibKernel.ObjectUpdate.GetObjectHi...` | Описание условия фильтрации/выборки объектов или файлов по параметрам, категориям, классификаторам. | 4 | 
+| `CADLibKernel.ObjectUpdate.GetObjectHi...` | Описание условия фильтрации/выборки объектов или файлов по параметрам, категориям, классификаторам. | 4 | 
+| `CADLibKernel.ObjectUpdate.GetObjectHi...` | Описание условия фильтрации/выборки объектов или файлов по параметрам, категориям, классификаторам. | 4 | 
+| `CADLibKernel.ObjectUpdate.GetObjectHi...` | Описание условия фильтрации/выборки объектов или файлов по параметрам, категориям, классификаторам. | 4 | 
 | `CADLibKernel.ObjectUpdate<wbr>.GetObjectHierarchyFilter<wbr>CompletedEventArgs` | Описание условия фильтрации/выборки объектов или файлов по параметрам, категориям, классификаторам. | 4 |
 | `CADLibKernel.CLibFilterItem` | Описание условия фильтрации/выборки объектов или файлов по параметрам, категориям, классификаторам. | 14 |
 | `FilterInfo` | Описание условия фильтрации/выборки объектов или файлов по параметрам, категориям, классификаторам. | 7 |
@@ -5600,7 +5600,7 @@ for obj in objects:
 
 ---
 
-# Часть B. Практические заметки по кастомизации интерфейса Model Studio
+# Часть C. Практические заметки по кастомизации интерфейса Model Studio
 
 Ниже собраны практические выводы из реальной настройки модуля `NANOWATER` в `Model Studio CS`. Это не общая теория по API, а рабочая памятка по тому, как на практике добавлять вкладки/кнопки и как диагностировать ситуацию, когда интерфейс модуля перестаёт загружаться.
 
@@ -5660,11 +5660,342 @@ for obj in objects:
 - если названия групп, меню или статусы в интерфейсе показываются «иероглифами», сначала нужно проверить кодировку `water.cfg`;
 - безопасный рабочий формат для этого файла в нашем кейсе — `UTF-8 BOM`.
 
-## 4. Фича 1. Как добавить вкладку `DTMXtest`, группу и кнопку
+## 4. Интерфейсы: устройство `CUIX` и `RibbonRoot.cui`
+
+Этот блок нужно считать рабочим журналом по структуре интерфейсов Model Studio. Его можно и нужно дополнять по мере накопления новых наблюдений.
+
+### 4.1 Что такое `CUIX` в нашем кейсе
+
+Практически подтверждено, что `C:\Program Files\CSoft\Model Studio CS\NANOWATER\Support\WATER\water.cuix` — это контейнер-архив с XML-файлами интерфейса и набором картинок/иконок.
+
+При распаковке в `water.cuix` были обнаружены:
+
+- интерфейсные XML-файлы (`*.cui`);
+- служебные файлы пакета, включая `Menu_Package_Info.xml`, `[Content_Types].xml`, `_rels\.rels`;
+- встроенные иконки и изображения команд (`*.png`, `*.ico`, и др.).
+
+Практический вывод:
+
+- `CUIX` можно анализировать как zip-контейнер;
+- для кастомизации ribbon полезнее всего изучать не бинарный контейнер целиком, а содержимое конкретных `*.cui` внутри него.
+
+### 4.2 Какие файлы внутри `water.cuix` уже известны
+
+Ниже перечислены файлы, наличие которых подтверждено распаковкой `water.cuix`:
+
+- `MenuGroup.cui`
+- `RibbonRoot.cui`
+- `ToolbarRoot.cui`
+- `AcceleratorRoot.cui`
+- `Header.cui`
+- `ImageMenuRoot.cui`
+- `DigitizerButtonRoot.cui`
+- `DoubleClickRoot.cui`
+- `MouseButtonRoot.cui`
+- `OverrideRoot.cui`
+- `PanelSetRoot.cui`
+- `PopMenuRoot.cui`
+- `QuickAccessToolbarRoot.cui`
+- `QuickPropertiesRoot.cui`
+- `RolloverTooltipRoot.cui`
+- `ScreenMenuRoot.cui`
+- `TabletMenuRoot.cui`
+- `ToolPanelRoot.cui`
+- `WorkspaceRoot.cui`
+- `LSPFiles.cui`
+
+Также внутри присутствует большой набор иконок, например:
+
+- `PipeDrawPipeline.png`
+- `MStudioInlineAdd.png`
+- `MS_PIPE32.png`
+- `MStudioSupportAdd.png`
+- `MStudioCopyPipeline.png`
+- и другие штатные ресурсы команд.
+
+### 4.3 Назначение основных файлов `CUIX`
+
+Ниже — то, что уже подтверждено или достаточно надёжно выведено из структуры.
+
+**Подтверждено**
+
+- `MenuGroup.cui` — хранит определения макросов (`MenuMacro`), команды, `HelpString`, `SmallImage`, `LargeImage`.
+- `RibbonRoot.cui` — хранит ribbon-вкладки, панели, группы, кнопки и привязки панелей к вкладкам.
+- `ToolbarRoot.cui` — хранит классические панели инструментов (`Toolbar`, `ToolbarButton`, `MacroRef`).
+
+**Пока считается вероятным, но ещё не разбиралось глубоко**
+
+- `AcceleratorRoot.cui` — горячие клавиши / accelerators.
+- `PopMenuRoot.cui` — контекстные меню.
+- `QuickAccessToolbarRoot.cui` — панель быстрого доступа.
+- `WorkspaceRoot.cui` — рабочие пространства.
+- `RolloverTooltipRoot.cui` — расширенные всплывающие подсказки.
+- `DoubleClickRoot.cui` — действия по двойному щелчку.
+- `MouseButtonRoot.cui`, `TabletMenuRoot.cui`, `DigitizerButtonRoot.cui` — привязки кнопок мыши/планшета/вводных устройств.
+- `PanelSetRoot.cui`, `ToolPanelRoot.cui` — наборы панелей и инструментальных панелей.
+- `ImageMenuRoot.cui` — image-menu / меню с графическими элементами.
+- `Header.cui` — служебная информация о пакете интерфейса.
+- `OverrideRoot.cui` — переопределения / overrides.
+- `LSPFiles.cui` — связанные LSP-описания или ссылки на Lisp-ресурсы.
+
+Важно: эти роли нужно считать рабочими гипотезами, пока не проведён отдельный разбор каждого файла.
+
+### 4.4 Что именно делает `MenuGroup.cui`
+
+Практически подтверждено на `water.cuix`:
+
+- каждая команда ribbon/toolbar в конечном итоге ссылается на `MenuMacroID`;
+- сам `MenuMacroID` должен существовать в `MenuGroup.cui`;
+- внутри `MenuMacro` лежат:
+  - `Name`
+  - `Command`
+  - `HelpString`
+  - `SmallImage`
+  - `LargeImage`
+
+Пример рабочего встроенного макроса:
+
+- `UID="pipe_draw_pipeline"`
+- `Command=^C^C_pipe_draw_pipeline`
+- `SmallImage=PipeDrawPipeline.png`
+- `LargeImage=MS_PIPE32.png`
+
+Практический вывод:
+
+- если кнопка видна, но не работает, нужно проверять не только `RibbonRoot.cui`, но и наличие/корректность соответствующего `MenuMacro` в `MenuGroup.cui`.
+
+### 4.5 Что именно делает `RibbonRoot.cui`
+
+Практически подтверждено на `water.cuix`:
+
+- `RibbonPanelSource` описывает отдельную панель/группу ribbon;
+- `RibbonTabSource` описывает вкладку;
+- `RibbonPanelSourceReference` подключает панель к вкладке;
+- `RibbonCommandButton` описывает кнопку ribbon;
+- `RibbonSplitButton` описывает выпадающую кнопку-группу.
+
+Из этого следует важная практическая разница:
+
+- если добавить `RibbonCommandButton` внутрь `RibbonSplitButton`, команда попадёт в выпадающий список;
+- если нужна отдельная видимая группа на вкладке, надо создавать отдельный `RibbonPanelSource` и затем привязывать его к `RibbonTabSource` через `RibbonPanelSourceReference`.
+
+Это как раз было подтверждено на примере `DMTX`:
+
+- первый вариант добавил кнопку внутрь split `Разное`, и она оказалась в выпадающем меню;
+- финальный рабочий вариант — отдельная панель `DTMXtestPanel` на вкладке `Водоснабжение и канализация`.
+
+### 4.6 Что именно делает `ToolbarRoot.cui`
+
+Практически подтверждено, что `ToolbarRoot.cui` описывает классические панели инструментов и кнопки на них.
+
+Внутри встречаются:
+
+- `Toolbar`
+- `Alias`
+- `Name`
+- `Description`
+- `ToolbarButton`
+- `ToolbarFlyout`
+- `MacroRef MenuMacroID="..."`
+
+Практический вывод:
+
+- `ToolbarRoot.cui` полезен, если нужно понять старые toolbars модуля;
+- но для задачи с вкладками/панелями ribbon в первую очередь нужно править `RibbonRoot.cui`.
+
+### 4.7 Подтверждённая финальная схема `DMTX`
+
+На текущем этапе рабочая схема для Water такая:
+
+- на вкладке `Водоснабжение и канализация` есть отдельная панель `DTMXtestPanel`;
+- в панели `DTMXtestPanel` есть кнопка `DMTX`;
+- отдельно существует вкладка `DTMXtest` со своей кнопкой `DMTX`;
+- в выпадающем списке `Разное` кнопки `DMTX` больше быть не должно;
+- в группе `Трубопровод` кнопка `DMTX` больше не должна жить как отдельный элемент строки;
+- обе рабочие кнопки должны использовать `MenuMacroID="pipe_draw_pipeline"`.
+
+### 4.8 Скрипты `SCRIPTED`: что реально подтвердилось по языкам
+
+Этот блок относится именно к встроенному редактору `SCRIPTED` в nanoCAD / Model Studio, а не к `PythonPlugin` из CADLib.
+
+Подтверждённые факты по состоянию на `2026-06-23`:
+
+- `VBScript (.vbs)` запускается штатно из `SCRIPTED`; простой `MsgBox` отрабатывает без дополнительной настройки.
+- `JScript (.js)` запускается штатно из `SCRIPTED`; рабочий минимальный smoke-test лучше делать через `ActiveXObject("WScript.Shell").Popup(...)`, а не через `print(...)`.
+- `Python (.py)` в `SCRIPTED` использует не `IronPython`, а Windows Active Scripting engine `Python.AXScript.2`.
+- Ошибка `Unable to create scripting engine for "Python.AXScript.2"` означает, что сам движок Python Active Scripting не зарегистрирован в Windows.
+
+Практически подтверждённый рабочий сценарий для `Python`:
+
+1. Использовать установленный `Python 3.11`, а не пытаться сразу опираться на основной `Python 3.14`.
+2. Убедиться, что для `Python 3.11` установлен `pywin32`.
+3. Зарегистрировать Active Scripting engine командой:
+   - `py -3.11 "C:\Users\atsarkov\AppData\Local\Programs\Python\Python311\Lib\site-packages\win32comext\axscript\client\pyscript.py"`
+4. После регистрации в реестре должен появиться ключ:
+   - `HKEY_CLASSES_ROOT\Python.AXScript.2`
+
+Практический вывод по отладке:
+
+- если `VBScript` и `JScript` работают, а `Python` пишет ошибку про `Python.AXScript.2`, сначала нужно чинить регистрацию Active Scripting, а не сам скрипт;
+- если ошибка уже не показывается, но `print(...)` ничего не выводит, это ещё не значит, что Python не работает: для smoke-test надёжнее использовать popup через COM / WinAPI или запись в файл;
+- для `JScript` и `VBScript` в `SCRIPTED` нужно мыслить категориями ActiveX Automation;
+- для `Python` в `SCRIPTED` нельзя автоматически переносить предположения из `PythonPlugin`: это другой хост и другой способ передачи контекста.
+
+Подтверждённые COM ProgID, видимые в системе:
+
+- `nanoCAD.Application`
+- `nanoCAD.Application.24.0`
+- `nanoCADx64.Application`
+- `nanoCADx64.Application.24.0`
+- `nanoCAD.Drawing.24.1`
+
+Практическая разница между двумя Python-контурами:
+
+- `PythonPlugin` внутри CADLib даёт готовые объекты `Library`, `DBBrowser`, `CLMainForm`;
+- `SCRIPTED -> Python` даёт именно Active Scripting / COM-контур и требует отдельно получать `Application` / `ActiveDocument`.
+
+### 4.9 Практика по свойствам элементов Model Studio внутри DWG
+
+Подтверждённые факты по состоянию на `2026-06-23` при пробе выбранной трубы `vCSSubSegment`:
+
+- для пользовательской трубы в модели основной рабочий COM-тип сейчас — `vCSSubSegment`;
+- часть свойств элемента доступна прямо на сущности как обычные COM-свойства, например `Part_Name`, `Part_Tag`, `Part_Type`, `Part_Comment`, `Part_Material`, `Part_Standard`, `PartPipe_DN`;
+- запись в `entity.Part_Tag` реально меняет значение, но это поле соответствует не `PART_TAGNUMBER`, а другому свойству интерфейса;
+- вызов `entity.GetAxisParamValue("PART_TAGNUMBER")` на проверенном объекте вернул пустую строку, то есть это не тот канал, через который читается нужный параметр.
+
+Что обнаружено по вложенным объектам:
+
+- `entity.Element` даёт отдельный COM-объект элемента Model Studio;
+- у `entity.Element` подтверждены методы `GetValue(parameter)`, `GetValueComment(parameter)`, свойство `Parameters` и метод `SetParameters(pSrc)`;
+- `entity.ElementAxis` даёт осевой объект с методами `GetFromObjParamVal(ParamName)` и `GetToObjParamVal(ParamName)`;
+- значит, если параметр не виден как прямое свойство `Part_*`, следующая правильная точка поиска — именно `Element.GetValue(...)`, коллекция `Element.Parameters` и методы осевого объекта.
+
+Дополнительная практическая проверка по `PART_TAGNUMBER`:
+
+- `PART_TAGNUMBER` реально найден в `entity.Element.Parameters`;
+- в проверенном объекте это был элемент коллекции с индексом `25` из `31`;
+- у самого item подтверждены свойства `Name`, `Value`, `Comment`, `ValueComment`;
+- `item.Name = "PART_TAGNUMBER"`, `item.Comment = "Идентификатор"`;
+- прямое присваивание `item.Value = "DTMX"` само по себе не является надёжным commit-механизмом;
+- вызов `entity.Element.SetParameters(entity.Element.Parameters)` в таком виде дал COM-ошибку `Несовпадение типов`, то есть метод принимает не просто коллекцию параметров как есть;
+- у самой коллекции `entity.Element.Parameters` подтверждён метод:
+  - `SetParameter(Name, Value, Comment, ValueComment)`
+- именно `Parameters.SetParameter("PART_TAGNUMBER", "DTMX", comment, valueComment)` оказался рабочим способом записи;
+- после `Parameters.SetParameter(...)` и `entity.Update()` повторная проверка показала:
+  - `entity.Element.GetValue("PART_TAGNUMBER") = "DTMX"`
+  - `PARAM[25].Value = "DTMX"`
+
+Рабочие диагностические скрипты:
+
+- `Scripts/probe_selected_ms_nested_objects.py` — базовая разведка по `entity`, `entity.Element`, `entity.ElementAxis`;
+- `Scripts/probe_selected_ms_element_parameters.py` — точечная проверка `Element.GetValue(...)`, `Element.GetValueComment(...)`, `Element.Parameters`, `ElementAxis.GetFromObjParamVal(...)`, `ElementAxis.GetToObjParamVal(...)`.
+- `Scripts/probe_selected_ms_parameter_item.py` — probe самого item внутри `Element.Parameters`;
+- `Scripts/probe_selected_ms_commit_channels.py` — probe коллекции `Parameters`, её методов и каналов commit;
+- `Scripts/set_selected_pipes_part_tagnumber.py` — боевой скрипт записи `PART_TAGNUMBER` для всех выделенных труб через `Element.Parameters.SetParameter(...)`.
+- `Scripts/set_selected_ms_parameter.py` — универсальный боевой шаблон записи произвольного параметра Model Studio для выделенных объектов.
+
+Минимальный рабочий рецепт записи `PART_TAGNUMBER`:
+
+1. Взять выделенные `vCSSubSegment`.
+2. Для каждой трубы получить `entity.Element.Parameters`.
+3. Вызвать:
+   - `Parameters.SetParameter("PART_TAGNUMBER", "DTMX", comment, valueComment)`
+4. Затем выполнить `entity.Update()`.
+5. Для проверки читать назад через:
+   - `entity.Element.GetValue("PART_TAGNUMBER")`
+
+Универсальный шаблон для дальнейшей работы:
+
+- в `Scripts/set_selected_ms_parameter.py` меняются только верхние константы:
+  - `TARGET_PARAMETER`
+  - `TARGET_VALUE`
+  - `ENTITY_NAMES`
+- для труб текущий рабочий набор:
+  - `ENTITY_NAMES = {"vcssubsegment"}`
+- если позже будем писать параметры арматуры, оборудования или других объектов, можно оставить тот же скрипт и только расширить `ENTITY_NAMES`.
+
+Практический вывод:
+
+- для чтения/записи “обычных” свойств nanoCAD / части свойств Model Studio можно работать напрямую с COM-сущностью;
+- для полного доступа к параметрам именно элемента Model Studio нужно исследовать не только сам объект чертежа, но и вложенный объект `Element`.
+- для `PART_TAGNUMBER` рабочий commit-механизм через Python/COM уже подтверждён: нужно писать не в `item.Value`, а через `entity.Element.Parameters.SetParameter(...)`.
+
+### 4.10 Как правильно называть два подхода
+
+Чтобы дальше не путаться, полезно разделять два слоя:
+
+- `SCRIPTED Python / COM / Automation` — это скриптовый слой, в котором мы сейчас работаем;
+- `.NET plugin API` или `внутренний .NET API nanoCAD / Model Studio` — это плагинный слой на `C#` / `VB.NET`, который загружается в хост как `.dll`.
+
+Практически в разговоре лучше использовать такие формулировки:
+
+- “через `Python/COM`” — когда речь про текущие скрипты в `SCRIPTED`;
+- “через `.NET API`” или “через `.NET-плагин`” — когда речь про собственную сборку `.dll`.
+
+### 4.11 Насколько решение будет другим в `.NET`
+
+Короткий практический ответ: не кардинально по логике, но заметно по способу реализации.
+
+Что, скорее всего, останется тем же:
+
+- нужно будет найти выделенные объекты;
+- нужно будет понять тип объекта, например `vCSSubSegment`;
+- нужно будет обратиться к параметрам именно элемента Model Studio, а не только к “обычным” свойствам графического объекта;
+- нужно будет записать значение параметра и обновить объект.
+
+Что, скорее всего, изменится:
+
+- вместо `COM`-объектов и вызовов `GetActiveObject(...)` / `Dispatch(...)` будет использоваться плагинный контур `HostMgd` / `.NET API`;
+- вместо проб через `dir(...)`, `GetTypeInfo(...)` и `COM`-методы работа пойдёт через типы, методы и свойства `.NET`;
+- код будет более строгим: меньше “угадывания” имён на лету, больше явных типов и ссылок на сборки;
+- интеграция с интерфейсом, командами и кнопками будет удобнее и чище в `.dll`.
+
+Практический вывод для нашей задачи:
+
+- бизнес-логика не меняется: “найти трубы → найти параметр элемента → записать значение → обновить объект”;
+- меняется именно технический слой доступа;
+- поэтому текущая разведка через `Python/COM` не пропадает: она уже дала нам карту объектов, имён параметров и рабочую последовательность действий.
+
+Когда есть смысл оставаться в `Python/COM`:
+
+- быстрые пробы;
+- массовые одноразовые сценарии;
+- диагностика, логирование, исследование неизвестного API;
+- простые инструменты без сложной UI-интеграции.
+
+Когда есть смысл идти в `.NET API`:
+
+- нужен стабильный production-инструмент;
+- нужна нормальная команда/кнопка/диалог;
+- нужна более глубокая интеграция с nanoCAD / Model Studio;
+- нужно меньше зависеть от ограничений `SCRIPTED` и `COM`.
+
+### 4.12 Проба `Python -> .NET` внутри контура `Python 3.11`
+
+На `2026-06-23` дополнительно проверен отдельный экспериментальный мост:
+
+- в `Python 3.11`, который используется для `Python.AXScript.2`, был установлен пакет `pythonnet`;
+- внешний probe подтвердил:
+  - `import clr` — работает;
+  - `import System` — работает;
+  - `System.Environment.Version` читается;
+  - `clr.AddReference("System.Windows.Forms")` — работает.
+
+Рабочий probe:
+
+- `Scripts/probe_scripted_python_dotnet.py`
+
+Что это означает practically:
+
+- гипотеза “из Python-контурa можно попробовать поднять .NET-библиотеки” подтверждена как минимум на уровне самого `Python 3.11`;
+- это ещё не доказывает, что тот же код будет на 100% так же работать именно внутри окна `SCRIPTED`, но направление уже выглядит реальным, а не чисто теоретическим;
+- если `SCRIPTED` увидит тот же `pythonnet`, мы сможем попробовать гибридный подход: `Python` как сценарный слой + `.NET` как библиотечный мост.
+
+## 5. Фича 1. Как добавить вкладку `DTMXtest`, группу и кнопку
 
 Ниже — рабочая схема, которая была проверена на модуле `NANOWATER`.
 
-### 4.1 Что именно редактируется
+### 5.1 Что именно редактируется
 
 Основной файл ленты для Water:
 
@@ -5674,13 +6005,14 @@ for obj in objects:
 
 - `C:\Program Files\CSoft\Model Studio CS\NANOWATER\Support\WATER\MSMAIN.cuix`
 
-Практически оказалось достаточно правки `water.cuix` для:
+Практически оказалось достаточно правки `water.cuix` для финальной схемы:
 
 - новой вкладки `DTMXtest`;
-- кнопки `DMTX` в группе/панели этой вкладки;
-- кнопки `DMTX` в существующем блоке `Разное`.
+- кнопки `DMTX` на вкладке `DTMXtest`;
+- отдельной панели `DTMXtestPanel` на вкладке `Водоснабжение и канализация`;
+- кнопки `DMTX` внутри панели `DTMXtestPanel`.
 
-### 4.2 Какую команду лучше использовать
+### 5.2 Какую команду лучше использовать
 
 Для кнопки `DMTX` сначала был создан отдельный макрос-дубликат, но наиболее надёжный вариант оказался другим:
 
@@ -5700,30 +6032,33 @@ for obj in objects:
 
 - `^C^C_pipe_draw_pipeline`
 
-### 4.3 Пошаговый алгоритм
+### 5.3 Пошаговый алгоритм
 
 1. Сделать бэкап `water.cuix`.
 2. Распаковать `water.cuix` как zip-архив во временную папку.
 3. В `RibbonRoot.cui`:
-   - найти существующий split/button-блок `Разное`;
-   - добавить `RibbonCommandButton` с `Text="DMTX"` и `MenuMacroID="pipe_draw_pipeline"`;
-   - создать новый `RibbonPanelSource` для `DTMXtest`;
-   - создать новый `RibbonTabSource` для `DTMXtest`;
-   - добавить в новую вкладку кнопку `DMTX`, также с `MenuMacroID="pipe_draw_pipeline"`.
+   - создать отдельный `RibbonPanelSource` для вкладки `DTMXtest`;
+   - создать отдельный `RibbonTabSource` для `DTMXtest`;
+   - добавить в эту вкладку кнопку `DMTX` с `MenuMacroID="pipe_draw_pipeline"`;
+   - создать отдельный `RibbonPanelSource` с именем `DTMXtestPanel`;
+   - привязать `DTMXtestPanel` к вкладке `Водоснабжение и канализация` через `RibbonPanelSourceReference`;
+   - добавить в `DTMXtestPanel` кнопку `DMTX` с `MenuMacroID="pipe_draw_pipeline"`;
+   - не добавлять `DMTX` внутрь split-кнопки `Разное`, если нужна именно отдельная группа.
 4. Сохранить XML в `UTF-8 BOM`.
 5. Собрать `water.cuix` обратно.
 6. Полностью перезапустить `Model Studio`.
 
-### 4.4 Минимум, который должен появиться после патча
+### 5.4 Минимум, который должен появиться после патча
 
 После успешной модификации в интерфейсе должны быть видны:
 
 - новая вкладка `DTMXtest`;
 - кнопка `DMTX` на вкладке `DTMXtest`;
-- кнопка `DMTX` в блоке `Разное`;
+- отдельная панель `DTMXtestPanel` на вкладке `Водоснабжение и канализация`;
+- кнопка `DMTX` внутри панели `DTMXtestPanel`;
 - по нажатию должен запускаться штатный сценарий `Отрисовать трубопровод`.
 
-## 5. Что проверять, если после патча кнопок нет
+## 6. Что проверять, если после патча кнопок нет
 
 Если после изменения `CUIX` кнопки не появились, идти нужно в таком порядке:
 
@@ -5738,9 +6073,11 @@ for obj in objects:
    - если текст битый, сначала исправить кодировку
 5. Проверить, что кнопка в `RibbonRoot.cui` привязана именно к рабочему `MenuMacroID`
    - в нашем кейсе это `pipe_draw_pipeline`
-6. После любых правок полностью закрыть и заново открыть приложение
+6. Проверить, что отдельная панель действительно подключена к вкладке Water через `RibbonPanelSourceReference`
+   - одной правки `RibbonPanelSource` недостаточно, если ссылка на панель не добавлена в `RibbonTabSource`
+7. После любых правок полностью закрыть и заново открыть приложение
 
-## 6. Что проверять, если кнопка видна, но ничего не делает
+## 7. Что проверять, если кнопка видна, но ничего не делает
 
 Если кнопка в ribbon отображается, но по нажатию ничего не происходит, нужно проверять не только наличие кнопки, но и её привязку:
 
@@ -5753,7 +6090,7 @@ for obj in objects:
 
 После этого кнопка `DMTX` начала корректно запускать действие.
 
-## 7. Практический итог по Model Studio
+## 8. Практический итог по Model Studio
 
 На текущем этапе можно считать подтверждёнными следующие выводы:
 
@@ -5761,4 +6098,6 @@ for obj in objects:
 - отсутствие кнопок в интерфейсе чаще всего нужно начинать диагностировать с `cfg.ini`, а не с ribbon XML;
 - для Water важна корректная кодировка `Support\WATER\water.cfg`;
 - новые кнопки в ribbon безопаснее привязывать к уже существующим штатным `MenuMacroID`, если такие есть;
+- если нужна отдельная видимая группа на вкладке, нужно создавать `RibbonPanelSource` и подключать его через `RibbonPanelSourceReference`, а не добавлять кнопку внутрь split-кнопки;
 - для модуля `NANOWATER` рабочая точка кастомизации ribbon — `C:\Program Files\CSoft\Model Studio CS\NANOWATER\Support\WATER\water.cuix`.
+
