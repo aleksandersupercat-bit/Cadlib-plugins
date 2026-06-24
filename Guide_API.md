@@ -6407,3 +6407,365 @@ for obj in objects:
 - если нужна отдельная видимая группа на вкладке, нужно создавать `RibbonPanelSource` и подключать его через `RibbonPanelSourceReference`, а не добавлять кнопку внутрь split-кнопки;
 - для модуля `NANOWATER` рабочая точка кастомизации ribbon — `C:\Program Files\CSoft\Model Studio CS\NANOWATER\Support\WATER\water.cuix`.
 
+## 9. In-process `.NET` в nanoCAD / Model Studio
+
+Ниже — важный практический результат по исследованию доступа к объектам `Model Studio` внутри `DWG` уже из загруженной `.NET`-команды.
+
+### 9.1 Что подтвердилось
+
+- отдельная сборка под `HostMgd` и `hostdbmgd` на `net6.0-windows` успешно загружается в открытый `nanoCAD`;
+- рабочий проект-проба находится в:
+  - `NrxPluginHost6\DtmxHost6Probe.csproj`
+  - `NrxPluginHost6\Host6Probe.cs`
+- команда `DTMXHOSTPROBE` через `HostMgd.Editor.SelectImplied()` корректно видит текущее выделение;
+- на живой проверке были получены:
+  - `SelectImplied.Status = OK`
+  - `SelectImplied.Count = 2`
+  - оба объекта определились как `Rx = vCSSubSegment`
+  - handles: `8A2`, `94C`
+
+Это важный вывод, потому что прежний путь через `Multicad.DatabaseServices.McObjectManager.SelectionSet` в autorun-режиме возвращал `null`.
+
+### 9.2 Что это означает practically
+
+- проблема была не в том, что выделения в `DWG` нет;
+- проблема была в неправильной точке входа;
+- для работы с текущим выделением нужно заходить не через autorun/`McObjectManager.SelectionSet`, а через нормальную пользовательскую команду `HostMgd` и `Editor.SelectImplied()`.
+
+То есть первый реальный рабочий `.NET`-слой для `Model Studio` внутри `DWG` уже подтверждён.
+
+### 9.3 Команда записи `PART_TAGNUMBER` из in-process `.NET`
+
+Добавлена вторая команда:
+
+- `DTMXHOSTSETTAG`
+
+Что она делает:
+
+1. берёт выделение через `Editor.SelectImplied()`;
+2. получает `Handle` выбранных `vCSSubSegment`;
+3. по этим handle находит live COM-объекты через `ActiveDocument.HandleToObject(...)`;
+4. пишет `PART_TAGNUMBER` в значение `DTMX_HOST6`;
+5. вызывает `Update()` и `Regen(1)`;
+6. пишет подробный лог в:
+   - `C:\Users\atsarkov\Desktop\dtmx_host6_probe_log.txt`
+
+### 9.4 Результат проверки `typed IPEParameters.Set()`
+
+На живом запуске получен такой результат:
+
+- `typed IPEParameters.Set()` из in-process `.NET` **не сработал**;
+- ошибка:
+  - `Unable to cast object of type 'System.__ComObject' to type 'SCXComponentsLibLib.IPEParameters'`
+- fallback через late-bound:
+  - `Parameters.SetParameter("PART_TAGNUMBER", value, "", "")`
+  - **сработал**
+- после записи:
+  - `After=DTMX_HOST6`
+
+Практический вывод:
+
+- даже внутри загруженной `.NET`-команды доступ к параметрам `Model Studio` пока подтверждён именно через COM-объект `Element.Parameters`;
+- но ключевой прогресс в том, что теперь этот доступ можно вызывать из нормальной in-process команды, а не только из внешнего `exe` или Python;
+- текущий блокер для полностью типизированного варианта — не выделение и не команда, а именно приведение `System.__ComObject` к `SCXComponentsLibLib.IPEParameters`.
+
+### 9.5 Текущее состояние исследования
+
+На сейчас можно считать подтверждённым:
+
+- `.NET`-команда внутри `nanoCAD` / `Model Studio` — рабочий путь;
+- выбор текущих объектов `Model Studio` через `HostMgd` — рабочий путь;
+- доступ к live-объектам `vCSSubSegment` по `Handle` — рабочий путь;
+- изменение `PART_TAGNUMBER` из in-process команды — рабочий путь;
+- полностью типизированный вызов `IPEParameters.Set()` — **ещё не подтверждён**.
+
+Следующий этап исследования:
+
+- понять, можно ли получить правильный typed RCW для `IPEParameters`;
+- либо найти уже не `COM`, а собственный `.NET` API-слой `Model Studio` для параметров элемента внутри `DWG`.
+
+### 9.6 Typed `.NET COM` через реальный `TypeLib` — подтверждённый успех
+
+После дальнейшего исследования был найден более правильный путь, чем старый `Interop.SCXComponentsLibLib.dll`.
+
+#### Откуда брать типы
+
+В реестре у `IElement` зарегистрировано:
+
+- `IID IElement = {32D3F761-7B49-4D57-AC6C-0D0879AC9A75}`
+- `TypeLib = {1AE1985C-5D87-4E89-8E67-068628FC3CD6}`
+
+Этот `TypeLib` указывает на:
+
+- `C:\Program Files\CSoft\Model Studio CS\NANOWATER\bin\nanoCAD241\UnitsCSCom.nrx`
+
+Из него была успешно сгенерирована interop-сборка командой:
+
+- `C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.8 Tools\x64\TlbImp.exe`
+- команда:
+  - `TlbImp.exe "C:\Program Files\CSoft\Model Studio CS\NANOWATER\bin\nanoCAD241\UnitsCSCom.nrx" /out:"C:\pdf_ingest\DTMXtest\Artifacts\UnitsCSCom.Interop.dll"`
+
+Результат:
+
+- `Artifacts\UnitsCSCom.Interop.dll`
+
+#### Какие typed интерфейсы подтвердились
+
+В этой interop-сборке найдены и проверены:
+
+- `UnitsCSCom.Interop.IElement`
+  - `GUID = 32D3F761-7B49-4D57-AC6C-0D0879AC9A75`
+  - методы:
+    - `GetValue(parameter)`
+    - `GetValueComment(parameter)`
+    - `SetParameters(pSrc)`
+    - `GetPath(divider)`
+    - `GetById(...)`
+    - `GetParentByLevel(...)`
+- `UnitsCSCom.Interop.IParameters`
+  - `GUID = 8A6EB6C1-813B-4B17-941C-2B05D5D1C499`
+  - методы:
+    - `Item(index)`
+    - `Has(index)`
+    - `SetParameter(Name, Value, Comment, ValueComment)`
+    - `DeleteParameter(...)`
+    - `DeleteAll()`
+- `UnitsCSCom.Interop.IParameter`
+  - `GUID = D353DEF9-2B51-4F21-BEA3-6B666F4BA568`
+
+#### Практический результат
+
+Собран и проверен внешний typed `.NET` exe:
+
+- `TypedUnitsComExe\TypedUnitsComExe.csproj`
+- `TypedUnitsComExe\Program.cs`
+
+Что он делает:
+
+1. подключается к уже открытому `nanoCAD` через `Marshal.GetActiveObject(...)`;
+2. берёт `PickfirstSelectionSet`;
+3. находит первый `vCSSubSegment`;
+4. получает `entity.Element` и `entity.Element.Parameters`;
+5. приводит их через:
+   - `Marshal.GetTypedObjectForIUnknown(..., typeof(UnitsCSCom.Interop.IElement))`
+   - `Marshal.GetTypedObjectForIUnknown(..., typeof(UnitsCSCom.Interop.IParameters))`
+6. вызывает:
+   - `IParameters.SetParameter("PART_TAGNUMBER", "DTMX_TYPED_COM", "", "")`
+7. вызывает `entity.Update()`;
+8. проверяет новое значение через:
+   - `IElement.GetValue("PART_TAGNUMBER")`
+   - обычную COM-проверку `element.GetValue("PART_TAGNUMBER")`
+
+Живой подтверждённый результат:
+
+- `IElement.GetValue(PART_TAGNUMBER) before = DTMX_HOST6`
+- `IParameters.SetParameter invoked`
+- `IElement.GetValue(PART_TAGNUMBER) after = DTMX_TYPED_COM`
+- `COM verify after = DTMX_TYPED_COM`
+
+Практический вывод:
+
+- typed `.NET COM` путь для `Model Studio` **реально работает**;
+- это уже не late-bound `InvokeMember("SetParameter", ...)`, а нормальный typed interop;
+- на текущем этапе это самый чистый и подтверждённый `.NET`-маршрут для изменения `PART_TAGNUMBER` в live `DWG`.
+
+#### Дополнительный скрипт
+
+Под этот же путь подготовлен Python-скрипт:
+
+- `Scripts\set_part_tagnumber_typed_units.py`
+
+Он использует:
+
+- `python + clr`
+- `Artifacts\UnitsCSCom.Interop.dll`
+- `Marshal.GetTypedObjectForIUnknown(...)`
+
+На момент последней проверки сам typed путь в скрипте собран корректно, но конкретный запуск завершился без записи только потому, что текущее выделение уже отсутствовало:
+
+- `PickfirstSelectionSet count = 0`
+
+То есть проблема была не в typed interop, а в отсутствии выбранных объектов в момент прогона.
+
+## 10. Ошибочные и тупиковые направления
+
+Ниже — список веток, которые уже были проверены и которые не стоит повторять без новой зацепки.
+
+### 10.1 `McObjectManager.SelectionSet` в autorun
+
+Проверено:
+
+- in-process DLL через `mapimgd`
+- autorun после `LoadModule`
+- чтение `Multicad.DatabaseServices.McObjectManager.SelectionSet`
+
+Результат:
+
+- `SelectionSet is null`
+
+Вывод:
+
+- для работы с текущим выделением этот путь не подходит;
+- правильная точка входа — обычная пользовательская команда + `HostMgd.Editor.SelectImplied()`.
+
+### 10.2 Повторная hot-load загрузка одной и той же `HostMgd`-сборки
+
+Проверено:
+
+- последовательные сборки `HostMgd` DLL в новые каталоги;
+- та же логика, но с новыми файлами;
+- затем даже новые имена команд.
+
+Практическая проблема:
+
+- `nanoCAD` продолжал держать в памяти старую уже загруженную сборку;
+- новые команды не появлялись предсказуемо в том же сеансе.
+
+Вывод:
+
+- для быстрых итераций по `HostMgd` нельзя рассчитывать на бесконечный hot-reload в одном сеансе;
+- либо нужен новый сеанс `nanoCAD`, либо нужно выносить эксперимент в отдельный внешний процесс/скрипт.
+
+### 10.3 `Interop.SCXComponentsLibLib.IPEParameters` typed cast
+
+Проверено:
+
+- `Marshal.GetTypedObjectForIUnknown(..., typeof(IPEParameters))`
+- in-process и cross-process пробы
+
+Результат:
+
+- типизированное приведение не подтвердилось;
+- ошибка вида:
+  - `Unable to cast object of type 'System.__ComObject' to type 'SCXComponentsLibLib.IPEParameters'`
+
+Но:
+
+- fallback через `SetParameter(Name, Value, Comment, ValueComment)` работает.
+
+Вывод:
+
+- старый `Interop.SCXComponentsLibLib.dll` не дал надёжного typed-приведения для нашей live-поверхности;
+- более правильный маршрут — `UnitsCSCom.nrx` → `TlbImp` → `UnitsCSCom.Interop.dll`.
+
+### 10.4 `mstManagedAPI.CElement` от `IUnknown`
+
+Проверено:
+
+- `mstManagedAPI.CElement` создаётся через конструктор `.ctor(MStudioData.IElement*)`;
+- если подать туда просто `IUnknown*`, конструктор может создаться, но чтение значений даёт:
+  - `AccessViolationException`
+
+Вывод:
+
+- `IUnknown*` недостаточен;
+- нужен корректный interface pointer.
+
+### 10.5 `mstManagedAPI.CElement` от правильного `IElement*`
+
+Проверено:
+
+- `QueryInterface(IElement)` на IID:
+  - `{32D3F761-7B49-4D57-AC6C-0D0879AC9A75}`
+- `CElement` после этого создаётся корректно и уже не падает сразу.
+
+Но:
+
+- `GetParameterValue("PART_TAGNUMBER", "")` возвращал пустую строку;
+- `SetParameter(...)` вызывался, но live `COM`-объект не менялся;
+- `COM verify after` оставался со старым значением.
+
+Вывод:
+
+- `mstManagedAPI` уже близко к нужной поверхности и pointer-мост на `IElement` подтверждён;
+- но на текущем этапе этот путь **не подтвердил запись обратно в live `DWG`**;
+- значит, пока он не является боевым решением для изменения параметров выбранной трубы.
+
+### 10.6 Прямой конструктор `mstManagedAPI.CElement` от `System.__ComObject`
+
+Проверено:
+
+- попытка передать `System.__ComObject` прямо в `CElement` через reflection
+
+Результат:
+
+- ошибка преобразования:
+  - объект типа `System.__ComObject` не приводится к `MStudioData.IElement*`
+
+Вывод:
+
+- без pointer bridge этот путь нерабочий.
+
+### 10.7 `Teigha.DatabaseServices.ImpEntity` не раскрывает `Model Studio` managed-поверхность
+
+Проверено:
+
+- in-process команда `DTMXHOSTPROBE2` на реальном объекте `Rx=vCSSubSegment`;
+- fallback-скан `ModelSpace`, чтобы убрать зависимость от текущего выделения;
+- reflection по runtime-типу `Teigha.DatabaseServices.ImpEntity`.
+
+Результат:
+
+- у live-объекта не нашлось прямых managed-свойств/методов вида `Element`, `Parameters`, `PartType`, `ModelStudio...`;
+- из релевантного найдены только общие платформенные поверхности:
+  - `AcadObject`
+  - `UnmanagedObject`
+  - `ObjectId`
+  - `ExtensionDictionary`
+  - `GetImpObj()`
+- type dump не показал встроенного `.NET` API уровня `Model Studio` поверх `ImpEntity`.
+
+Практический вывод:
+
+- чистый путь `HostMgd/Teigha -> готовые managed свойства Model Studio` на текущем этапе **не подтверждён**;
+- сам объект `DWG` в runtime выглядит как обычный `ImpEntity`, а не как специализированный `.NET`-класс с параметрами `Model Studio`;
+- это сильно сужает дальнейший поиск: если чистый `.NET` путь существует, он лежит не в открытых свойствах `ImpEntity`, а либо в:
+  - `UnmanagedObject` / внутренних указателях,
+  - `mstManagedAPI`,
+  - отдельной нативной фабрике/обвязке `Model Studio`.
+
+### 10.8 `mstManagedAPI.ProjectService` без скрытой фабрики
+
+Проверено:
+
+- `Activator.CreateInstance(mstManagedAPI.ProjectService)`;
+- отдельно — inside `nanoCAD` через `NrxPluginPureDotNet`;
+- отдельно — после `mstManagedAPI.MstudioCore.LoadCoreFromPath(...)` с путями:
+  - `C:\Program Files\CSoft\Model Studio CS\3.1\MIA\bin`
+  - `...\mstCoreLoader.dll`
+  - `C:\Program Files\CSoft\Model Studio CS\NANOWATER\bin\nanoCAD241`
+  - `...\mstCoreLoader.dll`
+- дополнительно вызвано:
+  - `mstManagedAPI.ProjectBuildingHierarchy.CollectObjectsFactoryData()`
+
+Результат:
+
+- `ProjectService` стабильно падает на конструкторе:
+  - `Error: pFactory can't be NULL. Disposed object using possible.`
+- `LoadCoreFromPath(...)` не устранил проблему;
+- `CollectObjectsFactoryData()` вернул `null` и тоже не устранил проблему.
+
+Вывод:
+
+- одного присутствия `mstManagedAPI.dll` в процессе недостаточно;
+- даже в процессе `nanoCAD` фабрика, требуемая `ProjectService`, не инициализируется автоматически через найденные публичные managed entry points;
+- на текущем этапе `ProjectService` нельзя считать рабочей точкой входа для чистого `.NET` доступа к live-данным `Model Studio` внутри `DWG`.
+
+### 10.9 Практический статус на текущий момент
+
+Подтверждено:
+
+- `COM` путь работает;
+- typed `.NET COM` путь через `UnitsCSCom.Interop.dll` работает.
+
+Не подтверждено:
+
+- чистая запись параметров `Model Studio` в live `DWG` через только managed `.NET` API без `COM`.
+
+Самый важный практический вывод:
+
+- сейчас у нас **нет подтверждённого чистого `.NET` маршрута без `COM`** для изменения `PART_TAGNUMBER` у live-объекта `Model Studio` в открытом `DWG`;
+- все реальные успехи записи пока идут либо через:
+  - `IDispatch/COM`,
+  - либо через typed `.NET COM interop`.
+
