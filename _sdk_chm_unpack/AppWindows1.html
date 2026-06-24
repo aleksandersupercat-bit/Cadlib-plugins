@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=8" />
+<title>Как создавать WPF/WinForms - окна</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1251" />
+<meta name="generator" content="Doc-O-Matic" />
+    <meta name="save" content="history" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<link rel="stylesheet" href="default.css" type="text/css" />
+
+<script type="text/javascript" src="scripts.js"></script>
+<script type="text/javascript" src="jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="jqfunc.js"></script>
+</head>
+<body class="FileBody_fixedheader">
+<div id="persistenceDiv" style="display:none; behavior:url(#default#userData);"></div>
+
+<!-- Begin Popups -->
+
+<!-- End Popups -->
+
+<!-- Begin Page Header -->
+<div class="PageHeaderArea_fixedheader" id="areafixed">
+<div class="CollapseExpandLink_Block">
+<div class="CollapseExpandLink">
+<span class="collapseAll"><img src="section-expanded-16.png" border="0" alt="Свернуть все" title="Свернуть все" />Свернуть все</span><span class="expandAll"><img src="section-collapsed-16.png" border="0" alt="Развернуть все" title="Развернуть все" />Развернуть все</span></div>
+</div>
+<div class="PageHeaderArea">
+<table width="100%" cellspacing="0" cellpadding="0">
+<tr><td width="25%">
+<div class="PageHeaderText">
+Справочное руководство .NET API</div>
+</td><td width="25%">
+<div class="PageHeaderGlobalLinks">
+<span class="PageLink" id="PageLinkContent" title="Содержание"><a href="contents.html"><img src="links-contents-16.png" border="0" alt="Содержание" title="Содержание" /></a></span><span class="PageLink" id="PageLinkIndex" data-content-id="indexsearch" title="Индекс"><a href="idx.html"><img src="links-index-16.png" border="0" alt="Индекс" title="Индекс" /></a></span><span class="PageLink" id="PageLinkReference" title="Ссылка"><a href="!!SYMREF.html"><img src="links-reference-16.png" border="0" alt="Ссылка" title="Ссылка" /></a></span><span class="PageLink" id="PageLinkHome" title="На главную"><a href="!!SYMREF.html"><img src="links-home-16.png" border="0" alt="На главную" title="На главную" /></a></span><span class="PageLink" title="Поиск"><a href="ftxtsearch.html"><img src="links-search-16.png" border="0" alt="Поиск" title="Поиск" /></a></span></div>
+<div class="EmbeddedFeatureBackground">
+</div>
+<div class="EmbeddedFeature">
+<div class="EmbeddedFeatureTitle">
+</div>
+<div class="EmbeddedFeatureClose">
+Закрыть</div>
+<div class="EmbeddedFeatureContent">
+<div class="EmbeddedFeatureContentContainer">
+</div>
+</div>
+</div>
+</td><td width="25%">
+<div class="PageHeaderNeighborLinks">
+<span class="PageLink" id="PageLinkPrevious" title="Предыдущий"><a href="BlockTableRecord.html"><img src="arrow-previous-16.png" border="0" alt="Предыдущий" title="Предыдущий" /></a></span><span class="PageLink" id="PageLinkUp" title="Наверх"><a href="TechArticlesDotNET.html"><img src="arrow-up-16.png" border="0" alt="Наверх" title="Наверх" /></a></span><span class="PageLink" id="PageLinkNext" title="Следующий"><a href="HowToFindXrefs.html"><img src="arrow-next-16.png" border="0" alt="Следующий" title="Следующий" /></a></span></div>
+</td><td width="25%">
+<div class="PageHeaderFeedbackLink">
+<a href="#" onclick="sendFeedback(&#39;developer_support@nanocad.ru&#39;, &#39;Отзыв на документацию&#39;, &#39;Project: Справочное руководство .NET API%0ATopic ID: AppWindows1%0ATitle: Как создавать WPF/WinForms - окна&#39;);">Послать отзыв</a></div>
+</td></tr></table><div class="TopicTitle">
+Как создавать WPF/WinForms - окна</div>
+<div class="TopicLinks">
+<span class="TopicLinks_Custom"></span><span class="TopicLinks_Feedback"><a href="#" onclick="sendFeedback(&#39;developer_support@nanocad.ru&#39;, &#39;Отзыв на документацию&#39;, &#39;Project: Справочное руководство .NET API%0ATopic ID: AppWindows1%0ATitle: Как создавать WPF/WinForms - окна&#39;);">Послать отзыв</a></span></div>
+</div>
+</div>
+
+<!-- End Page Header -->
+
+<!-- Begin Client Area -->
+<div class="PageClientArea_fixedheader" id="areascroll">
+<div class="PageClientAreaContent_fixedheader">
+<a name="PageContent"></a>
+<!-- Fixed Header Spacer -->
+<div class="PageContentArea_fixedheader_spacer" style="width:100%;height:0px;">
+</div>
+<!-- Begin Page Content -->
+<div class="PageContentBodywithoutSidebar">
+<a name="41A44043044243A43E4352043E43F43844143043D438435"></a><div class="Text_Block">
+<div class="Text">
+<p class="Text">
+Статья о том, как создавать WPF/WinForms - окна, связанные с редактором dwg-документа в nanoCAD.</p></div>
+</div>
+<a name="41E43F43844143043D438435"></a><div class="SectionHeading expandable" id="s41E43F43844143043D438435">
+<img src="section-expanded-16.png" border="0" alt="Свернуть" title="Свернуть" id="imges41E43F43844143043D438435" /><img src="section-collapsed-16.png" border="0" alt="Развернуть" title="Развернуть" id="imgcs41E43F43844143043D438435" style="display:none;" />Описание</div>
+<div id="divs41E43F43844143043D438435">
+<div class="Text_Block">
+<div class="Text">
+<p class="Text">
+При помощи API nanoCAD можно создавать дополнительные модальные и немодальные окна, а также палетки, которые являются разновидностью немодальных окон.&#160;</p>
+<p class="Text">
+Для создания WPF/WinForms - окон сначала необходимо создать UserControl. Для вызова этих окон необходимо использовать методы класса HostMgd.ApplicationServices.Application. Эти методы обеспечат взаимодействие окон с редактором nanoCAD. При запросе данных с чертежа с использованием таких методов, окна будут автоматически пропадать, пока данные с чертежа не будут получены и после этого автоматически снова появляться:&#160;</p>
+<p class="Text">
+&#160;</p>
+<ul class="ListLevel1">
+<li class="ListItemLevel1">Методы для вызова окон, сделанных с помощью WinForms:
+<ul class="ListLevel2">
+<li class="ListItemLevel2">ShowModalDialog() - для модального окна;</li>
+<li class="ListItemLevel2">ShowModelessDialog() - для немодального окна.</li>
+</ul></li>
+</ul><p class="Text">
+&#160;</p>
+
+<ul class="ListLevel1">
+<li class="ListItemLevel1">Методы для вызова окон, сделанных с помощью WPF:
+<ul class="ListLevel2">
+<li class="ListItemLevel2">ShowModalWindow() - для модального окна;</li>
+<li class="ListItemLevel2">ShowModelessWindow() - для немодального окна.</li>
+</ul></li>
+</ul><p class="Text">
+&#160;</p>
+<p class="Text">
+Для создания палетки необходимо также создать UserControl на WinForms или WPF. Но, чтобы добавить палетку к интерфейсу, необходимо сначала создать набор палеток HostMgd.Windows.PaletteSet(), даже если планируется создание только одной палетки. После этого в набор палеток добавляются дочерние палетки. Для каждой дочерней палетки необходимо создавать UserControl, если они отличаются. Палетки, в отличие от окон, не вызываются методами класса HostMgd.ApplicationServices.Application, они создаются при первом вызове и далее их можно скрывать и снова делать видимыми, используя свойство Visible набора палеток.</p></div>
+</div>
+</div>
+<a name="41F44043843C435440"></a><div class="SectionHeading expandable" id="s41F44043843C435440">
+<img src="section-expanded-16.png" border="0" alt="Свернуть" title="Свернуть" id="imges41F44043843C435440" /><img src="section-collapsed-16.png" border="0" alt="Развернуть" title="Развернуть" id="imgcs41F44043843C435440" style="display:none;" />Пример</div>
+<div id="divs41F44043843C435440">
+<div class="Text_Block">
+<div class="Text">
+<div class="PreformattedText_Block"><div class="PreformattedText"><strong>C#</strong></div></div>
+<p class="Text">
+&#160;</p>
+<p class="Text">
+<strong>Пример создания палетки на WPF</strong></p>
+<ol class="ListLevel1">
+<li value="1" class="ListItemLevel1">Создаём UserControl</li>
+</ol><p class="Text">
+&#160;</p>
+<p class="Text">
+Назовем класс окна палетки PalletteWpfChild. В палетке будет одно переменное текстовое поле NumEntsLabel и одна кнопка UpdateBtn. В переменном текстовом поле будет выводиться количество объектов в активном пространстве документа, а кнопка будет вызывать метод пересчета объектов.&#160;</p>
+<p class="Text">
+XAML-код палетки будет таким:&#160;</p>
+<p class="Text">
+&#160;</p><div class="CopyCode">
+<a href="#" onclick="CopyElementToClipboard(&#39;code18597&#39;);">Копировать Код</a></div>
+<div class="Code_Block"><div class="Code" id="code18597">&lt;UserControl x:Class=&quot;PaletteWpfChild&quot;
+             xmlns=&quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot;
+             xmlns:x=&quot;http://schemas.microsoft.com/winfx/2006/xaml&quot;
+             xmlns:mc=&quot;http://schemas.openxmlformats.org/markup-compatibility/2006&quot;
+             xmlns:d=&quot;http://schemas.microsoft.com/expression/blend/2008&quot;
+             mc:Ignorable=&quot;d&quot;
+             d:DesignHeight=&quot;300&quot; d:DesignWidth=&quot;300&quot;
+             Background=&quot;White&quot;&gt;
+&lt;Grid Width=&quot;300&quot;&gt;
+    &lt;StackPanel HorizontalAlignment=&quot;Left&quot; VerticalAlignment=&quot;Top&quot; Margin=&quot;8&quot; Orientation=&quot;Horizontal&quot; Width=&quot;300&quot;&gt;
+        &lt;Label Content=&quot;Количество объектов:&quot;/&gt;
+        &lt;Label Name=&quot;NumEntsLabel&quot; Content=&quot;0&quot; MinWidth=&quot;50&quot;/&gt;
+    &lt;/StackPanel&gt;
+&lt;Button Name=&quot;UpdateBtn&quot; Content=&quot;Обновить&quot; HorizontalAlignment=&quot;Left&quot; Height=&quot;22&quot; Margin=&quot;14,45,0,0&quot; Width=&quot;73&quot; VerticalAlignment=&quot;Top&quot; Click=&quot;UpdateBtn_Click&quot;/&gt;
+&lt;/Grid&gt;
+&lt;/UserControl&gt;</div></div>
+<p class="Text">
+&#160;</p>
+<p class="Text">
+Бэкэнд палетки будет таким: </p><div class="CopyCode">
+<a href="#" onclick="CopyElementToClipboard(&#39;code18598&#39;);">Копировать Код</a></div>
+<div class="Code_Block"><div class="Code" id="code18598"><strong><span style="color: #871F78;">using</span></strong> System.Windows;
+<strong><span style="color: #871F78;">using</span></strong> Teigha.DatabaseServices;
+<strong><span style="color: #871F78;">using</span></strong> HostMgd.ApplicationServices;
+
+<em><span style="color: #0000FF;">// Класс, определяющий интерфейс палетки</span></em>
+<strong><span style="color: #871F78;">public</span></strong> partial <strong><span style="color: #871F78;">class</span></strong> PaletteWpfChild : System.Windows.Controls.UserControl
+{
+
+  <em><span style="color: #0000FF;">// В конструкторе задаем начальную ширину палетки</span></em>
+  <strong><span style="color: #871F78;">public</span></strong> PaletteWpfChild()
+  {
+    InitializeComponent();
+    <strong><span style="color: #871F78;">this</span></strong>.Width = 300;
+  }
+
+  <em><span style="color: #0000FF;">// Отработка события нажатия кнопки</span></em>
+  <strong><span style="color: #871F78;">private</span></strong> <strong><span style="color: #871F78;">void</span></strong> UpdateBtn_Click(<strong><span style="color: #871F78;">object</span></strong> sender, RoutedEventArgs e)
+  {
+    NumEntsLabel.Content = CalculateObjects().ToString();
+  }
+
+  <em><span style="color: #0000FF;">// Метод, рассчитывающий количество объектов</span></em>
+  <strong><span style="color: #871F78;">private</span></strong> <strong><span style="color: #871F78;">int</span></strong> CalculateObjects()
+  {
+
+    <em><span style="color: #0000FF;">// Получаем доступ к чертежу, далее к его базе данных, чтобы посчитать количество объектов</span></em>
+    Document doc = Platform.ApplicationServices.Application.DocumentManager.MdiActiveDocument;
+    Database db = doc.Database;
+
+    <em><span style="color: #0000FF;">// Инициализируем переменную для рассчета</span></em>
+    <strong><span style="color: #871F78;">int</span></strong> curSpaceObjects = 0;
+
+    <em><span style="color: #0000FF;">// Начинаем транзакцию с базой данных чертежа</span></em>
+    <strong><span style="color: #871F78;">using</span></strong> (Transaction trans = db.TransactionManager.StartTransaction())
+    {
+      <em><span style="color: #0000FF;">// Получаем доступ к активному пространству документа</span></em>
+      BlockTableRecord currentSpace = trans.GetObject(db.CurrentSpaceId, OpenMode.ForRead) <strong><span style="color: #871F78;">as</span></strong> BlockTableRecord;
+
+      <em><span style="color: #0000FF;">// Перебираем циклом все объекты активного пространства документа и</span></em>
+      <em><span style="color: #0000FF;">// при каждой итерации изменяем счетчик на +1.</span></em>
+      <strong><span style="color: #871F78;">foreach</span></strong> (ObjectId obj <strong><span style="color: #871F78;">in</span></strong> currentSpace)
+      {
+        curSpaceObjects++;
+      }
+    }
+    <em><span style="color: #0000FF;">// Возвращаем результат рассчета</span></em>
+    <strong><span style="color: #871F78;">return</span></strong> curSpaceObjects;
+  }
+}</div></div>
+<p class="Text">
+&#160;</p>
+
+<ol class="ListLevel1">
+<li value="2" class="ListItemLevel1">Создаем команду, которая будет добавлять палетку к интерфейсу:</li>
+</ol><p class="Text">
+&#160;</p>
+<div class="CopyCode">
+<a href="#" onclick="CopyElementToClipboard(&#39;code18599&#39;);">Копировать Код</a></div>
+<div class="Code_Block"><div class="Code" id="code18599"><strong><span style="color: #871F78;">using</span></strong> System;
+<strong><span style="color: #871F78;">using</span></strong> Teigha.Runtime;
+
+<em><span style="color: #0000FF;">// Класс, где будет расположен метод-команда</span></em>
+<strong><span style="color: #871F78;">public</span></strong> partial <strong><span style="color: #871F78;">class</span></strong> Commands
+{
+  <em><span style="color: #0000FF;">// Создаем статические переменные для набора палеток и палетки</span></em>
+  <strong><span style="color: #871F78;">static</span></strong> HostMgd.Windows.PaletteSet paletteSet;
+  <strong><span style="color: #871F78;">static</span></strong> HostMgd.Windows.Palette paletteWpf;
+
+  Определяем метод-команду
+  [CommandMethod(&quot;HelloWPFPalette&quot;)]
+  <strong><span style="color: #871F78;">public</span></strong> <strong><span style="color: #871F78;">void</span></strong> HelloWPFPalette()
+  {
+    <em><span style="color: #0000FF;">// Проверяем, есть ли уже в приложении набор палеток</span></em>
+    <strong><span style="color: #871F78;">if</span></strong> (paletteSet == <strong><span style="color: #871F78;">null</span></strong>)
+    {
+    <em><span style="color: #0000FF;">// Если набора нет, то создаём новый, задаём ему GUID и название</span></em>
+    paletteSet = <strong><span style="color: #871F78;">new</span></strong> HostMgd.Windows.PaletteSet(&quot;HelloDotNET PaletteSet&quot;, <strong><span style="color: #871F78;">new</span></strong> Guid(&quot;6AA64CDC-7CBA-49C5-8A14-0B8775BAC5BC&quot;));
+
+    <em><span style="color: #0000FF;">// Минимальный и исходный размер палетки</span></em>
+    paletteSet.MinimumSize = <strong><span style="color: #871F78;">new</span></strong> System.Drawing.Size(300, 300);
+    paletteSet.Size = <strong><span style="color: #871F78;">new</span></strong> System.Drawing.Size(300, 300);
+    }
+    <strong><span style="color: #871F78;">else</span></strong>
+    {
+      <em><span style="color: #0000FF;">// Если этот набор палеток уже существует в приложении, то просто делаем его видимым</span></em>
+      paletteSet.Visible = <strong><span style="color: #871F78;">true</span></strong>;
+    }
+
+    <em><span style="color: #0000FF;">// Теперь проверяем, существует ли в приложении наша палетка</span></em>
+    <strong><span style="color: #871F78;">if</span></strong> (paletteWpf == <strong><span style="color: #871F78;">null</span></strong>)
+    {
+      <em><span style="color: #0000FF;">// Если нет, то создаем экземпляр. Если есть, то она появится при изменении видимости набора палеток</span></em>
+      paletteWpf = paletteSet.AddVisual(&quot;WpfPalette&quot;, <strong><span style="color: #871F78;">new</span></strong> PaletteWpfChild());
+      paletteSet.Visible = <strong><span style="color: #871F78;">true</span></strong>;
+    }
+    <em><span style="color: #0000FF;">// Соответственно, чтобы скрыть палетку, нужно изменить настройки видимости набора палеток paletteSet.Visible = false;</span></em>
+  }
+}</div></div>
+</div>
+</div>
+</div>
+</div>
+<!-- End Page Content -->
+
+<!-- Begin Page Footer -->
+<div class="PageFooterArea">
+<table width="100%" cellspacing="0" cellpadding="0">
+<tr><td width="100%">
+<div class="PageFooterText">
+</div>
+</td></tr><tr><td width="100%">
+<div class="PageFooterFeedbackLink">
+Ваши комментарии по поводу этого топика: <a href="#" onclick="sendFeedback(&#39;developer_support@nanocad.ru&#39;, &#39;Отзыв на документацию&#39;, &#39;Project: Справочное руководство .NET API%0ATopic ID: AppWindows1%0ATitle: Как создавать WPF/WinForms - окна&#39;);">Послать отзыв!</a></div>
+</td></tr></table></div>
+
+<!-- End Page Footer -->
+</div>
+</div>
+
+<!-- End Client Area -->
+</body></html>
+

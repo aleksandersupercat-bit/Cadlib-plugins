@@ -1,0 +1,45 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Platforms>x64</Platforms>
+    <PlatformTarget>x64</PlatformTarget>
+    <OutputType>Library</OutputType>
+    <RootNamespace>NanoDwgProbe</RootNamespace>
+    <AssemblyName>NanoDwgProbe</AssemblyName>
+    <LangVersion>latest</LangVersion>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <EnableBaseIntermediateOutputPathMismatchWarning>false</EnableBaseIntermediateOutputPathMismatchWarning>
+    <NanoSdkPath Condition=" '$(NanoSdkPath)' == '' ">C:\pdf_ingest\DTMXtest\NC_SDK_RU_26.0.7228.4926.8429\include-x64</NanoSdkPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
+    <OutputPath>bin\NanoDwgProbe\Debug\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
+    <OutputPath>bin\NanoDwgProbe\Release\</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="NanoDwgProbe.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="hostmgd">
+      <HintPath>$(NanoSdkPath)\hostmgd.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="hostdbmgd">
+      <HintPath>$(NanoSdkPath)\hostdbmgd.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="MapiBaseTypes">
+      <HintPath>$(NanoSdkPath)\MapiBaseTypes.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="mapimgd">
+      <HintPath>$(NanoSdkPath)\mapimgd.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+</Project>

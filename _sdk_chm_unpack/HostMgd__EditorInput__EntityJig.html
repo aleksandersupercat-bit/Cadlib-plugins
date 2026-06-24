@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=8" />
+<title>Класс HostMgd.EditorInput.EntityJig</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1251" />
+<meta name="generator" content="Doc-O-Matic" />
+    <meta name="save" content="history" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<link rel="stylesheet" href="default.css" type="text/css" />
+
+<script type="text/javascript" src="scripts.js"></script>
+<script type="text/javascript" src="jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="jqfunc.js"></script>
+</head>
+<body class="FileBody_fixedheader">
+<div id="persistenceDiv" style="display:none; behavior:url(#default#userData);"></div>
+
+<!-- Begin Popups -->
+
+<!-- End Popups -->
+
+<!-- Begin Page Header -->
+<div class="PageHeaderArea_fixedheader" id="areafixed">
+<div class="CollapseExpandLink_Block">
+<div class="CollapseExpandLink">
+<span class="collapseAll"><img src="section-expanded-16.png" border="0" alt="Свернуть все" title="Свернуть все" />Свернуть все</span><span class="expandAll"><img src="section-collapsed-16.png" border="0" alt="Развернуть все" title="Развернуть все" />Развернуть все</span></div>
+</div>
+<div class="PageHeaderArea">
+<table width="100%" cellspacing="0" cellpadding="0">
+<tr><td width="25%">
+<div class="PageHeaderText">
+Справочное руководство .NET API</div>
+</td><td width="25%">
+<div class="PageHeaderGlobalLinks">
+<span class="PageLink" id="PageLinkContent" title="Содержание"><a href="contents.html"><img src="links-contents-16.png" border="0" alt="Содержание" title="Содержание" /></a></span><span class="PageLink" id="PageLinkIndex" data-content-id="indexsearch" title="Индекс"><a href="idx.html"><img src="links-index-16.png" border="0" alt="Индекс" title="Индекс" /></a></span><span class="PageLink" id="PageLinkReference" title="Ссылка"><a href="!!SYMREF.html"><img src="links-reference-16.png" border="0" alt="Ссылка" title="Ссылка" /></a></span><span class="PageLink" id="PageLinkHome" title="На главную"><a href="!!SYMREF.html"><img src="links-home-16.png" border="0" alt="На главную" title="На главную" /></a></span><span class="PageLink" title="Поиск"><a href="ftxtsearch.html"><img src="links-search-16.png" border="0" alt="Поиск" title="Поиск" /></a></span></div>
+<div class="EmbeddedFeatureBackground">
+</div>
+<div class="EmbeddedFeature">
+<div class="EmbeddedFeatureTitle">
+</div>
+<div class="EmbeddedFeatureClose">
+Закрыть</div>
+<div class="EmbeddedFeatureContent">
+<div class="EmbeddedFeatureContentContainer">
+</div>
+</div>
+</div>
+</td><td width="25%">
+<div class="PageHeaderNeighborLinks">
+<span class="PageLink" id="PageLinkPrevious" title="Предыдущий"><a href="HostMgd__EditorInput__EditorVisualStyle__IsVS3dType.html"><img src="arrow-previous-16.png" border="0" alt="Предыдущий" title="Предыдущий" /></a></span><span class="PageLink" id="PageLinkUp" title="Наверх"><a href="HostMgd__EditorInput.html"><img src="arrow-up-16.png" border="0" alt="Наверх" title="Наверх" /></a></span><span class="PageLink" id="PageLinkNext" title="Следующий"><a href="HostMgd__EditorInput__EntityJig__EntityJig@DatabaseServices__Entity_^.html"><img src="arrow-next-16.png" border="0" alt="Следующий" title="Следующий" /></a></span></div>
+</td><td width="25%">
+<div class="PageHeaderFeedbackLink">
+<a href="#" onclick="sendFeedback(&#39;developer_support@nanocad.ru&#39;, &#39;Отзыв на документацию&#39;, &#39;Project: Справочное руководство .NET API%0ATopic ID: HostMgd::EditorInput::EntityJig%0ATitle: Класс HostMgd.EditorInput.EntityJig&#39;);">Послать отзыв</a></div>
+</td></tr></table><div class="TopicTitle">
+Класс HostMgd.EditorInput.EntityJig</div>
+<div class="TopicLinks">
+<span class="TopicLinks_Custom"></span><span class="TopicLinks_Feedback"><a href="#" onclick="sendFeedback(&#39;developer_support@nanocad.ru&#39;, &#39;Отзыв на документацию&#39;, &#39;Project: Справочное руководство .NET API%0ATopic ID: HostMgd::EditorInput::EntityJig%0ATitle: Класс HostMgd.EditorInput.EntityJig&#39;);">Послать отзыв</a></span></div>
+</div>
+</div>
+
+<!-- End Page Header -->
+
+<!-- Begin Client Area -->
+<div class="PageClientArea_fixedheader" id="areascroll">
+<div class="PageClientAreaContent_fixedheader">
+<a name="PageContent"></a>
+<!-- Fixed Header Spacer -->
+<div class="PageContentArea_fixedheader_spacer" style="width:100%;height:0px;">
+</div>
+<!-- Begin Page Content -->
+<div class="PageContentBodywithoutSidebar">
+<a name="41A44043044243A43E4352043E43F43844143043D438435"></a><div class="Text_Block">
+<div class="Text">
+<p class="Text">
+Класс обеспечивает возможность создавать пользовательский примитив непосредственно на экране путем указания начальной точки и перетаскивания курсора мыши(технология <a href="HostMgd__EditorInput__Jig.html">Jig</a>).</p></div>
+</div>
+<a name="41843544043044044543844F2043A43B43044144143E432"></a><div class="SectionHeading expandable" id="s41843544043044044543844F2043A43B43044144143E432">
+<img src="section-expanded-16.png" border="0" alt="Свернуть" title="Свернуть" id="imges41843544043044044543844F2043A43B43044144143E432" /><img src="section-collapsed-16.png" border="0" alt="Развернуть" title="Развернуть" id="imgcs41843544043044044543844F2043A43B43044144143E432" style="display:none;" />Иерархия классов</div>
+<div id="divs41843544043044044543844F2043A43B43044144143E432">
+<div class="ClassHierarchy_Block"><div class="ClassHierarchy"><a href="HostMgd__EditorInput__Jig.html">HostMgd::EditorInput::Jig</a>
+    <strong>HostMgd::EditorInput::EntityJig</strong></div></div>
+</div>
+<div class="SyntaxSectionHeading">
+Синтаксис</div>
+<!-- Begin Tabbed Section -->
+<div class="TabbedSectionContainer"><div class="SectionTabs" id="53796E746178" style="border-top: 1px solid transparent;"><div id="tab53796E746178_0" class="SectionTabs_FirstTab_selected">C#</div><div id="tab53796E746178_1" class="SectionTabs_LastTab_unselected">Visual Basic</div></div><a name="4323"></a><div id="div53796E746178_0" class="TabbedSectionContent" style="display:block;clear:both;">
+<div class="SyntaxSourceCode_Block"><div class="SyntaxSourceCode"><strong><span style="color: #871F78;">public</span></strong> <strong><span style="color: #871F78;">class</span></strong> <strong><span style="color: #660000;">EntityJig</span></strong> : <a href="HostMgd__EditorInput__Jig.html">Jig</a>;</div></div>
+</div>
+<a name="56697375616C204261736963"></a><div id="div53796E746178_1" class="TabbedSectionContent" style="display:none;clear:both;">
+<div class="SyntaxSourceCode_Block"><div class="SyntaxSourceCode"><strong><span style="color: #871F78;">Public</span></strong> <strong><span style="color: #871F78;">Class</span></strong> <strong><span style="color: #660000;">EntityJig</span></strong>
+<strong><span style="color: #871F78;">Inherits</span></strong> <a href="HostMgd__EditorInput__Jig.html">Jig</a></div></div>
+</div>
+</div><!-- End Tabbed Section -->
+<a name="41E43F43844143043D438435"></a><div class="SectionHeading expandable" id="s41E43F43844143043D438435">
+<img src="section-expanded-16.png" border="0" alt="Свернуть" title="Свернуть" id="imges41E43F43844143043D438435" /><img src="section-collapsed-16.png" border="0" alt="Развернуть" title="Развернуть" id="imgcs41E43F43844143043D438435" style="display:none;" />Описание</div>
+<div id="divs41E43F43844143043D438435">
+<div class="Text_Block">
+<div class="Text">
+<p class="Text">
+Класс обеспечивает возможность создавать пользовательский примитив непосредственно на экране путем указания начальной точки и перетаскивания курсора мыши (далее технология <a href="HostMgd__EditorInput__Jig.html">Jig</a>). При этом во время перетаскивания курсора мыши на экране будет отображаться предпросмотр создаваемого примитива. При необходимости создания подобным способом произвольной графики, в том числе одновременно нескольких пользовательских примитивов в виде цельного графического объекта, используется класс <a href="DrawJig.html">DrawJig</a>.&#160;</p>
+<p class="Text">
+&#160;</p></div>
+</div>
+</div>
+<a name="41F44043843C435440"></a><div class="SectionHeading expandable" id="s41F44043843C435440">
+<img src="section-expanded-16.png" border="0" alt="Свернуть" title="Свернуть" id="imges41F44043843C435440" /><img src="section-collapsed-16.png" border="0" alt="Развернуть" title="Развернуть" id="imgcs41F44043843C435440" style="display:none;" />Пример</div>
+<div id="divs41F44043843C435440">
+<div class="Text_Block">
+<div class="Text">
+<p class="Text">
+ &#160;</p>
+<p class="Text">
+Шаги, которые нужно выполнить, чтобы реализовать команду построения примитива с помощью технологии <a href="HostMgd__EditorInput__Jig.html">Jig</a>:</p>
+<ol class="ListLevel1">
+<li value="1" class="ListItemLevel1">Создать класс-наследник класса EntityJig:
+<ul class="ListLevel2">
+<li class="ListItemLevel2">Реализовать в этом классе конструктор, принимающий в качестве одного из параметров переменную типа создаваемого примитива (Line, Circle и т.п.). Тип создаваемого примитива должен быть наследником класса <a href="HostMgd__EditorInput__EntityJig__Entity.html">Entity</a>.</li>
+<li class="ListItemLevel2">Реализовать в классе метод <a href="HostMgd__EditorInput__Jig__Sampler@JigPrompts^.html">Sampler</a>(). В методе необходимо вызвать один из методов класса <a href="HostMgd__EditorInput__JigPrompts.html">JigPrompts</a>. Метод отслеживает перемещение курсора мыши, получая и запоминая данные о его положении.</li>
+<li class="ListItemLevel2">Реализовать в классе метод <a href="HostMgd__EditorInput__EntityJig__Update.html">Update</a>(). Метод преобразовывает полученные методом <a href="HostMgd__EditorInput__Jig__Sampler@JigPrompts^.html">Sampler</a>() данные в формат, необходимый для построения примитива на экране.</li>
+</ul></li>
+<li value="2" class="ListItemLevel1">Создать команду построения примитива:
+<ul class="ListLevel2">
+<li class="ListItemLevel2">В методе команды сделать запрос данных, необходимых для первоначальной инициализации примитива.</li>
+<li class="ListItemLevel2">Запомнить полученные данные.</li>
+<li class="ListItemLevel2">Запустить транзакцию с базой данных чертежа. Далее все действия происходят внутри транзакции.</li>
+<li class="ListItemLevel2">Создать экземпляр класса создаваемого примитива.</li>
+<li class="ListItemLevel2">Создать экземпляр класса из п.1, передав в него ссылку на экземпляр создаваемого примитива и данные, полученные запросом данных для первоначальной инициализации примитива.</li>
+<li class="ListItemLevel2">Вызвать метод Editor.Drag(), передать в него экземпляр класа из предыдущего пункта.</li>
+<li class="ListItemLevel2">Проверить, что вернул метод Editor.Drag(). Если он вернул PromptStatus.OK, добавить примитив в базу данных чертежа и завершить транзакцию.</li>
+</ul></li>
+</ol><p class="Text">
+&#160;</p>
+<p class="Text">
+В результате работы примера на пространстве чертежа создается полукруг из пользовательского примитива Arc.</p><div class="PreformattedText_Block"><div class="PreformattedText"><strong>C#</strong> </div></div>
+<div class="CopyCode">
+<a href="#" onclick="CopyElementToClipboard(&#39;code00834&#39;);">Копировать Код</a></div>
+<div class="Code_Block"><div class="Code" id="code00834"><strong><span style="color: #871F78;">using</span></strong> System;
+<strong><span style="color: #871F78;">using</span></strong> <a href="HostMgd.html">HostMgd</a>.<a href="HostMgd__EditorInput.html">EditorInput</a>;
+<strong><span style="color: #871F78;">using</span></strong> <a href="HostMgd.html">HostMgd</a>.<a href="HostMgd__ApplicationServices.html">ApplicationServices</a>;
+<strong><span style="color: #871F78;">using</span></strong> <a href="Teigha.html">Teigha</a>.DatabaseServices;
+<strong><span style="color: #871F78;">using</span></strong> <a href="Teigha.html">Teigha</a>.Geometry;
+<strong><span style="color: #871F78;">using</span></strong> <a href="Teigha.html">Teigha</a>.<a href="HostMgd__Runtime.html">Runtime</a>;
+
+<strong><span style="color: #871F78;">public</span></strong> <strong><span style="color: #871F78;">class</span></strong> SemiсircleEntJig : EntityJig
+    {
+        <strong><span style="color: #871F78;">public</span></strong> Point3d basePoint, newPoint;
+
+        <strong><span style="color: #871F78;">public</span></strong> SemiсircleEntJig(Arc semicircle, Point3d point) : <strong><span style="color: #871F78;">base</span></strong>(semicircle)
+        {
+            <strong><span style="color: #871F78;">this</span></strong>.basePoint = point;
+            <strong><span style="color: #871F78;">this</span></strong>.newPoint = point;
+        }
+        
+        <strong><span style="color: #871F78;">protected</span></strong> <strong><span style="color: #871F78;">override</span></strong> <a href="HostMgd__EditorInput__SamplerStatus.html">SamplerStatus</a> <a href="HostMgd__EditorInput__Jig__Sampler@JigPrompts^.html">Sampler</a>(<a href="HostMgd__EditorInput__JigPrompts.html">JigPrompts</a> prompts)
+        {
+        
+    <em><span style="color: #0000FF;">// Запрос второй точки для расчета радиуса полукруга    </span></em>
+        <a href="HostMgd__EditorInput__JigPromptPointOptions.html">JigPromptPointOptions</a> options = <strong><span style="color: #871F78;">new</span></strong> <a href="HostMgd__EditorInput__JigPromptPointOptions.html">JigPromptPointOptions</a>(&quot;Радиус полукруга:&quot;);
+            <a href="HostMgd__EditorInput__PromptPointResult.html">PromptPointResult</a> promptResult = prompts.AcquirePoint(options);
+        
+        <em><span style="color: #0000FF;">// Проверка полученных данных</span></em>
+            <strong><span style="color: #871F78;">if</span></strong> (promptResult.Status == <a href="HostMgd__EditorInput__PromptStatus.html">PromptStatus</a>.OK)
+            {
+                <strong><span style="color: #871F78;">if</span></strong> (<strong><span style="color: #871F78;">this</span></strong>.basePoint == promptResult.Value)
+                {
+                    <strong><span style="color: #871F78;">return</span></strong> <a href="HostMgd__EditorInput__SamplerStatus.html">SamplerStatus</a>.NoChange;
+                }
+                <strong><span style="color: #871F78;">else</span></strong>
+                {
+                    <strong><span style="color: #871F78;">this</span></strong>.newPoint = promptResult.Value;
+                    <strong><span style="color: #871F78;">return</span></strong> <a href="HostMgd__EditorInput__SamplerStatus.html">SamplerStatus</a>.OK;
+                }
+            }
+            <strong><span style="color: #871F78;">return</span></strong> <a href="HostMgd__EditorInput__SamplerStatus.html">SamplerStatus</a>.Cancel;
+        }
+
+        <strong><span style="color: #871F78;">protected</span></strong> <strong><span style="color: #871F78;">override</span></strong> <strong><span style="color: #871F78;">bool</span></strong> <a href="HostMgd__EditorInput__EntityJig__Update.html">Update</a>()
+        {
+        
+        <em><span style="color: #0000FF;">// Инициализация дуги    </span></em>
+            Arc semicircle=<a href="HostMgd__EditorInput__EntityJig__Entity.html">Entity</a> <strong><span style="color: #871F78;">as</span></strong> Arc;
+            <strong><span style="color: #871F78;">if</span></strong> (semicircle == <strong><span style="color: #871F78;">null</span></strong>) <strong><span style="color: #871F78;">return</span></strong> <strong><span style="color: #871F78;">false</span></strong>;
+            semicircle.Center = <strong><span style="color: #871F78;">this</span></strong>.basePoint;
+            semicircle.StartAngle = 0;semicircle.EndAngle = Math.PI;
+        
+        <em><span style="color: #0000FF;">// Расчет радиуса полукруга по двум точкам</span></em>
+            Line radius = <strong><span style="color: #871F78;">new</span></strong> Line(<strong><span style="color: #871F78;">this</span></strong>.basePoint, <strong><span style="color: #871F78;">this</span></strong>.newPoint);
+            semicircle.Radius = radius.Length;
+            <strong><span style="color: #871F78;">return</span></strong> <strong><span style="color: #871F78;">true</span></strong>;
+        }
+
+    }
+    <strong><span style="color: #871F78;">public</span></strong> <strong><span style="color: #871F78;">class</span></strong> Commands
+    {
+        [CommandMethod(&quot;SemicircleEntityJig&quot;)]
+        <strong><span style="color: #871F78;">public</span></strong> <strong><span style="color: #871F78;">void</span></strong> SemicircleJigCommand()
+        {
+            Document doc = Application.DocumentManager.MdiActiveDocument;
+            <a href="HostMgd__EditorInput__Editor.html">Editor</a> ed = doc.<a href="HostMgd__EditorInput__Editor.html">Editor</a>;
+            Database db = doc.Database;
+        
+            <em><span style="color: #0000FF;">// Запрос центра полукруга</span></em>
+            <a href="HostMgd__EditorInput__PromptPointOptions.html">PromptPointOptions</a> promptOptions = <strong><span style="color: #871F78;">new</span></strong> <a href="HostMgd__EditorInput__PromptPointOptions.html">PromptPointOptions</a>(&quot;Центр полукруга:&quot;);
+            <a href="HostMgd__EditorInput__PromptPointResult.html">PromptPointResult</a> promptResult = ed.GetPoint(promptOptions);
+        
+        <em><span style="color: #0000FF;">// Проверка полученных данных</span></em>
+            <strong><span style="color: #871F78;">if</span></strong> (promptResult.Status != <a href="HostMgd__EditorInput__PromptStatus.html">PromptStatus</a>.OK) <strong><span style="color: #871F78;">return</span></strong>;
+
+            Point3d point = promptResult.Value;
+            <strong><span style="color: #871F78;">using</span></strong> (Transaction transaction = db.TransactionManager.StartTransaction())
+            {
+
+            <em><span style="color: #0000FF;">// Получение доступа к активному пространству (пространство модели или лист)</span></em>
+            <a href="BlockTableRecord.html">BlockTableRecord</a> currentSpace = transaction.GetObject(db.CurrentSpaceId, OpenMode.ForWrite) <strong><span style="color: #871F78;">as</span></strong> <a href="BlockTableRecord.html">BlockTableRecord</a>;
+
+            <em><span style="color: #0000FF;">// Определение экземпляров примитива и класса-наследника EntityJig</span></em>
+            Arc semicircle = <strong><span style="color: #871F78;">new</span></strong> Arc();
+            SemiсircleEntJig semicircleEntJig = <strong><span style="color: #871F78;">new</span></strong> SemiсircleEntJig(semicircle, point);
+
+            <em><span style="color: #0000FF;">// Вызов метода, позволяющего отрисовывать геометрические объекты путем перетаскивания курсора мыши</span></em>
+            promptResult = (<a href="HostMgd__EditorInput__PromptPointResult.html">PromptPointResult</a>)ed.Drag(semicircleEntJig);
+                
+                <strong><span style="color: #871F78;">if</span></strong> (promptResult.Status == <a href="HostMgd__EditorInput__PromptStatus.html">PromptStatus</a>.OK)
+                {
+                    
+            <em><span style="color: #0000FF;">// Добавление дуги в чертеж</span></em>
+                    currentSpace.AppendEntity(semicircle);
+                    transaction.AddNewlyCreatedDBObject(semicircle, <strong><span style="color: #871F78;">true</span></strong>);
+                    transaction.Commit();
+                }
+            }
+        }
+    }
+</div></div>
+<div class="PreformattedText_Block"><div class="PreformattedText"><strong>Visual Basic</strong></div></div>
+<div class="CopyCode">
+<a href="#" onclick="CopyElementToClipboard(&#39;code00835&#39;);">Копировать Код</a></div>
+<div class="Code_Block"><div class="Code" id="code00835"><strong><span style="color: #871F78;">Imports</span></strong> <a href="Teigha.html">Teigha</a>.DatabaseServices
+<strong><span style="color: #871F78;">Imports</span></strong> <a href="Teigha.html">Teigha</a>.Geometry
+<strong><span style="color: #871F78;">Imports</span></strong> <a href="Teigha.html">Teigha</a>.<a href="HostMgd__Runtime.html">Runtime</a>
+<strong><span style="color: #871F78;">Imports</span></strong> <a href="HostMgd.html">HostMgd</a>.<a href="HostMgd__EditorInput.html">EditorInput</a>
+<strong><span style="color: #871F78;">Imports</span></strong> <a href="HostMgd.html">HostMgd</a>.<a href="HostMgd__ApplicationServices.html">ApplicationServices</a>
+
+<strong><span style="color: #871F78;">Public</span></strong> <strong><span style="color: #871F78;">Class</span></strong> SemiсircleEntJig
+    <strong><span style="color: #871F78;">Inherits</span></strong> EntityJig
+
+    <strong><span style="color: #871F78;">Public</span></strong> basePoint, newPoint <strong><span style="color: #871F78;">As</span></strong> Point3d
+
+    <strong><span style="color: #871F78;">Public</span></strong> <strong><span style="color: #871F78;">Sub</span></strong> <strong><span style="color: #871F78;">New</span></strong>(semicircle <strong><span style="color: #871F78;">As</span></strong> Arc, point <strong><span style="color: #871F78;">As</span></strong> Point3d)
+        <strong><span style="color: #871F78;">MyBase</span></strong>.<strong><span style="color: #871F78;">New</span></strong>(semicircle)
+        basePoint = point
+        newPoint = point
+    <strong><span style="color: #871F78;">End Sub</span></strong>
+
+    <strong><span style="color: #871F78;">Protected</span></strong> <strong><span style="color: #871F78;">Overrides</span></strong> <strong><span style="color: #871F78;">Function</span></strong> <a href="HostMgd__EditorInput__Jig__Sampler@JigPrompts^.html">Sampler</a>(prompts <strong><span style="color: #871F78;">As</span></strong> <a href="HostMgd__EditorInput__JigPrompts.html">JigPrompts</a>) <strong><span style="color: #871F78;">As</span></strong> <a href="HostMgd__EditorInput__SamplerStatus.html">SamplerStatus</a>
+        
+    <em><span style="color: #0000FF;">' Запрос второй точки для расчета радиуса полукруга </span></em>
+        <strong><span style="color: #871F78;">Dim</span></strong> options <strong><span style="color: #871F78;">As</span></strong> <a href="HostMgd__EditorInput__JigPromptPointOptions.html">JigPromptPointOptions</a> = <strong><span style="color: #871F78;">New</span></strong> <a href="HostMgd__EditorInput__JigPromptPointOptions.html">JigPromptPointOptions</a>(&quot;Радиус полукруга:&quot;)
+        <strong><span style="color: #871F78;">Dim</span></strong> promptResult <strong><span style="color: #871F78;">As</span></strong> <a href="HostMgd__EditorInput__PromptPointResult.html">PromptPointResult</a> = prompts.AcquirePoint(options)
+        
+    <em><span style="color: #0000FF;">' Проверка полученных данных</span></em>
+        <strong><span style="color: #871F78;">If</span></strong> promptResult.Status &lt;&gt; <a href="HostMgd__EditorInput__PromptStatus.html">PromptStatus</a>.OK <strong><span style="color: #871F78;">Then</span></strong>
+
+            <strong><span style="color: #871F78;">Return</span></strong> <a href="HostMgd__EditorInput__SamplerStatus.html">SamplerStatus</a>.Cancel
+        <strong><span style="color: #871F78;">End</span></strong> <strong><span style="color: #871F78;">If</span></strong>
+
+        <strong><span style="color: #871F78;">If</span></strong> basePoint &lt;&gt; promptResult.Value <strong><span style="color: #871F78;">Then</span></strong>
+            newPoint = promptResult.Value
+            <strong><span style="color: #871F78;">Return</span></strong> <a href="HostMgd__EditorInput__SamplerStatus.html">SamplerStatus</a>.OK
+        <strong><span style="color: #871F78;">Else</span></strong>
+            <strong><span style="color: #871F78;">Return</span></strong> <a href="HostMgd__EditorInput__SamplerStatus.html">SamplerStatus</a>.NoChange
+        <strong><span style="color: #871F78;">End</span></strong> <strong><span style="color: #871F78;">If</span></strong>
+    <strong><span style="color: #871F78;">End Function</span></strong>
+
+    <strong><span style="color: #871F78;">Protected</span></strong> <strong><span style="color: #871F78;">Overrides</span></strong> <strong><span style="color: #871F78;">Function</span></strong> <a href="HostMgd__EditorInput__EntityJig__Update.html">Update</a>() <strong><span style="color: #871F78;">As</span></strong> <strong><span style="color: #871F78;">Boolean</span></strong>
+        
+    <em><span style="color: #0000FF;">' Инициализация дуги</span></em>
+        <strong><span style="color: #871F78;">Dim</span></strong> semicircle <strong><span style="color: #871F78;">As</span></strong> Arc = TryCast(<a href="HostMgd__EditorInput__EntityJig__Entity.html">Entity</a>, Arc)
+        <strong><span style="color: #871F78;">If</span></strong> semicircle <strong><span style="color: #871F78;">Is</span></strong> <strong><span style="color: #871F78;">Nothing</span></strong> <strong><span style="color: #871F78;">Then</span></strong> <strong><span style="color: #871F78;">Return</span></strong> <strong><span style="color: #871F78;">False</span></strong>
+        semicircle.Center = basePoint
+        semicircle.StartAngle = 0
+        semicircle.EndAngle = Math.PI
+        
+    <em><span style="color: #0000FF;">' Расчет радиуса полукруга по двум точкам</span></em>
+        <strong><span style="color: #871F78;">Dim</span></strong> radius <strong><span style="color: #871F78;">As</span></strong> Line = <strong><span style="color: #871F78;">New</span></strong> Line(basePoint, newPoint)
+        semicircle.Radius = radius.Length
+        <strong><span style="color: #871F78;">Return</span></strong> <strong><span style="color: #871F78;">True</span></strong>
+    <strong><span style="color: #871F78;">End Function</span></strong>
+<strong><span style="color: #871F78;">End Class</span></strong>
+
+<strong><span style="color: #871F78;">Public</span></strong> <strong><span style="color: #871F78;">Class</span></strong> Commands
+    &lt;CommandMethod(&quot;SemicircleJig&quot;)&gt;
+    <strong><span style="color: #871F78;">Public</span></strong> <strong><span style="color: #871F78;">Sub</span></strong> SemicircleJigCommand()
+        <strong><span style="color: #871F78;">Dim</span></strong> doc <strong><span style="color: #871F78;">As</span></strong> Document = Application.DocumentManager.MdiActiveDocument
+        <strong><span style="color: #871F78;">Dim</span></strong> ed <strong><span style="color: #871F78;">As</span></strong> <a href="HostMgd__EditorInput__Editor.html">Editor</a> = doc.<a href="HostMgd__EditorInput__Editor.html">Editor</a>
+        <strong><span style="color: #871F78;">Dim</span></strong> db <strong><span style="color: #871F78;">As</span></strong> Database = doc.Database
+        
+    <em><span style="color: #0000FF;">' Запрос центра полукруга</span></em>
+        <strong><span style="color: #871F78;">Dim</span></strong> promptOptions <strong><span style="color: #871F78;">As</span></strong> <a href="HostMgd__EditorInput__PromptPointOptions.html">PromptPointOptions</a> = <strong><span style="color: #871F78;">New</span></strong> <a href="HostMgd__EditorInput__PromptPointOptions.html">PromptPointOptions</a>(&quot;Центр полукруга:&quot;)
+        <strong><span style="color: #871F78;">Dim</span></strong> promptResult <strong><span style="color: #871F78;">As</span></strong> <a href="HostMgd__EditorInput__PromptPointResult.html">PromptPointResult</a> = ed.GetPoint(promptOptions)
+        <strong><span style="color: #871F78;">Dim</span></strong> point <strong><span style="color: #871F78;">As</span></strong> Point3d
+        
+    <em><span style="color: #0000FF;">' Проверка полученных данных</span></em>
+        <strong><span style="color: #871F78;">If</span></strong> promptResult.Status = <a href="HostMgd__EditorInput__PromptStatus.html">PromptStatus</a>.OK <strong><span style="color: #871F78;">Then</span></strong> point = promptResult.Value
+
+        <strong><span style="color: #871F78;">Using</span></strong> transaction <strong><span style="color: #871F78;">As</span></strong> Transaction = db.TransactionManager.StartTransaction()
+            
+        <em><span style="color: #0000FF;">' Получение доступа к активному пространству(пространство модели или лист)  </span></em>
+            <strong><span style="color: #871F78;">Dim</span></strong> currentSpace <strong><span style="color: #871F78;">As</span></strong> <a href="BlockTableRecord.html">BlockTableRecord</a> = TryCast(transaction.GetObject(db.CurrentSpaceId, OpenMode.ForWrite), <a href="BlockTableRecord.html">BlockTableRecord</a>)
+            
+        <em><span style="color: #0000FF;">' Определение экземпляров примитива и класса-наследника EntityJig</span></em>
+            <strong><span style="color: #871F78;">Dim</span></strong> semicircle <strong><span style="color: #871F78;">As</span></strong> Arc = <strong><span style="color: #871F78;">New</span></strong> Arc()
+            <strong><span style="color: #871F78;">Dim</span></strong> semicircleEntJig <strong><span style="color: #871F78;">As</span></strong> SemiсircleEntJig = <strong><span style="color: #871F78;">New</span></strong> SemiсircleEntJig(semicircle, point)
+            
+        <em><span style="color: #0000FF;">' Вызов метода, позволяющего отрисовывать геометрические объекты путем перетаскивания курсора мыши</span></em>
+            promptResult = <strong><span style="color: #871F78;">CType</span></strong>(ed.Drag(semicircleEntJig), <a href="HostMgd__EditorInput__PromptPointResult.html">PromptPointResult</a>)
+
+            <strong><span style="color: #871F78;">If</span></strong> promptResult.Status &lt;&gt; <a href="HostMgd__EditorInput__PromptStatus.html">PromptStatus</a>.OK <strong><span style="color: #871F78;">Then</span></strong>
+                <strong><span style="color: #871F78;">Return</span></strong>
+            <strong><span style="color: #871F78;">End</span></strong> <strong><span style="color: #871F78;">If</span></strong>
+            
+        <em><span style="color: #0000FF;">' Добавление дуги в пространство модели</span></em>
+            currentSpace.AppendEntity(semicircle)
+            transaction.AddNewlyCreatedDBObject(semicircle, <strong><span style="color: #871F78;">True</span></strong>)
+            transaction.Commit()
+        <strong><span style="color: #871F78;">End</span></strong> <strong><span style="color: #871F78;">Using</span></strong>
+    <strong><span style="color: #871F78;">End Sub</span></strong>
+<strong><span style="color: #871F78;">End Class</span></strong>
+
+</div></div>
+<p class="Text">
+&#160;</p>
+<p class="Text">
+Алгоритм работы приведенного примера:</p>
+<ol class="ListLevel1">
+<li value="1" class="ListItemLevel1">Запускается работа команды <span class="_C_Font">SemicircleEntityJig</span>, выполняется метод <span class="_C_Font">SemicircleJigCommand()</span> класса Commands.</li>
+<li value="2" class="ListItemLevel1">Запрос центра полукруга, проверка полученных данных.</li>
+</ol><p class="Text" style="text-align: center;">
+<img src="EntityJIg_figure01.jpg" border="0" alt="" title="" /></p>
+<ol class="ListLevel1">
+<li value="3" class="ListItemLevel1">Если введенные данные верны, создается примитив <span class="_C_Font">Arc</span> и экземпляр класса <span class="_C_Font">SemicircleEntJig</span>, позволяющий построить полукруг с помощью технологии <span class="_C_Font"><a href="HostMgd__EditorInput__Jig.html">Jig</a></span>. При создании экземпляра этого класса в его конструктор передается ссылка на созданный ранее примитив Arc и координаты центра будущего полукруга.</li>
+<li value="4" class="ListItemLevel1">Вызов метода <span class="_C_Font">Drag()</span> класса <span class="_C_Font"><a href="HostMgd__EditorInput__Editor.html">Editor</a></span>, в который передается экземпляр класса <span class="_C_Font">SemicircleEntJig</span>. Метод обращается к экземпляру класса <span class="_C_Font">SemicircleEntJig</span> при каждом передвижении курсора мыши на экране.</li>
+<li value="5" class="ListItemLevel1">Запрос данных для расчета радиуса полукруга методом <span class="_C_Font"><a href="HostMgd__EditorInput__Jig__Sampler@JigPrompts^.html">Sampler</a>()</span> класса <span class="_C_Font">SemicircleEntJig</span>.</li>
+<li value="6" class="ListItemLevel1">Метод <span class="_C_Font"><a href="HostMgd__EditorInput__Jig__Sampler@JigPrompts^.html">Sampler</a>()</span> получает точку расположения курсора мыши на экране и запускается метод <span class="_C_Font"><a href="HostMgd__EditorInput__EntityJig__Update.html">Update</a>()</span> класса <span class="_C_Font">SemicircleEntJig</span>, в котором из полученной точки высчитывается радиус полукруга.</li>
+<li value="7" class="ListItemLevel1">После выполнения метода <span class="_C_Font"><a href="HostMgd__EditorInput__EntityJig__Update.html">Update</a>()</span> на экране появляется полукруг. При перемещении курсора мыши будет происходить пересчет радиуса полукруга и его изменение на экране.</li>
+</ol><p class="Text" style="text-align: center;">
+<img src="EntityJIg_figure02.jpg" border="0" alt="" title="" /></p><p class="Text">
+&#160;</p>
+<p class="Text" style="text-align: center;">
+<img src="EntityJIg_figure03.jpg" border="0" alt="" title="" /></p>
+<ol class="ListLevel1">
+<li value="8" class="ListItemLevel1">После того, как радиус полукруга был выбран нажатием кнопки мыши на экране или путем ввода с клавиатуры, работа метода <span class="_C_Font">Drag()</span> класса <span class="_C_Font"><a href="HostMgd__EditorInput__Editor.html">Editor</a></span> завершается, созданный примитив добавляется в базу данных чертежа. Работа команды <span class="_C_Font">SemicircleEntityJig</span> завершается.</li>
+</ol><p class="Text" style="text-align: center;">
+<img src="EntityJIg_figure04.jpg" border="0" alt="" title="" /></p></div>
+</div>
+</div>
+<a name="41C43544243E43444B"></a><div class="SectionHeading expandable" id="s41C43544243E43444B">
+<img src="section-expanded-16.png" border="0" alt="Свернуть" title="Свернуть" id="imges41C43544243E43444B" /><img src="section-collapsed-16.png" border="0" alt="Развернуть" title="Развернуть" id="imgcs41C43544243E43444B" style="display:none;" />Методы</div>
+<div id="divs41C43544243E43444B">
+<div class="Text_Block">
+<div class="Text">
+<div class="NavigationHeading">
+Конструкторы</div>
+<div class="NavigationHeading">
+Класс HostMgd.EditorInput.EntityJig</div>
+<div class="NavigationTable">
+<div class="TableDiv">
+<table cellspacing="0" class="Table0">
+<thead><tr>
+<td class="NavigationTableLinkHeader_block" valign="top" width="10%" style="white-space: nowrap;">
+<div class="NavigationTableLinkHeader">
+ </div></td><td class="NavigationTableLinkHeader_block" valign="top" width="30%">
+<div class="NavigationTableLinkHeader">
+Имя</div></td><td class="NavigationTableDescriptionHeader_block" valign="top" width="60%">
+<div class="NavigationTableDescriptionHeader">
+Описание</div></td></tr></thead><tbody><tr>
+<td class="NavigationTableLink_block" valign="top" width="10%" style="white-space: nowrap;">
+<div class="NavigationTableLink">
+<img src="indicator-method-16.png" border="0" alt="" title="" /></div></td><td class="NavigationTableLink_block" valign="top" width="30%">
+<div class="NavigationTableLink">
+<a href="HostMgd__EditorInput__EntityJig__EntityJig@DatabaseServices__Entity_^.html">EntityJig</a></div></td><td class="NavigationTableDescription_block" valign="top" width="60%">
+<div class="NavigationTableDescription">
+ Конструктор класса EntityJig </div></td></tr></tbody></table></div></div>
+</div>
+</div>
+</div>
+<a name="42243E43F43843A438"></a><div class="SectionHeading expandable" id="s42243E43F43843A438">
+<img src="section-expanded-16.png" border="0" alt="Свернуть" title="Свернуть" id="imges42243E43F43843A438" /><img src="section-collapsed-16.png" border="0" alt="Развернуть" title="Развернуть" id="imgcs42243E43F43843A438" style="display:none;" />Топики</div>
+<div id="divs42243E43F43843A438">
+<div class="Text_Block">
+<div class="Text">
+<div class="NavigationTable">
+<div class="TableDiv">
+<table cellspacing="0" class="Table0">
+<thead><tr>
+<td class="NavigationTableLinkHeader_block" valign="top" width="40%">
+<div class="NavigationTableLinkHeader">
+Имя</div></td><td class="NavigationTableDescriptionHeader_block" valign="top" width="60%">
+<div class="NavigationTableDescriptionHeader">
+Описание</div></td></tr></thead><tbody><tr>
+<td class="NavigationTableLink_block" valign="top" width="40%">
+<div class="NavigationTableLink">
+<a href="!!MEMBERTYPE_Methods_HostMgd__EditorInput__Jig.html">Jig Методы</a></div></td><td class="NavigationTableDescription_block" valign="top" width="60%">
+<div class="NavigationTableDescription">
+Ниже перечислены методы класса Jig.</div></td></tr></tbody></table></div></div>
+<div class="NavigationHeading">
+Класс HostMgd.EditorInput.EntityJig</div>
+<div class="NavigationTable">
+<div class="TableDiv">
+<table cellspacing="0" class="Table0">
+<thead><tr>
+<td class="NavigationTableLinkHeader_block" valign="top" width="40%">
+<div class="NavigationTableLinkHeader">
+Имя</div></td><td class="NavigationTableDescriptionHeader_block" valign="top" width="60%">
+<div class="NavigationTableDescriptionHeader">
+Описание</div></td></tr></thead><tbody><tr>
+<td class="NavigationTableLink_block" valign="top" width="40%">
+<div class="NavigationTableLink">
+<a href="!!MEMBERTYPE_Methods_HostMgd__EditorInput__EntityJig.html">EntityJig Методы</a></div></td><td class="NavigationTableDescription_block" valign="top" width="60%">
+<div class="NavigationTableDescription">
+Ниже перечислены методы класса EntityJig.</div></td></tr><tr>
+<td class="NavigationTableLink_block" valign="top" width="40%">
+<div class="NavigationTableLink">
+<a href="!!MEMBERTYPE_Properties_HostMgd__EditorInput__EntityJig.html">EntityJig Свойства</a></div></td><td class="NavigationTableDescription_block" valign="top" width="60%">
+<div class="NavigationTableDescription">
+Ниже перечислены свойства класса EntityJig.</div></td></tr></tbody></table></div></div>
+</div>
+</div>
+</div>
+<a name="4C696E6B73"></a><div class="SectionHeading expandable" id="s42144144B43B43A438">
+<img src="section-expanded-16.png" border="0" alt="Свернуть" title="Свернуть" id="imges42144144B43B43A438" /><img src="section-collapsed-16.png" border="0" alt="Развернуть" title="Развернуть" id="imgcs42144144B43B43A438" style="display:none;" />Ссылки</div>
+<div id="divs42144144B43B43A438">
+<div class="Text_Block">
+<div class="Text">
+<span class="TopicLinks_Navigation"><a href="!!MEMBERTYPE_Methods_HostMgd__EditorInput__EntityJig.html">EntityJig Методы</a>, <a href="!!MEMBERTYPE_Properties_HostMgd__EditorInput__EntityJig.html">EntityJig Свойства</a>, <a href="!!NAVID_HostMgd__EditorInput__EntityJig_ST(14)_SEC_Methods.html">Методы</a>, <a href="!!NAVID_HostMgd__EditorInput__EntityJig_ST(14)_SEC_Topics.html">Топики</a>, <a href="!!NAVID_HostMgd__EditorInput__EntityJig_ST(14)_SEC_&Igrave;&aring;&ograve;&icirc;&auml;&ucirc;_(AutoDoc_Folder).html">Jig Методы</a>, <a href="!!NAVID_HostMgd__EditorInput__EntityJig_ST(14)_SEC_&Ntilde;&acirc;&icirc;&eacute;&ntilde;&ograve;&acirc;&agrave;_(AutoDoc_Folder).html">EntityJig Свойства</a></span><span class="TopicLinks_Custom"></span><span class="TopicLinks_Feedback"></span></div>
+</div>
+</div>
+</div>
+<!-- End Page Content -->
+
+<!-- Begin Page Footer -->
+<div class="PageFooterArea">
+<table width="100%" cellspacing="0" cellpadding="0">
+<tr><td width="100%">
+<div class="PageFooterText">
+</div>
+</td></tr><tr><td width="100%">
+<div class="PageFooterFeedbackLink">
+Ваши комментарии по поводу этого топика: <a href="#" onclick="sendFeedback(&#39;developer_support@nanocad.ru&#39;, &#39;Отзыв на документацию&#39;, &#39;Project: Справочное руководство .NET API%0ATopic ID: HostMgd::EditorInput::EntityJig%0ATitle: Класс HostMgd.EditorInput.EntityJig&#39;);">Послать отзыв!</a></div>
+</td></tr></table></div>
+
+<!-- End Page Footer -->
+</div>
+</div>
+
+<!-- End Client Area -->
+</body></html>
+

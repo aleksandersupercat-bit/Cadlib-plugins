@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=8" />
+<title>HostMgd.EditorInput.Editor.SelectCrossingPolygon(Point3dCollection)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1251" />
+<meta name="generator" content="Doc-O-Matic" />
+    <meta name="save" content="history" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<link rel="stylesheet" href="default.css" type="text/css" />
+
+<script type="text/javascript" src="scripts.js"></script>
+<script type="text/javascript" src="jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="jqfunc.js"></script>
+</head>
+<body class="FileBody_fixedheader">
+<div id="persistenceDiv" style="display:none; behavior:url(#default#userData);"></div>
+
+<!-- Begin Popups -->
+
+<!-- End Popups -->
+
+<!-- Begin Page Header -->
+<div class="PageHeaderArea_fixedheader" id="areafixed">
+<div class="CollapseExpandLink_Block">
+<div class="CollapseExpandLink">
+<span class="collapseAll"><img src="section-expanded-16.png" border="0" alt="Свернуть все" title="Свернуть все" />Свернуть все</span><span class="expandAll"><img src="section-collapsed-16.png" border="0" alt="Развернуть все" title="Развернуть все" />Развернуть все</span></div>
+</div>
+<div class="PageHeaderArea">
+<table width="100%" cellspacing="0" cellpadding="0">
+<tr><td width="25%">
+<div class="PageHeaderText">
+Справочное руководство .NET API</div>
+</td><td width="25%">
+<div class="PageHeaderGlobalLinks">
+<span class="PageLink" id="PageLinkContent" title="Содержание"><a href="contents.html"><img src="links-contents-16.png" border="0" alt="Содержание" title="Содержание" /></a></span><span class="PageLink" id="PageLinkIndex" data-content-id="indexsearch" title="Индекс"><a href="idx.html"><img src="links-index-16.png" border="0" alt="Индекс" title="Индекс" /></a></span><span class="PageLink" id="PageLinkReference" title="Ссылка"><a href="!!SYMREF.html"><img src="links-reference-16.png" border="0" alt="Ссылка" title="Ссылка" /></a></span><span class="PageLink" id="PageLinkHome" title="На главную"><a href="!!SYMREF.html"><img src="links-home-16.png" border="0" alt="На главную" title="На главную" /></a></span><span class="PageLink" title="Поиск"><a href="ftxtsearch.html"><img src="links-search-16.png" border="0" alt="Поиск" title="Поиск" /></a></span></div>
+<div class="EmbeddedFeatureBackground">
+</div>
+<div class="EmbeddedFeature">
+<div class="EmbeddedFeatureTitle">
+</div>
+<div class="EmbeddedFeatureClose">
+Закрыть</div>
+<div class="EmbeddedFeatureContent">
+<div class="EmbeddedFeatureContentContainer">
+</div>
+</div>
+</div>
+</td><td width="25%">
+<div class="PageHeaderNeighborLinks">
+<span class="PageLink" id="PageLinkPrevious" title="Предыдущий"><a href="!!OVERLOADED_Methods_SelectCrossingPolygon_HostMgd__EditorInput__Editor.html"><img src="arrow-previous-16.png" border="0" alt="Предыдущий" title="Предыдущий" /></a></span><span class="PageLink" id="PageLinkUp" title="Наверх"><a href="!!OVERLOADED_Methods_SelectCrossingPolygon_HostMgd__EditorInput__Editor.html"><img src="arrow-up-16.png" border="0" alt="Наверх" title="Наверх" /></a></span><span class="PageLink" id="PageLinkNext" title="Следующий"><a href="HostMgd__EditorInput__Editor__SelectCrossingPolygon@Teigha__Geometry__Point3dCollection^@HostMgd__EditorInput__SelectionFilter^.html"><img src="arrow-next-16.png" border="0" alt="Следующий" title="Следующий" /></a></span></div>
+</td><td width="25%">
+<div class="PageHeaderFeedbackLink">
+<a href="#" onclick="sendFeedback(&#39;developer_support@nanocad.ru&#39;, &#39;Отзыв на документацию&#39;, &#39;Project: Справочное руководство .NET API%0ATopic ID: HostMgd::EditorInput::Editor::SelectCrossingPolygon@Teigha::Geometry::Point3dCollection^%0ATitle: HostMgd.EditorInput.Editor.SelectCrossingPolygon(Point3dCollection)&#39;);">Послать отзыв</a></div>
+</td></tr></table><div class="TopicTitle">
+HostMgd.EditorInput.Editor.SelectCrossingPolygon(Point3dCollection)</div>
+<div class="TopicLinks">
+<span class="TopicLinks_Custom"></span><span class="TopicLinks_Feedback"><a href="#" onclick="sendFeedback(&#39;developer_support@nanocad.ru&#39;, &#39;Отзыв на документацию&#39;, &#39;Project: Справочное руководство .NET API%0ATopic ID: HostMgd::EditorInput::Editor::SelectCrossingPolygon@Teigha::Geometry::Point3dCollection^%0ATitle: HostMgd.EditorInput.Editor.SelectCrossingPolygon(Point3dCollection)&#39;);">Послать отзыв</a></span></div>
+</div>
+</div>
+
+<!-- End Page Header -->
+
+<!-- Begin Client Area -->
+<div class="PageClientArea_fixedheader" id="areascroll">
+<div class="PageClientAreaContent_fixedheader">
+<a name="PageContent"></a>
+<!-- Fixed Header Spacer -->
+<div class="PageContentArea_fixedheader_spacer" style="width:100%;height:0px;">
+</div>
+<!-- Begin Page Content -->
+<div class="PageContentBodywithoutSidebar">
+<a name="41A44043044243A43E4352043E43F43844143043D438435"></a><div class="Text_Block">
+<div class="Text">
+<p class="Text">
+Метод возвращает набор объектов, которые пересекают или полностью находятся внутри заданного многоугольника.</p></div>
+</div>
+<div class="SyntaxSectionHeading">
+Синтаксис</div>
+<!-- Begin Tabbed Section -->
+<div class="TabbedSectionContainer"><div class="SectionTabs" id="53796E746178" style="border-top: 1px solid transparent;"><div id="tab53796E746178_0" class="SectionTabs_FirstTab_selected">C#</div><div id="tab53796E746178_1" class="SectionTabs_LastTab_unselected">Visual Basic</div></div><a name="4323"></a><div id="div53796E746178_0" class="TabbedSectionContent" style="display:block;clear:both;">
+<div class="SyntaxSourceCode_Block"><div class="SyntaxSourceCode"></p><div class="CopyCode"><a href="#" onclick="CopyElementToClipboard(&#39;code00617&#39;);">Копировать Код</a></div><div class="Code_Block"><div class="Code" id="code00617"><strong><span style="color: #871F78;">public</span></strong> <a href="HostMgd__EditorInput__PromptSelectionResult.html">PromptSelectionResult</a> SelectCrossingPolygon(<a href="Teigha__Geometry__Point3dCollection.html">Point3dCollection</a> polygon);</div></div><p class="SyntaxSourceCode"></div></div>
+</div>
+<a name="56697375616C204261736963"></a><div id="div53796E746178_1" class="TabbedSectionContent" style="display:none;clear:both;">
+<div class="SyntaxSourceCode_Block"><div class="SyntaxSourceCode"></p><div class="CopyCode"><a href="#" onclick="CopyElementToClipboard(&#39;code00618&#39;);">Копировать Код</a></div><div class="Code_Block"><div class="Code" id="code00618"><strong><span style="color: #871F78;">Public</span></strong> <strong><span style="color: #871F78;">Function</span></strong> SelectCrossingPolygon(polygon <strong><span style="color: #871F78;">As</span></strong> <a href="Teigha__Geometry__Point3dCollection.html">Point3dCollection</a>) <strong><span style="color: #871F78;">As</span></strong> <a href="HostMgd__EditorInput__PromptSelectionResult.html">PromptSelectionResult</a></div></div><p class="SyntaxSourceCode"></div></div>
+</div>
+</div><!-- End Tabbed Section -->
+<a name="41F43044043043C43544244044B"></a><div class="SectionHeading expandable" id="s41F43044043043C43544244044B">
+<img src="section-expanded-16.png" border="0" alt="Свернуть" title="Свернуть" id="imges41F43044043043C43544244044B" /><img src="section-collapsed-16.png" border="0" alt="Развернуть" title="Развернуть" id="imgcs41F43044043043C43544244044B" style="display:none;" />Параметры</div>
+<div id="divs41F43044043043C43544244044B">
+<div class="Text_Block">
+<div class="Text">
+<div class="ParameterTable">
+<div class="TableDiv">
+<table cellspacing="0" class="Table1">
+<thead><tr>
+<td class="ParameterTableLeftColumnHeader_block" valign="top" width="50%">
+<div class="ParameterTableLeftColumnHeader">
+Параметры</div></td><td class="ParameterTableDescriptionHeader_block" valign="top" width="50%">
+<div class="ParameterTableDescriptionHeader">
+Описание</div></td></tr></thead><tbody><tr>
+<td class="ParameterTableLeftColumn_block" valign="top" width="50%">
+<div class="ParameterTableLeftColumn">
+polygon</div></td><td class="ParameterTableDescription_block" valign="top" width="50%">
+<div class="ParameterTableDescription">
+Коллекция трёхмерных точек (<a href="Teigha__Geometry__Point3d.html">Point3d</a>), представляющих вершины многоугольника в мировой системе координат (WCS). Многоугольник должен быть замкнутым — иначе он будет автоматически замкнут последним соединением первой и последней точки. Тип <a href="Teigha__Geometry__Point3dCollection.html">Point3dCollection</a>.</div></td></tr></tbody></table></div></div>
+</div>
+</div>
+</div>
+<a name="41243E437432440430449430435442"></a><div class="SectionHeading expandable" id="s41243E437432440430449430435442">
+<img src="section-expanded-16.png" border="0" alt="Свернуть" title="Свернуть" id="imges41243E437432440430449430435442" /><img src="section-collapsed-16.png" border="0" alt="Развернуть" title="Развернуть" id="imgcs41243E437432440430449430435442" style="display:none;" />Возвращает</div>
+<div id="divs41243E437432440430449430435442">
+<div class="Text_Block">
+<div class="Text">
+<p class="Text">
+Возвращает объект типа <a href="HostMgd__EditorInput__PromptSelectionResult.html">PromptSelectionResult</a>, содержащий результат выборки:</p>
+<ul class="ListLevel1">
+<li class="ListItemLevel1">Status — статус выполнения (OK, Cancel, Error и др.). При успешной выборке статус равен PromptStatus.OK.</li>
+<li class="ListItemLevel1">Value — объект типа <a href="HostMgd__EditorInput__SelectionSet.html">SelectionSet</a>, содержащий список идентификаторов (ObjectId) выбранных объектов.</li>
+<li class="ListItemLevel1">InputString — строковое значение, если операция была прервана пользователем.</li>
+</ul><p class="Text">
+Если ни один объект не удовлетворяет условию попадания в/на многоугольник, Value может быть null.</p></div>
+</div>
+</div>
+<a name="41E43F43844143043D438435"></a><div class="SectionHeading expandable" id="s41E43F43844143043D438435">
+<img src="section-expanded-16.png" border="0" alt="Свернуть" title="Свернуть" id="imges41E43F43844143043D438435" /><img src="section-collapsed-16.png" border="0" alt="Развернуть" title="Развернуть" id="imgcs41E43F43844143043D438435" style="display:none;" />Описание</div>
+<div id="divs41E43F43844143043D438435">
+<div class="Text_Block">
+<div class="Text">
+<p class="Text">
+Метод используется для выбора геометрических объектов чертежа, которые либо пересекаются с границей, либо полностью находятся внутри замкнутого многоугольника, заданного набором вершин. Этот метод особенно полезен при точном выделении объектов на сложных чертежах, где стандартные методы выбора рамкой могут быть недостаточно гибкими.</p></div>
+</div>
+</div>
+<a name="41F44043843C435440"></a><div class="SectionHeading expandable" id="s41F44043843C435440">
+<img src="section-expanded-16.png" border="0" alt="Свернуть" title="Свернуть" id="imges41F44043843C435440" /><img src="section-collapsed-16.png" border="0" alt="Развернуть" title="Развернуть" id="imgcs41F44043843C435440" style="display:none;" />Пример</div>
+<div id="divs41F44043843C435440">
+<div class="Text_Block">
+<div class="Text">
+<div class="PreformattedText_Block"><div class="PreformattedText"><strong>C#</div></div>
+<p class="Text">
+</strong> </p><div class="CopyCode">
+<a href="#" onclick="CopyElementToClipboard(&#39;code00619&#39;);">Копировать Код</a></div>
+<div class="Code_Block"><div class="Code" id="code00619"><strong><span style="color: #871F78;">using</span></strong> <a href="HostMgd.html">HostMgd</a>.<a href="HostMgd__ApplicationServices.html">ApplicationServices</a>;
+<strong><span style="color: #871F78;">using</span></strong> <a href="HostMgd.html">HostMgd</a>.<a href="HostMgd__EditorInput.html">EditorInput</a>;
+
+<strong><span style="color: #871F78;">public</span></strong> partial <strong><span style="color: #871F78;">class</span></strong> Commands
+{
+  [<a href="Teigha.html">Teigha</a>.<a href="HostMgd__Runtime.html">Runtime</a>.CommandMethod(&quot;SelectCrossingPolygonExample_Point3dCollection&quot;)]
+  <strong><span style="color: #871F78;">public</span></strong> <strong><span style="color: #871F78;">void</span></strong> SelectCrossingPolygonExample_Point3dCollection()
+  {
+    <em><span style="color: #0000FF;">// Получаем доступ к документу и через него к редактору документа</span></em>
+    <a href="HostMgd__EditorInput__Editor__Document.html">Document</a> doc = Application.DocumentManager.MdiActiveDocument;
+    <a href="HostMgd__EditorInput__Editor.html">Editor</a> editor = doc.<a href="HostMgd__EditorInput__Editor.html">Editor</a>;
+
+    <em><span style="color: #0000FF;">// Создание многоугольника, внутри которого необходимо выбрать объекты</span></em>
+    <a href="Teigha__Geometry__Point3dCollection.html">Point3dCollection</a> polygon = <strong><span style="color: #871F78;">new</span></strong> <a href="Teigha__Geometry__Point3dCollection.html">Point3dCollection</a>();
+    polygon.Add(<strong><span style="color: #871F78;">new</span></strong> <a href="Teigha__Geometry__Point3d.html">Point3d</a>(0, 0, 0));
+    polygon.Add(<strong><span style="color: #871F78;">new</span></strong> <a href="Teigha__Geometry__Point3d.html">Point3d</a>(100, 0, 0));
+    polygon.Add(<strong><span style="color: #871F78;">new</span></strong> <a href="Teigha__Geometry__Point3d.html">Point3d</a>(100, 100, 0));
+    polygon.Add(<strong><span style="color: #871F78;">new</span></strong> <a href="Teigha__Geometry__Point3d.html">Point3d</a>(0, 100, 0));
+
+    <em><span style="color: #0000FF;">// Вызываем метод</span></em>
+    <a href="HostMgd__EditorInput__PromptSelectionResult.html">PromptSelectionResult</a> result = editor.SelectCrossingPolygon(polygon);
+
+    <em><span style="color: #0000FF;">// Выводим сообщение в командную строку</span></em>
+    <strong><span style="color: #871F78;">if</span></strong> (result.Status == <a href="HostMgd__EditorInput__PromptStatus.html">PromptStatus</a>.OK)
+    {
+      <a href="HostMgd__EditorInput__SelectionSet.html">SelectionSet</a> selSet = result.Value;
+      editor.<a href="HostMgd__EditorInput__Editor__WriteMessage@IFormatProvider^@String^@___array_Object^_^.html">WriteMessage</a>(
+            $&quot;\nВыбрано объектов: {selSet.Count}&quot;);
+    }
+    <strong><span style="color: #871F78;">else</span></strong>
+    {
+      editor.<a href="HostMgd__EditorInput__Editor__WriteMessage@IFormatProvider^@String^@___array_Object^_^.html">WriteMessage</a>(
+          &quot;\nНе удалось выбрать объекты.&quot;);
+    }
+  }
+}</div></div>
+</div>
+</div>
+</div>
+<a name="4C696E6B73"></a><div class="SectionHeading expandable" id="s42144144B43B43A438">
+<img src="section-expanded-16.png" border="0" alt="Свернуть" title="Свернуть" id="imges42144144B43B43A438" /><img src="section-collapsed-16.png" border="0" alt="Развернуть" title="Развернуть" id="imgcs42144144B43B43A438" style="display:none;" />Ссылки</div>
+<div id="divs42144144B43B43A438">
+<div class="Text_Block">
+<div class="Text">
+<span class="TopicLinks_Navigation"><a href="HostMgd__EditorInput__Editor.html">HostMgd.EditorInput.Editor</a>, <a href="HostMgd__EditorInput.html">HostMgd.EditorInput</a></span><span class="TopicLinks_Custom"></span><span class="TopicLinks_Feedback"></span></div>
+</div>
+</div>
+</div>
+<!-- End Page Content -->
+
+<!-- Begin Page Footer -->
+<div class="PageFooterArea">
+<table width="100%" cellspacing="0" cellpadding="0">
+<tr><td width="100%">
+<div class="PageFooterText">
+</div>
+</td></tr><tr><td width="100%">
+<div class="PageFooterFeedbackLink">
+Ваши комментарии по поводу этого топика: <a href="#" onclick="sendFeedback(&#39;developer_support@nanocad.ru&#39;, &#39;Отзыв на документацию&#39;, &#39;Project: Справочное руководство .NET API%0ATopic ID: HostMgd::EditorInput::Editor::SelectCrossingPolygon@Teigha::Geometry::Point3dCollection^%0ATitle: HostMgd.EditorInput.Editor.SelectCrossingPolygon(Point3dCollection)&#39;);">Послать отзыв!</a></div>
+</td></tr></table></div>
+
+<!-- End Page Footer -->
+</div>
+</div>
+
+<!-- End Client Area -->
+</body></html>
+

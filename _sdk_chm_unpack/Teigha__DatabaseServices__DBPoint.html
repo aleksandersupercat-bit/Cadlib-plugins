@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=8" />
+<title>Teigha.DatabaseServices.DBPoint</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1251" />
+<meta name="generator" content="Doc-O-Matic" />
+    <meta name="save" content="history" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<link rel="stylesheet" href="default.css" type="text/css" />
+
+<script type="text/javascript" src="scripts.js"></script>
+<script type="text/javascript" src="jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="jqfunc.js"></script>
+</head>
+<body class="FileBody_fixedheader">
+<div id="persistenceDiv" style="display:none; behavior:url(#default#userData);"></div>
+
+<!-- Begin Popups -->
+
+<!-- End Popups -->
+
+<!-- Begin Page Header -->
+<div class="PageHeaderArea_fixedheader" id="areafixed">
+<div class="CollapseExpandLink_Block">
+<div class="CollapseExpandLink">
+<span class="collapseAll"><img src="section-expanded-16.png" border="0" alt="Свернуть все" title="Свернуть все" />Свернуть все</span><span class="expandAll"><img src="section-collapsed-16.png" border="0" alt="Развернуть все" title="Развернуть все" />Развернуть все</span></div>
+</div>
+<div class="PageHeaderArea">
+<table width="100%" cellspacing="0" cellpadding="0">
+<tr><td width="25%">
+<div class="PageHeaderText">
+Справочное руководство .NET API</div>
+</td><td width="25%">
+<div class="PageHeaderGlobalLinks">
+<span class="PageLink" id="PageLinkContent" title="Содержание"><a href="contents.html"><img src="links-contents-16.png" border="0" alt="Содержание" title="Содержание" /></a></span><span class="PageLink" id="PageLinkIndex" data-content-id="indexsearch" title="Индекс"><a href="idx.html"><img src="links-index-16.png" border="0" alt="Индекс" title="Индекс" /></a></span><span class="PageLink" id="PageLinkReference" title="Ссылка"><a href="!!SYMREF.html"><img src="links-reference-16.png" border="0" alt="Ссылка" title="Ссылка" /></a></span><span class="PageLink" id="PageLinkHome" title="На главную"><a href="!!SYMREF.html"><img src="links-home-16.png" border="0" alt="На главную" title="На главную" /></a></span><span class="PageLink" title="Поиск"><a href="ftxtsearch.html"><img src="links-search-16.png" border="0" alt="Поиск" title="Поиск" /></a></span></div>
+<div class="EmbeddedFeatureBackground">
+</div>
+<div class="EmbeddedFeature">
+<div class="EmbeddedFeatureTitle">
+</div>
+<div class="EmbeddedFeatureClose">
+Закрыть</div>
+<div class="EmbeddedFeatureContent">
+<div class="EmbeddedFeatureContentContainer">
+</div>
+</div>
+</div>
+</td><td width="25%">
+<div class="PageHeaderNeighborLinks">
+<span class="PageLink" id="PageLinkPrevious" title="Предыдущий"><a href="Teigha__DatabaseServices__DBObjectReferenceCollection__Item.html"><img src="arrow-previous-16.png" border="0" alt="Предыдущий" title="Предыдущий" /></a></span><span class="PageLink" id="PageLinkUp" title="Наверх"><a href="Teigha__DatabaseServices.html"><img src="arrow-up-16.png" border="0" alt="Наверх" title="Наверх" /></a></span><span class="PageLink" id="PageLinkNext" title="Следующий"><a href="!!OVERLOADED_DBPoint_Teigha__DatabaseServices__DBPoint.html"><img src="arrow-next-16.png" border="0" alt="Следующий" title="Следующий" /></a></span></div>
+</td><td width="25%">
+<div class="PageHeaderFeedbackLink">
+<a href="#" onclick="sendFeedback(&#39;developer_support@nanocad.ru&#39;, &#39;Отзыв на документацию&#39;, &#39;Project: Справочное руководство .NET API%0ATopic ID: Teigha::DatabaseServices::DBPoint%0ATitle: Teigha.DatabaseServices.DBPoint&#39;);">Послать отзыв</a></div>
+</td></tr></table><div class="TopicTitle">
+Teigha.DatabaseServices.DBPoint</div>
+<div class="TopicLinks">
+<span class="TopicLinks_Custom"></span><span class="TopicLinks_Feedback"><a href="#" onclick="sendFeedback(&#39;developer_support@nanocad.ru&#39;, &#39;Отзыв на документацию&#39;, &#39;Project: Справочное руководство .NET API%0ATopic ID: Teigha::DatabaseServices::DBPoint%0ATitle: Teigha.DatabaseServices.DBPoint&#39;);">Послать отзыв</a></span></div>
+</div>
+</div>
+
+<!-- End Page Header -->
+
+<!-- Begin Client Area -->
+<div class="PageClientArea_fixedheader" id="areascroll">
+<div class="PageClientAreaContent_fixedheader">
+<a name="PageContent"></a>
+<!-- Fixed Header Spacer -->
+<div class="PageContentArea_fixedheader_spacer" style="width:100%;height:0px;">
+</div>
+<!-- Begin Page Content -->
+<div class="PageContentBodywithoutSidebar">
+<a name="41A44043044243A43E4352043E43F43844143043D438435"></a><div class="Text_Block">
+<div class="Text">
+<p class="Text">
+Класс представляет геометрический объект &quot;точка&quot;, который хранит своё положение в пространстве, вектор нормали для определения направления вытеснения и плоскости отображения, а также толщину — длину вытеснения вдоль нормали. Этот класс поддерживает различные режимы отображения точки в зависимости от системной переменной PDMODE.</p></div>
+</div>
+<a name="41843544043044044543844F2043A43B43044144143E432"></a><div class="SectionHeading expandable" id="s41843544043044044543844F2043A43B43044144143E432">
+<img src="section-expanded-16.png" border="0" alt="Свернуть" title="Свернуть" id="imges41843544043044044543844F2043A43B43044144143E432" /><img src="section-collapsed-16.png" border="0" alt="Развернуть" title="Развернуть" id="imgcs41843544043044044543844F2043A43B43044144143E432" style="display:none;" />Иерархия классов</div>
+<div id="divs41843544043044044543844F2043A43B43044144143E432">
+<div class="ClassHierarchy_Block"><div class="ClassHierarchy"><a href="Teigha__Runtime__DisposableWrapper.html">Teigha::Runtime::DisposableWrapper</a>
+    <a href="Teigha__Runtime__RXObject.html">Teigha::Runtime::RXObject</a>
+        <a href="Teigha__GraphicsInterface__Drawable.html">Teigha::GraphicsInterface::Drawable</a>
+            <a href="Teigha__DatabaseServices__DBObject.html">Teigha::DatabaseServices::DBObject</a>
+                <a href="Teigha__DatabaseServices__Entity.html">Teigha::DatabaseServices::Entity</a>
+                    <strong>Teigha::DatabaseServices::DBPoint</strong></div></div>
+</div>
+<div class="SyntaxSectionHeading">
+Синтаксис</div>
+<!-- Begin Tabbed Section -->
+<div class="TabbedSectionContainer"><div class="SectionTabs" id="53796E746178" style="border-top: 1px solid transparent;"><div id="tab53796E746178_0" class="SectionTabs_FirstTab_selected">C#</div><div id="tab53796E746178_1" class="SectionTabs_LastTab_unselected">Visual Basic</div></div><a name="4323"></a><div id="div53796E746178_0" class="TabbedSectionContent" style="display:block;clear:both;">
+<div class="SyntaxSourceCode_Block"><div class="SyntaxSourceCode"></p><div class="CopyCode"><a href="#" onclick="CopyElementToClipboard(&#39;code04500&#39;);">Копировать Код</a></div><div class="Code_Block"><div class="Code" id="code04500">[Wrapper(&quot;AcDbPoint&quot;)]
+<strong><span style="color: #871F78;">public</span></strong> <strong><span style="color: #871F78;">class</span></strong> DBPoint : <a href="Teigha__DatabaseServices__Entity.html">Entity</a>;</div></div><p class="SyntaxSourceCode"></div></div>
+</div>
+<a name="56697375616C204261736963"></a><div id="div53796E746178_1" class="TabbedSectionContent" style="display:none;clear:both;">
+<div class="SyntaxSourceCode_Block"><div class="SyntaxSourceCode"></p><div class="CopyCode"><a href="#" onclick="CopyElementToClipboard(&#39;code04501&#39;);">Копировать Код</a></div><div class="Code_Block"><div class="Code" id="code04501">&lt;Wrapper(&quot;AcDbPoint&quot;)&gt;
+<strong><span style="color: #871F78;">Public</span></strong> <strong><span style="color: #871F78;">Class</span></strong> DBPoint
+<strong><span style="color: #871F78;">Inherits</span></strong> <a href="Teigha__DatabaseServices__Entity.html">Entity</a></div></div><p class="SyntaxSourceCode"></div></div>
+</div>
+</div><!-- End Tabbed Section -->
+<a name="41E43F43844143043D438435"></a><div class="SectionHeading expandable" id="s41E43F43844143043D438435">
+<img src="section-expanded-16.png" border="0" alt="Свернуть" title="Свернуть" id="imges41E43F43844143043D438435" /><img src="section-collapsed-16.png" border="0" alt="Развернуть" title="Развернуть" id="imgcs41E43F43844143043D438435" style="display:none;" />Описание</div>
+<div id="divs41E43F43844143043D438435">
+<div class="Text_Block">
+<div class="Text">
+<p class="Text">
+Геометрический объект &quot;точка&quot; содержит значение положения этой точки в пространстве. Он также содержит вектор нормали, который используется для определения направления &quot;вытеснения&quot; и определения плоскости, на которой отображается изображение точек, если они выглядят иначе чем &quot;.&quot; (системная переменная PDMODE управляет таким отображением). Геометрический объект &quot;точка&quot; имеет толщину, которая является его &quot;длиной&quot; в направлении ее вектора нормали (это и есть ее длина &quot;вытеснения&quot;).</p></div>
+</div>
+</div>
+<a name="41C43544243E43444B"></a><div class="SectionHeading expandable" id="s41C43544243E43444B">
+<img src="section-expanded-16.png" border="0" alt="Свернуть" title="Свернуть" id="imges41C43544243E43444B" /><img src="section-collapsed-16.png" border="0" alt="Развернуть" title="Развернуть" id="imgcs41C43544243E43444B" style="display:none;" />Методы</div>
+<div id="divs41C43544243E43444B">
+<div class="Text_Block">
+<div class="Text">
+<div class="NavigationHeading">
+Конструкторы</div>
+<div class="NavigationHeading">
+Teigha.GraphicsInterface.Drawable</div>
+<div class="TableCategories">
+<span class="TableCategoryLabel">Показать</span><label class="TableCategory"><input type="checkbox" value="c42343D43044143B43543443E43243043D" checked="checked" />Унаследован</label><div class="TableCategoriesTableEmpty">
+Нет совпадений по текущему фильтру</div>
+</div>
+<div class="NavigationTable">
+<div class="TableDiv">
+<table cellspacing="0" class="Table0">
+<thead><tr>
+<td class="NavigationTableLinkHeader_block" valign="top" width="10%" style="white-space: nowrap;">
+<div class="NavigationTableLinkHeader">
+ </div></td><td class="NavigationTableLinkHeader_block" valign="top" width="30%">
+<div class="NavigationTableLinkHeader">
+Имя</div></td><td class="NavigationTableDescriptionHeader_block" valign="top" width="60%">
+<div class="NavigationTableDescriptionHeader">
+Описание</div></td></tr></thead><tbody><tr data-category-ids="c42343D43044143B43543443E43243043D">
+<td class="NavigationTableLink_block" valign="top" width="10%" style="white-space: nowrap;">
+<div class="NavigationTableLink">
+<img src="indicator-method-16.png" border="0" alt="" title="" /></div></td><td class="NavigationTableLink_block" valign="top" width="30%">
+<div class="NavigationTableLink">
+<a href="Teigha__GraphicsInterface__Drawable__Drawable.html">Drawable</a></div></td><td class="NavigationTableDescription_block" valign="top" width="60%">
+<div class="NavigationTableDescription">
+Конструктор класса Teigha.GraphicsInterface.Drawable. (Унаследован от <a href="Teigha__GraphicsInterface__Drawable.html">Drawable</a>)</div></td></tr></tbody></table></div></div>
+<div class="NavigationHeading">
+Teigha.DatabaseServices.DBObject</div>
+<div class="TableCategories">
+<span class="TableCategoryLabel">Показать</span><label class="TableCategory"><input type="checkbox" value="c42343D43044143B43543443E43243043D" checked="checked" />Унаследован</label><div class="TableCategoriesTableEmpty">
+Нет совпадений по текущему фильтру</div>
+</div>
+<div class="NavigationTable">
+<div class="TableDiv">
+<table cellspacing="0" class="Table0">
+<thead><tr>
+<td class="NavigationTableLinkHeader_block" valign="top" width="10%" style="white-space: nowrap;">
+<div class="NavigationTableLinkHeader">
+ </div></td><td class="NavigationTableLinkHeader_block" valign="top" width="30%">
+<div class="NavigationTableLinkHeader">
+Имя</div></td><td class="NavigationTableDescriptionHeader_block" valign="top" width="60%">
+<div class="NavigationTableDescriptionHeader">
+Описание</div></td></tr></thead><tbody><tr data-category-ids="c42343D43044143B43543443E43243043D">
+<td class="NavigationTableLink_block" valign="top" width="10%" style="white-space: nowrap;">
+<div class="NavigationTableLink">
+<img src="indicator-method-16.png" border="0" alt="" title="" /></div></td><td class="NavigationTableLink_block" valign="top" width="30%">
+<div class="NavigationTableLink">
+<a href="Teigha__DatabaseServices__DBObject__DBObject@IntPtr@bool.html">DBObject</a></div></td><td class="NavigationTableDescription_block" valign="top" width="60%">
+<div class="NavigationTableDescription">
+Конструктор. (Унаследован от <a href="Teigha__DatabaseServices__DBObject.html">DBObject</a>)</div></td></tr></tbody></table></div></div>
+<div class="NavigationHeading">
+Teigha.DatabaseServices.DBPoint</div>
+<div class="NavigationTable">
+<div class="TableDiv">
+<table cellspacing="0" class="Table0">
+<thead><tr>
+<td class="NavigationTableLinkHeader_block" valign="top" width="10%" style="white-space: nowrap;">
+<div class="NavigationTableLinkHeader">
+ </div></td><td class="NavigationTableLinkHeader_block" valign="top" width="30%">
+<div class="NavigationTableLinkHeader">
+Имя</div></td><td class="NavigationTableDescriptionHeader_block" valign="top" width="60%">
+<div class="NavigationTableDescriptionHeader">
+Описание</div></td></tr></thead><tbody><tr>
+<td class="NavigationTableLink_block" valign="top" width="10%" style="white-space: nowrap;">
+<div class="NavigationTableLink">
+<img src="indicator-method-16.png" border="0" alt="" title="" /></div></td><td class="NavigationTableLink_block" valign="top" width="30%">
+<div class="NavigationTableLink">
+<a href="!!OVERLOADED_DBPoint_Teigha__DatabaseServices__DBPoint.html">DBPoint</a></div></td><td class="NavigationTableDescription_block" valign="top" width="60%">
+<div class="NavigationTableDescription">
+Это обзор перегрузок DBPoint.</div></td></tr></tbody></table></div></div>
+</div>
+</div>
+</div>
+<a name="42243E43F43843A438"></a><div class="SectionHeading expandable" id="s42243E43F43843A438">
+<img src="section-expanded-16.png" border="0" alt="Свернуть" title="Свернуть" id="imges42243E43F43843A438" /><img src="section-collapsed-16.png" border="0" alt="Развернуть" title="Развернуть" id="imgcs42243E43F43843A438" style="display:none;" />Топики</div>
+<div id="divs42243E43F43843A438">
+<div class="Text_Block">
+<div class="Text">
+<div class="NavigationTable">
+<div class="TableDiv">
+<table cellspacing="0" class="Table0">
+<thead><tr>
+<td class="NavigationTableLinkHeader_block" valign="top" width="40%">
+<div class="NavigationTableLinkHeader">
+Имя</div></td><td class="NavigationTableDescriptionHeader_block" valign="top" width="60%">
+<div class="NavigationTableDescriptionHeader">
+Описание</div></td></tr></thead><tbody><tr>
+<td class="NavigationTableLink_block" valign="top" width="40%">
+<div class="NavigationTableLink">
+<a href="!!MEMBERTYPE_Methods_Teigha__Runtime__DisposableWrapper.html">DisposableWrapper Методы</a></div></td><td class="NavigationTableDescription_block" valign="top" width="60%">
+<div class="NavigationTableDescription">
+Ниже перечислены методы класса DisposableWrapper.</div></td></tr><tr>
+<td class="NavigationTableLink_block" valign="top" width="40%">
+<div class="NavigationTableLink">
+<a href="!!MEMBERTYPE_Operators_Teigha__Runtime__DisposableWrapper.html">DisposableWrapper Операторы</a></div></td><td class="NavigationTableDescription_block" valign="top" width="60%">
+<div class="NavigationTableDescription">
+Ниже перечислены операторы класса DisposableWrapper.</div></td></tr><tr>
+<td class="NavigationTableLink_block" valign="top" width="40%">
+<div class="NavigationTableLink">
+<a href="!!MEMBERTYPE_Properties_Teigha__Runtime__DisposableWrapper.html">DisposableWrapper Свойства</a></div></td><td class="NavigationTableDescription_block" valign="top" width="60%">
+<div class="NavigationTableDescription">
+Ниже перечислены свойства класса DisposableWrapper.</div></td></tr></tbody></table></div></div>
+<div class="NavigationHeading">
+Teigha.Runtime.RXObject</div>
+<div class="NavigationTable">
+<div class="TableDiv">
+<table cellspacing="0" class="Table0">
+<thead><tr>
+<td class="NavigationTableLinkHeader_block" valign="top" width="40%">
+<div class="NavigationTableLinkHeader">
+Имя</div></td><td class="NavigationTableDescriptionHeader_block" valign="top" width="60%">
+<div class="NavigationTableDescriptionHeader">
+Описание</div></td></tr></thead><tbody><tr>
+<td class="NavigationTableLink_block" valign="top" width="40%">
+<div class="NavigationTableLink">
+<a href="!!MEMBERTYPE_Methods_Teigha__Runtime__RXObject.html">RXObject Методы</a></div></td><td class="NavigationTableDescription_block" valign="top" width="60%">
+<div class="NavigationTableDescription">
+Ниже перечислены методы класса RXObject.</div></td></tr></tbody></table></div></div>
+<div class="NavigationHeading">
+Teigha.GraphicsInterface.Drawable</div>
+<div class="NavigationTable">
+<div class="TableDiv">
+<table cellspacing="0" class="Table0">
+<thead><tr>
+<td class="NavigationTableLinkHeader_block" valign="top" width="40%">
+<div class="NavigationTableLinkHeader">
+Имя</div></td><td class="NavigationTableDescriptionHeader_block" valign="top" width="60%">
+<div class="NavigationTableDescriptionHeader">
+Описание</div></td></tr></thead><tbody><tr>
+<td class="NavigationTableLink_block" valign="top" width="40%">
+<div class="NavigationTableLink">
+<a href="!!MEMBERTYPE_Methods_Teigha__GraphicsInterface__Drawable.html">Drawable Методы</a></div></td><td class="NavigationTableDescription_block" valign="top" width="60%">
+<div class="NavigationTableDescription">
+Ниже перечислены методы класса Drawable.</div></td></tr><tr>
+<td class="NavigationTableLink_block" valign="top" width="40%">
+<div class="NavigationTableLink">
+<a href="!!MEMBERTYPE_Properties_Teigha__GraphicsInterface__Drawable.html">Drawable Свойства</a></div></td><td class="NavigationTableDescription_block" valign="top" width="60%">
+<div class="NavigationTableDescription">
+Ниже перечислены свойства класса Drawable.</div></td></tr></tbody></table></div></div>
+<div class="NavigationHeading">
+Teigha.DatabaseServices.DBObject</div>
+<div class="NavigationTable">
+<div class="TableDiv">
+<table cellspacing="0" class="Table0">
+<thead><tr>
+<td class="NavigationTableLinkHeader_block" valign="top" width="40%">
+<div class="NavigationTableLinkHeader">
+Имя</div></td><td class="NavigationTableDescriptionHeader_block" valign="top" width="60%">
+<div class="NavigationTableDescriptionHeader">
+Описание</div></td></tr></thead><tbody><tr>
+<td class="NavigationTableLink_block" valign="top" width="40%">
+<div class="NavigationTableLink">
+<a href="!!MEMBERTYPE_Methods_Teigha__DatabaseServices__DBObject.html">DBObject Методы</a></div></td><td class="NavigationTableDescription_block" valign="top" width="60%">
+<div class="NavigationTableDescription">
+Ниже перечислены методы класса DBObject.</div></td></tr><tr>
+<td class="NavigationTableLink_block" valign="top" width="40%">
+<div class="NavigationTableLink">
+<a href="!!MEMBERTYPE_Properties_Teigha__DatabaseServices__DBObject.html">DBObject Свойства</a></div></td><td class="NavigationTableDescription_block" valign="top" width="60%">
+<div class="NavigationTableDescription">
+Ниже перечислены свойства класса DBObject.</div></td></tr><tr>
+<td class="NavigationTableLink_block" valign="top" width="40%">
+<div class="NavigationTableLink">
+<a href="!!MEMBERTYPE_Events_Teigha__DatabaseServices__DBObject.html">DBObject События</a></div></td><td class="NavigationTableDescription_block" valign="top" width="60%">
+<div class="NavigationTableDescription">
+Ниже перечислены события класса DBObject.</div></td></tr></tbody></table></div></div>
+<div class="NavigationHeading">
+Teigha.DatabaseServices.Entity</div>
+<div class="NavigationTable">
+<div class="TableDiv">
+<table cellspacing="0" class="Table0">
+<thead><tr>
+<td class="NavigationTableLinkHeader_block" valign="top" width="40%">
+<div class="NavigationTableLinkHeader">
+Имя</div></td><td class="NavigationTableDescriptionHeader_block" valign="top" width="60%">
+<div class="NavigationTableDescriptionHeader">
+Описание</div></td></tr></thead><tbody><tr>
+<td class="NavigationTableLink_block" valign="top" width="40%">
+<div class="NavigationTableLink">
+<a href="!!MEMBERTYPE_Methods_Teigha__DatabaseServices__Entity.html">Entity Методы</a></div></td><td class="NavigationTableDescription_block" valign="top" width="60%">
+<div class="NavigationTableDescription">
+Ниже перечислены методы класса Entity.</div></td></tr><tr>
+<td class="NavigationTableLink_block" valign="top" width="40%">
+<div class="NavigationTableLink">
+<a href="!!MEMBERTYPE_Properties_Teigha__DatabaseServices__Entity.html">Entity Свойства</a></div></td><td class="NavigationTableDescription_block" valign="top" width="60%">
+<div class="NavigationTableDescription">
+Ниже перечислены свойства класса Entity.</div></td></tr></tbody></table></div></div>
+<div class="NavigationHeading">
+Teigha.DatabaseServices.DBPoint</div>
+<div class="NavigationTable">
+<div class="TableDiv">
+<table cellspacing="0" class="Table0">
+<thead><tr>
+<td class="NavigationTableLinkHeader_block" valign="top" width="40%">
+<div class="NavigationTableLinkHeader">
+Имя</div></td><td class="NavigationTableDescriptionHeader_block" valign="top" width="60%">
+<div class="NavigationTableDescriptionHeader">
+Описание</div></td></tr></thead><tbody><tr>
+<td class="NavigationTableLink_block" valign="top" width="40%">
+<div class="NavigationTableLink">
+<a href="!!MEMBERTYPE_Properties_Teigha__DatabaseServices__DBPoint.html">DBPoint Свойства</a></div></td><td class="NavigationTableDescription_block" valign="top" width="60%">
+<div class="NavigationTableDescription">
+Ниже перечислены свойства класса DBPoint.</div></td></tr></tbody></table></div></div>
+</div>
+</div>
+</div>
+<a name="4C696E6B73"></a><div class="SectionHeading expandable" id="s42144144B43B43A438">
+<img src="section-expanded-16.png" border="0" alt="Свернуть" title="Свернуть" id="imges42144144B43B43A438" /><img src="section-collapsed-16.png" border="0" alt="Развернуть" title="Развернуть" id="imgcs42144144B43B43A438" style="display:none;" />Ссылки</div>
+<div id="divs42144144B43B43A438">
+<div class="Text_Block">
+<div class="Text">
+<span class="TopicLinks_Navigation"><a href="!!OVERLOADED_DBPoint_Teigha__DatabaseServices__DBPoint.html">DBPoint Конструктор</a>, <a href="!!MEMBERTYPE_Properties_Teigha__DatabaseServices__DBPoint.html">DBPoint Свойства</a>, <a href="!!NAVID_Teigha__DatabaseServices__DBPoint_ST(14)_SEC_Methods.html">Методы</a>, <a href="!!NAVID_Teigha__DatabaseServices__DBPoint_ST(14)_SEC_Topics.html">Топики</a>, <a href="!!NAVID_Teigha__DatabaseServices__DBPoint_ST(14)_SEC_&Igrave;&aring;&ograve;&icirc;&auml;&ucirc;_(AutoDoc_Folder).html">DisposableWrapper Методы</a>, <a href="!!NAVID_Teigha__DatabaseServices__DBPoint_ST(14)_SEC_&Icirc;&iuml;&aring;&eth;&agrave;&ograve;&icirc;&eth;&ucirc;_(AutoDoc_Folder).html">DisposableWrapper Операторы</a>, <a href="!!NAVID_Teigha__DatabaseServices__DBPoint_ST(14)_SEC_&Ntilde;&acirc;&icirc;&eacute;&ntilde;&ograve;&acirc;&agrave;_(AutoDoc_Folder).html">DisposableWrapper Свойства</a>, <a href="!!NAVID_Teigha__DatabaseServices__DBPoint_ST(14)_SEC_&Ntilde;&icirc;&aacute;&ucirc;&ograve;&egrave;&yuml;_(AutoDoc_Folder).html">DBObject События</a></span><span class="TopicLinks_Custom"></span><span class="TopicLinks_Feedback"></span></div>
+</div>
+</div>
+</div>
+<!-- End Page Content -->
+
+<!-- Begin Page Footer -->
+<div class="PageFooterArea">
+<table width="100%" cellspacing="0" cellpadding="0">
+<tr><td width="100%">
+<div class="PageFooterText">
+</div>
+</td></tr><tr><td width="100%">
+<div class="PageFooterFeedbackLink">
+Ваши комментарии по поводу этого топика: <a href="#" onclick="sendFeedback(&#39;developer_support@nanocad.ru&#39;, &#39;Отзыв на документацию&#39;, &#39;Project: Справочное руководство .NET API%0ATopic ID: Teigha::DatabaseServices::DBPoint%0ATitle: Teigha.DatabaseServices.DBPoint&#39;);">Послать отзыв!</a></div>
+</td></tr></table></div>
+
+<!-- End Page Footer -->
+</div>
+</div>
+
+<!-- End Client Area -->
+</body></html>
+

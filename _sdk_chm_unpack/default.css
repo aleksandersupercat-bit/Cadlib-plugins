@@ -1,0 +1,3681 @@
+/*
+   This file was automatically generated using Doc-O-Matic.
+*/
+
+pre {
+    margin-top : 0pt;
+    margin-bottom : 0pt;
+}
+
+.TableDiv {
+    width: 100%;
+}
+
+table.Table5 {
+    width: 100%;
+    border-left-style : none;
+    border-top-style : none;
+    padding-right : 0pt;
+    border-right-width : 1pt;
+    border-right-color : #BBBBBB;
+    border-right-style : solid;
+    padding-bottom : 0pt;
+    border-bottom-width : 1pt;
+    border-bottom-color : #BBBBBB;
+    border-bottom-style : solid;
+    font-size: 10pt;
+}
+
+table.Table3 {
+    width: 100%;
+    border-left-style : none;
+    border-top-style : none;
+    padding-right : 0pt;
+    border-right-width : 1pt;
+    border-right-color : #BBBBBB;
+    border-right-style : solid;
+    padding-bottom : 0pt;
+    border-bottom-width : 1pt;
+    border-bottom-color : #BBBBBB;
+    border-bottom-style : solid;
+    font-size: 10pt;
+}
+
+table.Table1 {
+    width: 100%;
+    border-left-style : none;
+    border-top-style : none;
+    padding-right : 0pt;
+    border-right-width : 1pt;
+    border-right-color : #BBBBBB;
+    border-right-style : solid;
+    padding-bottom : 0pt;
+    border-bottom-width : 1pt;
+    border-bottom-color : #BBBBBB;
+    border-bottom-style : solid;
+    font-size: 10pt;
+}
+
+table.Table6 {
+    width: 20%;
+    border-left-style : none;
+    border-top-style : none;
+    padding-right : 0pt;
+    border-right-width : 1pt;
+    border-right-color : #BBBBBB;
+    border-right-style : solid;
+    padding-bottom : 0pt;
+    border-bottom-width : 1pt;
+    border-bottom-color : #BBBBBB;
+    border-bottom-style : solid;
+    font-size: 10pt;
+}
+
+table.Table0 {
+    width: 100%;
+    border-left-style : none;
+    border-top-style : none;
+    padding-right : 0pt;
+    border-right-width : 1pt;
+    border-right-color : #BBBBBB;
+    border-right-style : solid;
+    padding-bottom : 0pt;
+    border-bottom-width : 1pt;
+    border-bottom-color : #BBBBBB;
+    border-bottom-style : solid;
+    font-size: 10pt;
+}
+
+table.Table4 {
+    border-left-style : none;
+    border-top-style : none;
+    padding-right : 0pt;
+    border-right-width : 1pt;
+    border-right-color : #BBBBBB;
+    border-right-style : solid;
+    padding-bottom : 0pt;
+    border-bottom-width : 1pt;
+    border-bottom-color : #BBBBBB;
+    border-bottom-style : solid;
+    font-size: 10pt;
+}
+
+table.Table2 {
+    width: 100%;
+    border-left-style : none;
+    border-top-style : none;
+    padding-right : 0pt;
+    border-right-width : 1pt;
+    border-right-color : #BBBBBB;
+    border-right-style : solid;
+    padding-bottom : 0pt;
+    border-bottom-width : 1pt;
+    border-bottom-color : #BBBBBB;
+    border-bottom-style : solid;
+    font-size: 10pt;
+}
+
+.PageContentSidebarSplitter {
+    color: #000000;
+    background-color: #E5E5E5;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    font-style: normal;
+    text-decoration: none;
+    margin-left : 0pt;
+    margin-right : 0pt;
+    margin-top : 0pt;
+    margin-bottom : 0pt;
+    text-align : left;
+    width:  3pt;
+    position: fixed;
+    z-index: 1;
+    height: 100px;
+    overflow: none;
+    cursor: col-resize;
+}
+
+.PageContentSidebar {
+    color: #000000;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    font-style: normal;
+    text-decoration: none;
+    margin-left : 0pt;
+    margin-right : 0pt;
+    margin-top : 0pt;
+    margin-bottom : 0pt;
+    text-align : left;
+    width:  250pt;
+    position: fixed;
+    z-index: 1;
+    height: 100px;
+    overflow-x: auto;
+    overflow-y: auto;
+}
+
+.PageContentSidebarWrap {
+    color: #000000;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    font-style: normal;
+    text-decoration: none;
+    margin-left : 0pt;
+    margin-right : 0pt;
+    margin-top : 0pt;
+    margin-bottom : 0pt;
+    text-align : left;
+    position: relative;
+    top: 0px;
+}
+
+.PageContentBodywithSidebar {
+    color: #000000;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    font-style: normal;
+    text-decoration: none;
+    margin-left : 260pt;
+    margin-right : 10pt;
+    margin-top : 0pt;
+    margin-bottom : 0pt;
+    text-align : left;
+}
+
+.WelcomePageProjectInfo {
+    color: #000000;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 9pt;
+    font-weight: normal;
+    font-style: normal;
+    text-decoration: none;
+    padding-left : 3pt;
+    border-left-width : 1pt;
+    border-left-color : #EEEEEE;
+    border-left-style : solid;
+    padding-top : 3pt;
+    border-top-width : 1pt;
+    border-top-color : #EEEEEE;
+    border-top-style : solid;
+    padding-right : 3pt;
+    border-right-width : 1pt;
+    border-right-color : #EEEEEE;
+    border-right-style : solid;
+    padding-bottom : 3pt;
+    border-bottom-width : 1pt;
+    border-bottom-color : #EEEEEE;
+    border-bottom-style : solid;
+    border-top-left-radius: 2pt;
+    -moz-border-radius-topleft: 2pt;
+    -webkit-border-radius-top-left: 2pt;
+    border-top-right-radius: 2pt;
+    -moz-border-radius-topright: 2pt;
+    -webkit-border-radius-top-right: 2pt;
+    border-bottom-left-radius: 2pt;
+    -moz-border-radius-bottomleft: 2pt;
+    -webkit-border-radius-bottom-left: 2pt;
+    border-bottom-right-radius: 2pt;
+    -moz-border-radius-bottomright: 2pt;
+    -webkit-border-radius-bottom-right: 2pt;
+    text-align : center;
+    margin: 40pt auto;
+    display: table;
+    max-width: 500pt;
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+.WelcomePageLinks {
+    color: #000000;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 13pt;
+    font-weight: normal;
+    font-style: normal;
+    text-decoration: none;
+    text-align : center;
+}
+
+.WelcomeText_Block {
+    color: #000000;
+    margin-top : 5pt;
+    margin-bottom : 5pt;
+    text-align : left;
+    margin: 0 auto;
+    display: table;
+    max-width: 500pt;
+}
+
+.WelcomeText {
+    color: #000000;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 14pt;
+    font-weight: normal;
+    font-style: normal;
+    text-decoration: none;
+    margin-top : 0pt;
+    margin-bottom : 0pt;
+    text-align : center;
+}
+
+.WelcomeTitle {
+    color: #FFFFFF;
+    background-color: #006DB3;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 32pt;
+    font-weight: bold;
+    font-style: normal;
+    text-decoration: none;
+    padding-left : 10pt;
+    padding-top : 5pt;
+    padding-right : 10pt;
+    padding-bottom : 7pt;
+    border-top-left-radius: 4pt;
+    -moz-border-radius-topleft: 4pt;
+    -webkit-border-radius-top-left: 4pt;
+    border-top-right-radius: 4pt;
+    -moz-border-radius-topright: 4pt;
+    -webkit-border-radius-top-right: 4pt;
+    border-bottom-left-radius: 4pt;
+    -moz-border-radius-bottomleft: 4pt;
+    -webkit-border-radius-bottom-left: 4pt;
+    border-bottom-right-radius: 4pt;
+    -moz-border-radius-bottomright: 4pt;
+    -webkit-border-radius-bottom-right: 4pt;
+    text-align : center;
+    margin: 45pt auto;
+    display: table;
+}
+
+.WelcomeBody {
+    color: #000000;
+    background-color: #FFFFFF;
+    margin-top : 50pt;
+    text-align : left;
+}
+
+.TextScamblingDisclaimer {
+    color: #FFFFFF;
+    background-color: #DD0000;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    font-style: normal;
+    text-decoration: none;
+    margin-top : 10pt;
+    margin-bottom : 10pt;
+    padding-left : 5pt;
+    border-left-width : 2pt;
+    border-left-color : #000000;
+    border-left-style : solid;
+    padding-top : 5pt;
+    border-top-width : 2pt;
+    border-top-color : #000000;
+    border-top-style : solid;
+    padding-right : 5pt;
+    border-right-width : 2pt;
+    border-right-color : #000000;
+    border-right-style : solid;
+    padding-bottom : 5pt;
+    border-bottom-width : 2pt;
+    border-bottom-color : #000000;
+    border-bottom-style : solid;
+    text-align : center;
+}
+
+.TableCategoriesTableEmpty {
+    color: #EE0000;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    font-style: normal;
+    text-decoration: none;
+    margin-top : 4pt;
+    text-align : left;
+    display: none;
+}
+
+.TableCategoryLabel {
+    color: #000000;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    font-style: normal;
+    text-decoration: none;
+}
+
+.TableCategory {
+    color: #000000;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    font-style: normal;
+    text-decoration: none;
+    padding-left: 4pt;
+}
+
+.TableCategories {
+    color: #000000;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    font-style: normal;
+    text-decoration: none;
+    text-align : left;
+}
+
+.EmbeddedFeatureContentContainer {
+    color: #000000;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    font-style: normal;
+    text-decoration: none;
+    text-align : left;
+}
+
+.EmbeddedFeatureContent {
+    color: #000000;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    font-style: normal;
+    text-decoration: none;
+    padding-right : 10pt;
+    padding-bottom : 20pt;
+    text-align : left;
+    overflow: auto;
+    min-width: 300pt;
+    max-width: 500pt;
+    max-height: 500pt;
+}
+
+.EmbeddedFeatureClose {
+    color: #000000;
+    background-color: #F7F7F7;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 8pt;
+    font-weight: bold;
+    font-style: normal;
+    text-decoration: none;
+    padding-left : 8pt;
+    border-left-width : 1pt;
+    border-left-color : #EEEEEE;
+    border-left-style : solid;
+    padding-top : 5pt;
+    border-top-style : none;
+    padding-right : 8pt;
+    border-right-style : none;
+    padding-bottom : 5pt;
+    border-bottom-width : 1pt;
+    border-bottom-color : #EEEEEE;
+    border-bottom-style : solid;
+    text-align : center;
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+.EmbeddedFeatureTitle {
+    color: #000000;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 14pt;
+    font-weight: bold;
+    font-style: normal;
+    text-decoration: none;
+    margin-left : 10pt;
+    margin-bottom : 10pt;
+    text-align : left;
+}
+
+.EmbeddedFeatureBackground {
+    color: #000000;
+    background-color: #000000;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    font-style: normal;
+    text-decoration: none;
+    text-align : left;
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: #000;
+    opacity: 0.05;
+    filter: alpha(opacity=5);
+}
+
+.EmbeddedFeature {
+    color: #000000;
+    background-color: #FFFFFF;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    font-style: normal;
+    text-decoration: none;
+    padding-left : 10pt;
+    border-left-width : 1pt;
+    border-left-color : #AAAAAA;
+    border-left-style : solid;
+    padding-top : 10pt;
+    border-top-width : 1pt;
+    border-top-color : #AAAAAA;
+    border-top-style : solid;
+    padding-right : 0pt;
+    border-right-width : 1pt;
+    border-right-color : #AAAAAA;
+    border-right-style : solid;
+    padding-bottom : 0pt;
+    border-bottom-width : 1pt;
+    border-bottom-color : #AAAAAA;
+    border-bottom-style : solid;
+    text-align : left;
+    display: none;
+    position: fixed;
+    overflow: hidden;
+    box-shadow: 0px 0px 4pt rgba(20,20,55,0.2);
+}
+
+.SectionTabs_SingleTab {
+    color: #000000;
+    background-color: #FFFFFF;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 9pt;
+    font-weight: bold;
+    font-style: normal;
+    text-decoration: none;
+    margin-left : 0pt;
+    margin-right : 0pt;
+    margin-top : 0pt;
+    margin-bottom : -1pt;
+    padding-left : 10pt;
+    border-left-width : 1pt;
+    border-left-color : #E5E5E5;
+    border-left-style : solid;
+    padding-top : 3pt;
+    border-top-width : 1pt;
+    border-top-color : #E5E5E5;
+    border-top-style : solid;
+    padding-right : 10pt;
+    border-right-width : 1pt;
+    border-right-color : #E5E5E5;
+    border-right-style : solid;
+    padding-bottom : 3pt;
+    border-bottom-width : 1pt;
+    border-bottom-color : #FFFFFF;
+    border-bottom-style : solid;
+    border-top-left-radius: 5pt;
+    -moz-border-radius-topleft: 5pt;
+    -webkit-border-radius-top-left: 5pt;
+    border-top-right-radius: 5pt;
+    -moz-border-radius-topright: 5pt;
+    -webkit-border-radius-top-right: 5pt;
+    text-align : left;
+    float:left;
+    list-style:none;
+}
+
+.SectionTabs_LastTab_selected {
+    color: #000000;
+    background-color: #FFFFFF;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 9pt;
+    font-weight: bold;
+    font-style: normal;
+    text-decoration: none;
+    margin-left : 0pt;
+    margin-right : 0pt;
+    margin-top : 0pt;
+    margin-bottom : -1pt;
+    padding-left : 10pt;
+    border-left-style : none;
+    padding-top : 3pt;
+    border-top-width : 1pt;
+    border-top-color : #E5E5E5;
+    border-top-style : solid;
+    padding-right : 10pt;
+    border-right-width : 1pt;
+    border-right-color : #E5E5E5;
+    border-right-style : solid;
+    padding-bottom : 3pt;
+    border-bottom-width : 1pt;
+    border-bottom-color : #FFFFFF;
+    border-bottom-style : solid;
+    border-top-right-radius: 5pt;
+    -moz-border-radius-topright: 5pt;
+    -webkit-border-radius-top-right: 5pt;
+    text-align : left;
+    float:left;
+    list-style:none;
+}
+
+.SectionTabs_LastTab_unselected {
+    color: #000000;
+    background-color: #EFF5FF;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 9pt;
+    font-style: normal;
+    text-decoration: none;
+    margin-left : 0pt;
+    margin-right : 0pt;
+    margin-top : 0pt;
+    margin-bottom : 0pt;
+    padding-left : 10pt;
+    border-left-style : none;
+    padding-top : 3pt;
+    border-top-width : 1pt;
+    border-top-color : #E5E5E5;
+    border-top-style : solid;
+    padding-right : 10pt;
+    border-right-width : 1pt;
+    border-right-color : #E5E5E5;
+    border-right-style : solid;
+    padding-bottom : 3pt;
+    border-bottom-style : none;
+    border-top-right-radius: 5pt;
+    -moz-border-radius-topright: 5pt;
+    -webkit-border-radius-top-right: 5pt;
+    text-align : left;
+    float:left;
+    list-style:none;
+    cursor:pointer;
+}
+
+.SectionTabs_MiddleTabs_selected {
+    color: #000000;
+    background-color: #FFFFFF;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 9pt;
+    font-weight: bold;
+    font-style: normal;
+    text-decoration: none;
+    margin-left : 0pt;
+    margin-right : 0pt;
+    margin-top : 0pt;
+    margin-bottom : -1pt;
+    padding-left : 10pt;
+    border-left-style : none;
+    padding-top : 3pt;
+    border-top-width : 1pt;
+    border-top-color : #E5E5E5;
+    border-top-style : solid;
+    padding-right : 10pt;
+    border-right-width : 1pt;
+    border-right-color : #E5E5E5;
+    border-right-style : solid;
+    padding-bottom : 3pt;
+    border-bottom-width : 1pt;
+    border-bottom-color : #FFFFFF;
+    border-bottom-style : solid;
+    text-align : left;
+    float:left;
+    list-style:none;
+}
+
+.SectionTabs_MiddleTabs_unselected {
+    color: #000000;
+    background-color: #EFF5FF;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 9pt;
+    font-style: normal;
+    text-decoration: none;
+    margin-left : 0pt;
+    margin-right : 0pt;
+    margin-top : 0pt;
+    margin-bottom : 0pt;
+    padding-left : 10pt;
+    border-left-style : none;
+    padding-top : 3pt;
+    border-top-width : 1pt;
+    border-top-color : #E5E5E5;
+    border-top-style : solid;
+    padding-right : 10pt;
+    border-right-width : 1pt;
+    border-right-color : #E5E5E5;
+    border-right-style : solid;
+    padding-bottom : 3pt;
+    border-bottom-style : none;
+    text-align : left;
+    float:left;
+    list-style:none;
+    cursor:pointer;
+}
+
+.SectionTabs_FirstTab_selected {
+    color: #000000;
+    background-color: #FFFFFF;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 9pt;
+    font-weight: bold;
+    font-style: normal;
+    text-decoration: none;
+    margin-left : 0pt;
+    margin-right : 0pt;
+    margin-top : 0pt;
+    margin-bottom : -1pt;
+    padding-left : 10pt;
+    border-left-width : 1pt;
+    border-left-color : #E5E5E5;
+    border-left-style : solid;
+    padding-top : 3pt;
+    border-top-width : 1pt;
+    border-top-color : #E5E5E5;
+    border-top-style : solid;
+    padding-right : 10pt;
+    border-right-width : 1pt;
+    border-right-color : #E5E5E5;
+    border-right-style : solid;
+    padding-bottom : 3pt;
+    border-bottom-width : 1pt;
+    border-bottom-color : #FFFFFF;
+    border-bottom-style : solid;
+    border-top-left-radius: 5pt;
+    -moz-border-radius-topleft: 5pt;
+    -webkit-border-radius-top-left: 5pt;
+    text-align : left;
+    float:left;
+    list-style:none;
+}
+
+.SectionTabs_FirstTab_unselected {
+    color: #000000;
+    background-color: #EFF5FF;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 9pt;
+    font-style: normal;
+    text-decoration: none;
+    margin-left : 0pt;
+    margin-right : 0pt;
+    margin-top : 0pt;
+    margin-bottom : 0pt;
+    padding-left : 10pt;
+    border-left-width : 1pt;
+    border-left-color : #E5E5E5;
+    border-left-style : solid;
+    padding-top : 3pt;
+    border-top-width : 1pt;
+    border-top-color : #E5E5E5;
+    border-top-style : solid;
+    padding-right : 10pt;
+    border-right-width : 1pt;
+    border-right-color : #E5E5E5;
+    border-right-style : solid;
+    padding-bottom : 3pt;
+    border-bottom-style : none;
+    border-top-left-radius: 5pt;
+    -moz-border-radius-topleft: 5pt;
+    -webkit-border-radius-top-left: 5pt;
+    text-align : left;
+    float:left;
+    list-style:none;
+    cursor:pointer;
+}
+
+.SectionTabs {
+    color: #000000;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    font-style: normal;
+    text-decoration: none;
+    padding-left : 0pt;
+    padding-top : 0pt;
+    padding-right : 0pt;
+    padding-bottom : 0pt;
+    text-align : left;
+}
+
+.FramedTOCIndexBody_fixed {
+    color: #000000;
+    margin-left : 0pt;
+    margin-right : 0pt;
+    margin-top : 0pt;
+    margin-bottom : 0pt;
+    border-left-style : none;
+    border-top-style : none;
+    padding-right : 0pt;
+    border-right-width : 1pt;
+    border-right-color : #AAAEBD;
+    border-right-style : solid;
+    border-bottom-style : none;
+    text-align : left;
+    overflow: hidden;
+}
+
+.FramedTOCIndexBody {
+    color: #000000;
+    margin-left : 0pt;
+    margin-right : 0pt;
+    margin-top : 0pt;
+    margin-bottom : 0pt;
+    border-left-style : none;
+    border-top-style : none;
+    padding-right : 0pt;
+    border-right-width : 1pt;
+    border-right-color : #AAAEBD;
+    border-right-style : solid;
+    border-bottom-style : none;
+    text-align : left;
+}
+
+a.ContentTopic_highlight, a:visited.ContentTopic_highlight, a:hover.ContentTopic_highlight {
+    color: #000000;
+    background-color: #EEEEEE;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    font-style: normal;
+    text-decoration: none;
+    padding-left : 2pt;
+    border-left-width : 1pt;
+    border-left-color : #999999;
+    border-left-style : solid;
+    padding-top : 0pt;
+    border-top-width : 1pt;
+    border-top-color : #999999;
+    border-top-style : solid;
+    padding-right : 2pt;
+    border-right-width : 1pt;
+    border-right-color : #999999;
+    border-right-style : solid;
+    padding-bottom : 0pt;
+    border-bottom-width : 1pt;
+    border-bottom-color : #999999;
+    border-bottom-style : solid;
+    text-align : left;
+}
+
+a.ContentGroup_highlight, a:visited.ContentGroup_highlight, a:hover.ContentGroup_highlight {
+    color: #000000;
+    background-color: #EEEEEE;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    font-weight: bold;
+    font-style: normal;
+    text-decoration: none;
+    padding-left : 2pt;
+    border-left-width : 1pt;
+    border-left-color : #999999;
+    border-left-style : solid;
+    padding-top : 1pt;
+    border-top-width : 1pt;
+    border-top-color : #999999;
+    border-top-style : solid;
+    padding-right : 2pt;
+    border-right-width : 1pt;
+    border-right-color : #999999;
+    border-right-style : solid;
+    padding-bottom : 1pt;
+    border-bottom-width : 1pt;
+    border-bottom-color : #999999;
+    border-bottom-style : solid;
+    text-align : left;
+}
+
+a:hover.ContentTopic {
+    color: #000000;
+    background-color: #EEEEEE;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    font-style: normal;
+    text-decoration: none;
+    padding-left : 2pt;
+    border-left-width : 1pt;
+    border-left-color : #999999;
+    border-left-style : solid;
+    padding-top : 0pt;
+    border-top-width : 1pt;
+    border-top-color : #999999;
+    border-top-style : solid;
+    padding-right : 2pt;
+    border-right-width : 1pt;
+    border-right-color : #999999;
+    border-right-style : solid;
+    padding-bottom : 0pt;
+    border-bottom-width : 1pt;
+    border-bottom-color : #999999;
+    border-bottom-style : solid;
+    text-align : left;
+}
+
+a:hover.ContentFolder {
+    color: #000000;
+    background-color: #EEEEEE;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    font-style: italic;
+    text-decoration: none;
+    padding-left : 2pt;
+    border-left-width : 1pt;
+    border-left-color : #999999;
+    border-left-style : solid;
+    padding-top : 1pt;
+    border-top-width : 1pt;
+    border-top-color : #999999;
+    border-top-style : solid;
+    padding-right : 2pt;
+    border-right-width : 1pt;
+    border-right-color : #999999;
+    border-right-style : solid;
+    padding-bottom : 1pt;
+    border-bottom-width : 1pt;
+    border-bottom-color : #999999;
+    border-bottom-style : solid;
+    text-align : left;
+}
+
+a:hover.ContentGroup {
+    color: #000000;
+    background-color: #EEEEEE;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    font-weight: bold;
+    font-style: normal;
+    text-decoration: none;
+    padding-left : 2pt;
+    border-left-width : 1pt;
+    border-left-color : #999999;
+    border-left-style : solid;
+    padding-top : 1pt;
+    border-top-width : 1pt;
+    border-top-color : #999999;
+    border-top-style : solid;
+    padding-right : 2pt;
+    border-right-width : 1pt;
+    border-right-color : #999999;
+    border-right-style : solid;
+    padding-bottom : 1pt;
+    border-bottom-width : 1pt;
+    border-bottom-color : #999999;
+    border-bottom-style : solid;
+    text-align : left;
+}
+
+a:visited.ContentTopic {
+    color: #000000;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    font-style: normal;
+    text-decoration: none;
+    text-align : left;
+}
+
+a:visited.ContentFolder {
+    color: #000000;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    font-style: italic;
+    text-decoration: none;
+    text-align : left;
+}
+
+a:visited.ContentGroup {
+    color: #000000;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    font-weight: bold;
+    font-style: normal;
+    text-decoration: none;
+    text-align : left;
+}
+
+a.ContentTopic {
+    color: #000000;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    font-style: normal;
+    text-decoration: none;
+    text-align : left;
+}
+
+a.ContentFolder {
+    color: #000000;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    font-style: italic;
+    text-decoration: none;
+    text-align : left;
+}
+
+a.ContentGroup {
+    color: #000000;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    font-weight: bold;
+    font-style: normal;
+    text-decoration: none;
+    text-align : left;
+}
+
+.ContentTopic {
+    color: #000000;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    font-style: normal;
+    text-decoration: none;
+    margin-left : 0pt;
+    margin-right : 0pt;
+    margin-top : 1pt;
+    margin-bottom : 1pt;
+    padding-left : 2pt;
+    border-left-width : 1pt;
+    border-left-color : #FFFFFF;
+    border-left-style : solid;
+    padding-top : 0pt;
+    border-top-width : 1pt;
+    border-top-color : #FFFFFF;
+    border-top-style : solid;
+    padding-right : 2pt;
+    border-right-width : 1pt;
+    border-right-color : #FFFFFF;
+    border-right-style : solid;
+    padding-bottom : 0pt;
+    border-bottom-width : 1pt;
+    border-bottom-color : #FFFFFF;
+    border-bottom-style : solid;
+    text-indent : 0pt;
+    text-align : left;
+}
+
+.ContentFolder {
+    color: #000000;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    font-style: italic;
+    text-decoration: none;
+    margin-left : 0pt;
+    margin-right : 0pt;
+    margin-top : 1pt;
+    margin-bottom : 1pt;
+    padding-left : 2pt;
+    border-left-width : 1pt;
+    border-left-color : #FFFFFF;
+    border-left-style : solid;
+    padding-top : 1pt;
+    border-top-width : 1pt;
+    border-top-color : #FFFFFF;
+    border-top-style : solid;
+    padding-right : 2pt;
+    border-right-width : 1pt;
+    border-right-color : #FFFFFF;
+    border-right-style : solid;
+    padding-bottom : 1pt;
+    border-bottom-width : 1pt;
+    border-bottom-color : #FFFFFF;
+    border-bottom-style : solid;
+    text-indent : 0pt;
+    text-align : left;
+}
+
+.ContentGroup {
+    color: #000000;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    font-weight: bold;
+    font-style: normal;
+    text-decoration: none;
+    margin-left : 0pt;
+    margin-right : 0pt;
+    margin-top : 1pt;
+    margin-bottom : 1pt;
+    padding-left : 2pt;
+    border-left-width : 1pt;
+    border-left-color : #FFFFFF;
+    border-left-style : solid;
+    padding-top : 1pt;
+    border-top-width : 1pt;
+    border-top-color : #FFFFFF;
+    border-top-style : solid;
+    padding-right : 2pt;
+    border-right-width : 1pt;
+    border-right-color : #FFFFFF;
+    border-right-style : solid;
+    padding-bottom : 1pt;
+    border-bottom-width : 1pt;
+    border-bottom-color : #FFFFFF;
+    border-bottom-style : solid;
+    text-indent : 0pt;
+    text-align : left;
+}
+
+.ContentLevel {
+    color: #000000;
+    margin-left : 15pt;
+    margin-top : 0pt;
+    margin-bottom : 0pt;
+    text-align : left;
+    white-space: nowrap;
+}
+
+.ContentBody {
+    color: #000000;
+    margin-left : 7pt;
+    margin-top : 10pt;
+    text-align : left;
+}
+
+.TopicPathPopup_Block {
+    color: #000000;
+    background-color: #FFFFFF;
+    padding-left : 0pt;
+    border-left-width : 1pt;
+    border-left-color : #505050;
+    border-left-style : solid;
+    padding-top : 0pt;
+    border-top-width : 1pt;
+    border-top-color : #505050;
+    border-top-style : solid;
+    padding-right : 0pt;
+    border-right-width : 1pt;
+    border-right-color : #505050;
+    border-right-style : solid;
+    padding-bottom : 0pt;
+    border-bottom-width : 1pt;
+    border-bottom-color : #505050;
+    border-bottom-style : solid;
+    text-align : left;
+    display: none;
+    position: fixed;
+    overflow-y: auto;
+    overflow-x: hidden;
+    box-shadow: 0px 0px 4pt rgba(20,20,55,0.3);
+    z-index:20;
+    max-width: 75%;
+    max-height: 75%;
+}
+
+.TopicPathPopup {
+    color: #000000;
+    background-color: #FFFFFF;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    font-style: normal;
+    text-decoration: none;
+    text-align : left;
+}
+
+.TopicPathPopupItemOnPath {
+    color: #393939;
+    background-color: #EBF8FE;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    font-style: normal;
+    text-decoration: none;
+    padding-left : 12pt;
+    border-left-width : 3pt;
+    border-left-color : #0072C6;
+    border-left-style : solid;
+    padding-top : 4pt;
+    border-top-style : none;
+    padding-right : 12pt;
+    border-right-style : none;
+    padding-bottom : 4pt;
+    border-bottom-style : none;
+    text-align : left;
+}
+
+.TopicPathPopupItemOnPath > a {
+    color: #393939;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    font-style: normal;
+    text-decoration: none;
+    text-align : left;
+}
+
+.TopicPathPopupItemOnPath > a:visited {
+    color: #393939;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    font-style: normal;
+    text-decoration: none;
+    text-align : left;
+}
+
+.TopicPathPopupItemOnPath > a:hover {
+    color: #000000;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    font-style: normal;
+    text-decoration: none;
+    text-align : left;
+}
+
+.TopicPathPopupItem {
+    color: #393939;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    font-style: normal;
+    text-decoration: none;
+    padding-left : 12pt;
+    border-left-width : 3pt;
+    border-left-color : #E6E6E6;
+    border-left-style : solid;
+    padding-top : 4pt;
+    border-top-style : none;
+    padding-right : 12pt;
+    border-right-style : none;
+    padding-bottom : 4pt;
+    border-bottom-style : none;
+    text-align : left;
+}
+
+.TopicPathPopupItem > a {
+    color: #393939;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    font-style: normal;
+    text-decoration: none;
+    text-align : left;
+}
+
+.TopicPathPopupItem > a:visited {
+    color: #393939;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    font-style: normal;
+    text-decoration: none;
+    text-align : left;
+}
+
+.TopicPathPopupItem > a:hover {
+    color: #000000;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    font-style: normal;
+    text-decoration: none;
+    text-align : left;
+}
+
+.TopicPathEntry {
+    color: #393939;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    font-style: normal;
+    text-decoration: none;
+    text-align : left;
+}
+
+.TopicPathEntry > a {
+    color: #393939;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    font-style: normal;
+    text-decoration: none;
+    text-align : left;
+}
+
+.TopicPathEntry > a:visited {
+    color: #393939;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    font-style: normal;
+    text-decoration: none;
+    text-align : left;
+}
+
+.TopicPathEntry > a:hover {
+    color: #000000;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    font-style: normal;
+    text-decoration: none;
+    text-align : left;
+}
+
+.IndexSearchForm {
+    color: #000000;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    font-style: normal;
+    text-decoration: none;
+    margin-top : 3pt;
+    text-align : left;
+}
+
+.Popup_Block {
+    color: #000000;
+    background-color: #FFFFFF;
+    padding-left : 10pt;
+    border-left-width : 1pt;
+    border-left-color : #BBBBBB;
+    border-left-style : solid;
+    padding-top : 10pt;
+    border-top-width : 1pt;
+    border-top-color : #BBBBBB;
+    border-top-style : solid;
+    padding-right : 10pt;
+    border-right-width : 1pt;
+    border-right-color : #BBBBBB;
+    border-right-style : solid;
+    padding-bottom : 10pt;
+    border-bottom-width : 1pt;
+    border-bottom-color : #BBBBBB;
+    border-bottom-style : solid;
+    text-align : left;
+    display: none;
+    position: fixed;
+    overflow: auto;
+    box-shadow: 0px 0px 4pt rgba(20,20,55,0.3);
+    z-index:10;
+    max-width: 75%;
+    max-height: 75%;
+}
+
+.Popup {
+    color: #000000;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    font-style: normal;
+    text-decoration: none;
+    text-align : left;
+}
+
+.TopLink {
+    color: #000000;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    font-style: normal;
+    text-decoration: none;
+    margin-top : 3pt;
+    margin-bottom : 3pt;
+    text-align : left;
+}
+
+.CollapseExpandLink_Block {
+    color: #000000;
+    margin-left : 0pt;
+    margin-right : 0pt;
+    margin-top : 2pt;
+    margin-bottom : 3pt;
+    text-align : left;
+}
+
+.CollapseExpandLink {
+    color: #000000;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    font-style: normal;
+    text-decoration: none;
+    margin-left : 0pt;
+    margin-right : 0pt;
+    margin-top : 0pt;
+    margin-bottom : 3pt;
+    padding-left : 15pt;
+    border-left-style : none;
+    padding-top : 3pt;
+    border-top-width : 1pt;
+    border-top-color : #FFFFFF;
+    border-top-style : solid;
+    padding-right : 15pt;
+    border-right-style : none;
+    border-bottom-style : none;
+    text-align : left;
+}
+
+.PageFooterArea_fixedfooter {
+    color: #000000;
+    background-color: #FFFFFF;
+    border-left-style : none;
+    padding-top : 0pt;
+    border-top-width : 1pt;
+    border-top-color : #CCCCCC;
+    border-top-style : solid;
+    border-right-style : none;
+    border-bottom-style : none;
+    text-align : left;
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    z-index: 4;
+}
+
+.PageClientAreaContent_fixedheader {
+    color: #000000;
+    text-align : left;
+}
+
+.PageClientArea_fixedheader {
+    color: #000000;
+    text-align : left;
+}
+
+.PageHeaderArea_fixedheader {
+    color: #000000;
+    background-color: #FFFFFF;
+    text-align : left;
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 5;
+}
+
+.FileBody_fixedheader {
+    color: #000000;
+    background-color: #FFFFFF;
+    margin-left : 0pt;
+    margin-right : 0pt;
+    margin-top : 0pt;
+    margin-bottom : 0pt;
+    text-align : left;
+}
+
+.ListLevel10 {
+    color: #000000;
+    margin-top : 0pt;
+    margin-bottom : 0pt;
+    text-align : left;
+}
+
+.ListLevel9 {
+    color: #000000;
+    margin-top : 0pt;
+    margin-bottom : 0pt;
+    text-align : left;
+}
+
+.ListLevel8 {
+    color: #000000;
+    margin-top : 0pt;
+    margin-bottom : 0pt;
+    text-align : left;
+}
+
+.ListLevel7 {
+    color: #000000;
+    margin-top : 0pt;
+    margin-bottom : 0pt;
+    text-align : left;
+}
+
+.ListLevel6 {
+    color: #000000;
+    margin-top : 0pt;
+    margin-bottom : 0pt;
+    text-align : left;
+}
+
+.ListLevel5 {
+    color: #000000;
+    margin-top : 0pt;
+    margin-bottom : 0pt;
+    text-align : left;
+}
+
+.ListLevel4 {
+    color: #000000;
+    margin-top : 0pt;
+    margin-bottom : 0pt;
+    text-align : left;
+}
+
+.ListLevel3 {
+    color: #000000;
+    margin-top : 0pt;
+    margin-bottom : 0pt;
+    text-align : left;
+}
+
+.ListLevel2 {
+    color: #000000;
+    margin-top : 0pt;
+    margin-bottom : 0pt;
+    text-align : left;
+}
+
+.ListLevel1 {
+    color: #000000;
+    margin-top : 10pt;
+    margin-bottom : 10pt;
+    text-align : left;
+}
+
+.ListItemLevel10 {
+    color: #000000;
+    font-style: normal;
+    text-decoration: none;
+    text-align : left;
+}
+
+.ListItemLevel9 {
+    color: #000000;
+    font-style: normal;
+    text-decoration: none;
+    text-align : left;
+}
+
+.ListItemLevel8 {
+    color: #000000;
+    font-style: normal;
+    text-decoration: none;
+    text-align : left;
+}
+
+.ListItemLevel7 {
+    color: #000000;
+    font-style: normal;
+    text-decoration: none;
+    text-align : left;
+}
+
+.ListItemLevel6 {
+    color: #000000;
+    font-style: normal;
+    text-decoration: none;
+    text-align : left;
+}
+
+.ListItemLevel5 {
+    color: #000000;
+    font-style: normal;
+    text-decoration: none;
+    text-align : left;
+}
+
+.ListItemLevel4 {
+    color: #000000;
+    font-style: normal;
+    text-decoration: none;
+    text-align : left;
+}
+
+.ListItemLevel3 {
+    color: #000000;
+    font-style: normal;
+    text-decoration: none;
+    text-align : left;
+}
+
+.ListItemLevel2 {
+    color: #000000;
+    font-style: normal;
+    text-decoration: none;
+    text-align : left;
+}
+
+.ListItemLevel1 {
+    color: #000000;
+    font-style: normal;
+    text-decoration: none;
+    text-align : left;
+}
+
+.ValueDesc_Heading {
+    color: #000000;
+    font-weight: bold;
+    font-style: normal;
+    text-decoration: none;
+    margin-top : 10pt;
+    margin-bottom : 5pt;
+    text-align : left;
+}
+
+.ValueDesc_Table {
+    color: #000000;
+    font-style: normal;
+    text-decoration: none;
+    margin-left : 0pt;
+    margin-top : 10pt;
+    margin-bottom : 10pt;
+    text-align : left;
+}
+
+.ValueDesc_ParagraphDescription {
+    color: #000000;
+    font-style: normal;
+    text-decoration: none;
+    text-align : left;
+}
+
+.ValueDesc_ParagraphDescription_block {
+    color: #000000;
+    margin-top : 0pt;
+    text-align : left;
+}
+
+.ValueDesc_ParagraphValue {
+    color: #000000;
+    font-style: normal;
+    text-decoration: none;
+    text-align : left;
+}
+
+.ValueDesc_ParagraphValue_block {
+    color: #000000;
+    margin-top : 3pt;
+    text-align : left;
+}
+
+.ValueDesc_TableDescription {
+    color: #000000;
+    font-style: normal;
+    text-decoration: none;
+    margin-top : 3pt;
+    margin-bottom : 3pt;
+    text-align : left;
+}
+
+.ValueDesc_TableDescription_block {
+    color: #000000;
+    margin-top : 0pt;
+    margin-bottom : 0pt;
+    padding-left : 6pt;
+    border-left-width : 1pt;
+    border-left-color : #BBBBBB;
+    border-left-style : solid;
+    padding-top : 3pt;
+    border-top-width : 1pt;
+    border-top-color : #BBBBBB;
+    border-top-style : solid;
+    padding-right : 6pt;
+    border-right-style : none;
+    padding-bottom : 3pt;
+    border-bottom-style : none;
+    text-align : left;
+}
+
+.ValueDesc_TableDescriptionHeader {
+    color: #000000;
+    background-color: #E5E5E5;
+    font-weight: bold;
+    font-style: normal;
+    text-decoration: none;
+    margin-left : 0pt;
+    text-align : left;
+}
+
+.ValueDesc_TableDescriptionHeader_block {
+    color: #000000;
+    background-color: #E5E5E5;
+    padding-left : 6pt;
+    border-left-width : 1pt;
+    border-left-color : #BBBBBB;
+    border-left-style : solid;
+    padding-top : 3pt;
+    border-top-width : 1pt;
+    border-top-color : #BBBBBB;
+    border-top-style : solid;
+    padding-right : 6pt;
+    border-right-style : none;
+    padding-bottom : 3pt;
+    border-bottom-style : none;
+    text-align : left;
+}
+
+.ValueDesc_TableLeftColumn {
+    color: #000000;
+    font-style: normal;
+    text-decoration: none;
+    margin-top : 3pt;
+    margin-bottom : 3pt;
+    text-align : left;
+}
+
+.ValueDesc_TableLeftColumn_block {
+    color: #000000;
+    margin-top : 0pt;
+    margin-bottom : 0pt;
+    padding-left : 6pt;
+    border-left-width : 1pt;
+    border-left-color : #BBBBBB;
+    border-left-style : solid;
+    padding-top : 3pt;
+    border-top-width : 1pt;
+    border-top-color : #BBBBBB;
+    border-top-style : solid;
+    padding-right : 6pt;
+    border-right-style : none;
+    padding-bottom : 3pt;
+    border-bottom-style : none;
+    text-align : left;
+}
+
+.ValueDesc_TableLeftColumnHeader {
+    color: #000000;
+    background-color: #E5E5E5;
+    font-weight: bold;
+    font-style: normal;
+    text-decoration: none;
+    margin-left : 0pt;
+    text-align : left;
+}
+
+.ValueDesc_TableLeftColumnHeader_block {
+    color: #000000;
+    background-color: #E5E5E5;
+    padding-left : 6pt;
+    border-left-width : 1pt;
+    border-left-color : #BBBBBB;
+    border-left-style : solid;
+    padding-top : 3pt;
+    border-top-width : 1pt;
+    border-top-color : #BBBBBB;
+    border-top-style : solid;
+    padding-right : 6pt;
+    border-right-style : none;
+    padding-bottom : 3pt;
+    border-bottom-style : none;
+    text-align : left;
+}
+
+.ReturnValueHeading {
+    color: #000000;
+    font-weight: bold;
+    font-style: normal;
+    text-decoration: none;
+    margin-top : 10pt;
+    margin-bottom : 5pt;
+    text-align : left;
+}
+
+.ReturnValueTable {
+    color: #000000;
+    font-style: normal;
+    text-decoration: none;
+    margin-left : 0pt;
+    margin-top : 10pt;
+    margin-bottom : 10pt;
+    text-align : left;
+}
+
+.ReturnValueParagraphDescription {
+    color: #000000;
+    font-style: normal;
+    text-decoration: none;
+    text-align : left;
+}
+
+.ReturnValueParagraphDescription_block {
+    color: #000000;
+    margin-top : 0pt;
+    text-align : left;
+}
+
+.ReturnValueParagraphValue {
+    color: #000000;
+    font-style: normal;
+    text-decoration: none;
+    text-align : left;
+}
+
+.ReturnValueParagraphValue_block {
+    color: #000000;
+    margin-top : 3pt;
+    text-align : left;
+}
+
+.ReturnValueTableDescription {
+    color: #000000;
+    font-style: normal;
+    text-decoration: none;
+    margin-top : 3pt;
+    margin-bottom : 3pt;
+    text-align : left;
+}
+
+.ReturnValueTableDescription_block {
+    color: #000000;
+    margin-top : 0pt;
+    margin-bottom : 0pt;
+    padding-left : 6pt;
+    border-left-width : 1pt;
+    border-left-color : #BBBBBB;
+    border-left-style : solid;
+    padding-top : 3pt;
+    border-top-width : 1pt;
+    border-top-color : #BBBBBB;
+    border-top-style : solid;
+    padding-right : 6pt;
+    border-right-style : none;
+    padding-bottom : 3pt;
+    border-bottom-style : none;
+    text-align : left;
+}
+
+.ReturnValueTableDescriptionHeader {
+    color: #000000;
+    background-color: #E5E5E5;
+    font-weight: bold;
+    font-style: normal;
+    text-decoration: none;
+    margin-left : 0pt;
+    text-align : left;
+}
+
+.ReturnValueTableDescriptionHeader_block {
+    color: #000000;
+    background-color: #E5E5E5;
+    padding-left : 6pt;
+    border-left-width : 1pt;
+    border-left-color : #BBBBBB;
+    border-left-style : solid;
+    padding-top : 3pt;
+    border-top-width : 1pt;
+    border-top-color : #BBBBBB;
+    border-top-style : solid;
+    padding-right : 6pt;
+    border-right-style : none;
+    padding-bottom : 3pt;
+    border-bottom-style : none;
+    text-align : left;
+}
+
+.ReturnValueTableLeftColumn {
+    color: #000000;
+    font-style: normal;
+    text-decoration: none;
+    margin-top : 3pt;
+    margin-bottom : 3pt;
+    text-align : left;
+}
+
+.ReturnValueTableLeftColumn_block {
+    color: #000000;
+    margin-top : 0pt;
+    margin-bottom : 0pt;
+    padding-left : 6pt;
+    border-left-width : 1pt;
+    border-left-color : #BBBBBB;
+    border-left-style : solid;
+    padding-top : 3pt;
+    border-top-width : 1pt;
+    border-top-color : #BBBBBB;
+    border-top-style : solid;
+    padding-right : 6pt;
+    border-right-style : none;
+    padding-bottom : 3pt;
+    border-bottom-style : none;
+    text-align : left;
+}
+
+.ReturnValueTableLeftColumnHeader {
+    color: #000000;
+    background-color: #E5E5E5;
+    font-weight: bold;
+    font-style: normal;
+    text-decoration: none;
+    margin-left : 0pt;
+    text-align : left;
+}
+
+.ReturnValueTableLeftColumnHeader_block {
+    color: #000000;
+    background-color: #E5E5E5;
+    padding-left : 6pt;
+    border-left-width : 1pt;
+    border-left-color : #BBBBBB;
+    border-left-style : solid;
+    padding-top : 3pt;
+    border-top-width : 1pt;
+    border-top-color : #BBBBBB;
+    border-top-style : solid;
+    padding-right : 6pt;
+    border-right-style : none;
+    padding-bottom : 3pt;
+    border-bottom-style : none;
+    text-align : left;
+}
+
+.MemberHeading {
+    color: #000000;
+    font-weight: bold;
+    font-style: normal;
+    text-decoration: none;
+    margin-top : 10pt;
+    margin-bottom : 5pt;
+    text-align : left;
+}
+
+.MemberTable {
+    color: #000000;
+    font-style: normal;
+    text-decoration: none;
+    margin-left : 0pt;
+    margin-top : 10pt;
+    margin-bottom : 10pt;
+    text-align : left;
+}
+
+.MemberParagraphDescription {
+    color: #000000;
+    font-style: normal;
+    text-decoration: none;
+    text-align : left;
+}
+
+.MemberParagraphDescription_block {
+    color: #000000;
+    margin-top : 0pt;
+    text-align : left;
+}
+
+.MemberParagraphCode {
+    color: #000000;
+    font-style: normal;
+    text-decoration: none;
+    text-align : left;
+}
+
+.MemberParagraphCode_block {
+    color: #000000;
+    margin-top : 3pt;
+    text-align : left;
+}
+
+.MemberTableDescription {
+    color: #000000;
+    font-style: normal;
+    text-decoration: none;
+    margin-top : 3pt;
+    margin-bottom : 3pt;
+    text-align : left;
+}
+
+.MemberTableDescription_block {
+    color: #000000;
+    margin-top : 0pt;
+    margin-bottom : 0pt;
+    padding-left : 6pt;
+    border-left-width : 1pt;
+    border-left-color : #BBBBBB;
+    border-left-style : solid;
+    padding-top : 3pt;
+    border-top-width : 1pt;
+    border-top-color : #BBBBBB;
+    border-top-style : solid;
+    padding-right : 6pt;
+    border-right-style : none;
+    padding-bottom : 3pt;
+    border-bottom-style : none;
+    text-align : left;
+}
+
+.MemberTableDescriptionHeader {
+    color: #000000;
+    background-color: #E5E5E5;
+    font-weight: bold;
+    font-style: normal;
+    text-decoration: none;
+    margin-left : 0pt;
+    text-align : left;
+}
+
+.MemberTableDescriptionHeader_block {
+    color: #000000;
+    background-color: #E5E5E5;
+    padding-left : 6pt;
+    border-left-width : 1pt;
+    border-left-color : #BBBBBB;
+    border-left-style : solid;
+    padding-top : 3pt;
+    border-top-width : 1pt;
+    border-top-color : #BBBBBB;
+    border-top-style : solid;
+    padding-right : 6pt;
+    border-right-style : none;
+    padding-bottom : 3pt;
+    border-bottom-style : none;
+    text-align : left;
+}
+
+.MemberTableLeftColumn {
+    color: #000000;
+    font-style: normal;
+    text-decoration: none;
+    margin-top : 3pt;
+    margin-bottom : 3pt;
+    text-align : left;
+}
+
+.MemberTableLeftColumn_block {
+    color: #000000;
+    margin-top : 0pt;
+    margin-bottom : 0pt;
+    padding-left : 6pt;
+    border-left-width : 1pt;
+    border-left-color : #BBBBBB;
+    border-left-style : solid;
+    padding-top : 3pt;
+    border-top-width : 1pt;
+    border-top-color : #BBBBBB;
+    border-top-style : solid;
+    padding-right : 6pt;
+    border-right-style : none;
+    padding-bottom : 3pt;
+    border-bottom-style : none;
+    text-align : left;
+}
+
+.MemberTableLeftColumnHeader {
+    color: #000000;
+    background-color: #E5E5E5;
+    font-weight: bold;
+    font-style: normal;
+    text-decoration: none;
+    margin-left : 0pt;
+    text-align : left;
+}
+
+.MemberTableLeftColumnHeader_block {
+    color: #000000;
+    background-color: #E5E5E5;
+    padding-left : 6pt;
+    border-left-width : 1pt;
+    border-left-color : #BBBBBB;
+    border-left-style : solid;
+    padding-top : 3pt;
+    border-top-width : 1pt;
+    border-top-color : #BBBBBB;
+    border-top-style : solid;
+    padding-right : 6pt;
+    border-right-style : none;
+    padding-bottom : 3pt;
+    border-bottom-style : none;
+    text-align : left;
+}
+
+.ParameterHeading {
+    color: #000000;
+    font-weight: bold;
+    font-style: normal;
+    text-decoration: none;
+    margin-top : 10pt;
+    margin-bottom : 5pt;
+    text-align : left;
+}
+
+.ParameterTable {
+    color: #000000;
+    font-style: normal;
+    text-decoration: none;
+    margin-left : 0pt;
+    margin-top : 10pt;
+    margin-bottom : 10pt;
+    text-align : left;
+}
+
+.ParameterParagraphDescription {
+    color: #000000;
+    font-style: normal;
+    text-decoration: none;
+    text-align : left;
+}
+
+.ParameterParagraphDescription_block {
+    color: #000000;
+    margin-top : 0pt;
+    text-align : left;
+}
+
+.ParameterParagraphCode {
+    color: #000000;
+    font-style: normal;
+    text-decoration: none;
+    text-align : left;
+}
+
+.ParameterParagraphCode_block {
+    color: #000000;
+    margin-top : 3pt;
+    text-align : left;
+}
+
+.ParameterTableDescription {
+    color: #000000;
+    font-style: normal;
+    text-decoration: none;
+    margin-top : 3pt;
+    margin-bottom : 3pt;
+    text-align : left;
+}
+
+.ParameterTableDescription_block {
+    color: #000000;
+    margin-top : 0pt;
+    margin-bottom : 0pt;
+    padding-left : 6pt;
+    border-left-width : 1pt;
+    border-left-color : #BBBBBB;
+    border-left-style : solid;
+    padding-top : 3pt;
+    border-top-width : 1pt;
+    border-top-color : #BBBBBB;
+    border-top-style : solid;
+    padding-right : 6pt;
+    border-right-style : none;
+    padding-bottom : 3pt;
+    border-bottom-style : none;
+    text-align : left;
+}
+
+.ParameterTableDescriptionHeader {
+    color: #000000;
+    background-color: #E5E5E5;
+    font-weight: bold;
+    font-style: normal;
+    text-decoration: none;
+    margin-left : 0pt;
+    text-align : left;
+}
+
+.ParameterTableDescriptionHeader_block {
+    color: #000000;
+    background-color: #E5E5E5;
+    padding-left : 6pt;
+    border-left-width : 1pt;
+    border-left-color : #BBBBBB;
+    border-left-style : solid;
+    padding-top : 3pt;
+    border-top-width : 1pt;
+    border-top-color : #BBBBBB;
+    border-top-style : solid;
+    padding-right : 6pt;
+    border-right-style : none;
+    padding-bottom : 3pt;
+    border-bottom-style : none;
+    text-align : left;
+}
+
+.ParameterTableLeftColumn {
+    color: #000000;
+    font-style: normal;
+    text-decoration: none;
+    margin-top : 3pt;
+    margin-bottom : 3pt;
+    text-align : left;
+}
+
+.ParameterTableLeftColumn_block {
+    color: #000000;
+    margin-top : 0pt;
+    margin-bottom : 0pt;
+    padding-left : 6pt;
+    border-left-width : 1pt;
+    border-left-color : #BBBBBB;
+    border-left-style : solid;
+    padding-top : 3pt;
+    border-top-width : 1pt;
+    border-top-color : #BBBBBB;
+    border-top-style : solid;
+    padding-right : 6pt;
+    border-right-style : none;
+    padding-bottom : 3pt;
+    border-bottom-style : none;
+    text-align : left;
+}
+
+.ParameterTableLeftColumnHeader {
+    color: #000000;
+    background-color: #E5E5E5;
+    font-weight: bold;
+    font-style: normal;
+    text-decoration: none;
+    margin-left : 0pt;
+    text-align : left;
+}
+
+.ParameterTableLeftColumnHeader_block {
+    color: #000000;
+    background-color: #E5E5E5;
+    padding-left : 6pt;
+    border-left-width : 1pt;
+    border-left-color : #BBBBBB;
+    border-left-style : solid;
+    padding-top : 3pt;
+    border-top-width : 1pt;
+    border-top-color : #BBBBBB;
+    border-top-style : solid;
+    padding-right : 6pt;
+    border-right-style : none;
+    padding-bottom : 3pt;
+    border-bottom-style : none;
+    text-align : left;
+}
+
+.ReportHeading {
+    color: #000000;
+    font-weight: bold;
+    font-style: normal;
+    text-decoration: none;
+    margin-top : 10pt;
+    margin-bottom : 5pt;
+    text-align : left;
+}
+
+.ReportTable {
+    color: #000000;
+    font-style: normal;
+    text-decoration: none;
+    margin-left : 0pt;
+    margin-top : 10pt;
+    margin-bottom : 10pt;
+    text-align : left;
+}
+
+.ReportParagraphDescription {
+    color: #000000;
+    font-style: normal;
+    text-decoration: none;
+    text-align : left;
+}
+
+.ReportParagraphDescription_block {
+    color: #000000;
+    margin-top : 0pt;
+    text-align : left;
+}
+
+.ReportParagraphLink {
+    color: #000000;
+    font-style: normal;
+    text-decoration: none;
+    text-align : left;
+}
+
+.ReportParagraphLink_block {
+    color: #000000;
+    margin-top : 3pt;
+    text-align : left;
+}
+
+.ReportTableDescription {
+    color: #000000;
+    font-style: normal;
+    text-decoration: none;
+    margin-top : 3pt;
+    margin-bottom : 3pt;
+    text-align : left;
+}
+
+.ReportTableDescription_block {
+    color: #000000;
+    margin-top : 0pt;
+    margin-bottom : 0pt;
+    padding-left : 6pt;
+    border-left-width : 1pt;
+    border-left-color : #BBBBBB;
+    border-left-style : solid;
+    padding-top : 3pt;
+    border-top-width : 1pt;
+    border-top-color : #BBBBBB;
+    border-top-style : solid;
+    padding-right : 6pt;
+    border-right-style : none;
+    padding-bottom : 3pt;
+    border-bottom-style : none;
+    text-align : left;
+}
+
+.ReportTableDescriptionHeader {
+    color: #000000;
+    background-color: #E5E5E5;
+    font-weight: bold;
+    font-style: normal;
+    text-decoration: none;
+    margin-left : 0pt;
+    text-align : left;
+}
+
+.ReportTableDescriptionHeader_block {
+    color: #000000;
+    background-color: #E5E5E5;
+    padding-left : 6pt;
+    border-left-width : 1pt;
+    border-left-color : #BBBBBB;
+    border-left-style : solid;
+    padding-top : 3pt;
+    border-top-width : 1pt;
+    border-top-color : #BBBBBB;
+    border-top-style : solid;
+    padding-right : 6pt;
+    border-right-style : none;
+    padding-bottom : 3pt;
+    border-bottom-style : none;
+    text-align : left;
+}
+
+.ReportTableLink {
+    color: #000000;
+    font-style: normal;
+    text-decoration: none;
+    margin-top : 3pt;
+    margin-bottom : 3pt;
+    text-align : left;
+}
+
+.ReportTableLink_block {
+    color: #000000;
+    margin-top : 0pt;
+    margin-bottom : 0pt;
+    padding-left : 6pt;
+    border-left-width : 1pt;
+    border-left-color : #BBBBBB;
+    border-left-style : solid;
+    padding-top : 3pt;
+    border-top-width : 1pt;
+    border-top-color : #BBBBBB;
+    border-top-style : solid;
+    padding-right : 6pt;
+    border-right-style : none;
+    padding-bottom : 3pt;
+    border-bottom-style : none;
+    text-align : left;
+}
+
+.ReportTableLinkHeader {
+    color: #000000;
+    background-color: #E5E5E5;
+    font-weight: bold;
+    font-style: normal;
+    text-decoration: none;
+    margin-left : 0pt;
+    text-align : left;
+}
+
+.ReportTableLinkHeader_block {
+    color: #000000;
+    background-color: #E5E5E5;
+    padding-left : 6pt;
+    border-left-width : 1pt;
+    border-left-color : #BBBBBB;
+    border-left-style : solid;
+    padding-top : 3pt;
+    border-top-width : 1pt;
+    border-top-color : #BBBBBB;
+    border-top-style : solid;
+    padding-right : 6pt;
+    border-right-style : none;
+    padding-bottom : 3pt;
+    border-bottom-style : none;
+    text-align : left;
+}
+
+.NavigationHeading {
+    color: #000000;
+    font-weight: bold;
+    font-style: normal;
+    text-decoration: none;
+    margin-top : 10pt;
+    margin-bottom : 5pt;
+    text-align : left;
+}
+
+.NavigationTable {
+    color: #000000;
+    font-style: normal;
+    text-decoration: none;
+    margin-left : 0pt;
+    margin-top : 10pt;
+    margin-bottom : 10pt;
+    text-align : left;
+}
+
+.NavigationParagraphDescription {
+    color: #000000;
+    font-style: normal;
+    text-decoration: none;
+    text-align : left;
+}
+
+.NavigationParagraphDescription_block {
+    color: #000000;
+    margin-top : 0pt;
+    text-align : left;
+}
+
+.NavigationParagraphLink {
+    color: #000000;
+    font-style: normal;
+    text-decoration: none;
+    text-align : left;
+}
+
+.NavigationParagraphLink_block {
+    color: #000000;
+    margin-top : 3pt;
+    text-align : left;
+}
+
+.NavigationTableDescription {
+    color: #000000;
+    font-style: normal;
+    text-decoration: none;
+    margin-top : 3pt;
+    margin-bottom : 3pt;
+    text-align : left;
+}
+
+.NavigationTableDescription_block {
+    color: #000000;
+    margin-top : 0pt;
+    margin-bottom : 0pt;
+    padding-left : 6pt;
+    border-left-width : 1pt;
+    border-left-color : #BBBBBB;
+    border-left-style : solid;
+    padding-top : 3pt;
+    border-top-width : 1pt;
+    border-top-color : #BBBBBB;
+    border-top-style : solid;
+    padding-right : 6pt;
+    border-right-style : none;
+    padding-bottom : 3pt;
+    border-bottom-style : none;
+    text-align : left;
+}
+
+.NavigationTableDescriptionHeader {
+    color: #000000;
+    background-color: #E5E5E5;
+    font-weight: bold;
+    font-style: normal;
+    text-decoration: none;
+    margin-left : 0pt;
+    text-align : left;
+}
+
+.NavigationTableDescriptionHeader_block {
+    color: #000000;
+    background-color: #E5E5E5;
+    padding-left : 6pt;
+    border-left-width : 1pt;
+    border-left-color : #BBBBBB;
+    border-left-style : solid;
+    padding-top : 3pt;
+    border-top-width : 1pt;
+    border-top-color : #BBBBBB;
+    border-top-style : solid;
+    padding-right : 6pt;
+    border-right-style : none;
+    padding-bottom : 3pt;
+    border-bottom-style : none;
+    text-align : left;
+}
+
+.NavigationTableLink {
+    color: #000000;
+    font-style: normal;
+    text-decoration: none;
+    margin-top : 3pt;
+    margin-bottom : 3pt;
+    text-align : left;
+}
+
+.NavigationTableLink_block {
+    color: #000000;
+    margin-top : 0pt;
+    margin-bottom : 0pt;
+    padding-left : 6pt;
+    border-left-width : 1pt;
+    border-left-color : #BBBBBB;
+    border-left-style : solid;
+    padding-top : 3pt;
+    border-top-width : 1pt;
+    border-top-color : #BBBBBB;
+    border-top-style : solid;
+    padding-right : 6pt;
+    border-right-style : none;
+    padding-bottom : 3pt;
+    border-bottom-style : none;
+    text-align : left;
+}
+
+.NavigationTableLinkHeader {
+    color: #000000;
+    background-color: #E5E5E5;
+    font-weight: bold;
+    font-style: normal;
+    text-decoration: none;
+    margin-left : 0pt;
+    text-align : left;
+}
+
+.NavigationTableLinkHeader_block {
+    color: #000000;
+    background-color: #E5E5E5;
+    padding-left : 6pt;
+    border-left-width : 1pt;
+    border-left-color : #BBBBBB;
+    border-left-style : solid;
+    padding-top : 3pt;
+    border-top-width : 1pt;
+    border-top-color : #BBBBBB;
+    border-top-style : solid;
+    padding-right : 6pt;
+    border-right-style : none;
+    padding-bottom : 3pt;
+    border-bottom-style : none;
+    text-align : left;
+}
+
+.IndexTitle {
+    color: #250C58;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 18pt;
+    font-weight: bold;
+    font-style: normal;
+    text-decoration: none;
+    margin-left : 15pt;
+    margin-right : 15pt;
+    margin-top : 0pt;
+    margin-bottom : 9pt;
+    text-align : left;
+}
+
+.ContentTableHeading {
+    color: #000000;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    font-weight: bold;
+    font-style: normal;
+    text-decoration: none;
+    margin-top : 10pt;
+    margin-bottom : 10pt;
+    border-left-style : none;
+    border-top-style : none;
+    border-right-style : none;
+    padding-bottom : 5pt;
+    border-bottom-width : 1pt;
+    border-bottom-color : #D4DFFF;
+    border-bottom-style : solid;
+    text-align : left;
+}
+
+.ContentTable {
+    color: #000000;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    font-style: normal;
+    text-decoration: none;
+    margin-left : 0pt;
+    margin-top : 10pt;
+    margin-bottom : 10pt;
+    text-align : center;
+}
+
+.ContentTableCell_block {
+    color: #000000;
+    text-align : left;
+}
+
+.ContentTableCell {
+    color: #000000;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    font-style: normal;
+    text-decoration: none;
+    margin-top : 0pt;
+    margin-bottom : 10pt;
+    text-align : left;
+}
+
+.CopyCode {
+    color: #000000;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    font-style: normal;
+    text-decoration: none;
+    margin-right : 20pt;
+    margin-top : 3pt;
+    margin-bottom : 0pt;
+    text-align : right;
+}
+
+.SeeAlsoLinkList {
+    color: #000000;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    font-style: normal;
+    text-decoration: none;
+    margin-left : 15pt;
+    margin-right : 15pt;
+    margin-top : -7pt;
+    margin-bottom : 12pt;
+    text-align : left;
+}
+
+.SeeAlsoHeader {
+    color: #250C58;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 18pt;
+    font-weight: bold;
+    font-style: normal;
+    text-decoration: none;
+    margin-left : 15pt;
+    margin-right : 15pt;
+    margin-top : 0pt;
+    margin-bottom : 9pt;
+    text-align : left;
+}
+
+.ClassHierarchyLinkList {
+    color: #000000;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    font-style: normal;
+    text-decoration: none;
+    margin-left : 15pt;
+    margin-right : 15pt;
+    margin-top : -7pt;
+    margin-bottom : 12pt;
+    text-align : left;
+}
+
+.ClassHierarchyHeader {
+    color: #250C58;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 18pt;
+    font-weight: bold;
+    font-style: normal;
+    text-decoration: none;
+    margin-left : 15pt;
+    margin-right : 15pt;
+    margin-top : 0pt;
+    margin-bottom : 9pt;
+    text-align : left;
+}
+
+.ClassHierarchy_Block {
+    color: #000000;
+    margin-top : 3pt;
+    margin-bottom : 20pt;
+    text-align : left;
+    white-space: pre;
+}
+
+.ClassHierarchy {
+    color: #000000;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    font-style: normal;
+    text-decoration: none;
+    margin-top : 0pt;
+    text-align : left;
+    white-space: pre;
+}
+
+._C_Font {
+    font-family: "Courier New",Courier,monospace;
+    font-size: 10pt;
+}
+
+.Link_Broken {
+    color: #000000;
+    font-style: normal;
+    text-decoration: none;
+}
+
+a:visited {
+    color: #1364C4;
+    font-style: normal;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #960BB4;
+    font-style: normal;
+    text-decoration: underline;
+}
+
+a {
+    color: #1364C4;
+    font-style: normal;
+    text-decoration: none;
+}
+
+.PreformattedText_Block {
+    color: #000000;
+    margin-top : 3pt;
+    margin-bottom : 3pt;
+    text-align : left;
+    white-space: pre;
+}
+
+.PreformattedText {
+    color: #000000;
+    background-color: #DDDDDD;
+    font-style: normal;
+    text-decoration: none;
+    text-align : left;
+    white-space: pre;
+}
+
+.SyntaxSourceCode_Block {
+    color: #000000;
+    background-color: #FFFFFF;
+    margin-top : 2pt;
+    margin-bottom : 2pt;
+    padding-left : 10pt;
+    border-left-width : 1pt;
+    border-left-color : #E5E5E5;
+    border-left-style : solid;
+    padding-top : 10pt;
+    border-top-width : 1pt;
+    border-top-color : #E5E5E5;
+    border-top-style : solid;
+    padding-right : 6pt;
+    border-right-width : 1pt;
+    border-right-color : #E5E5E5;
+    border-right-style : solid;
+    padding-bottom : 10pt;
+    border-bottom-width : 1pt;
+    border-bottom-color : #E5E5E5;
+    border-bottom-style : solid;
+    border-top-right-radius: 5pt;
+    -moz-border-radius-topright: 5pt;
+    -webkit-border-radius-top-right: 5pt;
+    border-bottom-left-radius: 5pt;
+    -moz-border-radius-bottomleft: 5pt;
+    -webkit-border-radius-bottom-left: 5pt;
+    border-bottom-right-radius: 5pt;
+    -moz-border-radius-bottomright: 5pt;
+    -webkit-border-radius-bottom-right: 5pt;
+    text-align : left;
+    white-space: pre;
+}
+
+.SyntaxSourceCode {
+    color: #000000;
+    font-family: "Courier New",Courier,monospace;
+    font-size: 10pt;
+    font-style: normal;
+    text-decoration: none;
+    text-align : left;
+    white-space: pre;
+}
+
+.SyntaxSectionHeading {
+    color: #250C58;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 14pt;
+    font-weight: bold;
+    font-style: normal;
+    text-decoration: none;
+    margin-top : 20pt;
+    margin-bottom : 20pt;
+    text-align : left;
+}
+
+.a_SyntaxSectionHeading {
+    color: #250C58;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 14pt;
+    font-weight: bold;
+    font-style: normal;
+    text-decoration: none;
+}
+
+.PageFooterFeedbackLink {
+    color: #000000;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 9pt;
+    font-style: normal;
+    text-decoration: none;
+    margin-left : 15pt;
+    margin-right : 15pt;
+    margin-top : 5pt;
+    margin-bottom : 0pt;
+    text-align : left;
+}
+
+.PageHeaderFeedbackLink {
+    color: #250C58;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    font-style: normal;
+    text-decoration: none;
+    margin-left : 3pt;
+    margin-right : 15pt;
+    margin-top : 2pt;
+    margin-bottom : 2pt;
+    text-align : right;
+}
+
+.PageFooterTopicPaths {
+    color: #000000;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    font-style: normal;
+    text-decoration: none;
+    margin-left : 15pt;
+    margin-right : 15pt;
+    margin-top : 10pt;
+    margin-bottom : 10pt;
+    border-left-style : none;
+    padding-top : 5pt;
+    border-top-width : 1pt;
+    border-top-color : #E5E5E5;
+    border-top-style : solid;
+    border-right-style : none;
+    padding-bottom : 5pt;
+    border-bottom-width : 1pt;
+    border-bottom-color : #E5E5E5;
+    border-bottom-style : solid;
+    text-align : left;
+}
+
+.PageHeaderTopicPaths {
+    color: #000000;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    font-style: normal;
+    text-decoration: none;
+    margin-left : 0pt;
+    margin-right : 0pt;
+    margin-top : 0pt;
+    margin-bottom : 0pt;
+    padding-left : 15pt;
+    border-left-style : none;
+    padding-top : 8pt;
+    border-top-style : none;
+    padding-right : 15pt;
+    border-right-style : none;
+    padding-bottom : 8pt;
+    border-bottom-width : 1pt;
+    border-bottom-color : #E5E5E5;
+    border-bottom-style : solid;
+    text-align : left;
+    white-space: nowrap;
+}
+
+.PageFooterArea {
+    color: #000000;
+    margin-left : 0pt;
+    margin-right : 0pt;
+    margin-top : 20pt;
+    margin-bottom : 0pt;
+    border-left-style : none;
+    padding-top : 0pt;
+    border-top-width : 1pt;
+    border-top-color : #CCCCCC;
+    border-top-style : solid;
+    border-right-style : none;
+    padding-bottom : 10pt;
+    border-bottom-style : none;
+    text-align : left;
+}
+
+.PageHeaderArea {
+    color: #000000;
+    background-color: #FFFFFF;
+    border-left-style : none;
+    border-top-style : none;
+    border-right-style : none;
+    padding-bottom : 0pt;
+    border-bottom-width : 1pt;
+    border-bottom-color : #CCCCCC;
+    border-bottom-style : solid;
+    text-align : left;
+}
+
+.PageFooterNeighborLinks {
+    color: #000000;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 9pt;
+    font-style: normal;
+    text-decoration: none;
+    margin-left : 15pt;
+    margin-right : 15pt;
+    margin-top : 5pt;
+    margin-bottom : 0pt;
+    text-align : left;
+}
+
+.PageHeaderNeighborLinks {
+    color: #250C58;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 11pt;
+    font-weight: bold;
+    font-style: normal;
+    text-decoration: none;
+    margin-left : 3pt;
+    margin-right : 15pt;
+    margin-top : 2pt;
+    margin-bottom : 2pt;
+    text-align : right;
+    white-space: nowrap;
+}
+
+.UserTableCellJustified {
+    color: #000000;
+    font-style: normal;
+    text-decoration: none;
+    text-align : justify;
+}
+
+.UserTableCellJustified_Block {
+    color: #000000;
+    padding-left : 6pt;
+    border-left-width : 1pt;
+    border-left-color : #BBBBBB;
+    border-left-style : solid;
+    padding-top : 3pt;
+    border-top-width : 1pt;
+    border-top-color : #BBBBBB;
+    border-top-style : solid;
+    padding-right : 6pt;
+    border-right-style : none;
+    padding-bottom : 3pt;
+    border-bottom-style : none;
+    text-align : justify;
+}
+
+.UserTableHeaderCellJustified {
+    color: #000000;
+    background-color: #E5E5E5;
+    font-weight: bold;
+    font-style: normal;
+    text-decoration: none;
+    margin-left : 0pt;
+    text-align : justify;
+}
+
+.UserTableHeaderCellJustified_Block {
+    color: #000000;
+    background-color: #E5E5E5;
+    padding-left : 6pt;
+    border-left-width : 1pt;
+    border-left-color : #BBBBBB;
+    border-left-style : solid;
+    padding-top : 3pt;
+    border-top-width : 1pt;
+    border-top-color : #BBBBBB;
+    border-top-style : solid;
+    padding-right : 6pt;
+    border-right-style : none;
+    padding-bottom : 3pt;
+    border-bottom-style : none;
+    text-align : justify;
+}
+
+.UserTableCellRightAligned {
+    color: #000000;
+    font-style: normal;
+    text-decoration: none;
+    text-align : right;
+}
+
+.UserTableCellRightAligned_Block {
+    color: #000000;
+    padding-left : 6pt;
+    border-left-width : 1pt;
+    border-left-color : #BBBBBB;
+    border-left-style : solid;
+    padding-top : 3pt;
+    border-top-width : 1pt;
+    border-top-color : #BBBBBB;
+    border-top-style : solid;
+    padding-right : 6pt;
+    border-right-style : none;
+    padding-bottom : 3pt;
+    border-bottom-style : none;
+    text-align : right;
+}
+
+.UserTableHeaderCellRightAligned {
+    color: #000000;
+    background-color: #E5E5E5;
+    font-weight: bold;
+    font-style: normal;
+    text-decoration: none;
+    margin-left : 0pt;
+    text-align : right;
+}
+
+.UserTableHeaderCellRightAligned_Block {
+    color: #000000;
+    background-color: #E5E5E5;
+    padding-left : 6pt;
+    border-left-width : 1pt;
+    border-left-color : #BBBBBB;
+    border-left-style : solid;
+    padding-top : 3pt;
+    border-top-width : 1pt;
+    border-top-color : #BBBBBB;
+    border-top-style : solid;
+    padding-right : 6pt;
+    border-right-style : none;
+    padding-bottom : 3pt;
+    border-bottom-style : none;
+    text-align : right;
+}
+
+.UserTableCellCenterAligned {
+    color: #000000;
+    font-style: normal;
+    text-decoration: none;
+    text-align : center;
+}
+
+.UserTableCellCenterAligned_Block {
+    color: #000000;
+    padding-left : 6pt;
+    border-left-width : 1pt;
+    border-left-color : #BBBBBB;
+    border-left-style : solid;
+    padding-top : 3pt;
+    border-top-width : 1pt;
+    border-top-color : #BBBBBB;
+    border-top-style : solid;
+    padding-right : 6pt;
+    border-right-style : none;
+    padding-bottom : 3pt;
+    border-bottom-style : none;
+    text-align : center;
+}
+
+.UserTableHeaderCellCenterAligned {
+    color: #000000;
+    background-color: #E5E5E5;
+    font-weight: bold;
+    font-style: normal;
+    text-decoration: none;
+    margin-left : 0pt;
+    text-align : center;
+}
+
+.UserTableHeaderCellCenterAligned_Block {
+    color: #000000;
+    background-color: #E5E5E5;
+    padding-left : 6pt;
+    border-left-width : 1pt;
+    border-left-color : #BBBBBB;
+    border-left-style : solid;
+    padding-top : 3pt;
+    border-top-width : 1pt;
+    border-top-color : #BBBBBB;
+    border-top-style : solid;
+    padding-right : 6pt;
+    border-right-style : none;
+    padding-bottom : 3pt;
+    border-bottom-style : none;
+    text-align : center;
+}
+
+.UserTableCellLeftAligned {
+    color: #000000;
+    font-style: normal;
+    text-decoration: none;
+    text-align : left;
+}
+
+.UserTableCellLeftAligned_Block {
+    color: #000000;
+    padding-left : 6pt;
+    border-left-width : 1pt;
+    border-left-color : #BBBBBB;
+    border-left-style : solid;
+    padding-top : 3pt;
+    border-top-width : 1pt;
+    border-top-color : #BBBBBB;
+    border-top-style : solid;
+    padding-right : 6pt;
+    border-right-style : none;
+    padding-bottom : 3pt;
+    border-bottom-style : none;
+    text-align : left;
+}
+
+.UserTableHeaderCellLeftAligned {
+    color: #000000;
+    background-color: #E5E5E5;
+    font-weight: bold;
+    font-style: normal;
+    text-decoration: none;
+    margin-left : 0pt;
+    text-align : left;
+}
+
+.UserTableHeaderCellLeftAligned_Block {
+    color: #000000;
+    background-color: #E5E5E5;
+    padding-left : 6pt;
+    border-left-width : 1pt;
+    border-left-color : #BBBBBB;
+    border-left-style : solid;
+    padding-top : 3pt;
+    border-top-width : 1pt;
+    border-top-color : #BBBBBB;
+    border-top-style : solid;
+    padding-right : 6pt;
+    border-right-style : none;
+    padding-bottom : 3pt;
+    border-bottom-style : none;
+    text-align : left;
+}
+
+.UserTable {
+    color: #000000;
+    font-style: normal;
+    text-decoration: none;
+    margin-top : 10pt;
+    margin-bottom : 10pt;
+    text-align : left;
+}
+
+.FlagText {
+    color: #000000;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    font-weight: bold;
+    font-style: normal;
+    text-decoration: none;
+}
+
+.PageContentBodywithoutSidebar {
+    color: #000000;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    font-style: normal;
+    text-decoration: none;
+    margin-left : 15pt;
+    margin-right : 15pt;
+    margin-top : 3pt;
+    margin-bottom : 3pt;
+    text-align : left;
+}
+
+.FileBody {
+    color: #000000;
+    margin-left : 0pt;
+    margin-right : 0pt;
+    margin-top : 0pt;
+    margin-bottom : 0pt;
+    text-align : left;
+}
+
+.IndexSubEntry {
+    color: #000000;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    font-style: normal;
+    text-decoration: none;
+    margin-left : 15pt;
+    margin-top : 3pt;
+    text-align : left;
+}
+
+.IndexEntry {
+    color: #000000;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    font-style: normal;
+    text-decoration: none;
+    margin-top : 3pt;
+    text-align : left;
+}
+
+.IndexSubheading {
+    color: #250C58;
+    background-color: #EFF5FF;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 14pt;
+    font-weight: bold;
+    font-style: normal;
+    text-decoration: none;
+    margin-right : 100pt;
+    margin-top : 10pt;
+    margin-bottom : 3pt;
+    padding-left : 8pt;
+    border-left-width : 1pt;
+    border-left-color : #E5E5E5;
+    border-left-style : solid;
+    padding-top : 4pt;
+    border-top-width : 1pt;
+    border-top-color : #E5E5E5;
+    border-top-style : solid;
+    padding-right : 8pt;
+    border-right-width : 1pt;
+    border-right-color : #E5E5E5;
+    border-right-style : solid;
+    padding-bottom : 4pt;
+    border-bottom-width : 1pt;
+    border-bottom-color : #E5E5E5;
+    border-bottom-style : solid;
+    border-top-left-radius: 5pt;
+    -moz-border-radius-topleft: 5pt;
+    -webkit-border-radius-top-left: 5pt;
+    border-top-right-radius: 5pt;
+    -moz-border-radius-topright: 5pt;
+    -webkit-border-radius-top-right: 5pt;
+    border-bottom-left-radius: 5pt;
+    -moz-border-radius-bottomleft: 5pt;
+    -webkit-border-radius-bottom-left: 5pt;
+    border-bottom-right-radius: 5pt;
+    -moz-border-radius-bottomright: 5pt;
+    -webkit-border-radius-bottom-right: 5pt;
+    text-align : left;
+}
+
+.BodySourceLinkList {
+    color: #000000;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    font-style: normal;
+    text-decoration: none;
+    margin-left : 15pt;
+    margin-right : 15pt;
+    margin-top : -7pt;
+    margin-bottom : 12pt;
+    text-align : left;
+}
+
+.BodySourceHeader {
+    color: #250C58;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 18pt;
+    font-weight: bold;
+    font-style: normal;
+    text-decoration: none;
+    margin-left : 15pt;
+    margin-right : 15pt;
+    margin-top : 0pt;
+    margin-bottom : 9pt;
+    text-align : left;
+}
+
+.ContentTitle {
+    color: #250C58;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 18pt;
+    font-weight: bold;
+    font-style: normal;
+    text-decoration: none;
+    margin-left : 15pt;
+    margin-right : 15pt;
+    margin-top : 0pt;
+    margin-bottom : 9pt;
+    text-align : left;
+}
+
+.AdditionalInformationLinkList {
+    color: #000000;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    font-style: normal;
+    text-decoration: none;
+    margin-left : 15pt;
+    margin-right : 15pt;
+    margin-top : -7pt;
+    margin-bottom : 12pt;
+    text-align : left;
+}
+
+.AdditionalInformationHeader {
+    color: #250C58;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 18pt;
+    font-weight: bold;
+    font-style: normal;
+    text-decoration: none;
+    margin-left : 15pt;
+    margin-right : 15pt;
+    margin-top : 0pt;
+    margin-bottom : 9pt;
+    text-align : left;
+}
+
+.NavigationLinkList {
+    color: #000000;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    font-style: normal;
+    text-decoration: none;
+    margin-left : 15pt;
+    margin-right : 15pt;
+    margin-top : -7pt;
+    margin-bottom : 12pt;
+    text-align : left;
+}
+
+.NavigationHeader {
+    color: #250C58;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 18pt;
+    font-weight: bold;
+    font-style: normal;
+    text-decoration: none;
+    margin-left : 15pt;
+    margin-right : 15pt;
+    margin-top : 0pt;
+    margin-bottom : 9pt;
+    text-align : left;
+}
+
+.IndexAnchorLinks {
+    color: #000000;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    font-style: normal;
+    text-decoration: none;
+    margin-top : 3pt;
+    margin-bottom : 10pt;
+    text-align : left;
+}
+
+.TopicLinks_Feedback {
+    color: #000000;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    font-style: normal;
+    text-decoration: none;
+    text-align : left;
+}
+
+.TopicLinks_Custom {
+    color: #000000;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    font-style: normal;
+    text-decoration: none;
+    text-align : left;
+}
+
+.TopicLinks_Navigation {
+    color: #000000;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    font-style: normal;
+    text-decoration: none;
+    text-align : left;
+}
+
+.UserHeading {
+    color: #000000;
+    font-weight: bold;
+    font-style: normal;
+    text-decoration: none;
+    margin-top : 10pt;
+    margin-bottom : 5pt;
+    text-align : left;
+}
+
+.SectionHeading {
+    color: #250C58;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 14pt;
+    font-weight: bold;
+    font-style: normal;
+    text-decoration: none;
+    margin-top : 20pt;
+    margin-bottom : 20pt;
+    text-align : left;
+}
+
+.a_SectionHeading {
+    color: #250C58;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 14pt;
+    font-weight: bold;
+    font-style: normal;
+    text-decoration: none;
+}
+
+.Code_Block {
+    color: #000000;
+    margin-top : 0pt;
+    margin-bottom : 3pt;
+    padding-left : 6pt;
+    border-left-width : 1pt;
+    border-left-color : #E5E5E5;
+    border-left-style : solid;
+    padding-top : 6pt;
+    border-top-width : 1pt;
+    border-top-color : #E5E5E5;
+    border-top-style : solid;
+    padding-right : 6pt;
+    border-right-width : 1pt;
+    border-right-color : #E5E5E5;
+    border-right-style : solid;
+    padding-bottom : 6pt;
+    border-bottom-width : 1pt;
+    border-bottom-color : #E5E5E5;
+    border-bottom-style : solid;
+    border-top-left-radius: 5pt;
+    -moz-border-radius-topleft: 5pt;
+    -webkit-border-radius-top-left: 5pt;
+    border-top-right-radius: 5pt;
+    -moz-border-radius-topright: 5pt;
+    -webkit-border-radius-top-right: 5pt;
+    border-bottom-left-radius: 5pt;
+    -moz-border-radius-bottomleft: 5pt;
+    -webkit-border-radius-bottom-left: 5pt;
+    border-bottom-right-radius: 5pt;
+    -moz-border-radius-bottomright: 5pt;
+    -webkit-border-radius-bottom-right: 5pt;
+    text-align : left;
+    white-space: pre;
+}
+
+.Code {
+    color: #000000;
+    font-family: "Courier New",Courier,monospace;
+    font-style: normal;
+    text-decoration: none;
+    text-align : left;
+    white-space: pre;
+}
+
+.Text_Block {
+    color: #000000;
+    margin-top : 10pt;
+    text-align : left;
+}
+
+.Text {
+    color: #000000;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    font-style: normal;
+    text-decoration: none;
+    margin-top : 10pt;
+    margin-bottom : 10pt;
+    text-align : left;
+}
+
+.SpecialTopicText_Block {
+    color: #000000;
+    margin-top : 10pt;
+    text-align : left;
+}
+
+.SpecialTopicText {
+    color: #000000;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    font-style: normal;
+    text-decoration: none;
+    margin-top : 10pt;
+    text-align : left;
+}
+
+.TopicLinks {
+    color: #000000;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    font-style: normal;
+    text-decoration: none;
+    margin-left : 15pt;
+    margin-right : 15pt;
+    margin-top : -7pt;
+    margin-bottom : 12pt;
+    text-align : left;
+}
+
+.TopicTitle_SubTopic {
+    color: #000000;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 14pt;
+    font-weight: bold;
+    font-style: normal;
+    text-decoration: none;
+    margin-top : 10pt;
+    text-align : left;
+}
+
+.TopicTitle {
+    color: #250C58;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 18pt;
+    font-weight: bold;
+    font-style: normal;
+    text-decoration: none;
+    margin-left : 15pt;
+    margin-right : 15pt;
+    margin-top : 0pt;
+    margin-bottom : 9pt;
+    text-align : left;
+}
+
+.PageFooterGlobalLinks {
+    color: #000000;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 9pt;
+    font-style: normal;
+    text-decoration: none;
+    margin-left : 15pt;
+    margin-right : 15pt;
+    margin-top : 5pt;
+    margin-bottom : 0pt;
+    text-align : left;
+}
+
+.PageFooterText {
+    color: #000000;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 9pt;
+    font-style: normal;
+    text-decoration: none;
+    margin-left : 15pt;
+    margin-right : 15pt;
+    margin-top : 5pt;
+    margin-bottom : 0pt;
+    text-align : left;
+}
+
+.PageHeaderGlobalLinks {
+    color: #250C58;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 11pt;
+    font-weight: bold;
+    font-style: normal;
+    text-decoration: none;
+    margin-left : 3pt;
+    margin-right : 3pt;
+    margin-top : 2pt;
+    margin-bottom : 2pt;
+    text-align : center;
+    white-space: nowrap;
+}
+
+.PageHeaderText {
+    color: #8C8C8C;
+    font-family: "Segoe UI",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    font-style: normal;
+    text-decoration: none;
+    margin-left : 15pt;
+    margin-right : 3pt;
+    margin-top : 3pt;
+    margin-bottom : 0pt;
+    text-align : left;
+}
+
+/* Doc-O-Matic Extra CSS */
+
+img {
+  max-width: 100%;
+}
+
+/* Header page links */
+
+.PageHeaderGlobalLinks > span.PageLink {
+  padding: 0 4pt 0 4pt;
+  border: 1px transparent solid;
+}
+
+.PageHeaderGlobalLinks > span.PageLink:hover {
+  background-color: #bbb;
+  color: #fff;
+}
+
+.PageHeaderGlobalLinks > span.PageLink > a {
+  color: #000;
+  text-decoration: none;
+}
+
+.PageHeaderGlobalLinks > span.PageLink > a:visited {
+  color: #000;
+}
+
+.PageHeaderGlobalLinks > span.PageLink > a:hover {
+  color: #fff;
+}
+
+.PageHeaderGlobalLinks > span.PageLink:hover > a {
+  color: #fff;
+}
+
+.PageHeaderGlobalLinks > span.PageLink > a > img {
+  vertical-align: baseline;
+  margin-bottom: -1pt;
+}
+
+.PageHeaderGlobalLinks > span.PageLinkSpacer {
+  display: inline-block;
+  height: 1pt;
+  width: 4pt;
+}
+
+.PageHeaderGlobalLinks > span.PageLink + span.PageLink {
+  margin-left: 10pt;
+}
+
+.PageHeaderGlobalLinks > span.PageLink > a + a {
+  padding-left: 4pt;
+}
+
+/* Page links on the Welcome page */
+
+.WelcomePageLinks > .PageHeaderGlobalLinks > span.PageLink {
+  opacity: 0;
+}
+
+.WelcomePageLinks > .PageHeaderGlobalLinks > span.PageLink:hover {
+  background-color: transparent;
+  border: 1px #ccc solid;
+  border-radius: 2pt;
+}
+
+.WelcomePageLinks > .PageHeaderGlobalLinks > span.PageLink > a {
+  color: #000;
+  text-decoration: none;
+}
+
+.WelcomePageLinks > .PageHeaderGlobalLinks > span.PageLink > a:visited {
+  color: #000;
+}
+
+.WelcomePageLinks > .PageHeaderGlobalLinks > span.PageLink > a:hover {
+  color: #000;
+}
+
+.WelcomePageLinks > .PageHeaderGlobalLinks > span.PageLink:hover > a {
+  background-color: transparent;
+}
+
+/* Header page neighbor links */
+
+.PageHeaderNeighborLinks > span.PageLink {
+  padding: 0 2pt;
+}
+.PageHeaderNeighborLinks > span.PageLink:hover {
+  background-color: #bbb;
+  color: #fff;
+}
+
+.PageHeaderNeighborLinks > span.PageLink > a > img {
+  vertical-align: baseline;
+  margin-bottom: -1pt;
+}
+
+/* Misc */
+
+.TextScamblingDisclaimer a {
+  color: inherit;
+}
+
+div.ContentLevel > div.ContentGroup > img {
+    cursor: pointer;
+}
+
+div.ContentLevel > div.ContentFolder > img {
+    cursor: pointer;
+}
+
+.SectionHeading.expandable {
+  cursor: pointer;
+}
+
+.Popup > .SectionHeading {
+  margin-top: 5pt;
+  margin-bottom: 5pt;
+}
+
+span.PopupLink {
+  padding-right: 5pt;
+  cursor: pointer;
+  color: #777;
+  text-decoration: underline;
+}
+
+.CollapseExpandLink {
+  cursor: pointer;
+}
+
+.CollapseExpandLink > span.expandAll {
+  display: none;
+}
+
+.EmbeddedFeatureClose:hover {
+  background-color: #bbb;
+  color: #fff;
+}
+
+.SectionHeading  > img {
+  margin-right: 5pt;
+}
+
+.madewith_dom {
+  position: fixed;
+  z-index: 10000;
+  left: 0;
+  bottom: 0;
+  opacity: 0;
+  filter: alpha(opacity=0);
+}
+
+.madewith_dom > img {
+  cursor: pointer;
+}
+
+.backgroundart_dom {
+  position: fixed;
+  z-index: -1;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+}
+
+.backgroundart_dom > img {
+  position: relative;
+  right: -300px;
+  bottom: -400px;
+  max-width: none;
+  opacity: 0.1;
+  filter: grayscale(1.0);
+  filter: alpha(opacity=10) gray; /* IE 6-9 */
+}
+
+@media screen and (max-width: 600pt) {
+   .PageContentSidebar {
+      display: none;
+   }
+   .PageContentSidebarSplitter {
+      display: none;
+   }
+   .PageContentBodywithSidebar {
+       margin-left : 20pt;
+   }
+}
+
+
+/* Doc-O-Matic CSS updated automatically with v10.1.1 */
+@media screen and (max-width: 600pt) {
+   .PageContentSidebar {
+      display: none;
+   }
+   .PageContentSidebarSplitter {
+      display: none;
+   }
+   .PageContentBodywithSidebar {
+       margin-left : 20pt;
+   }
+}

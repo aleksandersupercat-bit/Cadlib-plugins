@@ -5991,6 +5991,312 @@ for obj in objects:
 - это ещё не доказывает, что тот же код будет на 100% так же работать именно внутри окна `SCRIPTED`, но направление уже выглядит реальным, а не чисто теоретическим;
 - если `SCRIPTED` увидит тот же `pythonnet`, мы сможем попробовать гибридный подход: `Python` как сценарный слой + `.NET` как библиотечный мост.
 
+### 4.13 Гибридный путь `Python -> .NET COM interop` и пределы live-bridge
+
+На `2026-06-24` подтверждён ещё один важный результат:
+
+- скрипт `Scripts/set_part_tagnumber_dotnet.py` успешно записывает `PART_TAGNUMBER` через `.NET COM interop`;
+- рабочая схема:
+  1. взять live COM-объект через `win32com`;
+  2. получить его нативный `IUnknown*`;
+  3. превратить его в `System.__ComObject` через `Marshal.GetObjectForIUnknown(...)`;
+  4. вызвать `Parameters.SetParameter(...)` уже через `.NET reflection dispatch`.
+
+Практический вывод:
+
+- это уже не чистый `pywin32`, а рабочий гибридный мост `Python + pythonnet + .NET COM interop`;
+- для live-редактирования текущего элемента в DWG этот путь подтверждён как рабочий.
+
+Отдельная проба прямого моста в `mstManagedAPI.CElement` показала ограничение:
+
+- `mstManagedAPI.CElement` имеет конструктор от `MStudioData.IElement*`;
+- прямое создание `CElement` из `System.__ComObject`, полученного от live COM-элемента, не удалось;
+- runtime сообщил, что не может преобразовать `System.__ComObject` в `MStudioData.IElement*`.
+
+Что это означает practically:
+
+- прямой путь `live COM element -> mstManagedAPI.CElement` пока не найден;
+- значит, `mstManagedAPI` нельзя считать автоматически “прямой обёрткой” над текущим выбранным COM-объектом;
+- следующий поиск нужно вести либо через `LibDatabase`, либо через другие интерфейсные типы/базы `MStudioData`, а не через наивный конструктор `CElement`.
+
+### 4.14 Локальный runtime Model Studio внутри DWG: что удалось подтвердить
+
+Важное уточнение по слою задачи:
+
+- пока элемент живёт только в `DWG`, его нужно рассматривать как локальный runtime-объект Model Studio внутри nanoCAD;
+- в этот момент не нужно опираться на `CadLib`, `LibDatabase` и синхронизацию в БД;
+- основной практический контур для таких операций сейчас — `COM / Automation` по живому открытому чертежу.
+
+Подтверждённый способ внешней диагностики без `SCRIPTED`:
+
+- внешний `Python 3.11 + pywin32` может подключаться к уже открытому nanoCAD через `GetActiveObject("nanoCADx64.Application.24.0")`;
+- далее доступны `app.ActiveDocument`, `ActiveSelectionSet`, `PickfirstSelectionSet` и live COM-объекты выбранных элементов;
+- это позволяет исследовать и даже менять объекты `Model Studio` из отдельного процесса, пока открыт нужный `DWG`.
+
+Практически подтверждённая COM-поверхность live объекта трубы `vCSSubSegment`:
+
+- у графического объекта доступны прямые свойства nanoCAD / Model Studio, например `Part_Name`, `Part_Tag`, `Part_Type`, `PartPipe_DN`, `PartPipe_Diam`, `PartPipe_Thickness`, `Bom_*`, `Explication_*`;
+- у объекта есть вложенные точки входа `Element` и `ElementAxis`;
+- у самого `Element` подтверждены:
+  - свойства `Name`, `Description`, `ElementId`, `ObjectId`, `Parameters`, `Parent`, `Root`, `SubElements`, `SubElementsAll`, `PathFromRoot`;
+  - методы `GetValue(parameter)`, `GetValueComment(parameter)`, `GetPath(divider)`, `GetParentByLevel(level)`, `GetById(id)`, `AddChild(Name)`, `SetParameters(pSrc)`, `CopyFrom(pSrc)`;
+- у `Element.Parameters` подтверждены:
+  - `Count`;
+  - `Item(indexOrName)`;
+  - `Has(indexOrName)`;
+  - `SetParameter(Name, Value, Comment, ValueComment)`;
+  - `DeleteParameter(Name)`;
+  - `DeleteAll()`.
+
+Практический вывод по параметрам трубы:
+
+- на тестовой трубе было перечислено `29` параметров `Element.Parameters`;
+- из них `19` имеют прямое соответствие в свойствах графического объекта (`entity.Part_*`, `entity.PartPipe_*`, `entity.Bom_*`);
+- ещё `10` доступны только через `Element.Parameters`.
+
+Что оказалось прямыми свойствами объекта:
+
+- `PART_NAME -> Part_Name`;
+- `PART_TAG -> Part_Tag`;
+- `PART_TYPE -> Part_Type`;
+- `PART_MATERIAL -> Part_Material`;
+- `PART_STANDARD -> Part_Standard`;
+- `PART_PIPE_DN -> PartPipe_DN`;
+- `PART_PIPE_DIAMETER -> PartPipe_Diam`;
+- `PIPE_THICKNESS -> PartPipe_Thickness` (но значение оказалось не полностью эквивалентно параметру, это нужно учитывать отдельно).
+
+Что на текущем тесте оказалось только в `Element.Parameters`:
+
+- `PART_TAGNUMBER`;
+- `PART_PIPE_PN`;
+- `PART_PIPE_CLASS`;
+- `PART_SPECIALITY`;
+- `SYS_DB_UID`;
+- `START_COMPID`;
+- служебные `BOM_*` поля вроде `BOM_GROUP_ID`, `BOM_PART_QTY`, `BOM_SORT_ID`.
+
+Отсюда рабочее правило:
+
+- если параметр уже вынесен в прямое свойство `entity.Part_*` / `entity.PartPipe_*`, для чтения и простых правок можно идти через сам графический объект;
+- если параметр не вынесен напрямую, основной безопасный путь — `entity.Element.Parameters.SetParameter(...)`;
+- `PART_TAGNUMBER` относится именно ко второй группе: он подтверждён как parameter-only и штатно пишется через `Parameters.SetParameter(...)`.
+
+### 4.15 `ElementAxis` как локальный обход модели внутри DWG
+
+Самая сильная находка по локальному обходу модели:
+
+- `entity.ElementAxis.Components` возвращает не один объект, а всю связанную трассу / ось как набор live COM-объектов;
+- на текущем тестовом участке было получено `33` компонента, из них `16` объектов типа `vCSSubSegment`, плюс `vCSNode` и `vCSInLine`;
+- это значит, что для задач “обойти все трубы связанной ветки” не нужно искать их по всему чертежу и не нужен `LISP`.
+
+Дополнительно по `ElementAxis` подтверждены:
+
+- `Components`;
+- `GetFirstComponent()`;
+- `GetLastComponent()`;
+- `GetPrevComponent(component)`;
+- `GetNextComponent(component)`;
+- `GetFromObjParamVal(paramName)`;
+- `GetToObjParamVal(paramName)`;
+- `CountItems(bTerminators, bElbows, bPipes, bInlines, bSupports)`;
+- свойства `StartTee`, `EndTee`, `StartPipe`, `EndPipe`, `HasStartPipe`, `HasEndPipe`, `Length`.
+
+Отдельно по иерархии `Element`:
+
+- `SubElements` у тестовой трубы вернул 1 дочерний элемент;
+- `SubElementsAll` вернул 4 элемента для одного `ObjectId` (`ElementId = 0, 1, 2, 3`);
+- `PathFromRoot` вернул цепочку от корня до текущего элемента;
+- это подтверждает, что внутренняя структура Model Studio внутри `DWG` уже существует как отдельная иерархия, даже без БД.
+
+### 4.16 Практический итог по COM-выделению без LISP
+
+Удалось подтвердить ещё один важный сценарий:
+
+- из `ElementAxis.Components` можно собрать список pipe-объектов `vCSSubSegment`;
+- этот список можно передать в `SelectionSet.AddItems(...)` через обычный `COM`;
+- внутри одного COM-сеанса `ActiveSelectionSet` и `PickfirstSelectionSet` действительно показывали `Count = 16` для найденных труб трассы.
+
+Но есть важная оговорка:
+
+- при внешнем запуске из отдельного Python-процесса это выделение не было надёжно подтверждено как устойчивое UI-выделение после завершения процесса;
+- то есть для операций обработки объектов лучше не завязываться на визуальное выделение как на единственный commit-механизм.
+
+Практический вывод:
+
+- для массовых операций над трубами связанной трассы лучше работать напрямую по коллекции `ElementAxis.Components`;
+- UI-выделение можно считать вспомогательным инструментом, но не основным каналом изменения модели.
+
+### 4.17 Новые служебные скрипты по локальному DWG runtime
+
+Для этого слоя были добавлены отдельные probes:
+
+- `Scripts/probe_live_ms_dispatch.py` — глубокий дамп `IDispatch`/`TypeInfo` для `entity`, `Element`, `ElementAxis`, `Parameters` и первого parameter item;
+- `Scripts/probe_pipe_parameter_surface.py` — карта соответствия между `Element.Parameters` и прямыми свойствами `entity.Part_*` / `entity.PartPipe_*`;
+- `Scripts/select_axis_pipes_com.py` — обход `ElementAxis.Components` с фильтрацией `vCSSubSegment` и попыткой переноса найденных труб в активные selection sets через `COM`.
+
+### 4.18 .NET runtime для локального DWG: nanoCAD SDK, `HostMgd` и `Multicad`
+
+Отдельно был проверен локальный nanoCAD SDK:
+
+- `C:\pdf_ingest\DTMXtest\NC_SDK_RU_26.0.7228.4926.8429`
+
+Ключевой практический вывод:
+
+- managed API nanoCAD SDK в этой поставке уже работает не на старом `.NET Framework`, а на `.NET 6`;
+- это подтверждается тем, что `hostmgd.dll` и `mapimgd.dll` требуют `System.Runtime, Version=6.0.0.0`;
+- поэтому новый probe под локальный `DWG`/`Model Studio` нужно собирать как `net6.0-windows`, а не как `.NET Framework 4.8`.
+
+Что удалось подтвердить по слоям API:
+
+- `HostMgd + Teigha` — слой для доступа к активному документу, editor, transaction, `ModelSpace`, `ObjectId`;
+- `Multicad` — более высокий слой для работы с `McObjectId`, `McDbEntity`, `McProperties`, то есть ближе к реальным объектам nanoCAD / Model Studio внутри `DWG`.
+
+Практически полезные точки входа из SDK:
+
+- `HostMgd.ApplicationServices.Application.DocumentManager.MdiActiveDocument`
+- `Document.Editor`
+- `Database.TransactionManager.StartTransaction()`
+- `Multicad.McObjectManager.SelectObject(...)`
+- `McObjectId.GetObject()`
+- `McObjectId.GetObjectOfType<McDbEntity>()`
+- `McDbEntity.GetProperties(McProperties.PropertyType.Object)`
+
+Для проверки этого слоя добавлен отдельный проект:
+
+- `NanoDwgProbe.csproj`
+- `NanoDwgProbe.cs`
+
+Сборка проекта:
+
+- `dotnet restore NanoDwgProbe.csproj`
+- `dotnet build NanoDwgProbe.csproj -c Debug -p:Platform=x64`
+- `dotnet build NanoDwgProbe.csproj -c Release -p:Platform=x64`
+
+Результат сборки:
+
+- `bin\NanoDwgProbe\Debug\NanoDwgProbe.dll`
+- `bin\NanoDwgProbe\Release\NanoDwgProbe.dll`
+
+Команды, которые сейчас реализованы в этой DLL:
+
+- `DTMX_MS_DWGINFO` — пишет в командную строку и лог базовую информацию о текущем документе и количестве сущностей в `ModelSpace`;
+- `DTMX_MS_DUMPSEL` — просит выбрать объект через `Multicad`, затем пытается выгрузить тип `McObject`, тип `McDbEntity` и весь набор object-properties;
+- `DTMX_MS_SETTAGNUMBER` — просит выбрать объект, затем пытается записать значение в `PART_TAGNUMBER` через `McProperties` / `PropertyDescriptor`.
+
+Куда пишет лог:
+
+- `C:\pdf_ingest\DTMXtest\LOG\NanoDwgProbe_*.txt`
+
+Отдельный важный вывод по исследованию:
+
+- на первом проходе не нужно искать мост `Teigha.ObjectId -> McObjectId`, потому что для прикладного исследования объектов Model Studio проще и надёжнее сразу работать через `McObjectManager.SelectObject(...)`;
+- мост между low-level `HostMgd` и high-level `Multicad` может понадобиться позже, но он не обязателен для первого рабочего runtime-probe.
+
+Текущее направление исследования:
+
+- сначала проверить, какие свойства реально видны через `McDbEntity.GetProperties(McProperties.PropertyType.Object)` у выбранной трубы `Model Studio`;
+- затем сравнить, попадают ли туда `PART_TYPE`, `PART_TAG`, `PART_TAGNUMBER`;
+- если запись `PART_TAGNUMBER` сработает через `.NET`, это будет первый подтверждённый путь изменения свойств объекта `Model Studio` внутри `DWG` без `COM`.
+
+Практический результат первой живой проверки команды `DTMX_MS_DUMPSEL`:
+
+- команда `DTMX_MS_DWGINFO` успешно получила активный `DWG`, путь к базе и количество сущностей в `ModelSpace`;
+- команда `DTMX_MS_DUMPSEL` успешно выбрала объект `Model Studio` через `Multicad`;
+- выбранная труба была прочитана как:
+  - `McObject type = Multicad.DatabaseServices.McEntity`
+  - `McDbEntity type = Multicad.DatabaseServices.McDbEntity`
+- через `McDbEntity.GetProperties(McProperties.PropertyType.Object)` было получено `45` свойств.
+
+Ключевой вывод по свойствам:
+
+- в `.NET` property surface не нашлись прямые имена `PART_TYPE`, `PART_TAG`, `PART_TAGNUMBER`;
+- вместо этого видны человеко-читаемые свойства на русском языке, например:
+  - `Дополнительные параметры.Тип изделий`
+  - `Параметры изделия.Наименование изделия`
+  - `Параметры изделия.Обозначение / Модель`
+- это означает, что для `.NET`-слоя `Model Studio` внутри `DWG` свойства могут быть доступны не по внутренним `PART_*` alias, а по локализованным display/property names.
+
+Из этого следует следующая рабочая стратегия:
+
+- искать и писать свойства не только по `PART_*`, но и по русским именам, которые реально возвращает `McProperties`;
+- первым кандидатом на запись сейчас является:
+  - `Параметры изделия.Обозначение / Модель`
+- именно это поле раньше уже проявлялось как связанное с `PART_TAG` / `PART_TAGNUMBER` в предыдущих COM-пробах.
+
+Отдельное замечание по использованию команды `DTMX_MS_SETTAGNUMBER`:
+
+- сначала команда ждёт именно выбор объекта;
+- только после выбора объекта появляется запрос на ввод нового значения;
+- если в этот момент вводить текст до выбора объекта, nanoCAD воспринимает это как неверное выражение/ввод в фазе выбора.
+
+После этого probe был доработан:
+
+- команда `DTMX_MS_SETTAGNUMBER` теперь пытается искать несколько вариантов имён свойства:
+  - `PART_TAGNUMBER`
+  - `PART_TAG`
+  - `Параметры изделия.Обозначение / Модель`
+  - `Обозначение / Модель`
+- добавлена отдельная команда:
+  - `DTMX_MS_SETMODEL`
+- она пишет значение напрямую в:
+  - `Параметры изделия.Обозначение / Модель`
+
+Практический результат первой записи через `DTMX_MS_SETMODEL`:
+
+- свойство `Параметры изделия.Обозначение / Модель` находится корректно;
+- `PropertyDescriptor` сообщает `ReadOnly=False`;
+- вызов `SetValue(...)` проходит без исключения;
+- но значение `Before` и `After` остаётся одинаковым.
+
+Текущий вывод:
+
+- в этом месте `.NET` уже точно видит property surface объекта `Model Studio`;
+- но обычного `PropertyDescriptor.SetValue(...)` пока недостаточно для фактической записи в подложку модели;
+- это очень похоже на `no-op setter`, UI-wrapper setter или необходимость писать через другой owner / другой API-слой.
+
+Практическое замечание по разработке DLL:
+
+- после `NETLOAD` nanoCAD удерживает загруженную DLL открытой;
+- поэтому повторная сборка в тот же `bin` может упираться в блокировку файла;
+- удобный рабочий приём: собирать новую версию во второй output path, например:
+  - `bin\NanoDwgProbe\Debug2\NanoDwgProbe.dll`
+
+Практический результат успешной записи `PART_TAGNUMBER` уже через `COM`:
+
+- для выбранной трубы `Model Studio` прямой `.NET`-setter пока не дал фактической записи;
+- при этом через живой `COM`-объект выбранного элемента удалось получить реальный список параметров `element.Parameters`;
+- у выбранной трубы подтверждено:
+  - `ObjectName = vCSSubSegment`
+  - параметр `PART_TAGNUMBER` существует в коллекции параметров элемента;
+  - его человеко-читаемое имя / comment:
+    - `Идентификатор`
+- рабочий канал записи оказался таким:
+  - `entity.Element.Parameters.SetParameter("PART_TAGNUMBER", value, param_comment, valueComment)`
+  - затем `entity.Update()`
+  - затем `doc.Regen(1)`
+- проверка после записи показала:
+  - `element.GetValue("PART_TAGNUMBER")` возвращает новое значение;
+  - повторная выгрузка `element.Parameters` тоже показывает новое значение.
+
+Из этого следует важный вывод по слоям API:
+
+- `.NET`-слой nanoCAD / Multicad уже полезен для исследования `DWG`, выбора объекта и просмотра object-properties;
+- но для изменения именно параметров элемента `Model Studio` внутри `DWG` на текущем этапе подтверждённо работает именно `COM`-канал `Element.Parameters.SetParameter(...)`;
+- внутреннее имя `PART_TAGNUMBER` и отображаемое имя `Идентификатор` — это один и тот же параметр, просто в разных представлениях.
+
+Рабочий скрипт для этой операции:
+
+- `Scripts\set_selected_ms_identifier.py`
+
+Что делает этот скрипт:
+
+- берёт уже выбранные объекты из `ActiveSelectionSet` / `PickfirstSelectionSet`;
+- оставляет только `vCSSubSegment`;
+- ищет у элемента параметр `PART_TAGNUMBER`;
+- записывает новое значение;
+- пишет лог в:
+  - `C:\Users\atsarkov\Desktop\set_selected_ms_identifier_log.txt`
+
 ## 5. Фича 1. Как добавить вкладку `DTMXtest`, группу и кнопку
 
 Ниже — рабочая схема, которая была проверена на модуле `NANOWATER`.
