@@ -2,7 +2,12 @@
 // v9: С‡РёСЃС‚С‹Р№ C++ Р±РµР· COM вЂ” MAPI (gpMcNativeGate в†’ IMcParametricEnt::setParams)
 
 #include "stdafx.h"
+#include <psapi.h>
+#include "IContext.h"
+#include "McsUtils.h"
+#include "applicationDB.h"
 #pragma comment(lib, "Gdi32.lib")
+#pragma comment(lib, "Psapi.lib")
 #pragma comment(lib, "User32.lib")
 
 // в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
@@ -38,7 +43,13 @@ static void Log(const wchar_t* msg)
     }
 }
 static void Log(const std::wstring& s) { Log(s.c_str()); }
+static void Echo(const std::wstring& s)
+{
+    Log(s);
+    ::acutPrintf(L"\n%ls", s.c_str());
+}
 static std::wstring Hex(HRESULT hr) { wchar_t b[16]; ::swprintf_s(b,L"0x%08X",(unsigned)hr); return b; }
+static std::wstring Dec(DWORD value) { wchar_t b[32]; ::swprintf_s(b, L"%lu", (unsigned long)value); return b; }
 static std::wstring Ptr(const void* p) {
     wchar_t b[32]; ::swprintf_s(b, L"0x%016llX", (unsigned long long)(uintptr_t)p); return b;
 }
@@ -124,16 +135,100 @@ struct UnitsCsApi
     PFN_setParameter4 setParameter4 = nullptr;
 };
 
+static HMODULE FindLoadedModuleLike(const wchar_t* token)
+{
+    HMODULE modules[1024] = {};
+    DWORD needed = 0;
+    if (!::EnumProcessModules(::GetCurrentProcess(), modules, sizeof(modules), &needed))
+        return nullptr;
+
+    const DWORD count = needed / sizeof(HMODULE);
+    for (DWORD i = 0; i < count; ++i) {
+        wchar_t path[MAX_PATH] = {};
+        if (!::GetModuleFileNameExW(::GetCurrentProcess(), modules[i], path, MAX_PATH))
+            continue;
+        if (_wcsicmp(path, token) == 0) return modules[i];
+        const wchar_t* fileName = wcsrchr(path, L'\\');
+        fileName = fileName ? fileName + 1 : path;
+        if (_wcsicmp(fileName, token) == 0) return modules[i];
+        if (wcsstr(path, token) != nullptr) return modules[i];
+    }
+    return nullptr;
+}
+
 static bool LoadUnitsCsApi(UnitsCsApi& api)
 {
     api = UnitsCsApi{};
+    const wchar_t* unitsPath =
+        L"C:\\Program Files\\CSoft\\Model Studio CS\\NANOWATER\\bin\\nanoCAD241\\UnitsCS.nrx";
 
     api.module = ::GetModuleHandleW(L"UnitsCS.nrx");
+    if (!api.module) api.module = FindLoadedModuleLike(L"UnitsCS.nrx");
+    if (!api.module) api.module = FindLoadedModuleLike(L"UnitsCS");
+    Echo(L"[UnitsCS] preloaded handle=" + Ptr(api.module));
     if (!api.module) {
-        api.module = ::LoadLibraryW(
-            L"C:\\Program Files\\CSoft\\Model Studio CS\\NANOWATER\\bin\\nanoCAD241\\UnitsCS.nrx");
+        IMcContext* pContext = MCS_GetContextDyn();
+        Echo(L"[UnitsCS] MCS_GetContextDyn()=" + Ptr(pContext));
+        if (pContext) {
+            HRESULT hrLoad = pContext->LoadModule(unitsPath);
+            Echo(L"[UnitsCS] IMcContext::LoadModule(path) hr=" + Hex(hrLoad));
+            if (!api.module) {
+                hrLoad = pContext->LoadModule(L"UnitsCS.nrx");
+                Echo(L"[UnitsCS] IMcContext::LoadModule(short) hr=" + Hex(hrLoad));
+            }
+        }
+        api.module = ::GetModuleHandleW(L"UnitsCS.nrx");
+        if (!api.module) api.module = FindLoadedModuleLike(L"UnitsCS.nrx");
+        if (!api.module) api.module = FindLoadedModuleLike(L"UnitsCS");
+        Echo(L"[UnitsCS] after IMcContext handle=" + Ptr(api.module));
     }
-    if (!api.module) return false;
+    if (!api.module) {
+        mcsModuleInfo mi = {};
+        mi.csModuleName = unitsPath;
+        mi.iForceUnload = 0;
+        mi.fDisableAlienInstanceCheck = true;
+        mcsModuleInfoArray arr;
+        arr.Add(mi);
+        DWORD_PTR ldrHandle = 0;
+        HRESULT hrMods = mcsLoadModules(ldrHandle, arr, nullptr, nullptr, true);
+        Echo(L"[UnitsCS] mcsLoadModules(path) hr=" + Hex(hrMods) + L" handle=" + Ptr((void*)ldrHandle));
+        if (arr.GetSize() > 0) {
+            Echo(L"[UnitsCS] mcsLoadModules result hModule=" + Ptr(arr[0].hModule) +
+                L" dwSize=" + Dec(arr[0].dwSize));
+        }
+        api.module = ::GetModuleHandleW(L"UnitsCS.nrx");
+        if (!api.module) api.module = FindLoadedModuleLike(L"UnitsCS.nrx");
+        if (!api.module) api.module = FindLoadedModuleLike(L"UnitsCS");
+        Echo(L"[UnitsCS] after mcsLoadModules handle=" + Ptr(api.module));
+    }
+    if (!api.module) {
+        NcRxDynamicLinker* pLdr = GetDynamicLinker();
+        Echo(L"[UnitsCS] GetDynamicLinker()=" + Ptr(pLdr));
+        if (pLdr) {
+            bool ok = pLdr->loadModule(unitsPath, true, false);
+            Echo(L"[UnitsCS] NcRxDynamicLinker::loadModule(path)=" + std::to_wstring(ok ? 1 : 0));
+            if (!ok) {
+                ok = pLdr->loadModule(L"UnitsCS.nrx", true, false);
+                Echo(L"[UnitsCS] NcRxDynamicLinker::loadModule(short)=" + std::to_wstring(ok ? 1 : 0));
+            }
+        }
+        api.module = ::GetModuleHandleW(L"UnitsCS.nrx");
+        if (!api.module) api.module = FindLoadedModuleLike(L"UnitsCS.nrx");
+        if (!api.module) api.module = FindLoadedModuleLike(L"UnitsCS");
+        Echo(L"[UnitsCS] after dynamic linker handle=" + Ptr(api.module));
+    }
+    if (!api.module) {
+        ::SetLastError(0);
+        api.module = ::LoadLibraryExW(unitsPath, nullptr, LOAD_WITH_ALTERED_SEARCH_PATH);
+        DWORD gle = ::GetLastError();
+        Echo(L"[UnitsCS] LoadLibraryExW(path)=" + Ptr(api.module) + L" gle=" + Dec(gle));
+    }
+    if (!api.module) {
+        Echo(L"[UnitsCS] module not found/loaded");
+        return false;
+    }
+
+    Echo(L"[UnitsCS] module handle=" + Ptr(api.module));
 
     api.getParametricInterface =
         (PFN_getParametricInterface)::GetProcAddress(
@@ -150,7 +245,12 @@ static bool LoadUnitsCsApi(UnitsCsApi& api)
     api.setParameter4 =
         (PFN_setParameter4)::GetProcAddress(
             api.module,
-            "?setParameter@linCSParametricSolidBase@@QEAAXPEB_W000@Z");
+            "?SetParameter@linCSParametricSolidBase@@QEAAXPEB_W000@Z");
+
+    Echo(L"[UnitsCS] getParametricInterface=" + Ptr((void*)api.getParametricInterface));
+    Echo(L"[UnitsCS] getRootElementP=" + Ptr((void*)api.getRootElementP));
+    Echo(L"[UnitsCS] setRootElementP=" + Ptr((void*)api.setRootElementP));
+    Echo(L"[UnitsCS] setParameter4=" + Ptr((void*)api.setParameter4));
 
     return api.getParametricInterface &&
            api.getRootElementP &&
@@ -161,10 +261,44 @@ static bool LoadUnitsCsApi(UnitsCsApi& api)
 static bool GetSingleSelectedObject(AcDbObjectId& oid)
 {
     oid.setNull();
+    ads_name ss = {};
+    bool gotSS = (::acedSSGet(L":I", nullptr, nullptr, nullptr, ss) == RTNORM);
+    if (!gotSS) {
+        gotSS = (::acedSSGet(L"I", nullptr, nullptr, nullptr, ss) == RTNORM);
+    }
+    if (!gotSS) {
+        gotSS = (::acedSSGet(L"P", nullptr, nullptr, nullptr, ss) == RTNORM);
+        if (gotSS) Echo(L"[SELECT] Using previous selection set.");
+    }
+    if (!gotSS) {
+        Echo(L"[SELECT] No implied selection found; falling back to ssget prompt.");
+        gotSS = (::acedSSGet(nullptr, nullptr, nullptr, nullptr, ss) == RTNORM);
+    }
+    if (!gotSS) {
+        Echo(L"[SELECT] No selection acquired.");
+        ::acutPrintf(L"\nNo selection acquired.\n");
+        return false;
+    }
+
+    long len = 0;
+    if (NCAD_SSLength(ss, &len) != RTNORM || len <= 0) {
+        Echo(L"[SELECT] PICKFIRST exists but selection length is zero.");
+        return false;
+    }
+
+    if (len > 1) {
+        Echo(L"[SELECT] More than one object selected; command will use the first one.");
+    }
+
     ads_name en = {};
-    int rc = ::acedEntSel(L"\nSelect Model Studio object: ", en, nullptr);
-    if (rc != RTNORM) return false;
-    return (::acdbGetObjectId(oid, en) == Acad::eOk);
+    if (NCAD_SSName(ss, 0, en) != RTNORM) {
+        Echo(L"[SELECT] Failed to read first entity from PICKFIRST.");
+        return false;
+    }
+
+    Acad::ErrorStatus es = ::acdbGetObjectId(oid, en);
+    Echo(L"[SELECT] acdbGetObjectId status=" + std::to_wstring((int)es));
+    return (es == Acad::eOk);
 }
 
 // в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
@@ -836,26 +970,128 @@ static void dtmxNrx12UnitsSetCmd()
 
     CElement* pRootBefore = api.getRootElementP((void*)pIface);
     Log(L"root before=" + Ptr(pRootBefore));
+    Echo(L"[SAFE] Native SetParameter is temporarily disabled to avoid nanoCAD crash.");
+    Echo(L"[SAFE] Resolved interface and root successfully; write path needs a safer commit strategy.");
 
-    api.setParameter4((void*)pIface, L"PART_TAGNUMBER", L"", value.c_str(), L"");
-    Log(L"setParameter4(PART_TAGNUMBER) called");
+    pObj->close();
 
+    Log(L"=== DTMXNRX12USET done ===");
+    ::acutPrintf(L"\nDTMXNRX12USET: safe mode, no write executed. Log = %ls\n", LOG_PATH);
+}
+
+static void dtmxNrx12bUnitsProbeCmd()
+{
+    dtmxNrx12UnitsProbeCmd();
+}
+
+static void dtmxNrx12bUnitsSetCmd()
+{
+    dtmxNrx12UnitsSetCmd();
+}
+
+static void dtmxNrx12dUnitsProbeCmd()
+{
+    Echo(L"=== DTMXNRX12DUPROBE wrapper ===");
+    dtmxNrx12UnitsProbeCmd();
+}
+
+static void dtmxNrx12dUnitsSetCmd()
+{
+    Echo(L"=== DTMXNRX12DUSET wrapper ===");
+    dtmxNrx12UnitsSetCmd();
+}
+
+static void dtmxNrx12xSetParamOnlyCmd()
+{
+    LogClear();
+    Log(L"=== DTMXNRX12XSETP1 start ===");
+
+    UnitsCsApi api;
+    if (!LoadUnitsCsApi(api)) {
+        Log(L"LoadUnitsCsApi failed");
+        ::acutPrintf(L"\nDTMXNRX12XSETP1: UnitsCS API not available\n");
+        return;
+    }
+
+    AcDbObjectId oid;
+    if (!GetSingleSelectedObject(oid)) {
+        Log(L"no object selected");
+        return;
+    }
+
+    AcDbObject* pObj = nullptr;
+    Acad::ErrorStatus es = ::acdbOpenAcDbObject(pObj, oid, AcDb::kForWrite);
+    Log(L"open status=" + std::to_wstring((int)es) + L" obj=" + Ptr(pObj));
+    if (es != Acad::eOk || !pObj) {
+        ::acutPrintf(L"\nDTMXNRX12XSETP1: open failed\n");
+        return;
+    }
+
+    auto* pIface = api.getParametricInterface((void*)pObj);
+    Log(L"iface=" + Ptr(pIface));
+    if (!pIface) {
+        pObj->close();
+        ::acutPrintf(L"\nDTMXNRX12XSETP1: no parametric interface\n");
+        return;
+    }
+
+    CElement* pRootBefore = api.getRootElementP((void*)pIface);
+    Log(L"root before=" + Ptr(pRootBefore));
+    Log(L"calling SetParameter(PART_TAGNUMBER, '', 'DTMX', '')");
+    api.setParameter4((void*)pIface, L"PART_TAGNUMBER", L"", L"DTMX", L"");
+    Log(L"SetParameter returned");
     CElement* pRootAfter = api.getRootElementP((void*)pIface);
     Log(L"root after=" + Ptr(pRootAfter));
 
-    if (pRootAfter) {
-        api.setRootElementP((void*)pIface, pRootAfter);
-        Log(L"setRootElementP(root after) called");
-    } else if (pRootBefore) {
-        api.setRootElementP((void*)pIface, pRootBefore);
-        Log(L"setRootElementP(root before) called");
-    }
-
     pObj->close();
-    ::acedCommandS(RTSTR, L"_.REGEN", RTNONE);
+    Log(L"=== DTMXNRX12XSETP1 done ===");
+    ::acutPrintf(L"\nDTMXNRX12XSETP1: done, log = %ls\n", LOG_PATH);
+}
 
-    Log(L"=== DTMXNRX12USET done ===");
-    ::acutPrintf(L"\nDTMXNRX12USET: done, check log = %ls\n", LOG_PATH);
+static void dtmxNrx12xSetParamArg2Cmd()
+{
+    LogClear();
+    Log(L"=== DTMXNRX12XSETP2 start ===");
+    UnitsCsApi api;
+    if (!LoadUnitsCsApi(api)) return;
+    AcDbObjectId oid;
+    if (!GetSingleSelectedObject(oid)) return;
+    AcDbObject* pObj = nullptr;
+    Acad::ErrorStatus es = ::acdbOpenAcDbObject(pObj, oid, AcDb::kForWrite);
+    Log(L"open status=" + std::to_wstring((int)es) + L" obj=" + Ptr(pObj));
+    if (es != Acad::eOk || !pObj) return;
+    auto* pIface = api.getParametricInterface((void*)pObj);
+    Log(L"iface=" + Ptr(pIface));
+    if (pIface) {
+        Log(L"calling SetParameter(PART_TAGNUMBER, 'DTMX_A2', '', '')");
+        api.setParameter4((void*)pIface, L"PART_TAGNUMBER", L"DTMX_A2", L"", L"");
+        Log(L"SetParameter returned");
+    }
+    pObj->close();
+    Log(L"=== DTMXNRX12XSETP2 done ===");
+}
+
+static void dtmxNrx12xSetParamArg4Cmd()
+{
+    LogClear();
+    Log(L"=== DTMXNRX12XSETP4 start ===");
+    UnitsCsApi api;
+    if (!LoadUnitsCsApi(api)) return;
+    AcDbObjectId oid;
+    if (!GetSingleSelectedObject(oid)) return;
+    AcDbObject* pObj = nullptr;
+    Acad::ErrorStatus es = ::acdbOpenAcDbObject(pObj, oid, AcDb::kForWrite);
+    Log(L"open status=" + std::to_wstring((int)es) + L" obj=" + Ptr(pObj));
+    if (es != Acad::eOk || !pObj) return;
+    auto* pIface = api.getParametricInterface((void*)pObj);
+    Log(L"iface=" + Ptr(pIface));
+    if (pIface) {
+        Log(L"calling SetParameter(PART_TAGNUMBER, '', '', 'DTMX_A4')");
+        api.setParameter4((void*)pIface, L"PART_TAGNUMBER", L"", L"", L"DTMX_A4");
+        Log(L"SetParameter returned");
+    }
+    pObj->close();
+    Log(L"=== DTMXNRX12XSETP4 done ===");
 }
 
 // в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
@@ -905,11 +1141,28 @@ acrxEntryPoint(AcRx::AppMsgCode msg, void* appId)
                                   ACRX_CMD_MODAL, dtmxNrx12UnitsProbeCmd);
         ::acedRegCmds->addCommand(L"DTMXNRX12U_GROUP", L"DTMXNRX12USET", L"DTMXNRX12USET",
                                   ACRX_CMD_MODAL, dtmxNrx12UnitsSetCmd);
-        ::acutPrintf(L"\\nDTMXNRX loaded. Commands: DTMXNRX11PPING, DTMXNRX11PPROBE, DTMXNRX11PSET, DTMXNRX12UPROBE, DTMXNRX12USET\\n");
+        ::acedRegCmds->addCommand(L"DTMXNRX12B_GROUP", L"DTMXNRX12BUPROBE", L"DTMXNRX12BUPROBE",
+                                  ACRX_CMD_MODAL, dtmxNrx12bUnitsProbeCmd);
+        ::acedRegCmds->addCommand(L"DTMXNRX12B_GROUP", L"DTMXNRX12BUSET", L"DTMXNRX12BUSET",
+                                  ACRX_CMD_MODAL, dtmxNrx12bUnitsSetCmd);
+        ::acedRegCmds->addCommand(L"DTMXNRX12D_GROUP", L"DTMXNRX12DUPROBE", L"DTMXNRX12DUPROBE",
+                                  ACRX_CMD_MODAL, dtmxNrx12dUnitsProbeCmd);
+        ::acedRegCmds->addCommand(L"DTMXNRX12D_GROUP", L"DTMXNRX12DUSET", L"DTMXNRX12DUSET",
+                                  ACRX_CMD_MODAL, dtmxNrx12dUnitsSetCmd);
+        ::acedRegCmds->addCommand(L"DTMXNRX12X_GROUP", L"DTMXNRX12XSETP1", L"DTMXNRX12XSETP1",
+                                  ACRX_CMD_MODAL, dtmxNrx12xSetParamOnlyCmd);
+        ::acedRegCmds->addCommand(L"DTMXNRX12X_GROUP", L"DTMXNRX12XSETP2", L"DTMXNRX12XSETP2",
+                                  ACRX_CMD_MODAL, dtmxNrx12xSetParamArg2Cmd);
+        ::acedRegCmds->addCommand(L"DTMXNRX12X_GROUP", L"DTMXNRX12XSETP4", L"DTMXNRX12XSETP4",
+                                  ACRX_CMD_MODAL, dtmxNrx12xSetParamArg4Cmd);
+        ::acutPrintf(L"\\nDTMXNRX loaded. Commands: DTMXNRX11PPING, DTMXNRX11PPROBE, DTMXNRX11PSET, DTMXNRX12UPROBE, DTMXNRX12USET, DTMXNRX12BUPROBE, DTMXNRX12BUSET, DTMXNRX12DUPROBE, DTMXNRX12DUSET, DTMXNRX12XSETP1, DTMXNRX12XSETP2, DTMXNRX12XSETP4\\n");
         break;
     case AcRx::kUnloadAppMsg:
         ::acedRegCmds->removeGroup(L"DTMXNRX11P_GROUP");
         ::acedRegCmds->removeGroup(L"DTMXNRX12U_GROUP");
+        ::acedRegCmds->removeGroup(L"DTMXNRX12B_GROUP");
+        ::acedRegCmds->removeGroup(L"DTMXNRX12D_GROUP");
+        ::acedRegCmds->removeGroup(L"DTMXNRX12X_GROUP");
         break;
     }
     return AcRx::kRetOK;
