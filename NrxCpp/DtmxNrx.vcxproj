@@ -24,7 +24,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release NCAD|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v145</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>false</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -42,7 +42,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release NCAD|x64'">
     <OutDir>c:\pdf_ingest\DTMXtest\Scripts\</OutDir>
     <IntDir>$(SolutionDir)obj\DtmxNrx\</IntDir>
-    <TargetName>DtmxNrx</TargetName>
+    <TargetName>DtmxNrx12</TargetName>
   </PropertyGroup>
 
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release NCAD|x64'">
@@ -55,19 +55,16 @@
         DTMXNRX_MODULE;_WIN64;WIN64;WIN32;NDEBUG;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)
       </PreprocessorDefinitions>
       <TreatWarningAsError>false</TreatWarningAsError>
+      <!-- /utf-8: исходник UTF-8, строковые литералы UTF-8/UTF-16 корректны -->
+      <!-- /wd4828: подавить C4828 "invalid UTF-8" в SDK заголовках (Windows-1251) -->
+      <AdditionalOptions>/utf-8 /wd4828 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <TargetMachine>MachineX64</TargetMachine>
-      <!-- Используем import-lib созданные из реальных DLL nanoCAD 24.1 вместо SDK 26.0 lib.
-           Причина: SDK 26.0 сменил long->int для acedSSLength/acedSSName, но nanoCAD 24.1
-           ещё использует long — mangled names расходятся, LoadLibrary → ERROR_PROC_NOT_FOUND.
-           IgnoreSpecificDefaultLibraries запрещает линкеру использовать SDK-версии lib
-           даже если они попали в AdditionalDependencies через rxsdk_common.props. -->
-      <AdditionalLibraryDirectories>c:\pdf_ingest\DTMXtest\NrxCpp\lib24;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>NrxDbGate_24.lib;NrxHostGate_24.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <IgnoreSpecificDefaultLibraries>nrxhostgate.lib;nrxdbgate.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <OutputFile>$(OutDir)$(TargetName).nrx</OutputFile>
+      <AdditionalDependencies>McTyp.lib;MechCtl.lib;MT.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
 

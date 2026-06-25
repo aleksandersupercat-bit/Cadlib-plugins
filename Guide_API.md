@@ -1,6 +1,6 @@
 ﻿# CADLib / Model Studio / nanoCAD API — единый дедуплицированный справочник
 
-Версия: `1.0-unified-deduplicated`, дата сборки: `2026-05-18`.
+Версия: `1.1-mapi-research`, дата сборки: `2026-06-25`.
 
 ## Назначение
 
@@ -6768,4 +6768,833 @@ for obj in objects:
 - все реальные успехи записи пока идут либо через:
   - `IDispatch/COM`,
   - либо через typed `.NET COM interop`.
+
+---
+
+## 11. NRX C++ vtable — подтверждённый нативный путь (2026-06-24)
+
+### 11.1 Обзор подхода
+
+NRX (nanoCAD Runtime Extension) — это C++ DLL, аналог ObjectARX в AutoCAD. Загружается командой `APPLOAD` в nanoCAD, работает in-process в том же адресном пространстве. Файл имеет расширение `.nrx`.
+
+В отличие от COM IDispatch, vtable-вызовы работают напрямую через C++ virtual dispatch — без `Invoke`, без `GetIDsOfNames`, без boxing VARIANT. Это самый быстрый и прямой способ работы с `IElement`/`IParameters`.
+
+### 11.2 Три подтверждённых способа записи параметров
+
+| Способ | Механизм | Статус |
+|---|---|---|
+| Python/COM через `entity.Element.Parameters.SetParameter(...)` | IDispatch, late-bound | ✅ работает |
+| C# + `UnitsCSCom.Interop.dll` (TlbImp) | Typed .NET COM interop | ✅ работает |
+| **NRX C++ vtable** | Прямой C++ virtual call | ✅ **подтверждено** |
+
+### 11.3 Объявление интерфейсов (вручную из TypeLib)
+
+TypeLib находится в `UnitsCSCom.nrx`:
+
+```
+C:\Program Files\CSoft\Model Studio CS\NANOWATER\bin\nanoCAD241\UnitsCSCom.nrx
+```
+
+Объявления без `#import` (избегает зависимости от OdaX/IAcadEntity):
+
+```cpp
+struct __declspec(uuid("8A6EB6C1-813B-4B17-941C-2B05D5D1C499"))
+IParameters : IDispatch
+{
+    virtual HRESULT __stdcall get__NewEnum(IUnknown** ppEnumVariant)        = 0;
+    virtual HRESULT __stdcall Item(VARIANT Index, IUnknown** pVal)           = 0;
+    virtual HRESULT __stdcall get_Count(long* pVal)                          = 0;
+    virtual HRESULT __stdcall SetParameter(BSTR Name, BSTR Value,
+                                           VARIANT Comment,
+                                           VARIANT ValueComment)             = 0;
+    virtual HRESULT __stdcall DeleteParameter(BSTR Name)                     = 0;
+    virtual HRESULT __stdcall DeleteAll()                                    = 0;
+    virtual HRESULT __stdcall Has(VARIANT Index, VARIANT_BOOL* pResult)      = 0;
+};
+
+struct __declspec(uuid("32D3F761-7B49-4D57-AC6C-0D0879AC9A75"))
+IElement : IDispatch
+{
+    virtual HRESULT __stdcall get_Name(BSTR* pVal)                           = 0;
+    virtual HRESULT __stdcall put_Name(BSTR pVal)                            = 0;
+    virtual HRESULT __stdcall get_Parameters(IParameters** pVal)             = 0;
+    // ... (GetValue, GetParentByLevel, AddChild, SetParameters — см. DtmxNrx.cpp)
+    virtual HRESULT __stdcall GetValue(BSTR parameter, BSTR* pResult)        = 0;
+};
+```
+
+### 11.4 Ключевые IID
+
+```
+IID IElement    = {32D3F761-7B49-4D57-AC6C-0D0879AC9A75}
+IID IParameters = {8A6EB6C1-813B-4B17-941C-2B05D5D1C499}
+```
+
+### 11.5 Полный нативный путь (чистый C++, без COM)
+
+COM не нужен: все MAPI DLL уже загружены в процессе nanoCAD когда активен Model Studio CS.  
+Доступ только через `gpMcNativeGate` из `McTyp.dll` + NRX-функции для выбора объектов.
+
+```
+acedSSGet()                              NRX — выбор объектов
+  → ads_name → AcDbObjectId             NRX — oid объекта
+
+  → GetModuleHandleA("McTyp.dll")        MAPI — получить DLL
+  → GetProcAddress(..., "gpMcNativeGate") → IMcNativeGate*
+
+  → getMcsIdByNative(mcid, *(int64_t*)&oid)  → mcsWorkID
+  → QueryObject(mcid)                        → IMcObjectPtr
+
+  → pObj->isKindOf(IMcParametricEnt::...)    → IMcParametricEnt*
+
+  → getParams(arr)                      читаем все параметры
+  → arr: найти / добавить exValue       изменяем нужный
+  → setParams(arr)                      записываем обратно
+```
+
+**Создание / изменение параметра:**
+
+```cpp
+// Добавить или перезаписать PART_TAGNUMBER:
+mcsExValueArray params;
+pParamEnt->getParams(params);         // получить текущие
+
+exValue ev;
+ev.strParName = _T("PART_TAGNUMBER");
+ev.setValue(_T("новое_значение"));    // → MCSSTR
+ev.lFlag = MCPAR_PUBLIC;
+params.AddDistinctByName(ev, true);   // true = перезаписать если есть
+
+pParamEnt->setParams(params);
+```
+
+**Динамическое получение IMcNativeGate (без линковки McTyp.lib):**
+
+```cpp
+static IMcNativeGate* GetNativeGate() {
+    HMODULE h = GetModuleHandleA("McTyp.dll");
+    if (!h) return nullptr;
+    auto** pp = (IMcNativeGate**)GetProcAddress(h, "gpMcNativeGate");
+    return pp ? *pp : nullptr;
+}
+```
+
+> **Устаревший COM-путь** (оставлен для справки, больше не используется):
+> `GetActiveObject("nanoCADx64.Application.24.0") → ActiveDocument → HandleToObject → .Element → QI IElement`
+
+### 11.6 vtMissing для опциональных VARIANT-параметров
+
+`SetParameter(BSTR Name, BSTR Value, VARIANT Comment, VARIANT ValueComment)` —  
+последние два параметра опциональные. Передача `VT_EMPTY` возвращает `DISP_E_TYPEMISMATCH (0x80020005)`.
+
+Правильный способ — `VT_ERROR | DISP_E_PARAMNOTFOUND` (эквивалент `vtMissing` в VBA):
+
+```cpp
+static VARIANT MissingVar()
+{
+    VARIANT v; VariantInit(&v);
+    V_VT(&v)    = VT_ERROR;
+    V_ERROR(&v) = DISP_E_PARAMNOTFOUND;
+    return v;
+}
+```
+
+### 11.7 ABI mismatch: SDK 26.0 vs nanoCAD 24.1
+
+SDK 26.0 изменил тип параметров `acedSSLength`/`acedSSName` с `long` на `int`. Это меняет mangled name:
+
+- SDK 26.0 импортирует: `?ncedSSLength@@YAHQEB_JPEAH@Z` (`PEAH` = `int*`)
+- nanoCAD 24.1 экспортирует: `?ncedSSLength@@YAHQEB_JPEAJ@Z` (`PEAJ` = `long*`)
+
+Windows loader не находит `PEAH` в `NrxHostGate.dll` → `ERROR_PROC_NOT_FOUND (127)` при APPLOAD.
+
+**Решение:** GetProcAddress-обёртки с правильными именами 24.1:
+
+```cpp
+static int NCAD_SSLength(ads_name ss, long* pLen)
+{
+    typedef int(*PFN)(ads_name, long*);
+    static PFN fn = nullptr;
+    if (!fn) {
+        HMODULE h = GetModuleHandleW(L"NrxHostGate.dll");
+        fn = h ? (PFN)GetProcAddress(h, "?ncedSSLength@@YAHQEB_JPEAJ@Z") : nullptr;
+    }
+    return fn ? fn(ss, pLen) : RTERROR;
+}
+```
+
+Аналогично для `NCAD_SSName` (имя: `?ncedSSName@@YAHQEB_JJQEA_J@Z`).
+
+### 11.8 Подключение COM-заголовков при HOST_NO_MFC
+
+`HOST_NO_MFC` отключает CString-зависимости в `filer.h` и других NRX headers.  
+Но COM-заголовки (`comdef.h`, `oaidl.h`, `oleauto.h`) нужно подключить **до** `#define HOST_NO_MFC`:
+
+```cpp
+// stdafx.h — порядок критичен:
+#include <windows.h>
+#include <comdef.h>       // IDispatch, BSTR, VARIANT
+#include <oaidl.h>        // IDispatch, IEnumVARIANT
+#include <oleauto.h>      // SysAllocString, VariantInit
+#include <objbase.h>      // CoInitialize, GetActiveObject
+#include <unknwn.h>       // IUnknown
+
+#define HOST_NO_MFC
+#include "arxHeaders.h"   // NRX SDK
+```
+
+### 11.9 Перечисление параметров через IEnumVARIANT
+
+`IParameters::get__NewEnum()` возвращает `IEnumVARIANT`. Каждый item — объект с IDispatch-свойствами `Name` и `Value`:
+
+```cpp
+IUnknown* pEnumUnk = nullptr;
+pParams->get__NewEnum(&pEnumUnk);
+IEnumVARIANT* pEV = nullptr;
+pEnumUnk->QueryInterface(IID_IEnumVARIANT, (void**)&pEV);
+
+VARIANT vi = {}; ULONG got = 0;
+while (pEV->Next(1, &vi, &got) == S_OK && got > 0) {
+    IDispatch* pd = (vi.vt == VT_DISPATCH) ? vi.pdispVal : nullptr;
+    if (pd) {
+        VARIANT vN={}, vV={};
+        DispGet(pd, L"Name", &vN);   // имя параметра
+        DispGet(pd, L"Value", &vV);  // текущее значение
+        // ...
+        VariantClear(&vN); VariantClear(&vV);
+    }
+    VariantClear(&vi); got = 0;
+}
+```
+
+`IID_IEnumVARIANT = {00020404-0000-0000-C000-000000000046}`
+
+### 11.10 Win32 GUI диалог из NRX (без MFC)
+
+При `HOST_NO_MFC` MFC недоступен. GUI строится через Win32 API напрямую.  
+Для корректного отображения кириллицы нужен системный шрифт:
+
+```cpp
+NONCLIENTMETRICSW ncm = {sizeof(ncm)};
+SystemParametersInfoW(SPI_GETNONCLIENTMETRICS, sizeof(ncm), &ncm, 0);
+HFONT hFnt = CreateFontIndirectW(&ncm.lfMessageFont);
+// → "Segoe UI" 9pt на Windows 10/11, полная поддержка Unicode/кириллицы
+```
+
+`GetStockObject(DEFAULT_GUI_FONT)` не подходит — возвращает устаревший шрифт без гарантии поддержки кириллицы.
+
+Модальный message loop **без `PostQuitMessage`** (иначе хост завершится):
+
+```cpp
+bool done = false;
+MSG msg;
+while (!done) {
+    BOOL got = GetMessageW(&msg, nullptr, 0, 0);
+    if (got == 0) { PostQuitMessage((int)msg.wParam); break; } // WM_QUIT — репост хосту
+    if (got < 0) break;
+    if (!IsDialogMessageW(hDlg, &msg)) {
+        TranslateMessage(&msg);
+        DispatchMessageW(&msg);
+    }
+}
+// done = true выставляется в WM_DESTROY окна диалога
+```
+
+### 11.11 Сборка NRX-проекта (VS 2022, SDK 26.0, nanoCAD 24.1)
+
+- `PlatformToolset`: в vcxproj `v145`, при сборке переопределять: `/p:PlatformToolset=v143`
+- Подключить: `$(NCadSDK)\include\arxgate\rxsdk_releasecfg.props`
+- Переопределить `OutputFile` вручную: `$(OutDir)DtmxNrx7.nrx` (SDK props перезаписывает это)
+- Дополнительные библиотеки: `Gdi32.lib`, `User32.lib` (через `#pragma comment(lib, ...)`)
+
+**Кириллица в исходнике — обязательный флаг:**
+
+```xml
+<!-- vcxproj → ItemDefinitionGroup → ClCompile -->
+<AdditionalOptions>/utf-8 /wd4828 %(AdditionalOptions)</AdditionalOptions>
+```
+
+Причина: инструменты создают `.cpp` в UTF-8 без BOM. MSVC без `/utf-8` читает файл как Windows-1251 и компилирует `L"Параметр:"` в неверные codepoints — кириллица ломается и в консоли nanoCAD, и в Win32-диалоге. `/wd4828` подавляет предупреждение C4828 о "неверных UTF-8 байтах" в SDK-заголовках (они сами написаны в Windows-1251).
+
+**Полный `stdafx.h`:**
+
+```cpp
+#pragma once
+#pragma pack(push, 8)
+#pragma warning(disable: 4786 4996 4251)
+#include <SDKDDKVer.h>
+#define WIN32_LEAN_AND_MEAN
+#define NOMINMAX
+// COM-заголовки ОБЯЗАТЕЛЬНО до HOST_NO_MFC:
+#include <windows.h>
+#include <comdef.h>
+#include <oaidl.h>
+#include <oleauto.h>
+#include <objbase.h>
+#include <unknwn.h>
+#define HOST_NO_MFC
+#include "arxHeaders.h"
+#include <string>
+#include <map>
+#include <vector>
+#pragma pack(pop)
+```
+
+### 11.12 Логирование из NRX — UTF-8 с BOM
+
+Писать лог-файл нужно в UTF-8 (не UTF-16), иначе Notepad/VSCode не читают кириллицу без ручной смены кодировки:
+
+```cpp
+static void LogClear()
+{
+    HANDLE hf = CreateFileW(LOG_PATH, GENERIC_WRITE, 0, nullptr, CREATE_ALWAYS, 0, nullptr);
+    if (hf != INVALID_HANDLE_VALUE) {
+        const unsigned char bom[] = {0xEF, 0xBB, 0xBF};   // UTF-8 BOM
+        DWORD w; WriteFile(hf, bom, 3, &w, nullptr);
+        CloseHandle(hf);
+    }
+}
+
+static void Log(const wchar_t* msg)
+{
+    SYSTEMTIME st; GetLocalTime(&st);
+    wchar_t wbuf[4096];
+    int wn = swprintf_s(wbuf, L"%02d:%02d:%02d %s\n", st.wHour, st.wMinute, st.wSecond, msg);
+    char utf8[8192];
+    int un = WideCharToMultiByte(CP_UTF8, 0, wbuf, wn, utf8, sizeof(utf8)-1, nullptr, nullptr);
+    if (un <= 0) return;
+    HANDLE hf = CreateFileW(LOG_PATH, GENERIC_WRITE, FILE_SHARE_READ,
+                             nullptr, OPEN_ALWAYS, 0, nullptr);
+    if (hf != INVALID_HANDLE_VALUE) {
+        SetFilePointer(hf, 0, nullptr, FILE_END);
+        DWORD w; WriteFile(hf, utf8, (DWORD)un, &w, nullptr);
+        CloseHandle(hf);
+    }
+}
+```
+
+### 11.13 MAPI — нативный C++ путь к параметрам (исследование 2026-06-25)
+
+MAPI (Model Studio CS API) — это отдельная C++ объектная модель, параллельная NRX/ObjectARX. Заголовки находятся в `$(NCadSDK)\include\MAPI\`.
+
+#### Ключевые глобальные переменные (McTyp.dll)
+
+```cpp
+// IMcs.h:72
+extern MCTYP_API IMcNativeGate *gpMcNativeGate;  // мост NcDb ↔ MAPI
+extern MCTYP_API IMcContext    *gpMcContext;       // контекст приложения MAPI
+```
+
+#### Динамическое получение без статической линковки
+
+```cpp
+// Аналог MCS_GetContextDyn() из IContext.h
+static IMcNativeGate* GetMcNativeGate()
+{
+    HMODULE h = GetModuleHandleA("McTyp.dll");
+    if (!h) return nullptr;
+    void** pp = (void**)GetProcAddress(h, "gpMcNativeGate");
+    return pp ? (IMcNativeGate*)*pp : nullptr;
+}
+
+static void* MCS_GetContextDyn()
+{
+    FARPROC fn = GetProcAddress(GetModuleHandleA("MechCtl.dll"), "MCS_GetContext");
+    return fn ? ((void*(*)())fn)() : nullptr;
+}
+```
+
+#### Интерфейс параметров (IMcParametricEnt.h)
+
+```cpp
+// GUID: "0000000F-0001-AAAA-AAAA-050B00000000"
+struct IMcParametricEnt : public virtual IMcObject {
+    virtual HRESULT getParams(OUT mcsExValueArray& params,
+                              IN OPTIONAL uint32_t dwFlags = MCPAR_ALL) = 0;
+    virtual HRESULT setParams(IN const mcsExValueArray& params,
+                              IN OPTIONAL uint32_t dwFlags = MCPAR_ALL) = 0;
+};
+```
+
+Стандартные имена параметров (MCSParams.h):
+```cpp
+#define MCPAR_STD_NAME        _T("strTheName")
+#define MCPAR_STD_TYPE        _T("strTheType")
+#define MCPAR_PART_DESC       _T("strPartDescription")
+#define MCPAR_PART_PARTITION  _T("SpecPartition")
+```
+
+#### Полный нативный путь (без COM)
+
+```
+gpMcNativeGate (McTyp.dll)
+  → getMcsIdByNative(mcsWorkID&, int64_t nativeObjectId)
+  → mcsWorkID
+  → QueryObject(mcsWorkID)
+  → IMcObjectPtr
+  → QI → IMcParametricEnt*   (прямо ИЛИ через getParentID — см. §11.15)
+  → setParams(mcsExValueArray)   ← чистый C++, без IDispatch
+```
+
+Использование `NcDbObjectId` как `int64_t` (из McFlattenInterface.h:129):
+```cpp
+mcsWorkID mcid;
+gpMcNativeGate->getMcsIdByNative(mcid, *(int64_t*)&oid);
+```
+
+> **Важно**: `getMcsIdByNative` имеет параметр `bAddPairIfNotExist = true` по умолчанию.
+> Это означает, что вызов ВСЕГДА возвращает S_OK для любого NcDb-объекта,
+> создавая MAPI-обёртку при необходимости. Факт успешного вызова **не доказывает**,
+> что объект является параметрическим MCS-элементом.
+
+#### Статус MAPI DLL в nanoCAD 24.1 + MCS (подтверждено 2026-06-25)
+
+| DLL | Статус |
+|---|---|
+| McTyp.dll | ✅ загружена |
+| MechCtl.dll | ✅ загружена |
+| MT.dll | ✅ загружена |
+| McGeL.dll | ✅ загружена |
+| gpMcNativeGate | ✅ не NULL (MAPI активен) |
+| gpMcContext | ✅ не NULL |
+| MCS_GetContext() | ✅ возвращает тот же адрес что gpMcContext |
+
+> Вывод: при активном Model Studio CS все MAPI DLL уже загружены в процессе nanoCAD. Можно вызывать `getMcsIdByNative` → `setParams` без COM-слоя.
+
+#### Риск ABI
+
+SDK версии 26.0 — nanoCAD 24.1 может использовать более старую MAPI. Перед использованием `setParams` рекомендуется проверить, что `gpMcNativeGate != NULL` и вызов `getMcsIdByNative` не падает. MAPI Import libs для статической линковки (`McTyp.lib`, `MechCtl.lib`) есть в `$(NCadSDK)\lib-x64\`.
+
+### 11.14 Актуальный практический статус (DtmxNrx10, 2026-06-25)
+
+Подтверждено на nanoCAD 24.1 + Model Studio CS:
+
+| Возможность | Статус |
+|---|---|
+| `IParameters::SetParameter` через vtable (COM) | ✅ работает (DtmxNrx7) |
+| Параметр персистирует в DWG | ✅ сохраняется после Ctrl+S + reload |
+| GUI диалог Win32 (без MFC) | ✅ работает |
+| Кириллица в диалоге и консоли | ✅ флаг `/utf-8 /wd4828` в vcxproj |
+| Лог-файл UTF-8 BOM | ✅ читается в Notepad/VSCode |
+| MAPI DLL загружены в процессе | ✅ McTyp + MechCtl + MT + McGeL |
+| gpMcNativeGate != NULL | ✅ MAPI путь доступен |
+| Сборка без COM (чистый MAPI) | ✅ DtmxNrx8-10 компилируются без ошибок |
+| getMcsIdByNative → QueryObject | ✅ работает для любого NcDb-объекта |
+| QI к IMcEntity / IMcDbEntity | ✅ подтверждено для выбранных объектов |
+| QI к IMcParametricEnt напрямую | ⚠️ **не работает** для graphical entities (см. §11.15) |
+| getParentID → IMcParametricEnt | 🔲 тестируется в DtmxNrx10 |
+
+Текущий файл плагина: `c:\pdf_ingest\DTMXtest\Scripts\DtmxNrx10.nrx`
+
+### 11.15 MAPI: иерархия объектов и путь к IMcParametricEnt (2026-06-25)
+
+#### Иерархия интерфейсов MAPI
+
+```
+IMcObject  (IID: 00000001-0001-AAAA-AAAA-050B00000000)
+├── IMcDbObject  (00000002-...)
+│   └── IMcDbEntity  (00000003-...)
+│       └── IMcEntity  (00000005-...)
+│           └── IMcCdEntity  (00000006-...)
+│               └── IMcReferenceEntity  ← наследует и IMcEntity, и IMcParametricEnt
+│                   (IID закомментирован в SDK: //00000007-...)
+└── IMcParametricEnt  (0000000F-0001-AAAA-AAAA-050B00000000)
+    └── (реализуется конкретными MCS-объектами)
+```
+
+`IMcParametricEnt` — **отдельная ветка**, не часть цепочки `IMcEntity`. Графические примитивы (`IMcEntity`) не QI-руются в `IMcParametricEnt` напрямую.
+
+#### Ключевые IID (из MCSTypes.h, стабильны между версиями SDK)
+
+| Интерфейс | IID |
+|---|---|
+| `IMcObject` | `00000001-0001-AAAA-AAAA-050B00000000` |
+| `IMcDbObject` | `00000002-0001-AAAA-AAAA-050B00000000` |
+| `IMcDbEntity` | `00000003-0001-AAAA-AAAA-050B00000000` |
+| `IMcEntity` | `00000005-0001-AAAA-AAAA-050B00000000` |
+| `IMcCdEntity` | `00000006-0001-AAAA-AAAA-050B00000000` |
+| `IMcParametricEnt` | `0000000F-0001-AAAA-AAAA-050B00000000` |
+| `IMcReferenceEntity` | закомментирован (`//00000007-...`) — не используй QI |
+
+#### Почему прямой QI к IMcParametricEnt не работает
+
+`IMCS_QI_METHOD_DEFINITION(IMcReferenceEntity, IMcEntity)` генерирует `QueryInterface`, который проверяет только `IID_IMcReferenceEntity` и делегирует `IMcEntity::QueryInterface`. `IID_IMcParametricEnt` в цепочке не проверяется. Итог: даже у объектов `IMcReferenceEntity` (которые наследуют `IMcParametricEnt`) QI по `IID_IMcParametricEnt` возвращает `E_FAIL`.
+
+#### Обходной путь: навигация через родителя
+
+В Model Studio CS **параметрический объект является РОДИТЕЛЕМ** графических примитивов. Алгоритм:
+
+```cpp
+// 1. Получить MAPI-объект для выбранного NcDb-entity
+mcsWorkID mcid;
+pGate->getMcsIdByNative(mcid, *(int64_t*)&oid);
+IMcObjectPtr pObj = pGate->QueryObject(mcid);
+
+// 2. Попытаться QI к IMcParametricEnt напрямую
+IMcParametricEntPtr pPE = pObj;
+
+// 3. Если не вышло — подняться к родителю
+if (!pPE) {
+    IMcDbObjectPtr pDbObj = pObj;
+    if (pDbObj) {
+        const mcsWorkID& parentID = pDbObj->getParentID();
+        if (parentID != WID_NULL) {
+            IMcObjectPtr pParent = pGate->QueryObject(parentID);
+            if (pParent) pPE = pParent;   // QI к IMcParametricEnt
+        }
+    }
+}
+```
+
+> Статус на 2026-06-25: алгоритм реализован в DtmxNrx10, тестирование продолжается.
+
+#### Поведение getMcsIdByNative
+
+```cpp
+// Подпись:
+virtual HRESULT getMcsIdByNative(
+    OUT mcsWorkID& id,
+    IN int64_t SomeId,
+    bool bAddPairIfNotExist = true   // ← создаёт MAPI-обёртку если нет
+);
+```
+
+`bAddPairIfNotExist = true` → вызов всегда возвращает `S_OK` для любого NcDb-объекта. Факт успешного вызова **не означает** что объект является параметрическим MCS-элементом. Надо проверять QI к `IMcParametricEnt`.
+
+#### Отсутствующие заголовки SDK 26.0 (созданы вручную)
+
+При сборке NRX-плагина с MAPI-заголовками SDK 26.0 ряд файлов отсутствует. Перечень stub-файлов, которые нужно создать в `$(NCadSDK)\include\MAPI\`:
+
+| Файл | Содержимое заглушки |
+|---|---|
+| `EntityGeometryTypeEnum.h` | `enum EntityGeometryTypeEnum { kMcEntGeomLine, ... }` |
+| `McGeomOverlapStatusEnum.h` | `enum McGeomOverlapStatusEnum { kMcGeomOverlap_Unknown, ... }` |
+| `mcsGeomEntArray.h` | `class mcsGeomEntArray : public McsArray<McsEntityGeometry> {}` |
+| `McsEntityGeometry.h` | `struct McsEntityGeometry { unsigned int color; void transformBy(const mcsMatrix&){}; void setNull(){}; }` |
+| `mcsText.h` | `enum McsHorizTextAlignEnum {...}; enum McsVertTextAlignEnum {...}` |
+| `mcsHatch.h` | `struct mcsHatch { enum PatternType { kPreDefined, ... }; }` |
+| `mcsArrow.h` | `struct mcsArrow {}` |
+| `mcsObjGeomRef.h` | `struct mcsObjGeomRef {}` |
+| `mcOfsCrvHolder.h` | `struct mcOfsCrvHolder {}` |
+| `mcsRepeatedShape.h` | `struct mcsRepeatedShape {}` |
+| `mcsMesh.h` | `struct mcsMesh {}` |
+| `McGe/mcsSphere.h` | `struct mcsSphere {}` |
+| `McGe/mcsCylinder.h` | `struct mcsCylinder {}` |
+| `McGe/mcsCone.h` | `struct mcsCone {}` |
+| `McGe/mcsTorus.h` | `struct mcsTorus {}` |
+| `McGe/mcsTriangle.h` | `struct mcsTriangle {}` |
+| `pugixml/pugixml.hpp` | `namespace pugi { struct xml_node {}; struct xml_document {}; }` |
+
+> `mcsGeomEntArray` должен быть именованным классом (не typedef), т.к. `McGe/mcsBoundBlock.h` делает forward-declaration `class mcsGeomEntArray;`.
+
+### 11.16 DtmxNrx11 — углублённый probe для чистого MAPI (2026-06-25)
+
+Следующий эксперимент переведён в отдельную сборку `v11`, чтобы исключить путаницу с уже загруженными NRX-модулями и кешем команд.
+
+Файлы:
+
+- `NrxCpp/DtmxNrx.cpp`
+- `NrxCpp/DtmxNrx.vcxproj`
+- выходной модуль: `Scripts/DtmxNrx11.nrx`
+
+Команды `v11`:
+
+- `DTMXNRX11PING`
+- `DTMXNRX11PROBE`
+- `DTMXNRX11SET`
+
+Что добавлено в `DTMXNRX11PROBE`:
+
+- лог `getMcsIdByNative` для каждого выбранного объекта;
+- лог `QueryObject(mcid)`;
+- проверка интерфейсов на каждом уровне:
+  - `IMcDbObject`
+  - `IMcDbEntity`
+  - `IMcEntity`
+  - `IMcParametricEnt` через обычный QI;
+- дополнительная проверка `IMcObject::getSpecificKindPtr(__uuidof(IMcParametricEnt))`;
+- подъём по цепочке родителей до 6 уровней;
+- лог `getParentID()` и `getParent()`;
+- лог числа параметров, если найден рабочий `IMcParametricEnt`.
+
+Почему это важно:
+
+- обычный QI к `IMcParametricEnt` у графического MCS-объекта может не сработать из-за множественного/виртуального наследования;
+- `getSpecificKindPtr()` — отдельный механизм MAPI для получения корректного адреса нужной ветки объекта без обычного `QueryInterface`;
+- если `IMcReferenceEntity` реально сидит в цепочке, то именно `getSpecificKindPtr()` или один из родителей должен дать положительный результат раньше, чем COM-маршрут.
+
+Практический статус `v11`:
+
+- проект успешно собран локально через MSBuild;
+- итоговый файл: `Scripts/DtmxNrx11.nrx`;
+- следующий шаг тестирования — загрузить `DtmxNrx11.nrx` в nanoCAD/Model Studio и выполнить:
+  1. `NETLOAD` / загрузку NRX;
+  2. `DTMXNRX11PING`;
+  3. выделить один объект `Model Studio`;
+  4. `DTMXNRX11PROBE`;
+  5. изучить лог `C:\Users\atsarkov\Desktop\dtmx_nrx_log.txt`.
+
+Промежуточный вывод:
+
+- это всё ещё **чистый C++ / MAPI путь без COM**;
+- если `DTMXNRX11PROBE` найдёт `IMcParametricEnt` через `getSpecificKindPtr()` или через одного из родителей, тогда `DTMXNRX11SET` сможет перейти к реальной записи параметров тем же чистым маршрутом.
+
+#### Важная совместимость runtime/SDK
+
+При первой сборке `v11` модуль мог не загружаться с ошибкой:
+
+- `Не удается загрузить модуль ... ошибка: Не найдена указанная процедура`
+
+Причина:
+
+- код случайно подтянул импорт `operator==` / `operator!=` для `mcsWorkID` из `mt.dll`;
+- в runtime-версии MAPI у пользователя эти экспорты могут отсутствовать;
+- из-за этого NRX собирался, но не загружался в nanoCAD.
+
+Практическое правило:
+
+- для `mcsWorkID` в совместимом NRX лучше не использовать ни `== WID_NULL`, ни `!= WID_NULL`;
+- safest-вариант — проверять GUID структуры вручную:
+
+```cpp
+static bool WidIsNull(const mcsWorkID& wid)
+{
+    if (wid.ID.Data1 != 0) return false;
+    if (wid.ID.Data2 != 0) return false;
+    if (wid.ID.Data3 != 0) return false;
+    for (int i = 0; i < 8; ++i) {
+        if (wid.ID.Data4[i] != 0) return false;
+    }
+    return true;
+}
+```
+
+Статус:
+
+- `DtmxNrx11.nrx` пересобран после устранения этого импорта.
+- дополнительно выяснено, что `v10` ломался уже на `operator!=` для `mcsWorkID`, то есть проблема началась раньше `v11`.
+
+#### Что оказалось ложным путём
+
+При следующем углублении probe был опробован путь через `IMcObjectsManager` / `gpMcObjManager`, чтобы вытянуть subentity → parent на стороне MAPI.
+
+Практический итог:
+
+- в текущем сочетании SDK/headers этот путь оказался ненадёжным;
+- попытка опереться на `isSubent`, `GetParentId`, `kNullSubentType` привела к поломке сборки;
+- этот маршрут пока считается **ложным для быстрого исследования** и не должен быть базовым.
+
+Рабочая коррекция:
+
+- не использовать `IMcObjectsManager` как опорный механизм для первого probe;
+- использовать только:
+  - `gpMcNativeGate`,
+  - `getMcsIdByNative`,
+  - `QueryObject`,
+  - `QueryObjectClassID`,
+  - `IsMCSCustomObject`,
+  - подъём по **native owner chain** через `AcDbObject::ownerId()`.
+
+#### Почему теперь probe идёт через native owner chain
+
+Реальное наблюдение по логу `DTMXNRX11PROBE`:
+
+- выбранная труба даёт валидный `mcsWorkID`;
+- `QueryObject(mcid)` возвращает MAPI-объект;
+- объект определяется как:
+  - `IMcDbObject`,
+  - `IMcDbEntity`,
+  - `IMcEntity`,
+  - но **не** `IMcParametricEnt`;
+- `getParentID()` у него может быть `NULL`.
+
+Вывод:
+
+- пользователь выделяет не обязательно корневой параметрический объект;
+- часто это графическое представление / drawable / дочерняя геометрия;
+- поэтому для поиска реального параметрического владельца нужно подниматься не только по MAPI-родителю, но и по **цепочке владельцев DWG-объекта**.
+
+Текущий probe теперь делает именно это:
+
+1. берёт выбранный `AcDbObjectId`;
+2. открывает `AcDbObject`;
+3. логирует `class name`;
+4. берёт `ownerId()`;
+5. для каждого уровня снова вызывает `getMcsIdByNative`;
+6. проверяет:
+   - `QueryObjectClassID`,
+   - `IsMCSCustomObject`,
+   - `ResolveParametric(...)`.
+
+Это сейчас основной правильный вектор для чистого `C++/MAPI` доступа без COM.
+
+#### Что показал реальный лог по `vCSSubSegment`
+
+На реальном запуске `DTMXNRX11PPROBE` по выбранной трубе получено:
+
+- `class=VCSSUBSEGMENT`;
+- `QueryObjectClassID = {53534376-6275-6553-676D-656E74000000}`;
+- `isMCSCustom=1`;
+- на MAPI-стороне объект виден как:
+  - `IMcDbObject`,
+  - `IMcDbEntity`,
+  - `IMcEntity`,
+  - но **не** `IMcParametricEnt`;
+- `parentID = NULL`.
+
+Подъём по native owner chain дал:
+
+- `nativeDepth=0` → `VCSSUBSEGMENT`;
+- `nativeDepth=1` → `BLOCK_RECORD`;
+- `nativeDepth=2` → `TABLE`;
+- параметрический владелец через owner chain **не найден**.
+
+Практический вывод:
+
+- `vCSSubSegment` в DWG действительно является кастомным MCS-объектом;
+- но прямой путь
+  - `selected entity -> getMcsIdByNative -> QueryObject -> IMcParametricEnt`
+  не срабатывает;
+- и путь через `ownerId()` тоже не приводит к параметрическому интерфейсу;
+- значит, следующий этап исследования — искать **класс-специфичный интерфейс/адаптер для `vCSSubSegment`**, а не просто ещё глубже идти по generic parent chain.
+
+Это важное отрицательное знание: generic MAPI-подъём по `QueryObject/parent/ownerId` для выбранной трубы пока **не даёт** доступ к `setParams`.
+
+#### Практическая правка по сборке, когда NRX уже загружен
+
+Если `DtmxNrx11.nrx` уже загружен в nanoCAD, linker не может перезаписать файл и падает с `LNK1104`.
+
+Чтобы не упираться в блокировку модуля, в `NrxCpp/DtmxNrx.vcxproj` выходной путь переведён на шаблон:
+
+```xml
+<OutputFile>$(OutDir)$(TargetName).nrx</OutputFile>
+```
+
+Это позволяет собирать соседние test/probe-варианты, не выгружая основной модуль:
+
+```powershell
+MSBuild NrxCpp\DtmxNrx.vcxproj /t:Build `
+  /p:Configuration="Release NCAD" `
+  /p:Platform=x64 `
+  /p:TargetName=DtmxNrx11_probe
+```
+
+Результат:
+
+- основной `Scripts/DtmxNrx11.nrx` можно оставить загруженным;
+- тестовая сборка уходит, например, в `Scripts/DtmxNrx11_probe.nrx`.
+
+### 11.17 DtmxNrx12 — новый чистый C++ путь через `UnitsCS.nrx` (2026-06-25)
+
+После тупика на generic `MAPI`-цепочке найден следующий, более сильный вектор:
+
+- не искать `IMcParametricEnt` у выбранного `vCSSubSegment`;
+- брать **product-native API** из `UnitsCS.nrx`;
+- входить в parametric layer через:
+  - `linCSParametricWrapper::getParametricInterface(NcDbObject*)`;
+- дальше работать с:
+  - `linCSParametricSolidBase::getRootElementP()`;
+  - `linCSParametricSolidBase::setParameter(wchar_t const*, wchar_t const*, wchar_t const*, wchar_t const*)`;
+  - `linCSParametricSolidBase::setRootElementP(CElement*)`.
+
+Подтверждённые native-экспорты:
+
+- `?getParametricInterface@linCSParametricWrapper@@SAPEAVlinCSParametricSolidBase@@PEAVNcDbObject@@@Z`
+- `?getRootElementP@linCSParametricSolidBase@@QEAAPEAVCElement@@XZ`
+- `?setRootElementP@linCSParametricSolidBase@@QEAAXPEAVCElement@@@Z`
+- `?setParameter@linCSParametricSolidBase@@QEAAXPEB_W000@Z`
+- дополнительно:
+  - `?ursGetObjectParameters@@YAHPEBVNcDbObject@@AEAVCElement@@I@Z`
+  - `?ursSetObjectParameters@@YAHPEAVNcDbObject@@AEAVCElement@@_N@Z`
+  - `?GetCelementFromIdWritable@@YAPEAVCElement@@AEBVNcDbObjectId@@AEAV?$CSCPtr@VNcDbObject@@@@_N@Z`
+
+Практический смысл:
+
+- это уже не `COM` и не `COM + .NET`;
+- это **in-process native C++ путь внутри DWG / Model Studio runtime**;
+- он опирается не на SDK-обёртки верхнего уровня, а на экспортируемые функции продуктовых модулей.
+
+Что собрано в `v12`:
+
+- файл проекта: `NrxCpp/DtmxNrx.vcxproj`
+- исходник: `NrxCpp/DtmxNrx.cpp`
+- выходной модуль: `Scripts/DtmxNrx12.nrx`
+
+Новые команды:
+
+- `DTMXNRX12UPROBE`
+- `DTMXNRX12USET`
+
+Что делает `DTMXNRX12UPROBE`:
+
+1. загружает `UnitsCS.nrx`;
+2. резолвит native-экспорты через `GetProcAddress`;
+3. просит выбрать один объект Model Studio;
+4. открывает `NcDbObject` на запись;
+5. вызывает `getParametricInterface(...)`;
+6. логирует указатель на `linCSParametricSolidBase`;
+7. логирует указатель на `root element`.
+
+Что делает `DTMXNRX12USET`:
+
+1. загружает тот же native API;
+2. просит выбрать один объект Model Studio;
+3. просит ввести значение для `PART_TAGNUMBER` (по умолчанию `DTMX`);
+4. вызывает:
+   - `setParameter("PART_TAGNUMBER", "", value, "")`;
+5. затем повторно вызывает `setRootElementP(...)` для текущего root;
+6. делает `REGEN`.
+
+Почему это важно:
+
+- это первый реально собранный маршрут, который пытается писать `PART_TAGNUMBER` **чисто через native C++**;
+- он полностью обходит:
+  - `IDispatch`,
+  - `UnitsCSCom.Interop.dll`,
+  - внешние `exe`,
+  - cross-process `COM`.
+
+Статус на текущий момент:
+
+- `Scripts/DtmxNrx12.nrx` успешно собран;
+- проект переведён на доступный toolset `v143`;
+- `TargetName` изменён на `DtmxNrx12`, чтобы не перетирать старые `v11`-сборки;
+- запись через `v12` **ещё нужно подтвердить живым запуском внутри nanoCAD/Model Studio**.
+
+Важный практический вывод:
+
+- после `11.16` правильный следующий шаг — не углублять generic `MAPI`;
+- правильный шаг — идти в **class-specific / product-specific native API** (`UnitsCS.nrx`, `msPipeNetworks.nrx`, `linCSParametric...`).
+
+Что пока не доказано:
+
+- что именно четверка аргументов `setParameter(name, a2, a3, a4)` использована в идеальном порядке для `PART_TAGNUMBER`;
+- что одного `setRootElementP(currentRoot)` достаточно для commit внутрь DWG;
+- что для `vCSSubSegment` не нужен ещё один class-specific wrapper поверх `linCSParametricSolidBase`.
+
+Поэтому `v12` надо считать не финальным решением, а **правильным чистым C++ probe следующего поколения**.
+
+#### Как вернуть кириллицу в NRX-исходниках и логах
+
+Если вместо русских строк появляются `Р...`, `С...`, `вЂ...`, причина почти всегда в перекодировке исходника при сохранении.
+
+Надёжные правила:
+
+1. Исходники `.cpp/.h/.vcxproj` держать в **UTF-8**.
+2. В проекте оставлять флаг компилятора:
+
+```xml
+<AdditionalOptions>/utf-8 /wd4828 %(AdditionalOptions)</AdditionalOptions>
+```
+
+3. Не переписывать C++-файлы командами/инструментами, которые могут молча сменить кодировку.
+4. Для автоматических правок prefer:
+   - `apply_patch`,
+   - редактор с явным сохранением `UTF-8`.
+5. Для диагностических NRX-строк безопаснее использовать ASCII, если русские сообщения не критичны.
+6. Логи писать в `UTF-8 BOM`, чтобы Notepad корректно открывал кириллицу.
+
+Практический симптом:
+
+- если комментарии/литералы в самом `NrxCpp/DtmxNrx.cpp` уже выглядят как `РџС...`, значит текст в файле уже был сохранён в неверной кодировке, и один только `/utf-8` это не исправит — нужно перезаписать испорченные строки корректным текстом в UTF-8.
 
