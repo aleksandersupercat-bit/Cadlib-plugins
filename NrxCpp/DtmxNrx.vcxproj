@@ -3,7 +3,7 @@
 
   <!-- Set NCadSDK before Default.props so rxsdk props can use it -->
   <PropertyGroup Label="NCadSDK">
-    <NCadSDK>c:\pdf_ingest\DTMXtest\NC_SDK_RU_26.0.7228.4926.8429</NCadSDK>
+    <NCadSDK>c:\pdf_ingest\DTMXtest\NC_SDK_RU_24.1</NCadSDK>
   </PropertyGroup>
 
   <ItemGroup Label="ProjectConfigurations">
@@ -42,7 +42,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release NCAD|x64'">
     <OutDir>c:\pdf_ingest\DTMXtest\Scripts\</OutDir>
     <IntDir>$(SolutionDir)obj\DtmxNrx\</IntDir>
-    <TargetName>DtmxNrx12</TargetName>
+    <TargetName>DtmxNrx26</TargetName>
   </PropertyGroup>
 
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release NCAD|x64'">
@@ -52,7 +52,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>
-        DTMXNRX_MODULE;_WIN64;WIN64;WIN32;NDEBUG;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)
+        DTMXNRX_MODULE;_WIN64;WIN64;WIN32;NDEBUG;_WINDOWS;_USRDLL;_MCS_CORE_ONLY;%(PreprocessorDefinitions)
       </PreprocessorDefinitions>
       <TreatWarningAsError>false</TreatWarningAsError>
       <!-- /utf-8: исходник UTF-8, строковые литералы UTF-8/UTF-16 корректны -->

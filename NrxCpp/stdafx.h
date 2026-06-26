@@ -11,6 +11,11 @@
 #include <windows.h>
 #include <unknwn.h>
 
+// nanoCAD 24.1 MAPI headers may reference MFC types even with HOST_NO_MFC.
+class CWnd;
+class CString;
+class CStringArray;
+
 // NRX SDK с HOST_NO_MFC
 #define HOST_NO_MFC
 #include "arxHeaders.h"
@@ -24,5 +29,6 @@
 #include <cstdio>
 #include <map>
 #include <vector>
+#include <cwctype>
 
 #pragma pack(pop)

@@ -6978,6 +6978,322 @@ while (pEV->Next(1, &vi, &got) == S_OK && got > 0) {
 NONCLIENTMETRICSW ncm = {sizeof(ncm)};
 SystemParametersInfoW(SPI_GETNONCLIENTMETRICS, sizeof(ncm), &ncm, 0);
 HFONT hFnt = CreateFontIndirectW(&ncm.lfMessageFont);
+
+### 11.21 `DTMXNRX20TREE` — текущий рабочий диагностический срез по объекту
+
+По состоянию на `2026-06-26` наиболее полезная C++-команда для исследования live-объекта `Model Studio` в `DWG`:
+
+- команда: `DTMXNRX20TREE`;
+- актуальная сборка: `Scripts\DtmxNrx23.nrx`;
+- загрузка в открытую сессию nanoCAD успешно автоматизируется через COM `LoadModule(...)`, но сама диагностика остаётся **чисто in-process C++**.
+
+Что сейчас реально выдаёт команда:
+
+1. **`MAPI-VIS` / `MAPI-FLAT`**
+   - даёт человекочитаемую категорию, локальное название и значение;
+   - формат:
+     - `UI/<категория> -> <локальное имя> [<имя MAPI-свойства>] = <значение>`;
+   - это самый полный и стабильный источник **видимых пользователю значений**.
+
+2. **`DIRECT`**
+   - перечисляет внутренние ключи параметров `Model Studio` (`PART_TAGNUMBER`, `PART_NAME`, `PART_TYPE`, `SYS_DB_UID` и т.д.);
+   - теперь читает не только имя, но и `CParam::getValue()` / `CParam::getComment()`;
+   - это подтвердило, что для многих параметров можно получить именно внутреннюю пару:
+     - `внутреннее_имя -> значение`,
+     - а иногда ещё и `comment`, который совпадает с пользовательской подписью.
+
+3. **`TREE` / `FLAT`**
+   - строит нативное дерево `CElement`;
+   - пути теперь уникализируются через `id`, например:
+     - `3D[0]/CONE[1]`
+     - `3D[0]/CONE[2]`
+   - это устранило проблему, когда одинаковые дочерние узлы с именем `CONE` невозможно было различить.
+
+4. **`JOIN`**
+   - новый слой склейки `DIRECT` и `MAPI-VIS`;
+   - формат:
+     - `UI/<категория> -> <локальное имя> [<внутренний PART_*>] = <значение>`;
+   - нужен для практической задачи `описание атрибута + внутренний ключ + значение` в одном месте.
+
+Пример уже подтверждённых `DIRECT`-строк:
+
+- `PART_NAME = Труба полипропиленовая`
+- `PART_TAG = PP-R SDR 6/S 2.5 - 20x3.4 PN 20`
+- `PART_TAGNUMBER = DTMX_NRX_CPP`
+- `PART_TYPE = Труба | comment=Тип изделия`
+- `PART_GROUP = Детали трубопроводные | comment=Группа изделий`
+- `PART_SPECIALITY = Водоснабжение и канализация | comment=Специализация`
+- `SYS_DB_UID = {GUID}`
+
+Практический вывод:
+
+- связка `DIRECT + MAPI-FLAT` уже даёт то, что нужно для большинства задач исследования:
+  - **внутренний ключ**;
+  - **человекочитаемое имя / описание**;
+  - **значение**.
+- связка `JOIN` даёт уже готовые строки соответствия, например:
+  - `UI/Параметры изделия -> Наименование изделия [PART_NAME] = ...`
+  - `UI/Параметры изделия -> Обозначение / Модель [PART_TAG] = ...`
+  - `UI/Параметры изделия -> Нормативный документ [PART_STANDARD] = ...`
+  - `UI/Дополнительные параметры -> Группа изделий [PART_GROUP] = ...`
+  - `UI/Дополнительные параметры -> Тип изделий [PART_TYPE] = ...`
+  - `UI/? -> Идентификатор [PART_TAGNUMBER] = DTMX_NRX_CPP`
+
+### 11.21.1 Актуальные публичные команды NRX
+
+- `DTMXEDIT`
+  - чистая пользовательская команда для массового редактирования параметра;
+  - строит список общих параметров по выделенным объектам;
+  - пишет подробный лог **по каждому объекту отдельно**:
+    - `--- OBJECT [0] params=N ---`
+    - `ключ = значение`
+  - после этого отдельно считает `common params`, которые можно редактировать пачкой.
+
+- `DTMXLOG`
+  - чистая диагностическая команда;
+  - запускает текущий `DTMXNRX20TREE`;
+  - в начале лога теперь пишет краткую легенду по системным тегам.
+
+### 11.21.2 Легенда по системным тегам лога
+
+- `[UnitsCS]`
+  - найденные функции и адреса из `UnitsCS.nrx`;
+  - для каждой строки теперь добавляется короткое пояснение, что делает указатель:
+    - `getParametricInterface` — вход в параметрический интерфейс объекта;
+    - `getRootElementP` — получить корневой `CElement`;
+    - `setParameter4` — запись параметра по имени;
+    - `CParam::getName/getValue/getComment` — имя, значение и подпись параметра;
+    - `CParam::setValue/setComment/setValueComment` — возможные точки записи.
+
+- `[SELECTED]`
+  - выбранный DWG-объект;
+  - показывает, удалось ли открыть объект и снять прямой snapshot его интерфейса.
+
+- `[MAPI]`
+  - слой Model Studio API через `IMcNativeGate`;
+  - используется для связи native DWG-объекта с объектом MCS.
+
+- `[DIRECT]`
+  - внутренние параметры `PART_*` и их значения;
+  - это основной источник для внутренних ключей.
+
+- `[JOIN]`
+  - склейка UI-подписи и внутреннего `PART_*`;
+  - удобный слой вида:
+    - `UI/<категория> -> <подпись> [PART_*] = <значение>`.
+
+- `[NODE]`, `[PATH]`, `[FLAT]`
+  - нативное дерево `CElement`;
+  - помогает понять иерархию, даже когда UI-дерево ещё не полностью восстановлено.
+
+- `[OWNER-IFACE]`, `[OWNER-ROOT]`
+  - owner-параметры на разных уровнях;
+  - это отдельный слой по отношению к `DIRECT` и UI-свойствам.
+
+### 11.21.3 Иерархическое дерево: как мы пришли к параметрам
+
+Ниже — практическая карта слоёв, файлов и точек входа, по которой сейчас идёт исследование параметров Model Studio внутри `DWG`.
+
+```text
+Выбранный объект в nanoCAD / Model Studio
+└─ DWG entity
+   ├─ пример runtime-класса:
+   │  ├─ vCSSubSegment
+   │  └─ vCSSegment2 / другие MCS custom objects
+   ├─ открытие из C++:
+   │  ├─ acedSSGet(...)
+   │  ├─ acdbGetObjectId(...)
+   │  └─ acdbOpenAcDbObject(...)
+   └─ наш код:
+      └─ NrxCpp/DtmxNrx.cpp
+
+1. Слой nanoCAD / NRX host
+└─ отвечает за загрузку нашего модуля и доступ к DWG-объекту
+   ├─ файл проекта:
+   │  └─ NrxCpp/DtmxNrx.vcxproj
+   ├─ исходники:
+   │  ├─ NrxCpp/DtmxNrx.cpp
+   │  ├─ NrxCpp/stdafx.h
+   │  └─ NrxCpp/stdafx.cpp
+   ├─ результат сборки:
+   │  └─ Scripts/DtmxNrx26.nrx
+   └─ базовые host/API headers:
+      ├─ $(NCadSDK)\include\arxgate\...
+      ├─ $(NCadSDK)\include\nrxgate\...
+      ├─ $(NCadSDK)\include\nrxdbgate\...
+      └─ $(NCadSDK)\include\nrxhostgate\...
+
+2. Слой MAPI (общий Model Studio API)
+└─ отвечает за связь DWG ↔ MCS object
+   ├─ DLL/runtime:
+   │  ├─ McTyp.dll
+   │  ├─ MechCtl.dll
+   │  ├─ MT.dll
+   │  └─ McGeL.dll
+   ├─ ключевой глобальный мост:
+   │  └─ gpMcNativeGate
+   ├─ точка входа в нашем коде:
+   │  └─ GetNativeGate()
+   ├─ основные интерфейсы:
+   │  ├─ IMcNativeGate
+   │  ├─ IMcObject
+   │  ├─ IMcDbObject
+   │  ├─ IMcPropertySource
+   │  └─ IMcParametricEnt
+   ├─ основные действия:
+   │  ├─ getMcsIdByNative(...)
+   │  ├─ QueryObject(...)
+   │  ├─ getParentID()
+   │  └─ перечисление UI-свойств через property source
+   └─ headers:
+      ├─ $(NCadSDK)\include\MAPI\IContext.h
+      ├─ $(NCadSDK)\include\MAPI\...
+      └─ локально подключаемые:
+         ├─ NrxCpp/IContext.h
+         └─ NrxCpp/McsUtils.h
+
+3. Product-native слой WATER / UnitsCS
+└─ это главный подтверждённый путь к внутренним параметрам Model Studio
+   ├─ runtime-модуль:
+   │  └─ C:\Program Files\CSoft\Model Studio CS\NANOWATER\bin\nanoCAD241\UnitsCS.nrx
+   ├─ в нашем коде:
+   │  ├─ struct UnitsCsApi
+   │  └─ LoadUnitsCsApi(...)
+   ├─ factory / bridge:
+   │  └─ getParametricInterface(AcDbObject*) -> linCSParametricSolidBase*
+   ├─ основной объект:
+   │  └─ linCSParametricSolidBase
+   ├─ подтверждённые операции:
+   │  ├─ GetParamsCount()
+   │  ├─ GetParameter(index)
+   │  ├─ SetParameter(...)
+   │  ├─ getRootElementP()
+   │  └─ SubEnt_ParameterLPCSTR(...)
+   └─ назначение:
+      ├─ читать внутренние `PART_*`
+      ├─ писать `PART_*`
+      └─ получать root `CElement`
+
+4. Внутренний параметрический слой
+└─ это уже не generic MAPI, а внутренние параметры конкретного объекта
+   ├─ ключевой тип:
+   │  └─ CParam
+   ├─ подтверждённые методы:
+   │  ├─ CParam::getName()
+   │  ├─ CParam::getValue()
+   │  ├─ CParam::getComment()
+   │  ├─ CParam::setValue()
+   │  ├─ CParam::setComment()
+   │  └─ CParam::setValueComment()
+   ├─ типовые внутренние ключи:
+   │  ├─ PART_NAME
+   │  ├─ PART_TAG
+   │  ├─ PART_TAGNUMBER
+   │  ├─ PART_TYPE
+   │  ├─ PART_GROUP
+   │  └─ PART_SPECIALITY
+   └─ что даёт:
+      ├─ внутренний ключ
+      ├─ значение
+      └─ подпись/comment параметра
+
+5. Дерево children / sub-elements
+└─ это путь в структуру объекта, а не только в его верхние PART_*
+   ├─ root берётся из:
+   │  └─ linCSParametricSolidBase::getRootElementP()
+   ├─ основной тип:
+   │  └─ CElement
+   ├─ подтверждённые методы:
+   │  ├─ CElement::GetChildCount()
+   │  ├─ CElement::GetChild(index)
+   │  ├─ CElement::GetName()
+   │  ├─ CElement::GetId()
+   │  └─ CElement::GetLevel()
+   ├─ owner-параметры children:
+   │  └─ CParamsOwner::{GetParamsCount, GetParameter, SetParameter4}
+   └─ назначение:
+      ├─ строить нативную иерархию
+      ├─ искать sub-element
+      └─ в перспективе выходить на дочерние параметры
+
+6. UI-слой окна "Параметры объекта"
+└─ это то, что видит пользователь справа в свойствах
+   ├─ MAPI-VIS
+   │  └─ видимые свойства с категориями и значениями
+   ├─ MAPI-FLAT
+   │  └─ плоские строки: категория / локальное имя / значение
+   ├─ DIRECT
+   │  └─ внутренние `PART_*`
+   └─ JOIN
+      └─ склейка:
+         UI-подпись -> внутренний ключ -> значение
+
+7. COM-слой (не основной, но важный как эталон)
+└─ нужен как контрольный рабочий путь и как источник знания о native-слое
+   ├─ runtime:
+   │  └─ C:\Program Files\CSoft\Model Studio CS\NANOWATER\bin\nanoCAD241\UnitsCSCom.nrx
+   ├─ interop:
+   │  └─ Artifacts/UnitsCSCom.Interop.dll
+   ├─ подтверждённые интерфейсы:
+   │  ├─ UnitsCSCom.Interop.IElement
+   │  ├─ UnitsCSCom.Interop.IParameters
+   │  └─ UnitsCSCom.Interop.IParameter
+   └─ роль в исследовании:
+      ├─ доказал, что запись параметров реально работает
+      ├─ помог понять внутренний param-layer
+      └─ служит эталоном, но не целевым финальным решением
+
+8. Что сейчас считается "правильным маршрутом"
+└─ текущая рабочая цепочка
+   ├─ DWG object
+   ├─ UnitsCS.nrx
+   ├─ linCSParametricSolidBase
+   ├─ CParam / PART_*
+   ├─ CElement root / children
+   └─ JOIN с MAPI-VIS для человекочитаемого отображения
+```
+
+Краткий смысл дерева:
+
+- если нужно **менять атрибуты типа `PART_TAGNUMBER`**, основной путь идёт через:
+  - `DWG object -> UnitsCS -> linCSParametricSolidBase -> CParam`.
+- если нужно **восстанавливать иерархию объекта**, основной путь идёт через:
+  - `DWG object -> UnitsCS -> getRootElementP() -> CElement tree`.
+- если нужно **понять, как это выглядит для пользователя в окне свойств**, нужен мост:
+  - `DIRECT + MAPI-VIS + JOIN`.
+- generic `MAPI` полезен как слой навигации и UI-свойств, но не доказан как основной путь записи `PART_*` для `vCSSubSegment`.
+
+### 11.22 Что уже подтверждено и что пока не подтверждено по дереву
+
+Подтверждено:
+
+- `MAPI-VIS` стабильно возвращает значения пользовательских свойств выбранного объекта;
+- `DIRECT` после чтения `CParam::getValue()` стал возвращать реальные значения многих внутренних `PART_*` параметров;
+- `JOIN` уже автоматически связывает значительную часть `PART_*` параметров с пользовательскими подписями справа в окне свойств;
+- нативное дерево `CElement` для выбранной трубы сейчас показывает геометрическую часть (`3D -> CONE -> ...`) и owner-параметры дочерних геометрических узлов;
+- автоматический запуск диагностики в открытом nanoCAD можно делать через:
+  - `GetActiveObject("nanoCADx64.Application.24.0")`
+  - `UnloadModule(...)`
+  - `LoadModule(...)`
+  - `ActiveDocument.SendCommand("DTMXNRX20TREE ")`
+
+Пока не подтверждено:
+
+- что нативное дерево `CElement` полностью совпадает с левым деревом окна `Параметры объекта` (`Параметризация`, `Порт1`, `Порт2`, `Список работ`, `Изоляция` и т.п.);
+- что все дочерние UI-элементы окна свойств доступны через уже найденные `CElement::GetChild*` без дополнительного обхода других контейнеров;
+- что `MAPI childCount` в runtime `nanoCAD 24.1` можно получить штатно: экспорт `mcsWorkIDArray()` в этой конфигурации отсутствует, поэтому ветка `MAPI-CHILDEX` сейчас пропускается;
+- что `LogOwnerParams(pIface)` безопасно отрабатывает до конца на всех объектах — для части сценариев эта ветка зависает/обрывается после `ownerCount`.
+- что `PART_TAGNUMBER -> Идентификатор` присутствует в `MAPI-VIS` как обычное видимое свойство: сейчас оно подтверждено через `DIRECT`, но в текущем наборе `MAPI-VIS` явно не поймано и потому помечается как `UI/?`.
+
+Рекомендуемый практический маршрут на текущем этапе:
+
+1. для **значений и подписей** опираться на `MAPI-FLAT`;
+2. для **внутренних ключей** опираться на `DIRECT`;
+3. для **геометрической/нативной иерархии** опираться на `TREE/FLAT`;
+4. дальше искать мост между:
+   - UI-деревом окна свойств,
+   - и нативным `CElement`-деревом,
+   чтобы получить полное соответствие `родитель/дочерний узел -> внутренние параметры -> пользовательские подписи`.
 // → "Segoe UI" 9pt на Windows 10/11, полная поддержка Unicode/кириллицы
 ```
 
@@ -7713,4 +8029,978 @@ MSBuild NrxCpp\DtmxNrx.vcxproj /t:Build `
 Практический симптом:
 
 - если комментарии/литералы в самом `NrxCpp/DtmxNrx.cpp` уже выглядят как `РџС...`, значит текст в файле уже был сохранён в неверной кодировке, и один только `/utf-8` это не исправит — нужно перезаписать испорченные строки корректным текстом в UTF-8.
+
+#### Двойная перекодировка UTF-8→cp1251→UTF-8 (AI-артефакт)
+
+**Симптом:** в файле визуально всё выглядит нормально (Read-тул и некоторые терминалы показывают читаемые буквы), но в диалоге nanoCAD видны иероглифы `РџР°СЂ...` вместо `Параметр`. Проверка raw-байтов показывает `d0 a0 d1 9f` вместо правильных `d0 9f` для `П`.
+
+**Причина:** AI-инструмент (или редактор) читал файл как Windows-1251, брал его байты как есть и сохранял их в UTF-8. Каждый байт оригинального UTF-8 записался как отдельный Windows-1251-символ с повторным UTF-8-кодированием. Байт `D0` (Р в cp1251) → `D0 A0`; байт `9F` (џ в cp1251) → `D1 9F`. Итого один символ П = `D0 9F` превратился в два символа `Р` + `џ` = `D0 A0 D1 9F`.
+
+**Диагностика:** запустить Python — если `Match: False`, файл повреждён:
+
+```python
+with open("DtmxNrx.cpp", "rb") as f:
+    raw = f.read()
+correct = "Параметр:".encode("utf-8")   # d0 9f d0 b0 d1 80 ...
+idx = raw.find(b'L"', raw.find(b"STATIC"))
+chunk = raw[idx+2:idx+2+len(correct)]
+print(f"Match: {chunk == correct}")     # False = повреждён
+```
+
+**Быстрый фикс (Python, обратная перекодировка через cp1251):**
+
+```python
+import re
+
+def fix_double_encoded(s):
+    """Восстановить: cp1251-байты были записаны как UTF-8 символы.
+    Закодировать в cp1251 → расшифровать как UTF-8 → оригинал."""
+    try:
+        return s.encode("cp1251").decode("utf-8")
+    except (UnicodeEncodeError, UnicodeDecodeError):
+        return None   # строка не повреждена, пропустить
+
+with open("DtmxNrx.cpp", encoding="utf-8") as f:
+    text = f.read()
+
+for m in re.finditer(r'L"([^"\\]*(?:\\.[^"\\]*)*)"', text):
+    fixed = fix_double_encoded(m.group(1))
+    if fixed and fixed != m.group(1):
+        text = text.replace(m.group(1), fixed, 1)
+
+with open("DtmxNrx.cpp", "w", encoding="utf-8") as f:
+    f.write(text)
+```
+
+Скрипт безопасен: `fix_double_encoded` возвращает `None` для строк без повреждений (корректный UTF-8 не может быть закодирован в cp1251 и расшифрован обратно без ошибки).
+
+**Профилактика:** при автоматической правке C++-файлов всегда открывать с явным `encoding="utf-8"` и писать обратно с тем же `encoding="utf-8"`. Не использовать PowerShell `Set-Content` (по умолчанию UTF-16 LE).
+
+---
+
+### 11.18 UnitsCS vtable — единственный рабочий путь для объектов Model Studio CS (DtmxNrx18, 2026-06-25)
+
+#### Ключевой вывод
+
+Объекты Model Studio CS в DWG (`vCSSubSegment`, `vCSNode` и подобные) **не реализуют `IMcParametricEnt`** через MAPI:
+
+```
+depth=0 | peQI=0 peKind=0 parentID=NULL  → ResolveParametric=null
+```
+
+Это значит:
+- `getMcsIdByNative` → S_OK (MAPI знает об объекте)
+- `QueryObject` → валидный `IMcObjectPtr`
+- Но `QI(IMcParametricEnt)` = null, `getSpecificKindPtr` = null, `parentID` = null
+- `setParams/getParams` через MAPI **недоступны** для этих объектов
+
+Единственный путь — vtable `linCSParametricSolidBase` из `UnitsCS.nrx`.
+
+#### Экспортированные функции UnitsCS.nrx (x64, подтверждены)
+
+```cpp
+// Factory: AcDbObject* → linCSParametricSolidBase*
+"?getParametricInterface@linCSParametricWrapper@@SAPEAVlinCSParametricSolidBase@@PEAVNcDbObject@@@Z"
+
+// Корневой элемент (нужен для чтения значений)
+"?getRootElementP@linCSParametricSolidBase@@QEAAPEAVCElement@@XZ"              // → CElement*
+
+// Перечисление
+"?GetParamsCount@linCSParametricSolidBase@@QEAAHXZ"                            // → int
+"?GetParameter@linCSParametricSolidBase@@QEBAPEAVCParam@@H@Z"                  // (pIface, int i) → CParam*
+
+// Чтение значения по имени
+"?SubEnt_ParameterLPCSTR@linCSParametricSolidBase@@SAPEB_WPEBVCElement@@PEB_W_N1@Z"
+//   (CElement* pRoot, const wchar_t* name, bool isExpr, bool isTemplate) → const wchar_t*
+
+// Запись параметра
+"?SetParameter@linCSParametricSolidBase@@QEAAXPEB_W000@Z"
+//   (pIface, name, value, comment, group) — все wchar_t*
+```
+
+#### Структура CParam (определено через VirtualQuery-зондирование)
+
+```
+CParam (x64, layout подтверждён для UnitsCS.nrx из nanoCAD 24.1 + MCS):
+
+  offset  0:  vtable-указатель (8 байт)
+              → при чтении как wchar_t* → иероглифы (байты указателя на .text)
+  offset  8:  CStringW m_strName  → имя параметра (русский текст)
+  offset 16:  CStringW m_strValue → текущее значение
+  offset 24+: прочие поля
+```
+
+**Причина иероглифов**: `*(wchar_t**)pCParam` (offset 0) читает vtable-адрес как указатель на строку. В памяти по vtable-адресу лежат 8-байтные указатели на виртуальные функции; первые 2 байта каждого — как правило, `32 хх` (младшие байты адреса .text секции DLL), что даёт символы вроде `㈐`. Правильное смещение имени — **8**.
+
+#### SafeWcharPtrAt — безопасное чтение через VirtualQuery
+
+```cpp
+static const wchar_t* SafeWcharPtrAt(const void* pBase, int byteOffset)
+{
+    const void* pField = (const char*)pBase + byteOffset;
+    MEMORY_BASIC_INFORMATION mbi = {};
+    if (!::VirtualQuery(pField, &mbi, sizeof(mbi)) || mbi.State != MEM_COMMIT) return nullptr;
+    if (mbi.Protect & (PAGE_NOACCESS | PAGE_GUARD)) return nullptr;
+    const wchar_t* p = *(const wchar_t* const*)pField;
+    if (!p) return nullptr;
+    if (!::VirtualQuery(p, &mbi, sizeof(mbi)) || mbi.State != MEM_COMMIT) return nullptr;
+    if (mbi.Protect & (PAGE_NOACCESS | PAGE_GUARD)) return nullptr;
+    return p;
+}
+```
+
+Никакого `__try/__except` — `VirtualQuery` безопасно работает на любом указателе, не вызывает AV.
+
+#### ProbeCParamNameOffset — автоопределение смещения имени
+
+```cpp
+static int ProbeCParamNameOffset(void* pCParam)
+{
+    for (int off : {0, 8, 16, 24}) {        // первый проход: ищем кириллицу
+        const wchar_t* p = SafeWcharPtrAt(pCParam, off);
+        if (!p) continue;
+        bool hasCyr = false, allOk = true; int len = 0;
+        for (; len < 200 && p[len]; ++len) {
+            wchar_t c = p[len];
+            if (c < 0x20 || c == 0xFFFE) { allOk = false; break; }
+            if (c >= 0x0400 && c <= 0x04FF) hasCyr = true;
+        }
+        if (allOk && hasCyr && len > 0) return off;
+    }
+    return 8; // fallback: vtable@0, name@8
+}
+```
+
+Вызывается один раз для первого `CParam` текущего объекта, результат используется для всех остальных (все `CParam` одного класса имеют одинаковый layout).
+
+#### Полный цикл: чтение параметров
+
+```cpp
+AcDbObject* pDbObj = nullptr;
+acdbOpenAcDbObject(pDbObj, oid, AcDb::kForRead);
+void* pIface = api.getParametricInterface((void*)pDbObj);
+int count    = api.getParamsCount(pIface);       // например 29
+CElement* pRoot = api.getRootElementP(pIface);
+
+void* pC0  = api.getParameterByIndex(pIface, 0);
+int nameOff = ProbeCParamNameOffset(pC0);        // обычно 8
+
+for (int i = 0; i < count; ++i) {
+    void* pCParam = api.getParameterByIndex(pIface, i);
+    const wchar_t* name = SafeWcharPtrAt(pCParam, nameOff);
+    if (!name || !name[0]) continue;
+
+    const wchar_t* val = api.subEntParameterStr(pRoot, name, false, false);
+    // name = L"Диаметр условный", val = L"500"
+}
+pDbObj->close();
+```
+
+#### Полный цикл: запись параметра
+
+```cpp
+AcDbObject* pDbObj = nullptr;
+acdbOpenAcDbObject(pDbObj, oid, AcDb::kForWrite);
+void* pIface = api.getParametricInterface((void*)pDbObj);
+api.setParameter4(pIface, L"Диаметр условный", L"600", L"", L"");
+pDbObj->close();
+// параметр персистирует в DWG (сохраняется через Ctrl+S)
+```
+
+#### Итоговый статус (DtmxNrx18, 2026-06-25)
+
+| Возможность | Статус |
+|---|---|
+| Перечисление всех параметров MCS-объекта | ✅ `EnumParamsViaNative` → 29 пар. |
+| Чтение текущего значения | ✅ `subEntParameterStr(pRoot, name)` |
+| Запись / обновление параметра | ✅ `setParameter4(pIface, name, val, "", "")` |
+| Множественное выделение (общие параметры) | ✅ пересечение `std::map`, `<разные>` |
+| Win32 GUI: combo + edit + Apply / Cancel | ✅ кириллица, системный шрифт |
+| MAPI `IMcParametricEnt` для этих объектов | ❌ недоступен (см. диагностику выше) |
+| Безопасное чтение CParam без SEH | ✅ `VirtualQuery` вместо `__try` |
+
+---
+
+### 11.19 Перспективы работы с объектами Model Studio CS из NRX (2026-06-25)
+
+После того как установлен полный цикл чтения/записи параметров через `linCSParametricSolidBase`, открывается широкий спектр автоматизации непосредственно в DWG без внешних инструментов.
+
+#### Что уже работает (базовый слой)
+
+```
+AcDbObject* (любой MCS-элемент в DWG)
+    │
+    └─ getParametricInterface()  ──→  linCSParametricSolidBase*
+            │
+            ├─ GetParamsCount()          → количество параметров
+            ├─ GetParameter(i) + offset8 → имя параметра (CStringW)
+            ├─ SubEnt_ParameterLPCSTR()  → текущее значение
+            └─ SetParameter()            → запись нового значения
+```
+
+#### Ближайшие задачи (легко реализовать поверх базового слоя)
+
+| Задача | Механизм |
+|--------|----------|
+| Пакетное изменение параметра на группе объектов | выборка `acedSSGet` → цикл `SetParameter` |
+| Поиск элементов по значению параметра | цикл по всем объектам чертежа `AcDbBlockTableRecord` → `getParametricInterface` → `SubEnt_ParameterLPCSTR` |
+| Выделение найденных элементов | `acedSSAdd` → `acedRedraw` |
+| Экспорт всех параметров в CSV | цикл по выборке → `fwprintf` |
+| Импорт параметров из CSV | построчный разбор → `SetParameter` для каждого объекта |
+| Проверка/валидация (аудит параметров) | сравнение значений с эталонным списком |
+| Синхронизация параметров между двумя элементами | читаем из источника → пишем в приёмник |
+
+#### Более сложные задачи
+
+- **Работа с иерархией** — у Model Studio CS есть родительские/дочерние объекты (трубопровод → фитинги → опоры). Через `SubEnt_ParameterLPCSTR` с `isExpr=true` можно читать выражения вместо вычисленных значений. Это позволяет понять зависимости между параметрами.
+
+- **Обращение к БД через параметры** — объекты MCS хранят `idObject` (или аналог) — идентификатор в базе данных проекта. Получив его через параметр, можно запрашивать ссылочные данные (PDM, PLM, реестр трубопроводов).
+
+- **Создание новых параметров** — `SetParameter(name, value, comment, group)` с новым именем создаёт пользовательский параметр. Можно добавлять расчётные или справочные атрибуты прямо в DWG без изменения шаблона MCS.
+
+- **Интеграция с внешними системами** — NRX работает in-process в nanoCAD. Команда может читать данные из файла, REST API, ODBC и массово обновлять параметры объектов по результату запроса.
+
+- **Мониторинг изменений** — через NRX-реакторы (`AcDbDatabaseReactor`, `AcEditorReactor`) можно перехватывать изменения объектов и автоматически обновлять зависимые параметры.
+
+#### Ограничения, которые нужно учитывать
+
+- `setParameter4` всегда получает строки (`wchar_t*`). Числа нужно форматировать самостоятельно (`swprintf_s`).
+- Layout `CParam` (vtable@0, name@8) установлен для UnitsCS.nrx из nanoCAD 24.1. При обновлении MCS нужно повторно проверить `ProbeCParamNameOffset`.
+- Открытие объекта `kForWrite` блокирует его на время операции — для пакетной записи на сотнях объектов нужен транзакционный подход или минимизация времени удержания блокировки.
+- `SubEnt_ParameterLPCSTR` возвращает указатель, управляемый объектом pRoot. Если pRoot закрыт, указатель невалиден — копировать в `std::wstring` немедленно.
+
+---
+
+### 11.20 Текущая задача: исследование иерархии параметров (DtmxNrx19–20)
+
+#### Задача
+
+Убедиться в точности чтения параметров через vtable `linCSParametricSolidBase` для реальных объектов Model Studio CS. Для этого нужно:
+
+- видеть **все параметры** выбранного элемента с актуальными значениями;
+- видеть параметры **родительского объекта** (если есть по MAPI);
+- видеть параметры **других MCS-объектов в том же NcDb-блоке** (потенциальные дочерние / смежные элементы).
+
+#### Что сделано (DtmxNrx19–20)
+
+**Кнопка "Лог →файл" в диалоге** (`IDC_DUMP_BTN`):
+- Появляется слева от "Применить" в существующем диалоге `DTMXNRX18SET`.
+- При нажатии: пишет в `dtmx_nrx_log.txt` все параметры и значения, показанные в диалоге (общие параметры выделенных объектов). Диалог не закрывается.
+
+**Команда `DTMXNRX19DUMP`** — автономный полный дамп:
+```
+Для каждого выбранного объекта:
+  1. Прямые параметры (vtable EnumParamsViaNative)
+  2. MAPI-родитель: getMcsIdByNative → getParentID → если не NULL → дампить его параметры
+  3. Блок-скан: пробежать по всем сущностям owner-блока (до 50),
+     найти те что имеют getParametricInterface → дампить их параметры
+```
+
+**Вспомогательная функция `DumpMcsObjectById(api, oid, prefix)`**:
+```cpp
+AcDbObject* pObj = nullptr;
+acdbOpenAcDbObject(pObj, oid, kForRead);
+void* pIface = api.getParametricInterface(pObj);
+if (!pIface) { pObj->close(); return 0; }
+auto ps = EnumParamsViaNative(api, pIface);  // ← pObj должен быть открыт!
+pObj->close();                                // ← закрыть ПОСЛЕ энумерации
+```
+
+#### Критический баг (исправлен в DtmxNrx20)
+
+`pObj->close()` вызывался **до** `EnumParamsViaNative`. В результате:
+- `getParametricInterface(pObj)` возвращает `pIface` корректно;
+- `getRootElementP(pIface)` после `close()` возвращает невалидный `pRoot` (или null);
+- `subEntParameterStr(pRoot, name, ...)` возвращает null → `dispValue = ""`.
+
+**Симптом:** в логе видны имена параметров, но все значения пустые.
+
+**Правило:** `pObj` обязан оставаться открытым всё время пока используется `pIface` или любой результат vtable-вызова на нём. Закрывать только после завершения всех vtable-операций.
+
+#### Текущий статус (DtmxNrx20)
+
+| Что | Статус |
+|-----|--------|
+| Параметры выбранного объекта | ✅ имена + значения |
+| MAPI-родитель | ✅ проверяется; для root-элементов = NULL |
+| Блок-скан (до 50 соседних объектов) | ✅ имена + значения |
+| Пустые значения в дампе | ✅ исправлено в DtmxNrx20 |
+
+#### Новое рабочее направление: дерево `CElement` через `mstudioData.dll` (2026-06-25)
+
+Ключевое уточнение:
+
+- `UnitsCS.nrx` **не** экспортирует методы `CElement` / `CParamsOwner` / `CParam`;
+- `UnitsCS.nrx` экспортирует только мост в параметрику:
+  - `getParametricInterface`
+  - `getRootElementP`
+  - `SubEnt_ParameterLPCSTR`
+- методы дерева и параметров берутся из `mstudioData.dll`.
+
+Подтверждённые экспорты `mstudioData.dll`:
+
+- `CElement::GetChildCount`
+- `CElement::GetChild(index)`
+- `CElement::GetName`
+- `CElement::GetId`
+- `CElement::GetLevel`
+- `CParamsOwner::GetParamsCount`
+- `CParamsOwner::GetParameter(index)`
+- `CParam::getName`
+- `CParam::getValue`
+- `CParam::getComment`
+
+Это дало первый **чистый C++** положительный результат по дереву геометрии Model Studio в DWG.
+
+#### Команда `DTMXNRX20TREE`
+
+Новая команда в `NrxCpp/DtmxNrx.cpp`:
+
+1. Берёт выбранный объект nanoCAD/Model Studio.
+2. Через `UnitsCS.nrx` получает `pIface` и `CElement* root`.
+3. Через `mstudioData.dll` обходит дерево `CElement`.
+4. Для каждого узла пишет:
+   - `ptr`
+   - `id`
+   - `level`
+   - `childCount`
+   - `name`
+5. Для каждого узла читает параметры через `CParamsOwner`.
+
+Практический результат на выбранной трубе (`VCSSUBSEGMENT`):
+
+- корневой узел: `name=3D`, `childCount=2`
+- дочерние узлы: два `CONE`
+- на дочерних узлах успешно прочитаны геометрические параметры:
+  - `Height`
+  - `Radius`
+  - `Radius2`
+  - `DirectionX/Y/Z`
+  - `OrientationX/Y/Z`
+  - `StartPointX/Y/Z`
+  - `Visible`
+  - `WallThickness`
+  - и др.
+
+Пример вывода:
+
+```text
+[NODE] ptr=... id=0 level=0 childCount=2 name=3D
+  [P] MIRROR_ELEMENTS = 0
+  [CHILD] index=0 ...
+  [NODE] ... name=CONE
+    [P] Height = 4805.699999999998
+    [P] Radius = 10
+    [P] Visible = 1
+```
+
+#### Важный вывод
+
+Теперь у нас есть **два разных слоя данных** в DWG:
+
+1. **Параметры интерфейса Model Studio / Part-параметры**  
+   Путь: `UnitsCS.nrx` → `linCSParametricSolidBase`  
+   Примеры: `PART_TAGNUMBER`, `PART_TYPE`, `PART_NAME`.
+
+2. **Внутреннее дерево геометрии / children**  
+   Путь: `UnitsCS.nrx` → `getRootElementP()` → `mstudioData.dll::CElement`  
+   Примеры: `CONE`, `Height`, `Radius`, `Visible`.
+
+Это не одно и то же.  
+`PART_*` живут не в дочерних `CONE`, а в другом слое параметрики объекта.
+
+#### Что это значит для следующего шага
+
+Рабочая гипотеза теперь такая:
+
+- если цель — **собрать всё о выделенном MS-элементе**, нужен объединённый дамп:
+  1. `UnitsCS`-параметры верхнего уровня;
+  2. `CElement`-дерево и параметры всех children.
+
+- если цель — **менять геометрию children**, путь уже найден: `CElement/CParamsOwner`;
+- если цель — **менять `PART_*`**, надо дальше добивать именно слой `linCSParametricSolidBase`, а не children.
+
+#### DtmxNrx20: подтверждённый доступ к правой панели свойств Model Studio через MAPI (2026-06-25)
+
+Новый подтверждённый рабочий путь:
+
+- `gpMcNativeGate`
+- `getMcsIdByNative(...)`
+- `QueryObject(mcsWorkID)`
+- приведение к `IMcDbObject`
+- далее:
+  - `getProperties(...)`
+  - `getProperty(...)`
+  - `getPropertyInfo(...)`
+
+Это дало **реальные значения**, совпадающие с правой частью окна `Параметры объекта`.
+
+Ключевой вывод:
+
+- `IMcDbObject` в MAPI реально является `IMcPropertySource`;
+- именно этот путь даёт не только имена, но и пользовательские значения из UI;
+- это **другой слой**, не совпадающий с `CElement`-геометрией и не совпадающий с прямым `PART_*`-дампом через `UnitsCS`.
+
+Примеры реально прочитанных значений:
+
+- `Параметры изделия.Наименование изделия = Труба полипропиленовая`
+- `Параметры изделия.Обозначение / Модель = PP-R SDR 6/S 2.5 - 20x3.4 PN 20`
+- `Параметры изделия.Нормативный документ = ГОСТ 32415-2013`
+- `Параметры изделия.Материал = Полипропилен`
+- `Спецификация.Группа по спецификации = Трубы`
+- `Дополнительные параметры.Тип изделий = Труба`
+
+Это первый подтверждённый **чистый C++** путь, который возвращает именно значения из UI, а не пустой список имён.
+
+#### Три слоя данных, которые нельзя смешивать
+
+По состоянию на сейчас в DWG у объекта Model Studio подтверждены три разных слоя:
+
+1. **`UnitsCS` / `linCSParametricSolidBase`**  
+   Даёт `PART_*`, `BOM_*`, `PIPE_*` и т.п.  
+   Проблема: для многих параметров имя видно, но значение пустое.
+
+2. **`MAPI / IMcPropertySource`**  
+   Даёт то, что реально видно справа в `Параметры объекта`.  
+   Пример: `Наименование изделия`, `Материал`, `Группа по спецификации`.
+
+3. **`CElement` / `mstudioData.dll`**  
+   Даёт геометрическое дерево `3D -> CONE -> ...` и параметры `Height`, `Radius`, `Visible`.
+
+Это принципиально важно:  
+если задача — вывести **все поля справа**, нужно идти через `IMcPropertySource`;  
+если задача — пройти **геометрию children**, нужно идти через `CElement`;  
+если задача — работать с `PART_*`, это отдельный слой.
+
+#### Что НЕ сработало для иерархии UI
+
+Подтверждённо не сработали следующие пути:
+
+- `ownerId()` native DWG-цепочки  
+  Даёт только:
+  - `VCSSUBSEGMENT -> BLOCK_RECORD -> TABLE`
+  - это **не** дерево UI слева.
+
+- `IMcDbObject::getChildrenIDs()` на raw `VCSSUBSEGMENT`  
+  На выбранной трубе падает с:
+  - `seh=0xC0000005`
+  - значит левое дерево свойств не лежит напрямую в обычных `children` этого MAPI-объекта.
+
+- путь только через `CElement`
+  Даёт только геометрию (`3D`, `CONE`, ...), но **не** ловит узлы UI вроде:
+  - `Параметризация`
+  - `Порт1`
+  - `Порт2`
+  - `Список работ`
+
+#### Новые зацепки для следующего исследования
+
+После чтения SDK зафиксированы самые перспективные направления:
+
+1. **`McPropertyInfo`**
+   - смотреть `ctrlType`
+   - смотреть `propType`
+   - смотреть `pCustomDialog`
+   - смотреть `values`
+
+   Особенно интересны свойства-заглушки:
+   - `Трубопровод.Параметры трубопровода = <Свойства Осевой>`
+   - `Компонент.Параметры компонента = <Свойства объекта>`
+   - `Изоляция.Изоляция = <Свойства Изоляции>`
+
+   Гипотеза: именно они могут быть входом в подчинённые наборы свойств / вложенные редакторы.
+
+2. **`IMcReferenceExtension`**
+   - в SDK есть отдельный интерфейс зависимостей/ссылок;
+   - нужно проверить, не сидят ли `Порт1/Порт2/изоляция/список работ` в ссылочной модели, а не в `children`.
+
+3. **`getChildrenIDsEx(...)`**
+   - в SDK есть расширенный вариант с фильтрами:
+     - `kChildrenSysFilter_All`
+     - `kChildrenSysFilter_AllDeep`
+     - `kChildrenSysFilter_UseGetObject`
+   - нужно отдельно проверить, не даст ли он другой результат, чем `getChildrenIDs()`.
+
+#### Техническая заметка по тестированию NRX
+
+На этом этапе было важно разделить две вещи:
+
+- **сборка NRX** — проходит успешно;
+- **горячая перезагрузка в nanoCAD через COM** — нестабильна.
+
+Практический вывод:
+
+- `DtmxNrx20.nrx` собирается нормально;
+- но автоматическая загрузка/перезагрузка через COM (`LoadArx`, `LoadModule`) может вернуть `E_FAIL`, даже когда сам файл корректен;
+- для отладки лучше опираться на:
+  - успешную сборку,
+  - лог `dtmx_nrx_log.txt`,
+  - и ручную/командную загрузку NRX внутри nanoCAD, если COM начинает вести себя нестабильно.
+
+#### COM → native: что удалось доказать по `UnitsCSCom.nrx` (ветка `research/com-native-path`, 2026-06-25)
+
+Новый отдельный вектор исследования:
+
+- не идти “вслепую” только через MAPI/NRX;
+- а разбирать **рабочий COM-слой**, который уже умеет писать `PART_TAGNUMBER`;
+- от него восстанавливать внутренний native-маршрут.
+
+##### 1. `UnitsCSCom.nrx` — это реальная ATL COM-обёртка, а не просто typelib
+
+Подтверждено через `dumpbin /exports`:
+
+- `UnitsCSCom.nrx` экспортирует:
+  - `DllGetClassObject`
+  - `DllRegisterServer`
+  - `DllUnregisterServer`
+- внутри есть реальные COM-классы:
+  - `CoElement`
+  - `CoElementStandalone`
+  - `CoElementStandaloneEx`
+  - `CoElementPersistent`
+  - `CoElementTemporary`
+  - `CoElementAdapter`
+  - `CoElementAdapterT<linCSDataObject>`
+  - `CoElementAdapterT<linCSNode>`
+  - `CoElementAdapterT<linCSCollision>`
+
+Практический вывод:
+
+- `COM`-слой не является внешним “скриптовым костылём”;
+- это **родная in-process обёртка продукта**, сидящая прямо поверх внутренних классов Model Studio.
+
+##### 2. Подтверждённые coclass / typelib регистрации
+
+Из реестра подтверждено:
+
+- `TypeLib = {1AE1985C-5D87-4E89-8E67-068628FC3CD6}`
+  - `Model Studio Objects 1.0 Type Library`
+- `CLSID Element Class = {45ABD4AA-0795-42DF-92CC-592C757A8443}`
+  - `ProgID = MDSUnits.Element.1`
+  - `VersionIndependentProgID = MDSUnits.Element`
+  - `InprocServer32 = ...\UnitsCSCom.nrx`
+- `CLSID Parameters Class = {8AFB3213-BB2E-447E-8B85-A12F02C0FD67}`
+  - `ProgID = MDSUnits.Parameters.1`
+  - `VersionIndependentProgID = MDSUnits.Parameters`
+  - `InprocServer32 = ...\UnitsCSCom.nrx`
+
+То есть:
+
+- `IElement` и `IParameters` реально живут в `UnitsCSCom.nrx`;
+- это **in-process COM**, а не внешняя служба и не cross-process automation.
+
+##### 3. DISPIDs typed COM-слоя уже известны
+
+Через reflection по `Artifacts\UnitsCSCom.Interop.dll` подтверждено:
+
+- `IElement`
+  - `DISPID 2` → `Parameters`
+  - `DISPID 13` → `GetValue`
+  - `DISPID 14` → `GetValueComment`
+  - `DISPID 21` → `SetParameters`
+  - `DISPID 9` → `Implementation`
+- `IParameters`
+  - `DISPID 0` → `Item(index)`
+  - `DISPID 1` → `Count`
+  - `DISPID 2` → `SetParameter(Name, Value, Comment, ValueComment)`
+  - `DISPID 3` → `DeleteParameter`
+  - `DISPID 4` → `DeleteAll`
+  - `DISPID 5` → `Has(index)`
+- `IParameter`
+  - `DISPID 1` → `Name`
+  - `DISPID 0` → `Value`
+  - `DISPID 3` → `Comment`
+  - `DISPID 4` → `ValueComment`
+
+Это важно, потому что теперь можно:
+
+- трассировать late-bound вызовы не “по имени”, а уже по точным `DISPID`;
+- сопоставлять их с нативными методами COM-классов.
+
+##### 4. Что `UnitsCSCom.nrx` реально оборачивает внутри
+
+По `dumpbin /imports` и `dumpbin /exports` подтверждено:
+
+- `UnitsCSCom.nrx` импортирует:
+  - `mstudioData.dll`
+  - `mstudioUI.dll`
+  - `UnitsCS.nrx`
+- внутри `mstudioData.dll` экспортированы:
+  - `CElement`
+  - `CParamsOwner`
+  - `CParam`
+  - `CIElementImpl@MStudioData`
+  - `CIParamsOwnerImpl@MStudioData`
+  - `CIParamImpl@MStudioData`
+
+Особенно важные экспорты `mstudioData.dll`:
+
+- `CIElementImpl@MStudioData::SetParameter(...)`
+- `CIParamsOwnerImpl@MStudioData::SetParameter(...)`
+- `CParamsOwner::SetParameter(...)`
+- `CParam::setValue(...)`
+- `CParam::setComment(...)`
+- `CParam::setValueComment(...)`
+- `CElement::QueryParameter(...)`
+- `CElement::ApplyParameter(...)`
+- `CParamsOwner::ApplyParameters(...)`
+
+Практический вывод:
+
+- рабочий COM-вызов `Parameters.SetParameter(...)` почти наверняка в итоге приходит не в abstract API, а в:
+  - `CIParamsOwnerImpl@MStudioData::SetParameter(...)`
+  - либо прямо в `CParamsOwner::SetParameter(...)`
+- то есть **нативная точка записи уже фактически найдена по именам классов**.
+
+##### 5. Что оборачивает `CoElement`
+
+Из экспортов `UnitsCSCom.nrx` подтверждены методы:
+
+- `CoElement::get_Parameters`
+- `CoElement::GetValue`
+- `CoElement::GetValueComment`
+- `CoElement::SetParameters`
+- `CoElement::get_Implementation`
+- `CoElement::GetParentByLevel`
+- `CoElement::GetById`
+- `CoElement::AddChild`
+
+Также подтверждены фабричные методы:
+
+- `CreateElement`
+- `CreateRootObject`
+- `CreateParentObject`
+- `CreateSubelementsCollection`
+- `CreateSubelementsAllCollection`
+- `CreateSubelementsPathCollection`
+
+И отдельная сильная зацепка:
+
+- `CoElementAdapterT<linCSDataObject>`
+- `CoElementAdapterT<linCSNode>`
+- `CoElementAdapterT<linCSCollision>`
+
+Это означает:
+
+- COM-объект `Element` в Model Studio не абстрактен;
+- он адаптирует конкретные нативные классы продукта `linCS...`;
+- то есть путь “разобрать COM и собрать эквивалент в C++” **правильный по сути**.
+
+##### 6. Текущая рабочая гипотеза native-маршрута
+
+На текущем этапе самая правдоподобная цепочка выглядит так:
+
+1. live `vCSSubSegment` из nanoCAD / OdaX
+2. COM-свойство `entity.Element`
+3. `UnitsCSCom.nrx::CoElement`
+4. адаптер `CoElementAdapterT<linCSDataObject>` или `CoElementPersistent/Standalone`
+5. `mstudioData.dll::CIElementImpl / CIParamsOwnerImpl`
+6. `mstudioData.dll::CParamsOwner::SetParameter(...)`
+7. `mstudioData.dll::CParam::setValue / setComment / setValueComment`
+
+Это уже гораздо конкретнее, чем общий поиск по памяти.
+
+##### 7. Почему этот путь лучше “искать байты в памяти”
+
+Потому что здесь мы идём:
+
+- не от случайного layout;
+- а от **рабочей продуктовой обёртки**;
+- не от guessed offsets;
+- а от:
+- `TypeLib`
+- `DISPID`
+- `CLSID`
+- реальных экспортированных имён классов и методов.
+
+То есть следующая цель — не “угадывать 8 байт туда-сюда”, а:
+
+- восстановить соответствие
+- `IParameters.SetParameter(...)`
+- `CIParamsOwnerImpl::SetParameter(...)`
+- `CParamsOwner::SetParameter(...)`
+- и уже потом вызвать это из чистого C++ без COM.
+
+##### 8. Дополнительная live-проверка typed COM на реальном `vCSSubSegment`
+
+Через `ModelSpace` была найдена реальная труба:
+
+- `ObjectName = vCSSubSegment`
+- `Handle = 84F`
+
+По ней подтверждено:
+
+- `element.Parameters.Count = 31`
+- это совпадает с количеством параметров, которое раньше возвращал наш native-дамп `UnitsCS`
+- `element.Parameters.Item("PART_TAGNUMBER")` существует
+  - `Name = PART_TAGNUMBER`
+  - `Value = ""`
+  - `Comment = ""`
+- `element.Parameters.Item("PART_TAG")` существует и даёт заполненное значение
+
+Отдельно проверено:
+
+- `element.Implementation` для этой live-трубы вернулся как `System.Int64`
+- значение: `0`
+
+Практический вывод:
+
+- `Implementation` нельзя пока считать готовым мостом на полезный managed/native объект;
+- зато `Parameters.Count = 31` ещё раз подтверждает, что typed COM и native `UnitsCS` смотрят в один и тот же param-layer.
+
+##### 9. Новый pure C++ owner-path probe (`DTMXNRX21OPROBE` / `DTMXNRX21OSET`)
+
+В `NrxCpp/DtmxNrx.cpp` добавлен отдельный экспериментальный путь поверх `mstudioData.dll`, без COM:
+
+- `DTMXNRX21OPROBE`
+  - берёт preselected объект;
+  - открывает его через `AcDbObject`;
+  - получает:
+    - `pIface = getParametricInterface(...)`
+    - `pRoot = getRootElementP(pIface)`
+  - затем пробует смотреть на:
+    - `pIface` как на `CParamsOwner`
+    - `pRoot` как на `CParamsOwner`
+  - логирует:
+    - `ifaceCount`
+    - `ownerCount` на `pIface`
+    - `ownerCount` на `pRoot`
+    - список параметров через:
+      - `CParamsOwner::GetParamsCount`
+      - `CParamsOwner::GetParameter(index)`
+      - `CParam::getName`
+      - `CParam::getValue`
+      - `CParam::getComment`
+  - отдельно снимает snapshot по:
+    - `PART_TAG`
+    - `PART_TAGNUMBER`
+    - и одновременно сравнивает с `SubEnt_ParameterLPCSTR(...)`.
+
+- `DTMXNRX21OSET`
+  - использует тот же path;
+  - сначала пытается писать через:
+    - `CParamsOwner::SetParameter(...)` на `pIface`
+  - если это не срабатывает, пробует fallback:
+    - найти `CParam*` для `PART_TAGNUMBER` на `pRoot`
+    - вызвать `CParam::setValue(...)`
+  - после этого снимает `AFTER`-snapshot по `PART_TAGNUMBER`.
+
+Текущее тестовое значение:
+
+- `PART_TAGNUMBER = DTMX_CPP_OWNER`
+
+Это не финальный production-путь, а именно controlled probe:
+
+- совпадает ли layout `pIface` с `CParamsOwner`;
+- живой ли путь записи через `mstudioData.dll`;
+- где именно находится writable owner-слой.
+
+##### 10. Важное техническое ограничение по SEH в VC++
+
+При реализации owner-path выяснилось:
+
+- `__try / __except` нельзя использовать в функциях, где есть C++-объекты с unwind/destructor (`std::wstring`, `std::vector` и т.д.);
+- компилятор выдаёт:
+  - `C2712: Невозможно использовать __try в функциях, требующих уничтожения объектов`
+
+Рабочее решение:
+
+- все потенциально “падающие” вызовы вынесены в отдельные leaf-wrapper функции без STL:
+  - `SehOwnerCount(...)`
+  - `SehIfaceCount(...)`
+  - `SehOwnerGetParamAt(...)`
+  - `SehParamGetName(...)`
+  - `SehParamGetValue(...)`
+  - `SehParamGetComment(...)`
+  - `SehSubEntParameterStr(...)`
+  - `SehOwnerSetParameter4(...)`
+  - `SehParamSetValue(...)`
+- а уже поверх них сделаны обычные логирующие helper’ы:
+  - `SafeOwnerCount(...)`
+  - `SafeIfaceCount(...)`
+  - `LogOwnerParams(...)`
+  - `LogNamedParamSnapshot(...)`
+
+Практический вывод:
+
+- для crash-prone reverse/probe-кода в nanoCAD/MCS лучше держать двухслойную схему:
+  - **низкий слой** = только POD + `__try`
+  - **верхний слой** = STL, логика, логирование
+
+##### 11. Статус сборки NRX после owner-path изменений
+
+После добавления `DTMXNRX21...` проект снова успешно собирается:
+
+- проект: `NrxCpp/DtmxNrx.vcxproj`
+- output: `Scripts/DtmxNrx20.nrx`
+
+Проверка `dumpbin /exports` показала:
+
+- экспорт присутствует:
+  - `ncrxEntryPoint`
+
+Проверка `dumpbin /dependents` показала стандартные зависимости:
+
+- `McTyp.dll`
+- `mt.dll`
+- `NrxDbGate.dll`
+- `NrxHostGate.dll`
+- `McGeL.dll`
+- runtime CRT DLL
+
+Это важно, потому что:
+
+- успешная сборка и наличие `ncrxEntryPoint` подтверждают, что текущий бинарь как минимум формально валиден как NRX-модуль;
+- если `APPLOAD` снова скажет `Не найдена указанная процедура`, следующая проверка должна идти уже не в код команды, а в:
+  - несовпадение SDK/runtime;
+  - сторонние импортируемые DLL;
+  - или конкретный экспорт/ABI одной из зависимостей на живой машине.
+
+##### 12. Реальная причина `APPLOAD -> Не найдена указанная процедура` для `DtmxNrx20.nrx`
+
+Причина была найдена через прямое сравнение import/export:
+
+- runtime:
+  - `nanoCAD x64 24.1`
+- SDK сборки:
+  - `NC_SDK_RU_26.0.7228.4926.8429`
+
+Это уже само по себе риск ABI-расхождения:
+
+- старые/простые NRX могли загружаться;
+- более новые сборки начинали импортировать дополнительные символы из SDK 26;
+- часть таких символов в runtime 24.1 уже отсутствует.
+
+Конкретно у `DtmxNrx20.nrx` был найден прямой несовместимый импорт:
+
+- DLL: `mt.dll`
+- отсутствующий в runtime-24.1 символ:
+  - `??0mcsWorkIDArray@@QEAA@XZ`
+  - это `mcsWorkIDArray::mcsWorkIDArray()`
+
+Практически это и вызывало:
+
+- `APPLOAD, ЗАГПРИЛ`
+- `Не удается загрузить модуль "...DtmxNrx20.nrx", ошибка: Не найдена указанная процедура`
+
+##### 13. Как именно был найден несовместимый импорт
+
+Сравнение показало:
+
+- `DtmxNrx19.nrx` импортировал из `mt.dll` 9 символов
+- `DtmxNrx20.nrx` импортировал из `mt.dll` 11 символов
+- новый импорт в `20`, которого не было в `19`:
+  - `??0mcsWorkIDArray@@QEAA@XZ`
+
+Далее была сделана проверка экспортов live-runtime DLL:
+
+- `McTyp.dll` (из `bin_nPlat`) — все прямые импорты `DtmxNrx20.nrx` присутствуют
+- `NrxDbGate.dll` — все прямые импорты присутствуют
+- `NrxHostGate.dll` — все прямые импорты присутствуют
+- `mt.dll` — отсутствовал именно:
+  - `??0mcsWorkIDArray@@QEAA@XZ`
+
+Итог:
+
+- проблема была не в `ncrxEntryPoint`
+- не в `mstudioData.dll`
+- не в `CParamsOwner`
+- а именно в несовместимом **прямом импорте** `mt.dll`.
+
+##### 14. Что в коде вызывало этот импорт
+
+Источник несовместимого импорта был найден в MAPI-diagnostic коде:
+
+- `LogMapiChildrenExProbes(...)`
+- обращение к:
+  - `mcsWorkIDArray children;`
+- и дополнительный рискованный путь:
+  - `MCSVariant::WorkIDArray()`
+
+Для совместимости с runtime `24.1` было сделано:
+
+1. отключён `getChildrenIDsEx(...)` probe, который требовал default-construction `mcsWorkIDArray`
+2. ветка форматирования
+   - `MCSVariant::kWorkIDArray`
+   упрощена до текстового маркера без вызова `WorkIDArray()`
+
+После этого:
+
+- прямой импорт `??0mcsWorkIDArray@@QEAA@XZ` исчез из `DtmxNrx20.nrx`
+- повторная проверка показала:
+  - `McTyp.dll` — missing `0`
+  - `mt.dll` — missing `0`
+  - `NrxDbGate.dll` — missing `0`
+  - `NrxHostGate.dll` — missing `0`
+
+Практический вывод:
+
+- для `nanoCAD 24.1` нельзя бездумно тянуть новые container/variant helper-и из SDK 26;
+- даже если заголовки компилируются и линковка проходит, `APPLOAD` может упасть на отсутствующем runtime-export;
+- при reverse/probe-разработке нужно регулярно проверять не только build, но и import-table итогового `.nrx`.
+
+##### 15. Улучшение `DTMXNRX20TREE`: плоские строки пути
+
+Чтобы удобнее изучать именно **иерархию объекта + свойства как строки**, в `DTMXNRX20TREE` добавлен второй формат лога поверх обычных `[NODE]` / `[P]`:
+
+- `[PATH] <полный путь узла>`
+- `[FLAT] <полный путь узла> -> <параметр> = <значение>`
+- `[FLAT-NODE] <полный путь узла> -> <no-owner-params>`
+
+Логика:
+
+- путь собирается рекурсивно от корня через `CElement::GetName()`;
+- для пустых имён используется fallback:
+  - `<unnamed>`
+- для каждого `CElement` теперь есть:
+  1. старый структурный лог
+  2. новый плоский лог, пригодный для grep / анализа / сопоставления
+
+Пример целевого формата:
+
+```text
+[PATH] 3D/CONE
+[FLAT] 3D/CONE -> Height = 4805.699999999998
+[FLAT] 3D/CONE -> Radius = 10
+[FLAT] 3D/CONE -> Visible = 1
+```
+
+Практический смысл:
+
+- стало проще видеть дерево как набор строк;
+- проще искать дублирующиеся узлы;
+- проще сравнивать логи между итерациями;
+- это ближе к задаче “получить иерархию объекта и его свойства в виде строк”.
+
+##### 16. Переключение проекта на `NC_SDK_RU_24.1`
+
+На 2026-06-26 выяснилось:
+
+- путь на `NC_SDK_RU_26.0.7228.4926.8429` в рабочем окружении отсутствовал;
+- реально доступен локальный SDK:
+  - `C:\pdf_ingest\DTMXtest\NC_SDK_RU_24.1`
+
+Проект `NrxCpp/DtmxNrx.vcxproj` переключён на этот SDK.
+
+Дополнительно для совместимости понадобилось:
+
+1. явно вернуть define:
+   - `_MCS_CORE_ONLY`
+2. в `stdafx.h` добавить forward declarations:
+   - `class CWnd;`
+   - `class CString;`
+   - `class CStringArray;`
+3. убрать прямую зависимость от метода:
+   - `IMcNativeGate::IsMCSCustomObject(...)`
+   которого нет в API `24.1`
+
+После этого проект снова успешно собирается в:
+
+- `Scripts/DtmxNrx20.nrx`
+
+Важно:
+
+- при сборке с `SDK 24.1` остаются многочисленные предупреждения `C4005` по MAPI/NRX-макросам;
+- на текущем этапе это не блокирует сборку;
+- warnings не равны проблеме загрузки, если итоговый `.nrx` создаётся и import-table совместима с runtime `24.1`.
 
