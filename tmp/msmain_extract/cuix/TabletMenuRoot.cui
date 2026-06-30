@@ -1,0 +1,136 @@
+<?xml version="1.0"?>
+<!--
+Внимание! Не изменяйте содержимое этого файла.
+При попытке редактирования этого файла с помощью редактора XML функциональные
+возможности адаптации и переноса могут быть утрачены. Для изменения
+информации в файле адаптации воспользуйтесь диалоговым окном
+"Адаптация пользовательского интерфейса" в программе.
+Для доступа к диалоговому окну "Адаптация пользовательского интерфейса" выберите меню "Сервис",
+откройте панель "Адаптация" и нажмите кнопку "Пользовательский интерфейс" либо введите НПИ в командной строке.
+-->
+<TabletMenuRoot xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <TabletMenu TabletArea="9" Rows="3" Columns="3" UID="TMU_220_66B79">
+    <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    <Alias>Alternate Меню планшета 1</Alias>
+    <TabletMenuItem BlankLine="true" UID="TMIU_220_67F7B">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </TabletMenuItem>
+    <TabletMenuItem BlankLine="true" UID="TMIU_220_38038">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </TabletMenuItem>
+    <TabletMenuItem BlankLine="true" UID="TMIU_220_DA18E">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </TabletMenuItem>
+    <TabletMenuItem BlankLine="true" UID="TMIU_220_74229">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </TabletMenuItem>
+    <TabletMenuItem BlankLine="true" UID="TMIU_220_6D5EF">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </TabletMenuItem>
+    <TabletMenuItem BlankLine="true" UID="TMIU_220_1A34C">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </TabletMenuItem>
+    <TabletMenuItem BlankLine="true" UID="TMIU_220_0EE44">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </TabletMenuItem>
+    <TabletMenuItem BlankLine="true" UID="TMIU_220_6B8B9">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </TabletMenuItem>
+    <TabletMenuItem BlankLine="true" UID="TMIU_220_3FEE5">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </TabletMenuItem>
+  </TabletMenu>
+  <TabletMenu TabletArea="9" Rows="3" Columns="3" UID="TMU_220_9C2BC">
+    <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    <Alias>Alternate Меню планшета 2</Alias>
+    <TabletMenuItem BlankLine="true" UID="TMIU_220_558B7">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </TabletMenuItem>
+    <TabletMenuItem BlankLine="true" UID="TMIU_220_247B1">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </TabletMenuItem>
+    <TabletMenuItem BlankLine="true" UID="TMIU_220_25777">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </TabletMenuItem>
+    <TabletMenuItem BlankLine="true" UID="TMIU_220_174FC">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </TabletMenuItem>
+    <TabletMenuItem BlankLine="true" UID="TMIU_220_41098">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </TabletMenuItem>
+    <TabletMenuItem BlankLine="true" UID="TMIU_220_93507">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </TabletMenuItem>
+    <TabletMenuItem BlankLine="true" UID="TMIU_220_29189">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </TabletMenuItem>
+    <TabletMenuItem BlankLine="true" UID="TMIU_220_9269C">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </TabletMenuItem>
+    <TabletMenuItem BlankLine="true" UID="TMIU_220_29811">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </TabletMenuItem>
+  </TabletMenu>
+  <TabletMenu TabletArea="9" Rows="3" Columns="3" UID="TMU_220_A1FE9">
+    <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    <Alias>Alternate Меню планшета 3</Alias>
+    <TabletMenuItem BlankLine="true" UID="TMIU_220_BE991">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </TabletMenuItem>
+    <TabletMenuItem BlankLine="true" UID="TMIU_220_00B55">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </TabletMenuItem>
+    <TabletMenuItem BlankLine="true" UID="TMIU_220_62EC1">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </TabletMenuItem>
+    <TabletMenuItem BlankLine="true" UID="TMIU_220_63DA7">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </TabletMenuItem>
+    <TabletMenuItem BlankLine="true" UID="TMIU_220_B76D1">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </TabletMenuItem>
+    <TabletMenuItem BlankLine="true" UID="TMIU_220_1C886">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </TabletMenuItem>
+    <TabletMenuItem BlankLine="true" UID="TMIU_220_5BE47">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </TabletMenuItem>
+    <TabletMenuItem BlankLine="true" UID="TMIU_220_ED049">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </TabletMenuItem>
+    <TabletMenuItem BlankLine="true" UID="TMIU_220_5B25E">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </TabletMenuItem>
+  </TabletMenu>
+  <TabletMenu TabletArea="9" Rows="3" Columns="3" UID="TMU_220_A504B">
+    <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    <Alias>Alternate Меню планшета 4</Alias>
+    <TabletMenuItem BlankLine="true" UID="TMIU_220_4745E">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </TabletMenuItem>
+    <TabletMenuItem BlankLine="true" UID="TMIU_220_44B56">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </TabletMenuItem>
+    <TabletMenuItem BlankLine="true" UID="TMIU_220_9EEC5">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </TabletMenuItem>
+    <TabletMenuItem BlankLine="true" UID="TMIU_220_9A3E9">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </TabletMenuItem>
+    <TabletMenuItem BlankLine="true" UID="TMIU_220_A62BC">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </TabletMenuItem>
+    <TabletMenuItem BlankLine="true" UID="TMIU_220_728BD">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </TabletMenuItem>
+    <TabletMenuItem BlankLine="true" UID="TMIU_220_80F3A">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </TabletMenuItem>
+    <TabletMenuItem BlankLine="true" UID="TMIU_220_1DAF1">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </TabletMenuItem>
+    <TabletMenuItem BlankLine="true" UID="TMIU_220_9BFA6">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </TabletMenuItem>
+  </TabletMenu>
+</TabletMenuRoot>

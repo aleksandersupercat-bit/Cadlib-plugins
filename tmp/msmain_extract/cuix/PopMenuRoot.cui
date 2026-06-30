@@ -1,0 +1,1282 @@
+<?xml version="1.0"?>
+<!--
+Внимание! Не изменяйте содержимое этого файла.
+При попытке редактирования этого файла с помощью редактора XML функциональные
+возможности адаптации и переноса могут быть утрачены. Для изменения
+информации в файле адаптации воспользуйтесь диалоговым окном
+"Адаптация пользовательского интерфейса" в программе.
+Для доступа к диалоговому окну "Адаптация пользовательского интерфейса" выберите меню "Сервис",
+откройте панель "Адаптация" и нажмите кнопку "Пользовательский интерфейс" либо введите НПИ в командной строке.
+-->
+<PopMenuRoot xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <PopMenu hasDiesel="false" UID="PMU_220_063AA">
+    <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    <Alias>MSMAIN_MENU</Alias>
+    <Name xlate="true" UID="XLS_220_48EB5">Model Studio CS</Name>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_0FAAF">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_4992D" xlate="true">База данных стандартного оборудования</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="lcs_lib_palette" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_DAFE8">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_70BD8" xlate="true">Навигатор</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="urs_navigator" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_B4AC5">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_35D1A" xlate="true">Спецификатор</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="urs_specification_palette" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_4F291">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_45142" xlate="true">Переключить 2D-3D</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="set_model_mode" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="PMIU_220_CED76">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_1CFAF">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_4CD14" xlate="true">Создать чертеж по шаблону</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="URS_CREATEFROMTEMPLATE" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_CC513">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_7DDB3" xlate="true">Импорт шаблона DWG/DWT</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="URS_APPTEMPLATE" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="PMIU_220_6E3FD">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuItem>
+    <PopMenuRef pUID="PMU_220_2236D" UID="PMRU_220_8DAE0">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuRef>
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="PMIU_220_57EAE">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuItem>
+    <PopMenuRef pUID="PMU_220_789E0" UID="PMRU_220_B4E60">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuRef>
+    <PopMenuRef pUID="PMU_220_6512C" UID="PMRU_220_B6F9F">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuRef>
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="PMIU_220_13349">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuItem>
+    <PopMenuRef pUID="PMU_00022771" UID="PMRU_220_5E686">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuRef>
+    <PopMenuRef pUID="PMU_220_E0EE9" UID="PMRU_220_7C85C">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuRef>
+    <PopMenuRef pUID="PMU_220_6C53A" UID="PMRU_220_B8BD5">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuRef>
+    <PopMenuRef pUID="PMU_220_97124" UID="PMRU_220_96C73">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuRef>
+    <PopMenuRef pUID="PMU_0015" UID="PMRU_220_B0046">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuRef>
+    <PopMenuRef pUID="PMU_220_91F8A" UID="PMRU_220_A6B4C">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuRef>
+    <PopMenuRef pUID="PMU_0012" UID="PMRU_220_7FB77">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuRef>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_0AD15">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_9BEDD" xlate="true">Настройки</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="urs_options" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_0837D">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_54A62" xlate="true">Настройки параметров</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="URS_SETUP_PARAMETERS" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="PMIU_220_5831D">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_04C12">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_CF2DC" xlate="true">Вызов NormaCS</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="_urs_normacs" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="PMIU_220_9E8EA">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_5FE21">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_5C2C9" xlate="true">Справка по Model Studio CS</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="urs_help" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_F2D4B">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_DC9C6" xlate="true">О программе...</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="lcs_about" />
+      </MenuItem>
+    </PopMenuItem>
+  </PopMenu>
+  <PopMenu hasDiesel="false" UID="PMU_220_6C53A">
+    <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+    <Name xlate="true" UID="XLS_220_04730">Данные</Name>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_DE637">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_CFE21" xlate="true">Привязать данные</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="urs_datalink" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_A54F7">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_405D3" xlate="true">Привязать данные к выноске</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="urs_datalink_autobind" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_59CBE">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_601C6" xlate="true">Редактировать привязку данных</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="urs_datalink_edit " />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_0296B">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_88114" xlate="true">Обновить данные</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="urs_datalink_refresh" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="PMIU_220_6CE73">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_210_A9020">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_210_A6B63" xlate="true">Мастер экспорта данных</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="urs_export_data" />
+      </MenuItem>
+    </PopMenuItem>
+  </PopMenu>
+  <PopMenu hasDiesel="false" UID="PMU_220_2236D">
+    <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+    <Name xlate="true" UID="XLS_220_84ECB">CADLib Проект</Name>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_230_37ED9">
+      <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_230_B2BF6" xlate="true">Проверка кода KKS</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="CLP_CHECK_KKS" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_8B867">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_DFBF8" xlate="true">CLP. Редактировать структуры зданий и сооружений</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="CLP_BUILDING_HIERARCHY_EDIT" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_AC1C4">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_0C2F1" xlate="true">CLP. Редактировать структуру разделов проекта</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="CLP_PROJECT_STRUCTURE_EDIT" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_E0652">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_C5FEF" xlate="true">CLP. Проверить актуальность модели</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="CLP_UPDATE_OBJECTS" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_241_8E3D5">
+      <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+      <NameRef UID="XLS_241_E11D1" xlate="true">Параметры ТХ из 2D схемы в 3D</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="clp_upd_binded_objs" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_230_A5C0E">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_230_EB8D5" xlate="true">CLP. Транслировать параметры ЭС из 2D схемы в 3D</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="transfer_params_from_block_diagram_to_hierarchy" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_230_E1F78">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_230_EA40B" xlate="true">CLP. Транслировать параметры ЭС из 3D в 2D схему</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="transfer_params_from_3d_to_hierarchy" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="PMIU_220_462BA">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_97FA5">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_C3D32" xlate="true">CLP.Удалить объекты проекта</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="CLP_REMOVE_DUMMIES" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_A5784">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_CEC83" xlate="true">CLP.Удалить связи с проектом</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="CLP_CLEAN_DOCUMENT" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="PMIU_220_CA248">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_B525A">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_E302C" xlate="true">CLP. Загрузить объекты по полилинии</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="CLP_LOAD_BY_POLY" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_FE2C8">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_D059C" xlate="true">CLP. Загрузить объекты по структуре</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="CLP_SHOW_HIERARCHY_QUERY_FORM" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_48020">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_527E8" xlate="true">CLP. Загрузить по объектам с осью</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="CLP_LOAD_BY_AXIS_OBJ" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_C0BC2">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_A24B2" xlate="true">CLP. Загрузить публикацию по объектам проекта</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="CLP_LOAD_PUBLICATION_OBJECTS" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_230_47440">
+      <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_230_7DCC1" xlate="true">CLP. Загрузить облако точек</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="CLP_SHOW_CLOUD" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="PMIU_220_7CA0C">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_93926">
+      <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_6CF06" xlate="true">CLP. Создать структуру из технологических схем</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="CLP_PUBLISH_PIPE" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_83568">
+      <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_35A88" xlate="true">CLP. Создать структуру из 3D модели системы трубопроводов</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="PIPE_PUBLISH_SYSTEMS" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_230_777E9">
+      <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_230_D1A1F" xlate="true">CLP. Создать электротехническую схему из структуры</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="generate_block_diagram_by_hierarchy" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_230_86DBA">
+      <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_230_68522" xlate="true">CLP.Создать структуру из 3D модели системы электроснабжения</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="generate_electric_system_by_3d_model" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="PMIU_220_9CB60">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_2F4D9">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_4FB31" xlate="true">CLP. Создать рамку листа</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="CLP_FRAME_CREATE" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_13A8F">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_10555" xlate="true">CLP. Ассоциировать лист с проектом</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="CLP_FRAME_DEST_DOCUMENT" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_230_D3EAC">
+      <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_230_83B41" xlate="true">Проверка кода KKS</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="CLP_CHECK_KKS" />
+      </MenuItem>
+    </PopMenuItem>
+  </PopMenu>
+  <PopMenu hasDiesel="false" UID="PMU_00022771">
+    <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    <Name xlate="true" UID="XLS_220_E6022">Коллизии</Name>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_6014D">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_AEA7F" xlate="true">Проверить модель</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="model_check" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_2D1A5">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_00669" xlate="true">Настроить профиль проверки модели</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="lcs_collisions_setup" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="PMIU_220_C7201">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_2A026">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_3214B" xlate="true">Удалить обозначения коллизий</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="lcs_collisions_clean" />
+      </MenuItem>
+    </PopMenuItem>
+  </PopMenu>
+  <PopMenu hasDiesel="false" UID="PMU_0012">
+    <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    <Name xlate="true" UID="XLS_220_5A3E4">Панели инструментов</Name>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_16297">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_C1A3B" xlate="true">Палитра команд Model Studio CS</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="URS_COMMANDS" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="PMIU_220_E8C44">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_B3F61">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_74C78" xlate="true">Панель инструментов: CADLib Проект</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="TOOLBAR_MS_CLP" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="PMIU_220_1FCB4">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_C89DE">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_04846" xlate="true">Панель инструментов: Model Studio CS</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="TOOLBAR_MS_MAIN" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_66997">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_4A60A" xlate="true">Панель инструментов: Редактирование</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="TOOLBAR_MS_EDIT" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_070E0">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_BFB17" xlate="true">Панель инструментов: Документирование</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="TOOLBAR_MS_DOC" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_22F6A">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_97F40" xlate="true">Панель инструментов: Редактирование оборудования</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="TOOLBAR_MS_XPGEDIT" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_8261F">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_8E118" xlate="true">Панель инструментов: Коллизии</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="TOOLBAR_MS_CLASH" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_A123C">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_35A63" xlate="true">Панель инструментов: Размеры</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="TOOLBAR_MS_DIM" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_8569F">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_11480" xlate="true">Панель инструментов: Импорт-Экспорт</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="TOOLBAR_MS_IMPEXP" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_15961">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_CB7CC" xlate="true">Панель инструментов: Шаблоны документов</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="TOOLBAR_MS_DOCTMPL" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_24406">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_140A6" xlate="true">Панель инструментов: Разное</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="TOOLBAR_MS_OTHER" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="PMIU_220_26AAA">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_0F377">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_3E934" xlate="true">Выгрузить меню...</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="viper_unloadmenu" />
+      </MenuItem>
+    </PopMenuItem>
+  </PopMenu>
+  <PopMenu hasDiesel="false" UID="PMU_0015">
+    <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    <Name xlate="true" UID="XLS_220_8822F">Шаблоны документов</Name>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_EA986">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_B9C63" xlate="true">Создать страницы по шаблону</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="ms_layout_generate" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_23178">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_93C79" xlate="true">Создать страницы по шаблону для выбранных объектов</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="ms_obj_layout_generate" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_676F3">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_B7434" xlate="true">Создать документ по шаблону</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="ms_doc_generate" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_04B30">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_194C0" xlate="true">Создать документ по шаблону для выбранных объектов</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="ms_obj_doc_generate" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="PMIU_220_6F5CA">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_0F571">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_1BC10" xlate="true">Новый шаблон документа</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="cs_template" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_5CAA4">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_1D37C" xlate="true">Открыть шаблон документа</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="cs_template_read" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_20905">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_86DD2" xlate="true">Сохранить шаблон документа</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="cs_template_save" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_44643">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_7EFFA" xlate="true">Сохранить шаблон документа как...</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="cs_template_saveas" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="PMIU_220_91145">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_9053F">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_23C4A" xlate="true">Добавить новую страницу</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="cs_template_page" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_B8628">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_4BC70" xlate="true">Добавить страницу-продолжение</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="cs_template_page_next" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_1F378">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_75AA8" xlate="true">Добавить отчет</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="cs_template_report" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_C964C">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_6D83A" xlate="true">Добавить проекцию</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="cs_template_view" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="PMIU_220_211DC">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_2E657">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_6CF85" xlate="true">Свойства элемента шаблона</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="cs_template_element_property" />
+      </MenuItem>
+    </PopMenuItem>
+  </PopMenu>
+  <PopMenu hasDiesel="false" UID="PMU_220_789E0">
+    <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+    <Name xlate="true" UID="XLS_220_70D18">Редактирование</Name>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_FC258">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_F4D6A" xlate="true">Параметры объекта</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="urs_properties" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_FFC23">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_6B939" xlate="true">Параметры объекта во внешней ссылке</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="urs_properties_ex" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_241_7F466">
+      <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+      <NameRef UID="XLS_241_AA460" xlate="true">Синхронизация параметров</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="lcs_lib_sync" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="PMIU_220_9F6F5">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_06129">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_A79FF" xlate="true">Выбрать объекты</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="urs_select" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_1A14E">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_ADA63" xlate="true">Обработка модели</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="URS_PROCESS_MODEL" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_230_901D9">
+      <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_230_445AE" xlate="true">Расчёт вычисляемых параметров</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="mss_refresh" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="PMIU_220_5AF9F">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_AF684">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_D1E06" xlate="true">Копировать параметры объектов</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="Lcs_Lib_Params_Painter" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_230_DE316">
+      <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_230_8951B" xlate="true">Копировать параметрическую графику</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="PE_GRAPHICS_PAINTER" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="PMIU_210_2B6CF">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_20332">
+      <ModifiedRev MajorVersion="20" MinorVersion="1" UserVersion="1" />
+      <NameRef UID="XLS_220_3BB43" xlate="true">Мастер оформления чертежа</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="mss_plan_generate" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="PMIU_220_EB525">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_C4740">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_0C12F" xlate="true">Ассоциировать объекты</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="PE_ASSOCIATE" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_EE8CD">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_09C85" xlate="true">Ассоциировать параметры</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="PE_ASSOCIATION_LINKDATA" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_57C31">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_6E84E" xlate="true">Удалить ассоциированность</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="PE_ASSOCIATION_BREAK" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="PMIU_220_6F241">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_9890F">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_E5555" xlate="true">Расчет объема и площади объекта</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="MSS_CALC_AREA" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_7FEDC">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_064AC" xlate="true">Удаление объемов работ</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="MSWORK_CLEAN" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_241_B40CD">
+      <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+      <NameRef UID="XLS_241_5AF6E" xlate="true">Разместить объект</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="urs_align_copy" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_241_FFDA4">
+      <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+      <NameRef UID="XLS_241_DC003" xlate="true">Копировать в объект</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="aec_copying_to_another_object" />
+      </MenuItem>
+    </PopMenuItem>
+  </PopMenu>
+  <PopMenu hasDiesel="false" UID="PMU_220_6512C">
+    <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    <Name xlate="true" UID="XLS_220_AFD75">Редактирование оборудования</Name>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_59592">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_F3799" xlate="true">Создать параметрический объект</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="CreateParamEquipment" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_9556E">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_7851A" xlate="true">Редактировать параметрический объект</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="EditParamEquipment" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="PMIU_220_C84CA">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_4948B">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_D0931" xlate="true">Создать узел</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="node_new" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_CDB2E">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_1E6C5" xlate="true">Добавить узел к объекту</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="node_attach" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="PMIU_220_A95B7">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_C29C9">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_73ADE" xlate="true">Добавить оборудование</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="AddPEqToPEq" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_D879D">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_5B167" xlate="true">Объединить оборудование</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="MergePE" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_4B812">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_0769A" xlate="true">Просмотр GUID объекта</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="LCS_LIB_UID" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="PMIU_220_7D068">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_4ACCD">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_406B0" xlate="true">Привязать форму к объекту</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="URS_SET_FORM" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="PMIU_220_11596">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_E6D05">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_EB2C0" xlate="true">Экспорт параметрического оборудования в XML</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="pe_xml_export" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_3962D">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_70ADB" xlate="true">Импорт параметрического оборудования из XML</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="pe_xml_import" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="PMIU_220_9D21A">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_4C6AB">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_181B5" xlate="true">Создать объект из блока</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="xblock_new" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_A754F">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_46C93" xlate="true">Преобразовать 3D объект в оборудование</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="pe_converttoshell" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_99060">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_C74C0" xlate="true">Добавить 3D объект к оборудованию</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="pe_addshelltope" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="PMIU_220_5B6B2">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_48D19">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_CA3B2" xlate="true">Мастер оборудования</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="xblock_wizard" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_46462">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_0F455" xlate="true">Связь узлов для Мастера оборудования</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="linkForNodes_XBlockWiz" />
+      </MenuItem>
+    </PopMenuItem>
+  </PopMenu>
+  <PopMenu hasDiesel="false" UID="PMU_220_E0EE9">
+    <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+    <Name xlate="true" UID="XLS_220_F7A86">Документирование</Name>
+    <PopMenuRef pUID="PMU_230_720A6" UID="PMRU_230_5DBBC">
+      <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+    </PopMenuRef>
+    <PopMenuRef pUID="PMU_220_E1B9B" UID="PMRU_220_C9BB7">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuRef>
+    <PopMenuRef pUID="PMU_220_67BC7" UID="PMRU_220_AE3F4">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuRef>
+    <PopMenuRef pUID="PMU_220_D6C1E" UID="PMRU_220_F1835">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuRef>
+    <PopMenuRef pUID="PMU_220_0DBE6" UID="PMRU_220_4198E">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuRef>
+  </PopMenu>
+  <PopMenu hasDiesel="false" UID="PMU_220_E1B9B">
+    <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+    <Name xlate="true" UID="XLS_220_58385">Спецификации</Name>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_0DE5C">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_23D86" xlate="true">Спецификатор</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="urs_specification_palette" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_230_742AD">
+      <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_230_632DE" xlate="true">Нумерация объектов</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="urs_numerate" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_210_235F4">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_210_DE211" xlate="true">Табличные документы</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="urs_export_data" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_57426">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_E691F" xlate="true">Таблица линий и УГО</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_net_tabugo" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_8110E">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_5BF4F" xlate="true">Создание опросных листов</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="LCS_FILL_DOCX" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_3C933">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_8DF1A" xlate="true">Пакет документации</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="urs_export_pack" />
+      </MenuItem>
+    </PopMenuItem>
+  </PopMenu>
+  <PopMenu hasDiesel="false" UID="PMU_220_67BC7">
+    <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+    <Name xlate="true" UID="XLS_220_FFD7B">Определить вид</Name>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_9AE79">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_0A9EE" xlate="true">Определить вид</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="dg_vpdef" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_FF25A">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_FAFE8" xlate="true">Определить вид по объекту</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="dg_obj_vpdef" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_3EE95">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_26FC8" xlate="true">Задать ломаный вид</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="dg_vpdef_setline " />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_230_A1057">
+      <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_230_15815" xlate="true">Отменить ломанный вид</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="dg_vpdef_delline" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_C9E1D">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_1F556" xlate="true">Автоматически расставить виды</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="DG_GROUP_VPDEF" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_6BAC4">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_01BAF" xlate="true">Повернуть вид</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="dg_vpdef_turn_eye" />
+      </MenuItem>
+    </PopMenuItem>
+  </PopMenu>
+  <PopMenu hasDiesel="false" UID="PMU_220_D6C1E">
+    <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    <Name xlate="true" UID="XLS_220_CE5E9">Проекции</Name>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_BE5F8">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_0B342" xlate="true">Вставить преднастроенную проекцию</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="DG_VPORT_EX" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_7D523">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_EC828" xlate="true">Вставить проекцию</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="DG_VPORT" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="PMIU_220_7DA3D">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_70FE2">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_12CF0" xlate="true">Вставить вырез на проекцию</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="DG_SETHOLE" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_73F8D">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_4AE5C" xlate="true">Отображение выреза в 3D</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="DG_SHOWHOLE" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="PMIU_220_6EFD6">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_A82E2">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_A6388" xlate="true">Обновить проекцию</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="dg_regen" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_54364">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_32ECC" xlate="true">Обновить проекцию с учетом изменения видового куба</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="dg_vp_rebuild" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="PMIU_220_DA62E">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_9054C">
+      <ModifiedRev MajorVersion="20" MinorVersion="1" UserVersion="1" />
+      <NameRef UID="XLS_220_E4ED8" xlate="true">Мастер оформления чертежа</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="mss_plan_generate" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_201_1C315">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_201_11C79" xlate="true">Автогенератор чертежа</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="mss_plan_generate" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_B0A9E">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_0BE22" xlate="true">Автогенератор проекций</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="MSS_VPORT_DRWALL" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="PMIU_220_78B53">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_B0FCD">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_39725" xlate="true">Вставка типовых чертежей по модели</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="LCS_LIB_INSERT_OBJECT_DOCS" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="PMIU_220_5C68D">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_FE5B0">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_C95E3" xlate="true">Вставить окно вида</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="dg_ac_vport" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_37310">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_3EBDE" xlate="true">Обновить видовые окна</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="dg_ac_regen" />
+      </MenuItem>
+    </PopMenuItem>
+  </PopMenu>
+  <PopMenu hasDiesel="false" UID="PMU_220_0DBE6">
+    <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+    <Name xlate="true" UID="XLS_220_8B439">Размеры</Name>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_5AD68">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_4C963" xlate="true">Мастер простановки размеров</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="urs_dim_wizard" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_241_027ED">
+      <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+      <NameRef UID="XLS_241_FD8D0" xlate="true">Выборочная простановка размеров</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="urs_dim_select_obj" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="PMIU_220_22297">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_35B5D">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_BA5CA" xlate="true">Отметка уровня</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="urs_dim_level" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_7B569">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_7651B" xlate="true">Выноска к проекции объекта</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="URS_DIM_ALEADER" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_E0E8F">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_1A4AF" xlate="true">Выноска гребенчатая к проекции объекта</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="URS_DIM_TLEADER" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_1670E">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_F46F2" xlate="true">Выноска к УГО</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="URS_DATALINK_ALEADER" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_AE94A">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_55344" xlate="true">Проставить размеры указанного объекта</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="urs_dim_obj" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_16E68">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_F7132" xlate="true">Координаты</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="URS_COORD_MARKER" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_A748F">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_1A43F" xlate="true">Проставить размер</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="URS_DIM_MANUAL" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_F33AD">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_E30B4" xlate="true">Проставить уклон</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="URS_DIM_SLOPE" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="PMIU_220_0634C">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_C3087">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_B9137" xlate="true">Группировать выноски</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="LEADER_MODIFY_GRP" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_A934A">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_5D867" xlate="true">Упорядочить выноски</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="URS_LEADER_MODIFY" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="PMIU_220_52636">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_AB982">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_D738B" xlate="true">Удалить автоматически созданные размеры</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="urs_dim_clean" />
+      </MenuItem>
+    </PopMenuItem>
+  </PopMenu>
+  <PopMenu hasDiesel="false" UID="PMU_220_97124">
+    <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+    <Name xlate="true" UID="XLS_220_E9909">Импорт/Экспорт</Name>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_230_6E588">
+      <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_230_1D00B" xlate="true">Экспорт IFC (РФРИТ)</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="MS_EXPORT_IFC" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_230_3E945">
+      <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_230_67D1B" xlate="true">Импорт IFC (РФРИТ)</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="MS_IMPORT_IFC" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_A5489">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_78ED7" xlate="true">Экспорт сеток MSM</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="NWE_EXPORT_MESH" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_210_D7FDA">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_210_AA18D" xlate="true">Экспорт параметрического оборудования в XML</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="pe_xml_export" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_BE984">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_D14AB" xlate="true">Импорт параметрического оборудования из XML</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="pe_xml_import" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_C9518">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_1A1F5" xlate="true">Импорт списка XPG (CSV)</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="MS_IMPORT_CSV" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_0E791">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_5923D" xlate="true">Импорт из AVEVA RVM/ATT</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="MS_IMPORT_RVM_WIZARD" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_781EB">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_BB76E" xlate="true">Экспорт в PDF3D (ISO 32000)</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="_MSPDF_EXPORT" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_0D03A">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_88F9C" xlate="true">Экспорт в NavisWorks</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="NAVISWORKSEXPORT" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="PMIU_220_557D0">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_98101">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_9385C" xlate="true">Экспорт/Настройка точности</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="NWE_SET_DEVIATION" />
+      </MenuItem>
+    </PopMenuItem>
+  </PopMenu>
+  <PopMenu hasDiesel="false" UID="PMU_220_91F8A">
+    <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    <Name xlate="true" UID="XLS_220_BDA32">Разное</Name>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_D14D7">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_FDD7F" xlate="true">Установить видимость ручек</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="CULLINGOBJ" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="PMIU_220_264D5">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_25842">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_26C18" xlate="true">Просмотр GUID объекта</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="LCS_LIB_UID" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_A5F64">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_90E6C" xlate="true">Очистить временный каталог</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="lcs_lib_cleanup_cache" />
+      </MenuItem>
+    </PopMenuItem>
+  </PopMenu>
+  <PopMenu hasDiesel="false" UID="PMU_230_720A6">
+    <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+    <Name xlate="true" UID="XLS_230_65977">КСИ</Name>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_230_431E6">
+      <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_230_2A0B4" xlate="true">Назначить код КСИ</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="BIC_SET_CODES" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_230_D4FEE">
+      <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_230_28E95" xlate="true">Проверка отсутствия кода КСИ</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="bic_check_absence" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_230_6422B">
+      <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_230_4F947" xlate="true">Проверка актуальности кода КСИ</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="bic_check_relevance" />
+      </MenuItem>
+    </PopMenuItem>
+  </PopMenu>
+</PopMenuRoot>

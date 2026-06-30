@@ -24,10 +24,15 @@ class CStringArray;
 #include "IMcNativeGate.h"     // IMcNativeGate, getMcsIdByNative, QueryObject, mcsWorkID
 #include "IMcParametricEnt.h"  // IMcParametricEnt, mcsExValueArray, exValue, MCPAR_*
 
+// Common Controls (TreeView для Explorer-диалога)
+#include <commctrl.h>
+#pragma comment(lib, "comctl32.lib")
+
 // STL
 #include <string>
 #include <cstdio>
 #include <map>
+#include <set>
 #include <vector>
 #include <cwctype>
 

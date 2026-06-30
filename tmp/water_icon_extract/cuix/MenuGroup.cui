@@ -1,0 +1,1425 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+Внимание! Не изменяйте содержимое этого файла.
+При попытке редактирования этого файла с помощью редактора XML функциональные
+возможности адаптации и переноса могут быть утрачены. Для изменения
+информации в файле адаптации воспользуйтесь диалоговым окном
+"Адаптация пользовательского интерфейса" в программе.
+Для доступа к диалоговому окну "Адаптация пользовательского интерфейса" выберите меню "Сервис",
+откройте панель "Адаптация" и нажмите кнопку "Пользовательский интерфейс" либо введите НПИ в командной строке.
+-->
+<MenuGroup xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Name="MSWATER" DisplayName="MSWATER">
+  <MacroGroup Name="НОВАЯ ГРУППА">
+    
+    <MenuMacro UID="DTMX_CMD_EDIT">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_1805">DTMX Edit</Name>
+        <Command>^C^C_DTMXEDIT</Command>
+        <HelpString xlate="true" UID="XLS_1806">Правка параметров</HelpString>
+        <SmallImage Name="MStudioPipelineSettings.png" />
+        <LargeImage Name="MS_EDITPIPE32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="pipe_draw_pipeline">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_1805">Отрисовать трубопровод</Name>
+        <Command>^C^C_pipe_draw_pipeline</Command>
+        <HelpString xlate="true" UID="XLS_1806">Команда позволяет модлировать трубопровод круглого сечения.</HelpString>
+        <SmallImage Name="PipeDrawPipeline.png" />
+        <LargeImage Name="MS_PIPE32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="pipe_InLine">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_1807">Добавить арматуру</Name>
+        <Command>^C^C_pipe_InLine</Command>
+        <HelpString xlate="true" UID="XLS_1808">Добавить арматуру</HelpString>
+        <SmallImage Name="MStudioInlineAdd.png" />
+        <LargeImage Name="MS_VALV32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="pipe_Offset">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_1809">Добавить арматуру со смещением осей</Name>
+        <Command>^C^C_pipe_Offset</Command>
+        <HelpString xlate="true" UID="XLS_1812">Добавить арматуру со смещением осей</HelpString>
+        <SmallImage Name="MStudioInlineOffsetAdd.png" />
+        <LargeImage Name="MS_VALX32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="pipe_Elbow">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_1810">Добавить отвод</Name>
+        <Command>^C^C_pipe_Elbow</Command>
+        <HelpString xlate="true" UID="XLS_1811">Добавить отвод</HelpString>
+        <SmallImage Name="MStudioElbowAdd.png" />
+        <LargeImage Name="MS_ELBW32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="pipe_Reducer">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_1812">Добавить переход</Name>
+        <Command>^C^C_pipe_Reducer</Command>
+        <HelpString xlate="true" UID="XLS_1813">Добавить переход</HelpString>
+        <SmallImage Name="MStudioReducerAdd.png" />
+        <LargeImage Name="MS_REDU32.png" />
+        <CLICommand xlate="true" UID="XLS_6894">Переход</CLICommand>
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="pipe_Support">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_1816">Добавить опору</Name>
+        <Command>^C^C_pipe_Support</Command>
+        <HelpString xlate="true" UID="XLS_1817">Добавить опору</HelpString>
+        <SmallImage Name="MStudioSupportAdd.png" />
+        <LargeImage Name="MS_SUPP32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="pipe_edit_Slope">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_1818">Задать уклон</Name>
+        <Command>^C^C_pipe_edit_Slope</Command>
+        <HelpString xlate="true" UID="XLS_1819">Изменяет величину уклона. По заданному уклону или высотной отметке Model Studio CS произведет перестроение участка с автоматическим пересчетом положения всех деталей трубопровода находящихся на этом участке.</HelpString>
+        <SmallImage Name="MStudioSetSlope.png" />
+        <LargeImage Name="MS_PIPE_SLOPE.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="pipe_edit_JoinAxis">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_1820">Объединить трубопровод</Name>
+        <Command>^C^C_pipe_edit_JoinAxis</Command>
+        <HelpString xlate="true" UID="XLS_1821">Производится соединение (сшивка) двух трубопроводов в один.</HelpString>
+        <SmallImage Name="MStudioPipeJoin.png" />
+        <LargeImage Name="MS_PIPE_JOIN.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="pipe_ReducerEx">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_1822">Добавить эксцентрический переход</Name>
+        <Command>^C^C_pipe_ReducerEx</Command>
+        <HelpString xlate="true" UID="XLS_1823">Добавить эксцентрический переход</HelpString>
+        <SmallImage Name="MStudioExReducerAdd.png" />
+        <LargeImage Name="MS_REDX32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="pipe_edit_ReverseFlow">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_1828">Изменить направление потока</Name>
+        <Command>^C^C_pipe_edit_ReverseFlow</Command>
+        <HelpString xlate="true" UID="XLS_1829">Изменяется направление трубопровода, точка начала становится конечной точкой трубы, а конечная начальной</HelpString>
+        <SmallImage Name="MStudioFlipFlow.png" />
+        <LargeImage Name="MS_PIPE_REVERSE.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="pipe_draw_settings">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_1834">Параметры отрисовки трубопровода</Name>
+        <Command>^C^C_pipe_draw_settings</Command>
+        <HelpString xlate="true" UID="XLS_1835">Вызывает диалоговое окно параметров используемых для отрисовки трубопровода.</HelpString>
+        <SmallImage Name="MStudioPipelineSettings.png" />
+        <LargeImage Name="MS_EDITPIPE32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="pipe_edit_Parameters">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_1836">Параметры отрисовки детали</Name>
+        <Command>^C^C_pipe_edit_Parameters</Command>
+        <HelpString xlate="true" UID="XLS_1837">Вызывается диалоговое окно с параметрами отрисовки деталей трубопровода. В диалоговом окне можно изменить наружный и условный диаметры, радиус гиба отводов, строительную длину детали, габариты привода и другие параметры.</HelpString>
+        <SmallImage Name="MStudioInlineSettings.png" />
+        <LargeImage Name="MS_EDITVALV32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="pipe_edit_BreakAxis">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_1894">Разделить трубопровод</Name>
+        <Command>^C^C_pipe_edit_BreakAxis</Command>
+        <HelpString xlate="true" UID="XLS_1895">Производится разделение одного целого трубопровода на две части.</HelpString>
+        <SmallImage Name="MStudioPipeBreak.png" />
+        <LargeImage Name="MS_PIPE_BREAK.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="MSPIPE_EQUIP">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_1960">Панель инструментов: Оборудование</Name>
+        <Command>^C^C_-toolbar;MSPIPE.MSPIPE_EQUIP;_show </Command>
+        <HelpString xlate="true" UID="XLS_1961">Оборудование</HelpString>
+        <SmallImage Name="MStudioToolbar16.png" />
+        <LargeImage Name="MS_32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="MSPIPE_DOCUM">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_1967">Панель инструментов: Документирование</Name>
+        <Command>^C^C_-toolbar;MSPIPE.MSPIPE_DOCUM;_show </Command>
+        <HelpString xlate="true" UID="XLS_1968">Документирование</HelpString>
+        <SmallImage Name="MStudioToolbar16.png" />
+        <LargeImage Name="MS_32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="MSPIPE_EDIT">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_1970">Панель инструментов: Трубопровод::Редактирование</Name>
+        <Command>^C^C_-toolbar;MSPIPE.MSPIPE_EDIT;_show </Command>
+        <HelpString xlate="true" UID="XLS_1971">Редактирование</HelpString>
+        <SmallImage Name="MStudioToolbar16.png" />
+        <LargeImage Name="MS_32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="viper_unloadmenu">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_1973">Выгрузить меню...</Name>
+        <Command>^C^C(command "_.menuunload" "MSPIPE") </Command>
+        <HelpString xlate="true" UID="XLS_1974">Выгрузить меню...</HelpString>
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="pipe_edit_SetPEFully">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_1993">Преобразовать оборудование в деталь трубопровода</Name>
+        <Command>^C^C_pipe_edit_SetPEFully</Command>
+        <HelpString xlate="true" UID="XLS_1994">Производится преобразование выбранного оборудования в деталь трубопровода.</HelpString>
+        <SmallImage Name="MStudioEq2Pipe.png" />
+        <LargeImage Name="MS_PIPE_CVT_OBJ2DET.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="pipe_edit_SetPE">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_1996">Копировать параметры оборудования в деталь трубопровода</Name>
+        <Command>^C^C_pipe_edit_SetPE</Command>
+        <HelpString xlate="true" UID="XLS_1997">Производится копирование параметров оборудование в выбранную деталь трубопровода</HelpString>
+        <SmallImage Name="MStudioParamEq2Pipe.png" />
+        <LargeImage Name="MS_PIPE_CVT_PARAMOBJ2DET.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="pipe_Bypass">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_2000">Добавить байпас</Name>
+        <Command>^C^C_pipe_Bypass</Command>
+        <HelpString xlate="true" UID="XLS_2001">Добавить байпас</HelpString>
+        <SmallImage Name="MStudioBypass.png" />
+        <LargeImage Name="MS_BYPS32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="pipe_UShaped">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_2003">Добавить П-образный компенсатор</Name>
+        <Command>^C^C_pipe_UShaped</Command>
+        <HelpString xlate="true" UID="XLS_2004">Добавить П-образный компенсатор</HelpString>
+        <SmallImage Name="MStudioUShaped.png" />
+        <LargeImage Name="MS_UPAS32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="pipe_CreateVerticalSect">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_2006">Добавить вертикальный участок</Name>
+        <Command>^C^C_pipe_CreateVerticalSect</Command>
+        <HelpString xlate="true" UID="XLS_2007">Добавить вертикальный участок</HelpString>
+        <SmallImage Name="MStudioCreateVert.png" />
+        <LargeImage Name="MS_ZPAS32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="pipe_lib">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_2012">Назначить типоразмеры</Name>
+        <Command>^C^C_pipe_lib</Command>
+        <HelpString xlate="true" UID="XLS_2013">Назначить типоразмеры</HelpString>
+        <SmallImage Name="MStudioPipeLib.png" />
+        <LargeImage Name="MS_PIPELIBSET32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="pipe_ucsxy">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_2020">ПСК по XY детали</Name>
+        <Command>^C^C_pipe_ucsxy</Command>
+        <HelpString xlate="true" UID="XLS_2021">Установить ПСК по XY детали</HelpString>
+        <SmallImage Name="MStudioUCSXY.png" />
+        <LargeImage Name="MS_AXISBYXY32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="pipe_ucs">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_2024">ПСК по детали</Name>
+        <Command>^C^C_pipe_ucs</Command>
+        <HelpString xlate="true" UID="XLS_2025">Установить ПСК по детали</HelpString>
+        <SmallImage Name="MStudioUCSpipe.png" />
+        <LargeImage Name="MS_AXISBYOBJ32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="pipe_ucsxz">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_2027">ПСК по XZ детали</Name>
+        <Command>^C^C_pipe_ucsxz</Command>
+        <HelpString xlate="true" UID="XLS_2028">Установить ПСК по XZ детали</HelpString>
+        <SmallImage Name="MStudioUCSXZ.png" />
+        <LargeImage Name="MS_AXISBYXZ32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="pipe_ucsyz">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_2029">ПСК по YZ детали</Name>
+        <Command>^C^C_pipe_ucsyz</Command>
+        <HelpString xlate="true" UID="XLS_2030">Установить ПСК по YZ детали</HelpString>
+        <SmallImage Name="MStudioUCSYZ.png" />
+        <LargeImage Name="MS_AXISBYYZ32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="pipe_ConvertToPL">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_2034">Преобразовать в полилинию</Name>
+        <Command>^C^C_pipe_ConvertToPL</Command>
+        <HelpString xlate="true" UID="XLS_2035">Производится преобразовывание трубопровод в полилинию.</HelpString>
+        <SmallImage Name="MStudioCnvToPline.png" />
+        <LargeImage Name="MS_PIPE_CVT_TOPOLY.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="pipe_CreateAlongPolyline">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_2036">Преобразовать из полилинии</Name>
+        <Command>^C^C_pipe_CreateAlongPolyline</Command>
+        <HelpString xlate="true" UID="XLS_2037">Производится построение трубопровода по выбранной полилинии. Функционал особенно эффективен при проектировании ремонтов и реконструкции, когда необходимо "сколоть" чертеж. </HelpString>
+        <SmallImage Name="MStudioCnvFromPline.png" />
+        <LargeImage Name="MS_PIPE_CVT_FROMPOLY.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="pipe_copy">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_2045">Копировать весь трубопровод</Name>
+        <Command>^C^C_pipe_copy</Command>
+        <HelpString xlate="true" UID="XLS_2046">Производится копирование всего трубопровода с сохранением общей конфигурации трубопровода со всеми использованными деталями.</HelpString>
+        <SmallImage Name="MStudioCopyPipeline.png" />
+        <LargeImage Name="MS_PIPE_COPY.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="pipe_retrace">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_2048">Перетрассировать трубопровод</Name>
+        <Command>^C^C_pipe_retrace</Command>
+        <HelpString xlate="true" UID="XLS_2049">Перетрассировать трубопровод</HelpString>
+        <SmallImage Name="MStudioRetrace.png" />
+        <LargeImage Name="MS_PIPE_RETRACE.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="MSPIPE_UCS">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_2059">Панель инструментов: Трубопроводы. ПСК</Name>
+        <Command>^C^C_-toolbar;MSPIPE.MSPIPE_UCS;_show </Command>
+        <HelpString xlate="true" UID="XLS_2060">ПСК Трубопроводов</HelpString>
+        <SmallImage Name="MStudioToolbar16.png" />
+        <LargeImage Name="MS_32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="pipe_ExportStart">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_6842">Расчет прочности (экспорт в Старт)</Name>
+        <Command>^C^C_pipe_ExportStart</Command>
+        <HelpString xlate="true" UID="XLS_6843">Подготавливает и сохраняет специальный файл в формате программы расчета прочности и жесткости трубопроводов СТАРТ (НТП Трубопровод). Расчетная схема (модель) передает всю геометрию трубопровода с деталями и опорами, а так же, атрибутивную информацию - диаметры, толщины стенок, материал и другую необходимую для расчетов.</HelpString>
+        <SmallImage Name="MStudioExportSTART16.png" />
+        <LargeImage Name="MS_EXPORT032.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="pipe_CopyGroup">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_6846">Копировать фрагмент трубопровода</Name>
+        <Command>^C^C_pipe_CopyGroup</Command>
+        <HelpString xlate="true" UID="XLS_6847">Производится копирование выбранного фрагмента трубопровода с сохранением общей конфигурации трубопровода со всеми использованными деталями.</HelpString>
+        <SmallImage Name="MStudioCopyPipeGroup.png" />
+        <LargeImage Name="MS_PIPE_COPY.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="pipe_tee">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_6849">Соединить тройником</Name>
+        <Command>^C^C_pipe_tee</Command>
+        <HelpString xlate="true" UID="XLS_6850">Соединить тройником</HelpString>
+        <SmallImage Name="MStudioPipeTee.png" />
+        <LargeImage Name="MS_TEE32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="pipe_ValveAsm">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_6853">Сформировать комплектную арматуру</Name>
+        <Command>^C^C_pipe_ValveAsm</Command>
+        <HelpString xlate="true" UID="XLS_6854">Сформировать комплектную арматуру по заданному прототипу</HelpString>
+        <SmallImage Name="MStudioPipeValveAsm.png" />
+        <LargeImage Name="MS_VASM32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="pipe_SetNodeDN">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_6857">Назначить диаметр узлу</Name>
+        <Command>^C^C_pipe_SetNodeDN</Command>
+        <HelpString xlate="true" UID="XLS_6858">Назначить диаметр узлу</HelpString>
+        <SmallImage Name="MStudioNodeDN.png" />
+        <LargeImage Name="MS_NODE_DN.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="eq_connect">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_6874">Соединить оборудование</Name>
+        <Command>^C^C_eq_connect</Command>
+        <HelpString xlate="true" UID="XLS_6875">Соединить оборудование</HelpString>
+        <SmallImage Name="Connector.png" />
+        <LargeImage Name="MS_PIPE_ROUTE32.png" />
+        <CLICommand xlate="true" UID="XLS_6876">Соединить оборудование</CLICommand>
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="eq_disconnect">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_6889">Отключить трубу от оборудования</Name>
+        <Command>^C^C_eq_disconnect</Command>
+        <HelpString xlate="true" UID="XLS_6890">Отключить трубу от оборудования</HelpString>
+        <SmallImage Name="MStudioPipeEqDisconnect.png" />
+        <LargeImage Name="MS_PIPE_DISCONNECT.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="pipe_ExtractPE">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_6900">Преобразовать деталь трубопровода в оборудование</Name>
+        <Command>^C^C_pipe_ExtractPE</Command>
+        <HelpString xlate="true" UID="XLS_6901">Производится преобразование выбранной детали трубопровода в оборудование.</HelpString>
+        <SmallImage Name="MStudioPipe2Equip.png" />
+        <LargeImage Name="MS_PIPE_CVT_DET2OBJ.png" />
+        <CLICommand xlate="true" UID="XLS_6902">Преобразовать деталь трубопровода в оборудование</CLICommand>
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="PIPE_EXPORTPCF">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_6908">Экспорт в Isogen PCF</Name>
+        <Command>^C^C_pipe_ExportPCF</Command>
+        <HelpString xlate="true" UID="XLS_00099271">Сохраняет модель трубопроводов в формат PCF</HelpString>
+        <SmallImage Name="MStudioExportPCF16.png" />
+        <LargeImage Name="MS_EXPORT032.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="PIPE_MOVE">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_6909">Переместить фрагмент трубопровода</Name>
+        <Command>^C^C_pipe_Move</Command>
+        <SmallImage Name="MStudioMove.png" />
+        <LargeImage Name="MS_PIPE_MOVE.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="pipe_moveAssembly">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_6910">Переместить весь трубопровод</Name>
+        <Command>^C^C_pipe_moveAssembly</Command>
+        <SmallImage Name="move32.png" />
+        <LargeImage Name="move32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="pipe_rotateAssembly">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_6912">Повернуть весь трубопровод</Name>
+        <Command>^C^C_pipe_rotateAssembly</Command>
+        <SmallImage Name="rotate32.png" />
+        <LargeImage Name="rotate32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="MSPIPE_COPY">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_6962">Панель инструментов: Трубопровод::Копирование</Name>
+        <Command>^C^C_-toolbar;MSPIPE.MSPIPE_COPY;_show </Command>
+        <HelpString xlate="true" UID="XLS_6963">Копирование трубопроводов</HelpString>
+        <SmallImage Name="MStudioToolbar16.png" />
+        <LargeImage Name="MS_32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="mst_move_detail">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_6966">Правка элементов оборудования</Name>
+        <Command>^C^C_mst_move_detail</Command>
+        <SmallImage Name="moveDetail.png" />
+        <LargeImage Name="MS_EQ_MOVEDET.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="mst_create_equipment">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_6968">Создать оборудование из деталей</Name>
+        <Command>^C^C_mst_create_equipment</Command>
+        <SmallImage Name="makeUnit32.png" />
+        <LargeImage Name="MS_EQ_EDITOR.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="mst_addtolib_equipment">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_6970">Сохранить оборудование в базу данных</Name>
+        <Command>^C^C_mst_addtolib_equipment</Command>
+        <SmallImage Name="makeUnitDB.png" />
+        <LargeImage Name="MS_EQ_SAVE.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="pipe_ExportInsulation">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_6976">Расчет изоляции (экспорт в Изоляцию)</Name>
+        <Command>^C^C_pipe_ExportInsulation</Command>
+        <HelpString xlate="true" UID="XLS_00099267">Подготавливает и сохраняет файл в формате для программы Изоляция (НТП Трубопровод).</HelpString>
+        <SmallImage Name="MStudioExportISOL16.png" />
+        <LargeImage Name="MS_EXPORT032.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="pipe_ExportPCF">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_6978">Расчет гидравлический (экспорт в Гидросистему)</Name>
+        <Command>^C^C_pipe_ExportPCF</Command>
+        <HelpString xlate="true" UID="XLS_00099266">Подготавливает и сохраняет файл в формате для программы Гидросистема (НТП Трубопровод).</HelpString>
+        <SmallImage Name="MStudioExportPCF16.png" />
+        <LargeImage Name="MS_EXPORT032.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="connector_show">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_00014411">Редактор соединений</Name>
+        <Command>^C^C_connector_show</Command>
+        <SmallImage Name="Connector_pal.png" />
+        <LargeImage Name="MS_CONNECT_EDITOR32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="connector_xml_out">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_00014408">Создать задание на трассировку</Name>
+        <Command>^C^C_connector_xml_out</Command>
+        <SmallImage Name="connectorTaskNew.png" />
+        <LargeImage Name="MS_CONNECT_QUERYCREATE32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="connector_xml_in">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_00014410">Выполнить задание на трассировку</Name>
+        <Command>^C^C_connector_xml_in</Command>
+        <SmallImage Name="connectorTaskApply.png" />
+        <LargeImage Name="MS_CONNECT_QUERYRUN32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="pipe_xcopy">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_00014414">Копировать в другой файл</Name>
+        <Command>^C^C_pipe_xcopy</Command>
+        <SmallImage Name="MStudioXCopyPipeline.png" />
+        <LargeImage Name="MS_PIPE_COPY.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="pipe_inlinecopy">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_00014416">Копировать деталь трубопровода</Name>
+        <Command>^C^C_pipe_inlinecopy</Command>
+        <SmallImage Name="MStudioInlineCopy.png" />
+        <LargeImage Name="MS_PIPE_DETAIL_COPY.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="pipe_delete">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_00014418">Удалить трубопровод</Name>
+        <Command>^C^C_pipe_delete</Command>
+        <SmallImage Name="MStudioPipelineDel.png" />
+        <LargeImage Name="MS_PIPE_DEL.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="pipe_prototype_new">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_00014419">Создать прототип комплектной арматуры</Name>
+        <Command>^C^C_pipe_prototype_new</Command>
+        <SmallImage Name="MStudioInlineSettings.png" />
+        <LargeImage Name="MS_VASM_CREATE32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="PIPE_CREATEPATH">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_00014440">Создать трассу</Name>
+        <Command>^C^C_PIPE_CREATEPATH</Command>
+        <HelpString xlate="true" UID="XLS_00014441">Позволяет создать трассу методдом параллелипипеда</HelpString>
+        <SmallImage Name="cable_diag.png" />
+        <LargeImage Name="MS_PIPE_ROUTE32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="PIPE_PARALLELPIPE">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_191_E8930">Параллельные трубопроводы</Name>
+        <Command>^C^C_PIPE_PARALLELPIPE</Command>
+        <HelpString xlate="true" UID="XLS_191_446FA">Параллельные трубопроводы</HelpString>
+        <SmallImage Name="_PIPE_PARALLELPIPE 16х16.png" />
+        <LargeImage Name="MS_PIPE_MULTI32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="mss_schema_generate">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_191_B319C">Axogen: Генерация схем</Name>
+        <Command>^C^C_mss_schema_generate</Command>
+        <HelpString xlate="true" UID="XLS_191_6186F">Автоматическая генерация аксонометрических, изометрических и монтажных схем.Результатом работы будет новый чертеж содержащий </HelpString>
+        <SmallImage Name="SchemaGenerate.png" />
+        <LargeImage Name="MS_AXO_GEN32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="AEC_TRENCH_EDIT">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_00090003">Редактор траншеи/насыпи</Name>
+        <Command>^C^C_AEC_TRENCH_EDIT</Command>
+        <HelpString xlate="true" UID="XLS_00090004">Команда вызывает диалоговое окно, которое позволяет редактировать привязки и основные параметры траншеи. Окно интерактивно и после появления требует, чтобы пользователь выбрал траншею или насыпь.</HelpString>
+        <SmallImage Name="MStudioAECTrenchEdit16.png" />
+        <LargeImage Name="MS_GRND_TRA_EDIT.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="AEC_EDIT_NODE">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="23" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_00089944">Редактор узла</Name>
+        <Command>^C^C_AEC_EDIT_NODE</Command>
+        <HelpString xlate="true" UID="XLS_00089945">Команда вызывает диалоговое окно, которое позволяет редактировать узлы металлоконструкций. В диалоговом окне можно задавать геометрические элементы узла, дерево построения узла (структуру) и основные параметры узлов. Окно интерактивно и после появления требует, чтобы пользователь выбрал узел.</HelpString>
+        <SmallImage Name="MStudioSteelNodeEdit16.png" />
+        <LargeImage Name="AEC_EDIT_NODE.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="IRON_AXIS_EXTEND">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_00089938">Удлинить профиль</Name>
+        <Command>^C^C_IRON_AXIS_EXTEND</Command>
+        <HelpString xlate="true" UID="XLS_00089939">Команда позволяет удлинить профиль металлопроката до другого профилем</HelpString>
+        <SmallImage Name="MStudioSteelExtend16.png" />
+        <LargeImage Name="MS_STEEL_EDIT.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="IRON_AXIS_CUT">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_00089935">Обрезать профиль</Name>
+        <Command>^C^C_IRON_AXIS_CUT</Command>
+        <HelpString xlate="true" UID="XLS_00089936">Команда позволяет обрезать профиль металлопроката другим профилем</HelpString>
+        <SmallImage Name="MStudioSteelCut16.png" />
+        <LargeImage Name="MS_STEEL_EDIT.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="IRON_AXIS_BREAK">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_00089941">Разрезать профиль</Name>
+        <Command>^C^C_IRON_AXIS_BREAK</Command>
+        <HelpString xlate="true" UID="XLS_00089942">Команда позволяет разрезать профиль металлопроката в заданной точке</HelpString>
+        <SmallImage Name="MStudioSteelBreak16.png" />
+        <LargeImage Name="MS_STEEL_EDIT.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="IRON_AXES_EDIT">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_00089880">Редактор металлопроката</Name>
+        <Command>^C^C_IRON_AXES_EDIT</Command>
+        <HelpString xlate="true" UID="XLS_00089881">Команда вызывает диалоговое окно, которое позволяет редактировать привязки и основные параметры профилей металлопроката в модели. Окно интерактивно и после появления требует, чтобы пользователь выбрал профиль.</HelpString>
+        <SmallImage Name="MStudioSteelEdit16.png" />
+        <LargeImage Name="MS_STEEL_EDIT.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="urs_axis_new">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_191_CD2AA">Сетка осей</Name>
+        <Command>^C^C_urs_axis_new</Command>
+        <HelpString xlate="true" UID="XLS_191_E6B2D">Команда позволяет создать сетку строительных осей</HelpString>
+        <SmallImage Name="MStudioAxisCreate.png" />
+        <LargeImage Name="MS_AXIS32.png" />
+        <CLICommand xlate="true" UID="XLS_190_3FD85">Генерация координатной сетки</CLICommand>
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="pipe_repair">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_00090106">Сервис: Восстановление целостности</Name>
+        <Command>^C^C_pipe_repair</Command>
+        <HelpString xlate="true" UID="XLS_00090107">Служебная команда предназначенная для восстановления целостности данных и параметров трубопровода</HelpString>
+        <SmallImage Name="WarningToUse16.png" />
+        <LargeImage Name="MS_WARNING32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="pipe_restore_tee">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_00090109">Сервис: Восстановление объектов ветвления</Name>
+        <Command>^C^C_pipe_restore_tee</Command>
+        <HelpString xlate="true" UID="XLS_00090110">Служебная команда предназначенная для восстановления целостности данных и параметров тройников и врезок</HelpString>
+        <SmallImage Name="WarningToUse16.png" />
+        <LargeImage Name="MS_WARNING32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="urs_properties">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_0015">Параметры объекта</Name>
+        <Command>^C^C_urs_properties</Command>
+        <HelpString xlate="true" UID="XLS_1774">Команда вызывает диалоговое окно параметров оборудования. В этом диалоговом окне можно редактировать любые параметры объекта, используемые при составлении спецификаций, экспликаций, аксонометрических схем, расчетах и других документов.</HelpString>
+        <SmallImage Name="MStudioEquipParam.png" />
+        <LargeImage Name="MS_PARAM32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="MSS_REACTION_CALCULATE">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_00090119">Расчет нагрузок на опоры (предварительный расчет)</Name>
+        <Command>^C^C_MSS_REACTION_CALCULATE</Command>
+        <HelpString xlate="true" UID="XLS_00090120">Команда выполняет расчет нагрузок трубопровода на опоры. Для корректной работы команды необходимо задать веса всех деталей и выбрать все связанные трубопроводы. Результаты расчета (реакции опор) сохраняются в параметрах опор. ВНИМАНИЕ: Расчет не сертифицирован и служит только для предварительной оценки и не может быть использован как обоснование инженерного решения в его окончательном виде! Точный расчет необходимо выполнять в сертифицированных программных комплексах или вручную!</HelpString>
+        <SmallImage Name="MStudioPipeReactionCalc16.png" />
+        <LargeImage Name="MS_CALCSUPP32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="IRON_AXIS_PLANETRIM">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_00090145">Обрезать профиль плоскостью</Name>
+        <Command>^C^C_IRON_AXIS_PLANETRIM</Command>
+        <HelpString xlate="true" UID="XLS_00090146">Позволяет обрезать профиль плоскостью без образования узла</HelpString>
+        <SmallImage Name="MStudioSteelPlaneTrim16.png" />
+        <LargeImage Name="MS_STEEL_EDIT.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="AEC_BORE_EDIT">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_190_F3F2E">Редактор скважины/точечного котлована</Name>
+        <Command>^C^C_AEC_BORE_EDIT</Command>
+        <HelpString xlate="true" UID="XLS_190_5D71C">Команда вызывает диалоговое окно, которое позволяет редактировать привязки и основные параметры скважины/точечного котлована. Окно интерактивно и после появления требует, чтобы пользователь выбрал скважины/точечного котлована.</HelpString>
+        <SmallImage Name="MStudioAECBoreEdit16.png" />
+        <LargeImage Name="MS_GRND_BORE_EDIT.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="MSS_SET_PIPE_ASM">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_190_764A4">Обозначение трубной сборки (для профиля)</Name>
+        <Command>^C^C_MSS_SET_PIPE_ASM</Command>
+        <HelpString xlate="true" UID="XLS_190_F8A66">Команда позволяет присвоить трубопроводу (осевой трубопровода) параметры идентифицирующие "трубную сборку".</HelpString>
+        <SmallImage Name="MStudioMSSSetPipeAsm16.png" />
+        <LargeImage Name="MS_PIPE_ASMBL.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="PIPE_EXPORTCPIPE">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_00099262">Расчет прочности (экспорт в CPipe)</Name>
+        <Command>^C^C_PIPE_EXPORTCPIPE</Command>
+        <HelpString xlate="true" UID="XLS_00099263">Подготавливает и сохраняет командный файл в формате программы CPipe (П2Т Инжиниринг). Расчетная схема (модель) включает геометрию трубопровода, описание и характеристики деталей и опор, а так же, параметры грунтов.</HelpString>
+        <SmallImage Name="MStudioExportCPIPE16.png" />
+        <LargeImage Name="MS_EXPORT032.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="MSS_SYMBOL_TOGGLE_PLANE">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_00099275">Axogen: Изменить плоскость УГО</Name>
+        <Command>^C^C_MSS_SYMBOL_TOGGLE_PLANE</Command>
+        <HelpString xlate="true" UID="XLS_00099276">Позволяет переключить плоскость отображения УГО</HelpString>
+        <SmallImage Name="MStudioMssSymbolTogglePlane.png" />
+        <LargeImage Name="MS_AXO_GEN32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="MSPIPE_STEEL">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_190_D93D5">Панель инструментов: Профили КМ</Name>
+        <Command>^C^C_-toolbar;MSPIPE.MSPIPE_STEEL;_show </Command>
+        <HelpString xlate="true" UID="XLS_190_31D10">Профили</HelpString>
+        <SmallImage Name="MStudioToolbar16.png" />
+        <LargeImage Name="MS_32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="MSPIPE_CALC">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_190_6C0E1">Панель инструментов: Расчеты</Name>
+        <Command>^C^C_-toolbar;MSPIPE.MSPIPE_CALC;_show </Command>
+        <HelpString xlate="true" UID="XLS_190_02ABD">Расчеты</HelpString>
+        <SmallImage Name="MStudioToolbar16.png" />
+        <LargeImage Name="MS_32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="NET_PIPE_SCALE">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="23" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_200_12E46">Установить масштаб плана сети</Name>
+        <Command>^C^C_NET_PIPE_SCALE</Command>
+        <HelpString xlate="true" UID="XLS_200_0D44D">Команда позволяет установить масштаб отрисовки плана</HelpString>
+        <SmallImage Name="MStudioLayoutByTemplate.png" />
+        <LargeImage Name="DTM_ADD_POINT.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="NET_PIPE_GRID">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="23" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_200_469C1">Вставить координационную сетку</Name>
+        <Command>^C^C_NET_PIPE_GRID</Command>
+        <HelpString xlate="true" UID="XLS_200_C289D">Команда позволяет вставить координационную сетку в пространство листа для отрисовки плана</HelpString>
+        <SmallImage Name="BuildAxes.png" />
+        <LargeImage Name="MS_NETPIPE_AXIS.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="pipe_reducer_Swap">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_200_2BCDC">Заменить тип перехода</Name>
+        <Command>^C^C_pipe_reducer_Swap</Command>
+        <HelpString xlate="true" UID="XLS_200_A0F14">Команда заменяет тип перехода: концентрический на эксцентрический и эксцентрический на концентрический</HelpString>
+        <SmallImage Name="MStudioReducerSwap.png" />
+        <LargeImage Name="MS_REDCVT32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="pipe_reducer_Span">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_200_BD431">Добавить сужение/расширение</Name>
+        <Command>^C^C_pipe_reducer_Span</Command>
+        <HelpString xlate="true" UID="XLS_200_4794C">Команда позволяет создать сужение или расширение участка трубопровода</HelpString>
+        <SmallImage Name="MStudioReducerSpanAdd.png" />
+        <LargeImage Name="MS_RED232.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="PIPE_MULTIPIPE_INSULATION">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_200_4CAFC">Добавить совместную изоляцию</Name>
+        <Command>^C^C_PIPE_MULTIPIPE_INSULATION</Command>
+        <HelpString xlate="true" UID="XLS_200_24B32">Команда добавляет совместную изоляцию на параллельные трубопроводы</HelpString>
+        <SmallImage Name="MStudioPipeMultipipeInsulation.png" />
+        <LargeImage Name="MS_INSL32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="MSPIPE_GENERAL">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_200_03681">Панель инструментов: Трубопроводы</Name>
+        <Command>^C^C_-toolbar;MSPIPE.MSPIPE_GENERAL;_show </Command>
+        <HelpString xlate="true" UID="XLS_200_F403C">Трубопроводы</HelpString>
+        <SmallImage Name="MStudioToolbar16.png" />
+        <LargeImage Name="MS_32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="PIPE_ITEM_COMPLETE">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_200_C1618">Укомплектовать арматуру</Name>
+        <Command>^C^C_PIPE_ITEM_COMPLETE</Command>
+        <HelpString xlate="true" UID="XLS_200_DB95A">Команда позволяет доукомплектовать арматуру или иной инлайн уже размещенный на модель по заданному прототипу</HelpString>
+        <SmallImage Name="MStudioPipeItemComplete.png" />
+        <LargeImage Name="MS_VASU32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="MSS_AXOGEN_TAB_01BOM">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_200_AB22E">Axogen: Таблица спецификации</Name>
+        <Command>^C^C_MSS_AXOGEN_TAB;Изометрии. Таблица по схеме - Спецификация;</Command>
+        <HelpString xlate="true" UID="XLS_200_4B29F">Позволяет сгенрировать спецификацию для схемы</HelpString>
+        <SmallImage Name="MStudioExport.png" />
+        <LargeImage Name="MS_AXO_REPORT32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="MSS_AXOGEN_TAB_02LPIPE">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_200_69208">Axogen: Таблица длин труб</Name>
+        <Command>^C^C_MSS_AXOGEN_TAB;Изометрии. Таблица по схеме - Длина участков труб;</Command>
+        <HelpString xlate="true" UID="XLS_200_33119">Позволяет сгенерировать таблицу длин обрезков труб для схемы</HelpString>
+        <SmallImage Name="MStudioExport.png" />
+        <LargeImage Name="MS_AXO_REPORT32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="PIPE_MD_APPLY ">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_201_F25C5">Изменить миникаталог трубопровода</Name>
+        <Command>^C^C_PIPE_MD_APPLY </Command>
+        <HelpString xlate="true" UID="XLS_201_A8FD8">Команда позволяет изменить ранее назначенный миникаталог на другой, имеющийся в базе данных оборудования, изделий и материалов.</HelpString>
+        <SmallImage Name="MStudioPipelineSettings.png" />
+        <LargeImage Name="MS_SPEC32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="PIPE_SET_MINIDIR">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_200_768AF">Задать миникаталог трубопровода</Name>
+        <Command>^C^C_PIPE_SET_MINIDIR</Command>
+        <HelpString xlate="true" UID="XLS_200_54D66">Команда позволяет задать миникаталог трубопроводу созданному как эскиз.</HelpString>
+        <SmallImage Name="MStudioPipelineSettings.png" />
+        <LargeImage Name="MS_SPEC32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="PIPE_MD_REPLACE_ITEM">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_200_81109">Заменить деталь трубопровода по миникаталогу</Name>
+        <Command>^C^C_PIPE_MD_REPLACE_ITEM </Command>
+        <HelpString xlate="true" UID="XLS_200_BA8A6">Команда позволяет заменить ранее размещенную деталь на другую имеющуюся в миникаталоге. Замена деталей возможна только в одном диаметре.</HelpString>
+        <SmallImage Name="MStudioInlineSettings.png" />
+        <LargeImage Name="MS_SPEC32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="PIPE_DUMP">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_200_357CF">Информация по деталям трубопровода</Name>
+        <Command>^C^C_PIPE_DUMP</Command>
+        <HelpString xlate="true" UID="XLS_200_1E818">Служебная команда для вывода информации о деталях трубопроводах</HelpString>
+        <SmallImage Name="WarningToUse16.png" />
+        <LargeImage Name="MS_WARNING32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="PIPE_SEG_DIAG">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_200_3AE31">Сервис: Информация по сегменту трубопровода</Name>
+        <Command>^C^C_PIPE_SEG_DIAG</Command>
+        <HelpString xlate="true" UID="XLS_200_D1EFB">Служебная команда для вывода информации о сегменте трубопроводах</HelpString>
+        <SmallImage Name="WarningToUse16.png" />
+        <LargeImage Name="MS_WARNING32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="MSS_ISOGEN">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_200_24B3D">Axogen: Генерация изометрических схем</Name>
+        <Command>^C^C_mss_isogen</Command>
+        <HelpString xlate="true" UID="XLS_200_5A706">Автоматическая генерация изометрических схем с разбивкой на листы. Для генерации необходимо выбрать одну или нескольких деталей одного или нескольких трубопроводов. Результатом работы будет набор чертежей, содержащий комплект изометрических схем всех выбранных трубопроводов. На схемах в автоматическом режиме проставляются размеры, отметки уровней, выноски и другие элементы оформления, а так же спецификация к каждому листу, таблица труб и другие данные.</HelpString>
+        <SmallImage Name="SchemaGenerate.png" />
+        <LargeImage Name="MS_AXO_ISOGEN32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="PIPE_IMPORTSTART">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_220_2927B">Расчет прочности (импорт из Старт)</Name>
+        <Command>^C^C_pipe_ImportStart</Command>
+        <HelpString xlate="true" UID="XLS_220_F7AE3">Импортирует файлы исходных данных и результатов расчета прочности и жесткости трубопроводов из программы СТАРТ (НТП Трубопровод). Импорт может осуществляться в двух режимах - импорт результатов расчета и импорт расчетной модели. Импорт осуществляется на основе файлов открытого формата СТАРТ.</HelpString>
+        <SmallImage Name="MStudioExportSTART16.png" />
+        <LargeImage Name="MS_IMPORT032.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="MSS_AXOGEN_SPLIT">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_220_60C02">Axogen: Разделить и перенести схему</Name>
+        <Command>^C^C_MSS_AXOGEN_SPLIT</Command>
+        <HelpString xlate="true" UID="XLS_220_EDC95">Позволяет разделить сгенерированную схему и перенести фрагмент на другое место в пределах листа.</HelpString>
+        <SmallImage Name="MStudioMssSymbolTogglePlane.png" />
+        <LargeImage Name="MS_AXO_GEN32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="MSS_REACTION_DATA">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_220_99620">Расчет нагрузок на опоры (Исходные данные)</Name>
+        <Command>^C^C_MSS_REACTION_DATA</Command>
+        <HelpString xlate="true" UID="XLS_220_90267">Команда позволяет задать исходные данные для расчет нагрузок трубопровода на опоры. ВНИМАНИЕ: Расчет не сертифицирован и служит только для предварительной оценки и не может быть использован как обоснование инженерного решения в его окончательном виде! Точный расчет необходимо выполнять в сертифицированных программных комплексах или вручную!</HelpString>
+        <SmallImage Name="MStudioPipeReactionCalc16.png" />
+        <LargeImage Name="MS_CALCSUPP32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="MSPIPE_MINICATALOG">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_220_9F0DA">Панель инструментов: Миникаталог</Name>
+        <Command>^C^C_-toolbar;MSPIPE.MSPIPE_MINICATALOG;_show </Command>
+        <HelpString xlate="true" UID="XLS_220_34036">МИникаталоги трубопроводов</HelpString>
+        <SmallImage Name="MStudioToolbar16.png" />
+        <LargeImage Name="MS_32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="MSPIPE_TRACE">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_220_B0ED7">Панель инструментов: Трубопровод::Автотрассирование</Name>
+        <Command>^C^C_-toolbar;MSPIPE.MSPIPE_TRACE;_show </Command>
+        <HelpString xlate="true" UID="XLS_220_07B8E">Автотрассирование трубопроводов</HelpString>
+        <SmallImage Name="MStudioToolbar16.png" />
+        <LargeImage Name="MS_32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="PIPE_PIPEELEMENT">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_220_00612">Добавить элемент</Name>
+        <Command>^C^C_pipe_pipeelement</Command>
+        <HelpString xlate="true" UID="XLS_220_B6894">Добавить элемент трубопровода. Элемент трубопровода - это деталь или оборудование, размещаемое на трубопровод без разрыва трубы. Элементами трубопровода являются таблички, наварные детали, бобышки, отверстия, датчики и др.</HelpString>
+        <SmallImage Name="MStudioInlineAdd.png" />
+        <LargeImage Name="MS_PIPE_ELEMENT.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="PIPE_INLINEEQ">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_220_84B13">Добавить линейное оборудование</Name>
+        <Command>^C^C_pipe_inlineeq</Command>
+        <HelpString xlate="true" UID="XLS_220_1E397">Команда позволяет добавить линейное оборудование на трубу.</HelpString>
+        <SmallImage Name="MStudioInlineAdd.png" />
+        <LargeImage Name="MS_PIPE_INLINEEQ.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="PIPE_SUPPORT_ENUM">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_220_BB767">Нумеровать опоры</Name>
+        <Command>^C^C_PIPE_SUPPORT_ENUM</Command>
+        <HelpString xlate="true" UID="XLS_220_34CAF">Команда производит нумерацию опор</HelpString>
+        <SmallImage Name="MStudioSupportAdd.png" />
+        <LargeImage Name="MS_SUPP_ENUM32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="PIPE_SUPPORT_ENUMCLEAR">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_220_AE8D7">Удалить нумерацию опор</Name>
+        <Command>^C^C_PIPE_SUPPORT_ENUMCLEAR</Command>
+        <HelpString xlate="true" UID="XLS_220_F6FB1">Команда позволяет удалить нумерацию опор</HelpString>
+        <SmallImage Name="MStudioSupportAdd.png" />
+        <LargeImage Name="MS_SUPP_ENUMDEL32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="IRON_CROSSARM">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_220_D192E">Добавить траверсы</Name>
+        <Command>^C^C_IRON_CROSSARM</Command>
+        <HelpString xlate="true" UID="XLS_220_DDF4F">Команда позволяет добавить определение траверсы в модель на основе выбираемых опор.</HelpString>
+        <SmallImage Name="MStudioSupportAdd.png" />
+        <LargeImage Name="MS_CROSSARM32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="IRON_ENUM_CROSSARM">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_220_AB681">Нумерация траверс</Name>
+        <Command>^C^C_IRON_ENUM_CROSSARM</Command>
+        <HelpString xlate="true" UID="XLS_220_A8038">Команда позволяет пронумеровать траверсы.</HelpString>
+        <SmallImage Name="MStudioSupportAdd.png" />
+        <LargeImage Name="MS_CROSSARMENUM32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="IRON_EDIT_CROSSARM">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_220_EA137">Редактор траверс</Name>
+        <Command>^C^C_IRON_EDIT_CROSSARM</Command>
+        <HelpString xlate="true" UID="XLS_220_18650">Команда позволяет редактировать параметры траверс</HelpString>
+        <SmallImage Name="MStudioSupportAdd.png" />
+        <LargeImage Name="MS_CROSSARMEDIT32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="PIPE_CHANGE_DIAMETER">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_220_8CC72">Изменить диаметр</Name>
+        <Command>^C^C_PIPE_CHANGE_DIAMETER</Command>
+        <HelpString xlate="true" UID="XLS_220_0CF83">Команда позволяет изменить диаметр трубопровода</HelpString>
+        <SmallImage Name="MStudioFlipFlow.png" />
+        <LargeImage Name="MS_PIPE_CHANGEDIAM.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="PIPE_ELBOW_OFFSET">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_220_FBAC6">Добавить отвод со смещением осей</Name>
+        <Command>^C^C_PIPE_ELBOW_OFFSET</Command>
+        <HelpString xlate="true" UID="XLS_220_BA011">Добавить отвод со смещением осей</HelpString>
+        <SmallImage Name="MStudioElbowAdd.png" />
+        <LargeImage Name="MS_ELBX32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="pipe_axis_params_painter">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_231_46869">Копировать параметры осевой</Name>
+        <Command>^C^C_pipe_axis_params_painter</Command>
+        <HelpString xlate="true" UID="XLS_231_812B9">Команда позволяет скопировать параметры осевой трубопровода</HelpString>
+        <SmallImage Name="MStudioLineParamsPainter16.png" />
+        <LargeImage Name="MS_COPY_LINES32_2.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="pipe_InsertIntersections">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="20" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_201_312AB">Расставить элементы трубопровода</Name>
+        <Command>^C^Cpipe_InsertIntersections</Command>
+        <HelpString xlate="true" UID="XLS_201_3E50E">Команда расставляет элементы трубопровода по правилам, описанным в настройках</HelpString>
+        <SmallImage Name="MStudioSupportAdd.png" />
+        <LargeImage Name="MS_SUPP32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="PIPE_DRAWNSEG">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_220_9E5D7">Гнутая труба</Name>
+        <Command>^C^C_PIPE_DRAWNSEG</Command>
+        <HelpString xlate="true" UID="XLS_220_8D679">Команда позволяет построить участок гнутой трубы</HelpString>
+        <SmallImage Name="" />
+        <LargeImage Name="PIPE_DRAWNSEG.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="PIPE_INSULATION_SEGSPLIT">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_210_4C3EF">Разрыв изоляции</Name>
+        <Command>^C^C_PIPE_INSULATION_SEGSPLIT</Command>
+        <HelpString xlate="true" UID="XLS_210_8F2EB">Команда позволяет создать разрыв в изоляции трубопровода в указанном месте.</HelpString>
+        <SmallImage Name="MS_INSULATION SPLIT32.png" />
+        <LargeImage Name="MS_INSULATION SPLIT32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="MSS_LINK_INSERT_VERTEX">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_230_751C3">Добавить вершину</Name>
+        <Command>^C^C_MSS_LINK_INSERT_VERTEX</Command>
+        <HelpString xlate="true" UID="XLS_230_F8D52">Добавление вершины для линии связи схемы</HelpString>
+        <SmallImage Name="MSS_LINK_INSERT_VERTEX.png" />
+        <LargeImage Name="MSS_LINK_INSERT_VERTEX.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="MSS_LINK_DELETE_VERTEX">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_230_B15C4">Удалить вершину</Name>
+        <Command>^C^C_MSS_LINK_DELETE_VERTEX</Command>
+        <HelpString xlate="true" UID="XLS_230_D52F1">Удаление вершины для линии связи схемы</HelpString>
+        <SmallImage Name="MSS_LINK_DELETE_VERTEX.png" />
+        <LargeImage Name="MSS_LINK_DELETE_VERTEX.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="pipe_move_details">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_230_D604C">Переместить детали</Name>
+        <Command>^C^C_pipe_move_details</Command>
+        <HelpString xlate="true" UID="XLS_230_1DEF1">Команда позволяет переместить группу деталей, принадлежащих разным трубопроводам, на заданное расстояние.</HelpString>
+        <SmallImage Name="MS_PIPE_MOVE_DETAILS.png" />
+        <LargeImage Name="MS_PIPE_MOVE_DETAILS.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="pipe_regen_model">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_230_2741C">Регенерация трубопровода</Name>
+        <Command>^C^C_pipe_regen_model</Command>
+        <HelpString xlate="true" UID="XLS_230_F9EB0">Команда позволяет выполнить перерасчет трассы трубопровода с автоматическим обновлением информации по деталям в соответствии с заданным миникаталогом. Результаты отображаются в командной строке и в виде коллизий.</HelpString>
+        <SmallImage Name="WarningToUse16.png" />
+        <LargeImage Name="MS_WARNING32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="pipe_Support_trnum">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_230_D441C">Нумерация опор по траверсам</Name>
+        <Command>^C^C_pipe_Support_trnum</Command>
+        <HelpString xlate="true" UID="XLS_230_6ADE4">Команда позволяет пронумеровать опоры по траверсам, выбираемым пользователями. При работе команды пользователь самостоятельно группирует опоры по траверсам в модели. В результате в 3D модели создается видовой куб для дальнейшей генерации сечений.</HelpString>
+        <SmallImage Name="PIPE_SUPPORT_TRNUM.png" />
+        <LargeImage Name="PIPE_SUPPORT_TRNUM.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="PIPE_PIPEJOINT">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_241_DC5E9">Расстановка соединений</Name>
+        <Command>^C^C_PIPE_PIPEJOINT</Command>
+        <HelpString xlate="true" UID="XLS_241_EA5E1">Команда позволяет выполнить автоматическую расстановку соединительных элементов (например, сварных швов, фланцевых соединений, гильз и пр.) на трассе инженерной системы</HelpString>
+        <SmallImage Name="PIPE_PIPEJOINT.png" />
+        <LargeImage Name="PIPE_PIPEJOINT.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="add_parameter_from_room_to_object">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_241_19636">Параметры помещения в объекты модели</Name>
+        <Command>^C^C_add_parameter_from_room_to_object</Command>
+        <HelpString xlate="true" UID="XLS_241_43B42">Команда позволяет передать параметры помещения в объекты модели</HelpString>
+        <SmallImage Name="add_parameter_from_room_to_object_32.png" />
+        <LargeImage Name="add_parameter_from_room_to_object_32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="MSS_SET_GROUND_LEVEL ">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_00090101">Сохранить отметку уровня</Name>
+        <Command>^C^C_MSS_SET_GROUND_LEVEL </Command>
+        <HelpString xlate="true" UID="XLS_00090102">Команда копирует в параметры объекта текущую отметку уровня земли в ключевых точках объекта. Перед запуском команды требуется задать источник данных о земле (см. текущие переменные).</HelpString>
+        <SmallImage Name="MStudioMssSetGroundLevel16.png" />
+        <LargeImage Name="MS_GRND_OBJLVL.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="pipe_holeprocess">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_241_2DFDB">Расстановка отверстий</Name>
+        <Command>^C^C_pipe_holeprocess</Command>
+        <HelpString xlate="true" UID="XLS_241_CCCEF">Команда позволяет разместить в модели отверстия/проходки в местах пересечения трубопроводных и вентиляционных систем со строительными конструкциями.</HelpString>
+        <SmallImage Name="pipe_holeprocess.png" />
+        <LargeImage Name="pipe_holeprocess.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="pipe_elbow_inline">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_241_7DED0">Арматура угловая</Name>
+        <Command>^C^C_pipe_elbow_inline</Command>
+        <HelpString xlate="true" UID="XLS_241_71793">Команда позволяет добавить угловую арматуру вместо размещенного в модели отвода</HelpString>
+        <SmallImage Name="pipe_elbow_inline16.png" />
+        <LargeImage Name="pipe_elbow_inline-32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="URS_BORDER_PROJECT">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_241_FF2A4">Граница проектирования</Name>
+        <Command>^C^C_URS_BORDER_PROJECT</Command>
+        <HelpString xlate="true" UID="XLS_241_084F6">Команда позволяет создать границу проектирования на проекции трубопроводов и автоматически нанести данные из параметров модели</HelpString>
+        <SmallImage Name="URS_BORDER_PROJECT16.png" />
+        <LargeImage Name="URS_BORDER_PROJECT32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="pipe_minidir">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_241_C7515">Миникаталог</Name>
+        <Command>^C^C_pipe_minidir</Command>
+        <HelpString xlate="true" UID="XLS_241_EF852">Команда позволяет назначить, заменить, сбросить миникаталог выбранным трубопроводам.</HelpString>
+        <SmallImage Name="pipe_minidir16.png" />
+        <LargeImage Name="pipe_minidir32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="clp_isogen_from_project">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_241_9232F">Изометрические схемы из проекта</Name>
+        <Command>^C^C_clp_isogen_from_project</Command>
+        <HelpString xlate="true" UID="XLS_241_4232F">Команда позволяет запустить процесс пакетной генерации изометрических схем по трубопроводным линиям из текущего проекта.</HelpString>
+        <SmallImage Name="MS_ISOGEN32.png" />
+        <LargeImage Name="MS_ISOGEN32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="pipe_pipetee">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_241_9DEC7">Вставить тройник</Name>
+        <Command>^C^C_pipe_pipetee</Command>
+        <HelpString xlate="true" UID="XLS_241_04110">Команда позволяет вставить тройник\врезку на трубопровод</HelpString>
+        <SmallImage Name="pipe_pipetee16.png" />
+        <LargeImage Name="pipe_pipetee32.png" />
+      </Macro>
+    </MenuMacro>
+          
+    <MenuMacro UID="DTMX_CMD_EXPLORE">
+      <Macro type="Any">
+        <Revision MajorVersion="24" MinorVersion="1" UserVersion="1" />
+        <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_DTMX_731448147D">DTMX Explore</Name>
+        <Command>^C^C_DTMXNRX22EXPLORE</Command>
+        <HelpString xlate="true" UID="XLS_DTMX_A053FDAC6A">Проводник свойств элемента</HelpString>
+        <SmallImage Name="MStudioInlineSettings.png" />
+        <LargeImage Name="MS_EDITVALV32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="DTMX_CMD_PATHS">
+      <Macro type="Any">
+        <Revision MajorVersion="24" MinorVersion="1" UserVersion="1" />
+        <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_DTMX_DBA77047A5">DTMX Paths</Name>
+        <Command>^C^C_DTMXNRX23PATHS</Command>
+        <HelpString xlate="true" UID="XLS_DTMX_8ABBE4F2AF">Маршруты и связи объекта</HelpString>
+        <SmallImage Name="Connector.png" />
+        <LargeImage Name="MS_PIPE_ROUTE32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="DTMX_CMD_PING">
+      <Macro type="Any">
+        <Revision MajorVersion="24" MinorVersion="1" UserVersion="1" />
+        <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_DTMX_E37B29B005">DTMX Ping</Name>
+        <Command>^C^C_DTMXPING</Command>
+        <HelpString xlate="true" UID="XLS_DTMX_BD900D3DB3">Диагностика ribbon-кнопки</HelpString>
+        <SmallImage Name="WarningToUse16.png" />
+        <LargeImage Name="MS_WARNING32.png" />
+      </Macro>
+    </MenuMacro>
+  
+  <MenuMacro UID="DTMX_WATER_BUTTON"><Macro type="Any"><Revision MajorVersion="24" UserVersion="1" MinorVersion="1" /><ModifiedRev MajorVersion="24" UserVersion="1" MinorVersion="1" /><Name UID="XLS_DTMX_91FE801F4A" xlate="true">Draw Pipeline</Name><Command>^C^C_pipe_draw_pipeline</Command><HelpString UID="XLS_DTMX_CD2D1A84E4" xlate="true">Runs pipe_draw_pipeline</HelpString><SmallImage Name="PipeDrawPipeline.png"></SmallImage><LargeImage Name="MS_PIPE32.png"></LargeImage></Macro></MenuMacro></MacroGroup>
+</MenuGroup>

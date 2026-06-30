@@ -42,7 +42,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release NCAD|x64'">
     <OutDir>c:\pdf_ingest\DTMXtest\Scripts\</OutDir>
     <IntDir>$(SolutionDir)obj\DtmxNrx\</IntDir>
-    <TargetName>DtmxNrx26</TargetName>
+    <TargetName>DtmxNrx45</TargetName>
   </PropertyGroup>
 
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release NCAD|x64'">

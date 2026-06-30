@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!--
+Внимание! Не изменяйте содержимое этого файла.
+При попытке редактирования этого файла с помощью редактора XML функциональные
+возможности адаптации и переноса могут быть утрачены. Для изменения
+информации в файле адаптации воспользуйтесь диалоговым окном
+"Адаптация интерфейса пользователя" в программе.
+Для доступа к диалоговому окну "Адаптация интерфейса пользователя" выберите меню "Сервис",
+откройте панель "Адаптация" и нажмите кнопку "Пользовательский интерфейс" либо введите НПИ в командной строке.
+-->
+<PanelSetRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <PanelSet UID="PSTU_0001">
+    <Panel UID="PNLU_0002">
+      <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
+      <Name xlate="true" UID="XLS_2094">Model Studio CS Трубопроводы</Name>
+      <Description xlate="true" UID="XLS_2096">Model Studio CS Трубопроводы</Description>
+      <Alias>Панель1</Alias>
+      <SmallImage Name="MStudioPipelineAdd.png" />
+      <LargeImage Name="MStudioPipelineAdd.png" />
+      <PanelItemRef UID="Панель инструментов1">
+        <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
+      </PanelItemRef>
+    </Panel>
+  </PanelSet>
+</PanelSetRoot>

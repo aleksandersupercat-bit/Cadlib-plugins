@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+Внимание! Не изменяйте содержимое этого файла.
+При попытке редактирования этого файла с помощью редактора XML функциональные
+возможности адаптации и переноса могут быть утрачены. Для изменения
+информации в файле адаптации воспользуйтесь диалоговым окном
+"Адаптация пользовательского интерфейса" в программе.
+Для доступа к диалоговому окну "Адаптация пользовательского интерфейса" выберите меню "Сервис",
+откройте панель "Адаптация" и нажмите кнопку "Пользовательский интерфейс" либо введите НПИ в командной строке.
+-->
+<CustSection xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <FileVersion MajorVersion="0" MinorVersion="6" IncrementalVersion="1" UserVersion="1" />
+  <Header>
+    <CommonConfiguration>
+      <CommonItems>
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      </CommonItems>
+    </CommonConfiguration>
+  </Header>
+</CustSection>

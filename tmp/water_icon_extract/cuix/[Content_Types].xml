@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">
+  <Default Extension="cui" ContentType="text/xml" />
+  <Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml" />
+  <Default Extension="bmp" ContentType="image/bmp" />
+  <Default Extension="xml" ContentType="text/xml" />
+  <Default Extension="ico" ContentType="image/vnd.microsoft.icon" />
+  <Default Extension="png" ContentType="text/plain" />
+  <Override PartName="/MStudioDimDel.png" ContentType="text/plain" />
+  <Override PartName="/MS_DTM_LEVELPT_EDIT.png" ContentType="image/png" />
+  <Override PartName="/DTM_ADD_POINT.png" ContentType="image/png" />
+  <Override PartName="/DTM_ADD_PTSTRUCT.png" ContentType="image/png" />
+  <Override PartName="/MSS_LINK_DELETE_VERTEX.png" ContentType="image/png" />
+  <Override PartName="/MSS_LINK_INSERT_VERTEX.png" ContentType="image/png" />
+  <Override PartName="/MS_PIPE_MOVE_DETAILS.png" ContentType="image/png" />
+  <Override PartName="/PIPE_SUPPORT_TRNUM.png" ContentType="image/png" />
+  <Override PartName="/PIPE_PIPEJOINT.png" ContentType="image/png" />
+  <Override PartName="/add_parameter_from_room_to_object_32.png" ContentType="image/png" />
+  <Override PartName="/move.png" ContentType="image/png" />
+  <Override PartName="/rotate.png" ContentType="image/png" />
+  <Override PartName="/rotate32.png" ContentType="image/png" />
+  <Override PartName="/move32.png" ContentType="image/png" />
+  <Override PartName="/pipe_holeprocess.png" ContentType="image/png" />
+  <Override PartName="/pipe_elbow_inline-32.png" ContentType="image/png" />
+  <Override PartName="/pipe_elbow_inline16.png" ContentType="image/png" />
+  <Override PartName="/URS_BORDER_PROJECT16.png" ContentType="image/png" />
+  <Override PartName="/URS_BORDER_PROJECT32.png" ContentType="image/png" />
+  <Override PartName="/pipe_minidir16.png" ContentType="image/png" />
+  <Override PartName="/pipe_minidir32.png" ContentType="image/png" />
+  <Override PartName="/MS_ISOGEN32.png" ContentType="image/png" />
+  <Override PartName="/pipe_pipetee32.png" ContentType="image/png" />
+  <Override PartName="/pipe_pipetee16.png" ContentType="image/png" />
+  <Override PartName="/DTMX_EDIT_16.png" ContentType="image/png" />
+  <Override PartName="/DTMX_EDIT_32.png" ContentType="image/png" />
+  <Override PartName="/DTMX_PROPERTIES_16.png" ContentType="image/png" />
+  <Override PartName="/DTMX_PROPERTIES_32.png" ContentType="image/png" />
+  <Override PartName="/DTMX_CONNECTIONS_16.png" ContentType="image/png" />
+  <Override PartName="/DTMX_CONNECTIONS_32.png" ContentType="image/png" />
+  <Override PartName="/DTMX_TEST_16.png" ContentType="image/png" />
+  <Override PartName="/DTMX_TEST_32.png" ContentType="image/png" />
+<Override PartName="/MStudioPipelineSettings.png" ContentType="image/png" /><Override PartName="/MS_EDITPIPE32.png" ContentType="image/png" /><Override PartName="/MStudioInlineSettings.png" ContentType="image/png" /><Override PartName="/MS_EDITVALV32.png" ContentType="image/png" /><Override PartName="/Connector.png" ContentType="image/png" /><Override PartName="/MS_PIPE_ROUTE32.png" ContentType="image/png" /><Override PartName="/WarningToUse16.png" ContentType="image/png" /><Override PartName="/MS_WARNING32.png" ContentType="image/png" /></Types>

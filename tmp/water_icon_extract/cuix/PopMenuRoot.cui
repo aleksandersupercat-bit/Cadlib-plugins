@@ -1,0 +1,1009 @@
+<?xml version="1.0"?>
+<!--
+Внимание! Не изменяйте содержимое этого файла.
+При попытке редактирования этого файла с помощью редактора XML функциональные
+возможности адаптации и переноса могут быть утрачены. Для изменения
+информации в файле адаптации воспользуйтесь диалоговым окном
+"Адаптация пользовательского интерфейса" в программе.
+Для доступа к диалоговому окну "Адаптация пользовательского интерфейса" выберите меню "Сервис",
+откройте панель "Адаптация" и нажмите кнопку "Пользовательский интерфейс" либо введите НПИ в командной строке.
+-->
+<PopMenuRoot xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <PopMenu hasDiesel="false" UID="PMU_0002">
+    <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+    <Alias>MSPIPE_MENU</Alias>
+    <Name xlate="true" UID="XLS_1866">MS Водоснабжение и канализация</Name>
+    <Description xlate="true" UID="XLS_1868">Model Studio CS Водоснабжение и канализация</Description>
+    <PopMenuRef pUID="PMU_220_6ECE7" UID="PMRU_220_6955B">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuRef>
+    <PopMenuRef pUID="PMU_220_533B1" UID="PMRU_220_D5053">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuRef>
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="PMIU_191_B039B">
+      <ModifiedRev MajorVersion="19" MinorVersion="1" UserVersion="1" />
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_00089275">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_00090051" xlate="true">Сетка осей</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="urs_axis_new" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="PMIU_00089363">
+      <ModifiedRev MajorVersion="18" MinorVersion="2" UserVersion="1" />
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_0012">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_1877" xlate="true">Отрисовать трубопровод</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_draw_pipeline" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuRef pUID="PMU_220_25DA3" UID="PMRU_220_D1FAF">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuRef>
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="PMIU_220_0BD98">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuItem>
+    <PopMenuRef pUID="PMU_220_35B17" UID="PMRU_220_24814">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuRef>
+    <PopMenuRef pUID="PMU_220_C5735" UID="PMRU_220_59FEE">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuRef>
+    <PopMenuRef pUID="PMU_220_69F1B" UID="PMRU_220_E7D5A">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuRef>
+    <PopMenuRef pUID="PMU_220_F84B9" UID="PMRU_220_05924">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuRef>
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="PMIU_220_D78D1">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuItem>
+    <PopMenuRef pUID="PMU_220_9715B" UID="PMRU_220_C7F30">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuRef>
+    <PopMenuRef pUID="PMU_220_8CC69" UID="PMRU_220_734A2">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuRef>
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="PMIU_0059">
+      <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
+    </PopMenuItem>
+    <PopMenuRef pUID="PMU_220_D4A7B" UID="PMRU_220_2323B">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuRef>
+    <PopMenuRef pUID="PMU_220_E5934" UID="PMRU_220_52C35">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuRef>
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="PMIU_220_A4970">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuItem>
+    <PopMenuRef pUID="PMU_220_50C18" UID="PMRU_220_2336D">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuRef>
+    <PopMenuRef pUID="PMU_220_DF6A2" UID="PMRU_220_CF4E1">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuRef>
+    <PopMenuRef pUID="PMU_220_81D5D" UID="PMRU_220_704D8">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuRef>
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="PMIU_220_E801C">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuItem>
+    <PopMenuRef pUID="PMU_0012" UID="PMRU_0010">
+      <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
+    </PopMenuRef>
+  </PopMenu>
+  <PopMenu hasDiesel="false" UID="PMU_0012">
+    <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    <Name xlate="true" UID="XLS_1959">Панели инструментов</Name>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_65623">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_11242" xlate="true">Панель инструментов: Трубопроводы</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="MSPIPE_GENERAL" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_FEC03">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_B23FF" xlate="true">Панель инструментов: Трубопроводы. ПСК</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="MSPIPE_UCS" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_2441D">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_F1A41" xlate="true">Панель инструментов: Трубопровод::Автотрассирование</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="MSPIPE_TRACE" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_EA6AD">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_D04C7" xlate="true">Панель инструментов: Трубопровод::Редактирование</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="MSPIPE_EDIT" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_B67BF">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_77032" xlate="true">Панель инструментов: Трубопровод::Копирование</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="MSPIPE_COPY" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="PMIU_220_A012F">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_110ED">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_5A6E3" xlate="true">Панель инструментов: Профили КМ</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="MSPIPE_STEEL" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_47C49">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_24BF9" xlate="true">Панель инструментов: Оборудование</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="MSPIPE_EQUIP" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="PMIU_220_BCEC7">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_0FFAA">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_DCBB1" xlate="true">Панель инструментов: Расчеты</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="MSPIPE_CALC" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="PMIU_220_A5CC3">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_EE937">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_FA701" xlate="true">Панель инструментов: Миникаталог</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="MSPIPE_MINICATALOG" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_C1B2C">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_C3730" xlate="true">Панель инструментов: Документирование</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="MSPIPE_DOCUM" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="PMIU_0083">
+      <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_0090">
+      <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
+      <NameRef UID="XLS_1975" xlate="true">Выгрузить меню...</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="viper_unloadmenu" />
+      </MenuItem>
+    </PopMenuItem>
+  </PopMenu>
+  <PopMenu hasDiesel="false" UID="PMU_220_6ECE7">
+    <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    <Name xlate="true" UID="XLS_220_B8D80">Оси</Name>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_2CAC7">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_E5DC8" xlate="true">ПСК по детали</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_ucs" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_30E8F">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_57B64" xlate="true">ПСК по XY детали</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_ucsxy" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_7573A">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_A6FB3" xlate="true">ПСК по XZ детали</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_ucsxz" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_15DC7">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_B6D97" xlate="true">ПСК по YZ детали</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_ucsyz" />
+      </MenuItem>
+    </PopMenuItem>
+  </PopMenu>
+  <PopMenu hasDiesel="false" UID="PMU_220_533B1">
+    <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+    <Name xlate="true" UID="XLS_220_50783">Настройки</Name>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_B78F6">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_775E1" xlate="true">Параметры отрисовки трубопровода</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_draw_settings" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_A5D6E">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_B3883" xlate="true">Параметры отрисовки детали</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_edit_Parameters" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="PMIU_220_60A5F">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_230_12535">
+      <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_230_26341" xlate="true">Сервис: Регенерация трубопровода</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_regen_model" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_00E36">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_D472E" xlate="true">Сервис: Информация по сегменту трубопровода</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="PIPE_SEG_DIAG" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_A09B8">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_EEB8F" xlate="true">Сервис: Информация по деталям трубопровода</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="PIPE_DUMP" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_B2791">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_0AF72" xlate="true">Сервис: Восстановление целостности</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_repair" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_9F89E">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_A2E17" xlate="true">Сервис: Восстановление объектов ветвления</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_restore_tee" />
+      </MenuItem>
+    </PopMenuItem>
+  </PopMenu>
+  <PopMenu hasDiesel="false" UID="PMU_220_25DA3">
+    <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+    <Name xlate="true" UID="XLS_220_637E1">Трубопроводы</Name>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_B2670">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_FC3A4" xlate="true">Параллельные трубопроводы</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="PIPE_PARALLELPIPE" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_A4DD2">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_A7C59" xlate="true">Гнутая труба</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="PIPE_DRAWNSEG" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_241_161CA">
+      <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+      <NameRef UID="XLS_241_DDABE" xlate="true">Расстановка соединений</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="PIPE_PIPEJOINT" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="PMIU_220_D63E3">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_EDFAF">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_9E755" xlate="true">Создать трассу</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="PIPE_CREATEPATH" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_00E9B">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_CA2AF" xlate="true">Автотрассирование</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="eq_connect" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_279A9">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_68B31" xlate="true">Перетрассировать</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_retrace" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="PMIU_220_5B276">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_4B9A3">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_7EC20" xlate="true">Редактор соединений</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="connector_show" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_AFE9C">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_C355A" xlate="true">Создать задание на трассировку</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="connector_xml_out" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_2858D">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_F9B7B" xlate="true">Выполнить задание на трассировку</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="connector_xml_in" />
+      </MenuItem>
+    </PopMenuItem>
+  </PopMenu>
+  <PopMenu hasDiesel="false" UID="PMU_220_35B17">
+    <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+    <Name xlate="true" UID="XLS_220_28255">Арматура</Name>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_90F42">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_A03BE" xlate="true">Добавить арматуру</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_InLine" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_093A5">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_9E8E6" xlate="true">Добавить арматуру со смещением осей</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_Offset" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_241_4ACE3">
+      <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+      <NameRef UID="XLS_241_E28DE" xlate="true">Арматура угловая</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_elbow_inline" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_B0C62">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_4E237" xlate="true">Сформировать комплектную арматуру</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_ValveAsm" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_089A9">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_B0DCC" xlate="true">Укомплектовать арматуру</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="PIPE_ITEM_COMPLETE" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_210_02058">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_210_A3E2D" xlate="true">Создать прототип комплектной арматуры</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_prototype_new" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="PMIU_220_E25D6">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_8984A">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_805F8" xlate="true">Добавить элемент</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="PIPE_PIPEELEMENT" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_098C8">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_B3D1A" xlate="true">Добавить линйное оборудование</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="PIPE_INLINEEQ" />
+      </MenuItem>
+    </PopMenuItem>
+  </PopMenu>
+  <PopMenu hasDiesel="false" UID="PMU_220_C5735">
+    <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    <Name xlate="true" UID="XLS_220_5BC4C">Переходы</Name>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_68834">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_2E459" xlate="true">Добавить переход</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_Reducer" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_D4AC9">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_92A85" xlate="true">Добавить эксцентрический переход</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_ReducerEx" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_2F905">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_F8C91" xlate="true">Добавить сужение/расширение</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_reducer_Span" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_0A07F">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_3C2DF" xlate="true">Заменить тип перехода</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_reducer_Swap" />
+      </MenuItem>
+    </PopMenuItem>
+  </PopMenu>
+  <PopMenu hasDiesel="false" UID="PMU_220_69F1B">
+    <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    <Name xlate="true" UID="XLS_220_5F987">Ветвление</Name>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_002B7">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_A8C8B" xlate="true">Соединить тройником</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_tee" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_DAC61">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_A22EF" xlate="true">Добавить отвод</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_Elbow" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_C6D44">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_C0E6B" xlate="true">Добавить отвод со смещением осей</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="PIPE_ELBOW_OFFSET" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_5BBEB">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_06952" xlate="true">Добавить байпас</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_Bypass" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_93334">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_212EA" xlate="true">Добавить вертикальный участок</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_CreateVerticalSect" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_15C17">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_B2E9C" xlate="true">Добавить П-образный компенсатор</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_UShaped" />
+      </MenuItem>
+    </PopMenuItem>
+  </PopMenu>
+  <PopMenu hasDiesel="false" UID="PMU_220_F84B9">
+    <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+    <Name xlate="true" UID="XLS_220_003A2">Прочее</Name>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_F5E4D">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_0D5E9" xlate="true">Добавить опору</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_Support" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_80865">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_864CD" xlate="true">Нумеровать опоры</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="PIPE_SUPPORT_ENUM" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_17E7C">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_2DD30" xlate="true">Удалить нумерацию опор</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="PIPE_SUPPORT_ENUMCLEAR" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_230_8F811">
+      <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_230_1731E" xlate="true">Нумерация опор по траверсам</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_Support_trnum" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="PMIU_220_E5FF5">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_5B9C4">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_CEB35" xlate="true">Добавить совместную изоляцию</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="PIPE_MULTIPIPE_INSULATION" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_210_78829">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_210_E10F6" xlate="true">Разрыв изоляции</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="PIPE_INSULATION_SEGSPLIT" />
+      </MenuItem>
+    </PopMenuItem>
+  </PopMenu>
+  <PopMenu hasDiesel="false" UID="PMU_220_9715B">
+    <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+    <Name xlate="true" UID="XLS_220_21088">Редактировать трубопровод</Name>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_FC1AF">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_5E9F9" xlate="true">Задать уклон</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_edit_Slope" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_7BD8E">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_8A6A6" xlate="true">Изменить направление потока</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_edit_ReverseFlow" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_BE38E">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_0BB08" xlate="true">Изменить диаметр</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="PIPE_CHANGE_DIAMETER" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="PMIU_220_80E04">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_E9846">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_D5DC8" xlate="true">Назначить диаметр узлу</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_SetNodeDN" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="PMIU_220_073AC">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_D5263">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_FB6C7" xlate="true">Разделить трубопровод</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_edit_BreakAxis" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_8B2A6">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_BC81E" xlate="true">Соединить трубопроводы</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_edit_JoinAxis" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_85C7F">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_101DA" xlate="true">Удалить трубопровод</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_delete" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_505F7">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_7CD17" xlate="true">Перетрассировать трубопровод</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_retrace" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_4DE5A">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_E8D37" xlate="true">Отключить трубу от оборудования</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="eq_disconnect" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_51675">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_C958B" xlate="true">Обозначение трубной сборки (для профиля)</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="MSS_SET_PIPE_ASM" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_241_C201B">
+      <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+      <NameRef UID="XLS_241_373C6" xlate="true">Граница проектирования</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="URS_BORDER_PROJECT" />
+      </MenuItem>
+    </PopMenuItem>
+  </PopMenu>
+  <PopMenu hasDiesel="false" UID="PMU_220_8CC69">
+    <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+    <Name xlate="true" UID="XLS_220_6369C">Копирование и преобразование</Name>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_11E41">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_87AF9" xlate="true">Копировать трубопровод</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_copy" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_B7F69">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_DABF5" xlate="true">Копировать в другой файл</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_xcopy" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_116ED">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_B25D8" xlate="true">Копировать фрагмент трубопровода</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_CopyGroup" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_9DBB7">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_4908A" xlate="true">Копировать деталь трубопровода</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_inlinecopy" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_201_B1040">
+      <ModifiedRev MajorVersion="20" MinorVersion="1" UserVersion="1" />
+      <NameRef UID="XLS_201_48F4B" xlate="true">Расставить элементы трубопровода</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_InsertIntersections" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="PMIU_210_C5E08">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_231_43FCC">
+      <ModifiedRev MajorVersion="23" MinorVersion="1" UserVersion="1" />
+      <NameRef UID="XLS_231_CFA2A" xlate="true">Копировать параметры осевой</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_axis_params_painter" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="PMIU_220_572CD">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_36DDE">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_6E974" xlate="true">Переместить трубопровод</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="PIPE_MOVE" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_659EE">
+      <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+      <NameRef UID="XLS_220_CEA6C" xlate="true">Переместить фрагмент модели</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_moveAssembly" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_230_A64E1">
+      <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_230_E0E69" xlate="true">Переместить детали</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_move_details" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_26C3F">
+      <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+      <NameRef UID="XLS_220_723EF" xlate="true">Повернуть фрагмент модели</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_rotateAssembly" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="PMIU_231_BE03F">
+      <ModifiedRev MajorVersion="23" MinorVersion="1" UserVersion="1" />
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_5CE64">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_0F63E" xlate="true">Преобразовать из полилинии</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_CreateAlongPolyline" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_8625A">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_C741D" xlate="true">Преобразовать в полилинию</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_ConvertToPL" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_A4AA6">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_757FA" xlate="true">Преобразовать оборудование в деталь трубопровода</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_edit_SetPEFully" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_9542D">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_19869" xlate="true">Преобразовать деталь трубопровода в оборудование</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_ExtractPE" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_C1108">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_3E4B0" xlate="true">Копировать параметры оборудования в деталь трубопровода</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_edit_SetPE" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_241_5E58D">
+      <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+      <NameRef UID="XLS_241_9D31C" xlate="true">Параметры помещения в объекты модели</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="add_parameter_from_room_to_object" />
+      </MenuItem>
+    </PopMenuItem>
+  </PopMenu>
+  <PopMenu hasDiesel="false" UID="PMU_220_D4A7B">
+    <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    <Name xlate="true" UID="XLS_220_D1BB1">Конструктор оборудования</Name>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_3E62D">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_3B2CF" xlate="true">Правка элементов оборудования</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="mst_move_detail" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_2D1BB">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_C8E57" xlate="true">Создать оборудование из деталей</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="mst_create_equipment" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_2D91C">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_B6459" xlate="true">Сохранить оборудование в базу данных</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="mst_addtolib_equipment" />
+      </MenuItem>
+    </PopMenuItem>
+  </PopMenu>
+  <PopMenu hasDiesel="false" UID="PMU_220_E5934">
+    <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    <Name xlate="true" UID="XLS_220_D9283">Металлоконструкции</Name>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_5AAF5">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_AB50C" xlate="true">Редактор металлопроката</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="IRON_AXES_EDIT" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_904D2">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_898BD" xlate="true">Обрезать профиль</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="IRON_AXIS_CUT" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_D05C8">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_5601E" xlate="true">Удлинить профиль</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="IRON_AXIS_EXTEND" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_130CB">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_A4333" xlate="true">Разрезать профиль</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="IRON_AXIS_BREAK" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_520E9">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_00C72" xlate="true">Обрезать профиль плоскостью</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="IRON_AXIS_PLANETRIM" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="PMIU_220_3B2BA">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_F7FE5">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_D350A" xlate="true">Добавить траверсы</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="IRON_CROSSARM" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_53C60">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_494D9" xlate="true">Редактор траверс</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="IRON_EDIT_CROSSARM" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_2AC04">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_B35C5" xlate="true">Нумерация траверс</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="IRON_ENUM_CROSSARM" />
+      </MenuItem>
+    </PopMenuItem>
+  </PopMenu>
+  <PopMenu hasDiesel="false" UID="PMU_220_50C18">
+    <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    <Name xlate="true" UID="XLS_220_27DA7">Типоразмеры и миникаталоги</Name>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_A3A68">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_BA225" xlate="true">Назначить типоразмеры</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_lib" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="PMIU_220_F9CD3">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_D5821">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_4F98D" xlate="true">Задать миникаталог трубопровода</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="PIPE_SET_MINIDIR" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_5C957">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_C6DB2" xlate="true">Изменить миникаталог трубопровода</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="PIPE_MD_APPLY " />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_409FC">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_248FF" xlate="true">Заменить деталь трубопровода по миникаталогу</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="PIPE_MD_REPLACE_ITEM" />
+      </MenuItem>
+    </PopMenuItem>
+  </PopMenu>
+  <PopMenu hasDiesel="false" UID="PMU_220_DF6A2">
+    <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+    <Name xlate="true" UID="XLS_220_FA063">Аксоген</Name>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_961B0">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_63838" xlate="true">Axogen: Генерация изометрических схем</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="MSS_ISOGEN" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_241_B53FD">
+      <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+      <NameRef UID="XLS_241_80195" xlate="true">Изометрические схемы из проекта</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="clp_isogen_from_project" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="PMIU_220_8314A">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_223F2">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_D0207" xlate="true">Axogen: Генерация схем</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="mss_schema_generate" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="PMIU_220_EC00B">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_7EC6A">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_111F4" xlate="true">Axogen: Таблица спецификации</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="MSS_AXOGEN_TAB_01BOM" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_0580C">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_13568" xlate="true">Axogen: Таблица длин труб</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="MSS_AXOGEN_TAB_02LPIPE" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_230_AB2CF">
+      <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_230_A0CDF" xlate="true">Добавить вершину</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="MSS_LINK_INSERT_VERTEX" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_230_47509">
+      <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_230_FBEF7" xlate="true">Удалить вершину</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="MSS_LINK_DELETE_VERTEX" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_51A71">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_97A11" xlate="true">Axogen: Разделить и перенести схему</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="MSS_AXOGEN_SPLIT" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_8D943">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_F886F" xlate="true">Axogen: Изменить плоскость УГО</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="MSS_SYMBOL_TOGGLE_PLANE" />
+      </MenuItem>
+    </PopMenuItem>
+  </PopMenu>
+  <PopMenu hasDiesel="false" UID="PMU_220_81D5D">
+    <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    <Name xlate="true" UID="XLS_220_97BBA">Расчеты</Name>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_C1F57">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_BBDFA" xlate="true">Расчет нагрузок на опоры (предварительный расчет)</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="MSS_REACTION_CALCULATE" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_7A4D2">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_BF90F" xlate="true">Расчет нагрузок на опоры (Исходные данные)</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="MSS_REACTION_DATA" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="PMIU_220_70C6B">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_6CA4F">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_0DB7A" xlate="true">Расчет прочности (экспорт в CPipe)</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="PIPE_EXPORTCPIPE" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="PMIU_220_4BF6A">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_3436A">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_3998B" xlate="true">Расчет прочности (экспорт в Старт)</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_ExportStart" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_C4C61">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_EE137" xlate="true">Расчет прочности (импорт из Старт)</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="PIPE_IMPORTSTART" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_7F57C">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_D5871" xlate="true">Расчет гидравлический (экспорт в Гидросистему)</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_ExportPCF" />
+      </MenuItem>
+    </PopMenuItem>
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_220_7DFCB">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="XLS_220_F7511" xlate="true">Расчет изоляции (экспорт в Изоляцию)</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_ExportInsulation" />
+      </MenuItem>
+    </PopMenuItem>
+  </PopMenu>
+</PopMenuRoot>

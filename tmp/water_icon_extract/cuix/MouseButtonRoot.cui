@@ -1,0 +1,112 @@
+<?xml version="1.0"?>
+<!--
+Внимание! Не изменяйте содержимое этого файла.
+При попытке редактирования этого файла с помощью редактора XML функциональные
+возможности адаптации и переноса могут быть утрачены. Для изменения
+информации в файле адаптации воспользуйтесь диалоговым окном
+"Адаптация интерфейса пользователя" в программе.
+Для доступа к диалоговому окну "Адаптация интерфейса пользователя" выберите меню "Сервис",
+откройте панель "Адаптация" и нажмите кнопку "Пользовательский интерфейс" либо введите НПИ в командной строке.
+-->
+<MouseButtonRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ButtonGroup UID="BGU_0001">
+    <ModifiedRev MajorVersion="16" MinorVersion="2" UserVersion="1" />
+    <Alias>AUX1</Alias>
+    <ButtonItem BlankLine="true" UID="BIU_0001">
+      <ModifiedRev MajorVersion="16" MinorVersion="2" UserVersion="1" />
+    </ButtonItem>
+    <ButtonItem BlankLine="true" UID="BIU_0002">
+      <ModifiedRev MajorVersion="16" MinorVersion="2" UserVersion="1" />
+    </ButtonItem>
+    <ButtonItem BlankLine="true" UID="BIU_0003">
+      <ModifiedRev MajorVersion="16" MinorVersion="2" UserVersion="1" />
+    </ButtonItem>
+    <ButtonItem BlankLine="true" UID="BIU_0004">
+      <ModifiedRev MajorVersion="16" MinorVersion="2" UserVersion="1" />
+    </ButtonItem>
+    <ButtonItem BlankLine="true" UID="BIU_0005">
+      <ModifiedRev MajorVersion="16" MinorVersion="2" UserVersion="1" />
+    </ButtonItem>
+    <ButtonItem BlankLine="true" UID="BIU_0006">
+      <ModifiedRev MajorVersion="16" MinorVersion="2" UserVersion="1" />
+    </ButtonItem>
+    <ButtonItem BlankLine="true" UID="BIU_0007">
+      <ModifiedRev MajorVersion="16" MinorVersion="2" UserVersion="1" />
+    </ButtonItem>
+  </ButtonGroup>
+  <ButtonGroup UID="BGU_0002">
+    <ModifiedRev MajorVersion="16" MinorVersion="2" UserVersion="1" />
+    <Alias>AUX2</Alias>
+    <ButtonItem BlankLine="true" UID="BIU_0008">
+      <ModifiedRev MajorVersion="16" MinorVersion="2" UserVersion="1" />
+    </ButtonItem>
+    <ButtonItem BlankLine="true" UID="BIU_0009">
+      <ModifiedRev MajorVersion="16" MinorVersion="2" UserVersion="1" />
+    </ButtonItem>
+    <ButtonItem BlankLine="true" UID="BIU_0010">
+      <ModifiedRev MajorVersion="16" MinorVersion="2" UserVersion="1" />
+    </ButtonItem>
+    <ButtonItem BlankLine="true" UID="BIU_0011">
+      <ModifiedRev MajorVersion="16" MinorVersion="2" UserVersion="1" />
+    </ButtonItem>
+    <ButtonItem BlankLine="true" UID="BIU_0012">
+      <ModifiedRev MajorVersion="16" MinorVersion="2" UserVersion="1" />
+    </ButtonItem>
+    <ButtonItem BlankLine="true" UID="BIU_0013">
+      <ModifiedRev MajorVersion="16" MinorVersion="2" UserVersion="1" />
+    </ButtonItem>
+    <ButtonItem BlankLine="true" UID="BIU_0014">
+      <ModifiedRev MajorVersion="16" MinorVersion="2" UserVersion="1" />
+    </ButtonItem>
+  </ButtonGroup>
+  <ButtonGroup UID="BGU_0003">
+    <ModifiedRev MajorVersion="16" MinorVersion="2" UserVersion="1" />
+    <Alias>AUX3</Alias>
+    <ButtonItem BlankLine="true" UID="BIU_0015">
+      <ModifiedRev MajorVersion="16" MinorVersion="2" UserVersion="1" />
+    </ButtonItem>
+    <ButtonItem BlankLine="true" UID="BIU_0016">
+      <ModifiedRev MajorVersion="16" MinorVersion="2" UserVersion="1" />
+    </ButtonItem>
+    <ButtonItem BlankLine="true" UID="BIU_0017">
+      <ModifiedRev MajorVersion="16" MinorVersion="2" UserVersion="1" />
+    </ButtonItem>
+    <ButtonItem BlankLine="true" UID="BIU_0018">
+      <ModifiedRev MajorVersion="16" MinorVersion="2" UserVersion="1" />
+    </ButtonItem>
+    <ButtonItem BlankLine="true" UID="BIU_0019">
+      <ModifiedRev MajorVersion="16" MinorVersion="2" UserVersion="1" />
+    </ButtonItem>
+    <ButtonItem BlankLine="true" UID="BIU_0020">
+      <ModifiedRev MajorVersion="16" MinorVersion="2" UserVersion="1" />
+    </ButtonItem>
+    <ButtonItem BlankLine="true" UID="BIU_0021">
+      <ModifiedRev MajorVersion="16" MinorVersion="2" UserVersion="1" />
+    </ButtonItem>
+  </ButtonGroup>
+  <ButtonGroup UID="BGU_0004">
+    <ModifiedRev MajorVersion="16" MinorVersion="2" UserVersion="1" />
+    <Alias>AUX4</Alias>
+    <ButtonItem BlankLine="true" UID="BIU_0022">
+      <ModifiedRev MajorVersion="16" MinorVersion="2" UserVersion="1" />
+    </ButtonItem>
+    <ButtonItem BlankLine="true" UID="BIU_0023">
+      <ModifiedRev MajorVersion="16" MinorVersion="2" UserVersion="1" />
+    </ButtonItem>
+    <ButtonItem BlankLine="true" UID="BIU_0024">
+      <ModifiedRev MajorVersion="16" MinorVersion="2" UserVersion="1" />
+    </ButtonItem>
+    <ButtonItem BlankLine="true" UID="BIU_0025">
+      <ModifiedRev MajorVersion="16" MinorVersion="2" UserVersion="1" />
+    </ButtonItem>
+    <ButtonItem BlankLine="true" UID="BIU_0026">
+      <ModifiedRev MajorVersion="16" MinorVersion="2" UserVersion="1" />
+    </ButtonItem>
+    <ButtonItem BlankLine="true" UID="BIU_0027">
+      <ModifiedRev MajorVersion="16" MinorVersion="2" UserVersion="1" />
+    </ButtonItem>
+    <ButtonItem BlankLine="true" UID="BIU_0028">
+      <ModifiedRev MajorVersion="16" MinorVersion="2" UserVersion="1" />
+    </ButtonItem>
+  </ButtonGroup>
+</MouseButtonRoot>

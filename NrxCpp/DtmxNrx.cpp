@@ -1,5 +1,16 @@
-﻿// DtmxNrx.cpp вЂ” NRX C++ plugin РґР»СЏ СЂР°Р±РѕС‚С‹ СЃ РїР°СЂР°РјРµС‚СЂР°РјРё Model Studio
-// v9: С‡РёСЃС‚С‹Р№ C++ Р±РµР· COM вЂ” MAPI (gpMcNativeGate в†’ IMcParametricEnt::setParams)
+﻿// DtmxNrx.cpp — NRX C++ plugin для работы с параметрами Model Studio
+// v9: чистый C++ без COM — MAPI (gpMcNativeGate → IMcParametricEnt::setParams)
+//
+// ╔══════════════════════════════════════════════════════════════════════╗
+// ║  КОДИРОВКА ФАЙЛА: UTF-8 с BOM  (флаг компилятора /utf-8)           ║
+// ║  НЕЛЬЗЯ:                                                             ║
+// ║  • Запускать любую конвертацию кодировки на весь файл               ║
+// ║  • Открывать и сохранять в редакторе с кодировкой отличной от UTF-8 ║
+// ║  • Трогать L"..." строки — они уже правильный UTF-8, не перекодировать ║
+// ║  • Использовать acedGetIDispatch(FALSE) с последующим ->Release()   ║
+// ║    (FALSE = без AddRef → Release портит COM refcount → мусор в UI)  ║
+// ║  МОЖНО: добавлять кириллицу в комментарии и L"" напрямую в UTF-8   ║
+// ╚══════════════════════════════════════════════════════════════════════╝
 
 #include "stdafx.h"
 #include <psapi.h>
@@ -11,9 +22,9 @@
 #pragma comment(lib, "Psapi.lib")
 #pragma comment(lib, "User32.lib")
 
-// в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
-// Р›РѕРіРёСЂРѕРІР°РЅРёРµ (UTF-8 СЃ BOM)
-// в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
+// ─────────────────────────────────────────────────────────────────
+// Логирование (UTF-8 с BOM)
+// ─────────────────────────────────────────────────────────────────
 
 static const wchar_t LOG_PATH[] = L"C:\\Users\\atsarkov\\Desktop\\dtmx_nrx_log.txt";
 
@@ -95,9 +106,9 @@ static bool WidIsNull(const mcsWorkID& wid)
     return true;
 }
 
-// в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
-// GetProcAddress-РѕР±С‘СЂС‚РєРё (SDK 26.0 vs nanoCAD 24.1 ABI mismatch)
-// в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
+// ─────────────────────────────────────────────────────────────────
+// GetProcAddress-обёртки (SDK 26.0 vs nanoCAD 24.1 ABI mismatch)
+// ─────────────────────────────────────────────────────────────────
 
 static int NCAD_SSLength(ads_name ss, long* pLen)
 {
@@ -121,9 +132,9 @@ static int NCAD_SSName(ads_name ss, long i, ads_name result)
     return fn ? fn(ss,i,result) : RTERROR;
 }
 
-// в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
-// MAPI вЂ” РїРѕР»СѓС‡РёС‚СЊ IMcNativeGate
-// в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
+// ─────────────────────────────────────────────────────────────────
+// MAPI — получить IMcNativeGate
+// ─────────────────────────────────────────────────────────────────
 
 static IMcNativeGate* GetNativeGate()
 {
@@ -160,6 +171,29 @@ typedef const wchar_t* (__cdecl* PFN_cpGetComment)(const void* pThis);
 typedef void (__cdecl* PFN_cpSetValue)(void* pThis, const wchar_t* value);
 typedef void (__cdecl* PFN_cpSetComment)(void* pThis, const wchar_t* value);
 typedef void (__cdecl* PFN_cpSetValueComment)(void* pThis, const wchar_t* value);
+typedef const wchar_t* (__cdecl* PFN_cpGetValueComment)(const void* pThis);
+
+// CParamDef — определение параметра (схема): лейбл, категории, флаг скрытости
+typedef const wchar_t* (__cdecl* PFN_cpdGetName)          (void* pThis);
+typedef const wchar_t* (__cdecl* PFN_cpdGetComment)        (void* pThis);
+typedef long long       (__cdecl* PFN_cpdGetCatsCount)     (void* pThis);
+typedef const wchar_t* (__cdecl* PFN_cpdGetCategory)       (void* pThis, long long idx);
+typedef bool            (__cdecl* PFN_cpdIsHidden)         (void* pThis);
+// CParamDefs — реестр всех определений
+typedef void*           (__cdecl* PFN_cdsGetParam)         (void* pThis, const wchar_t* name); // → CParamDef*
+typedef long long       (__cdecl* PFN_cdsGetCount)         (void* pThis);
+// GetGlobalParamDefs — свободная функция, отдаёт глобальный CParamDefs*
+typedef void            (__cdecl* PFN_GetGlobalParamDefs)  (void** ppOutDefs, bool includeHidden);
+// CParamsOwner::GetParameterComment(name, default) — комментарий из схемы по имени
+typedef const wchar_t* (__cdecl* PFN_cpoGetParameterComment)(const void* pOwner, const wchar_t* name, const wchar_t* def);
+typedef const wchar_t* (__cdecl* PFN_cpoGetParameterValueComment)(const void* pOwner, const wchar_t* name, const wchar_t* def);
+
+// linCSParametricSolidBase — доступ к портам (подключённым осям)
+typedef int  (__cdecl* PFN_sbGetCountNodes) (const void* pThis);
+typedef void (__cdecl* PFN_sbGetNodeID)     (AcDbObjectId* outOid, const void* pThis, int portIdx);
+// linCSNode — параметры оси
+typedef int  (__cdecl* PFN_nodeGetParamsCount)(void* pThis);
+typedef void*(__cdecl* PFN_nodeGetParamByIdx) (const void* pThis, int idx);
 
 struct UnitsCsApi
 {
@@ -185,6 +219,26 @@ struct UnitsCsApi
     PFN_cpSetValue cpSetValue = nullptr;
     PFN_cpSetComment cpSetComment = nullptr;
     PFN_cpSetValueComment cpSetValueComment = nullptr;
+    PFN_cpGetValueComment cpGetValueComment = nullptr;
+    // CParamDef
+    PFN_cpdGetName      cpdGetName      = nullptr;
+    PFN_cpdGetComment   cpdGetComment   = nullptr;
+    PFN_cpdGetCatsCount cpdGetCatsCount = nullptr;
+    PFN_cpdGetCategory  cpdGetCategory  = nullptr;
+    PFN_cpdIsHidden     cpdIsHidden     = nullptr;
+    // CParamDefs
+    PFN_cdsGetParam     cdsGetParam     = nullptr;
+    PFN_cdsGetCount     cdsGetCount     = nullptr;
+    // GetGlobalParamDefs
+    PFN_GetGlobalParamDefs getGlobalParamDefs = nullptr;
+    // CParamsOwner comment by name
+    PFN_cpoGetParameterComment      cpoGetParameterComment      = nullptr;
+    PFN_cpoGetParameterValueComment cpoGetParameterValueComment = nullptr;
+    // ports + axis
+    PFN_sbGetCountNodes   sbGetCountNodes   = nullptr;
+    PFN_sbGetNodeID       sbGetNodeID       = nullptr;
+    PFN_nodeGetParamsCount nodeGetParamsCount = nullptr;
+    PFN_nodeGetParamByIdx  nodeGetParamByIdx  = nullptr;
 };
 
 static HMODULE FindLoadedModuleLike(const wchar_t* token)
@@ -369,6 +423,51 @@ static bool LoadUnitsCsApi(UnitsCsApi& api)
         (PFN_cpSetValueComment)::GetProcAddress(
             hMstudioData,
             "?setValueComment@CParam@@QEAAXPEB_W@Z");
+    api.cpGetValueComment =
+        (PFN_cpGetValueComment)::GetProcAddress(
+            hMstudioData,
+            "?getValueComment@CParam@@QEBAPEB_WXZ");
+
+    // CParamDef — схема параметра: лейбл, категории, видимость
+    api.cpdGetName =
+        (PFN_cpdGetName)::GetProcAddress(hMstudioData, "?GetName@CParamDef@@QEAAPEB_WXZ");
+    api.cpdGetComment =
+        (PFN_cpdGetComment)::GetProcAddress(hMstudioData, "?GetComment@CParamDef@@QEAAPEB_WXZ");
+    api.cpdGetCatsCount =
+        (PFN_cpdGetCatsCount)::GetProcAddress(hMstudioData, "?GetCategoriesCount@CParamDef@@QEAA_JXZ");
+    api.cpdGetCategory =
+        (PFN_cpdGetCategory)::GetProcAddress(hMstudioData, "?GetCategory@CParamDef@@QEAAPEB_W_J@Z");
+    api.cpdIsHidden =
+        (PFN_cpdIsHidden)::GetProcAddress(hMstudioData, "?IsHidden@CParamDef@@QEAA_NXZ");
+
+    // CParamDefs — реестр определений
+    api.cdsGetParam =
+        (PFN_cdsGetParam)::GetProcAddress(hMstudioData, "?GetParam@CParamDefs@@QEAAPEAVCParamDef@@PEB_W@Z");
+    api.cdsGetCount =
+        (PFN_cdsGetCount)::GetProcAddress(hMstudioData, "?GetCount@CParamDefs@@QEAA_JXZ");
+
+    // GetGlobalParamDefs — свободная функция (точка входа в глобальный реестр)
+    api.getGlobalParamDefs =
+        (PFN_GetGlobalParamDefs)::GetProcAddress(hMstudioData, "?GetGlobalParamDefs@@YAXAEAPEAVCParamDefs@@_N@Z");
+
+    // CParamsOwner::GetParameterComment / GetParameterValueComment
+    api.cpoGetParameterComment =
+        (PFN_cpoGetParameterComment)::GetProcAddress(
+            hMstudioData, "?GetParameterComment@CParamsOwner@@QEBAPEB_WPEB_W0@Z");
+    api.cpoGetParameterValueComment =
+        (PFN_cpoGetParameterValueComment)::GetProcAddress(
+            hMstudioData, "?GetParameterValueComment@CParamsOwner@@QEBAPEB_WPEB_W0@Z");
+
+    EchoApiPtr(L"mstudioData", L"CParamDef::GetName",              api.cpdGetName,              L"имя определения параметра");
+    EchoApiPtr(L"mstudioData", L"CParamDef::GetComment",           api.cpdGetComment,           L"канонический лейбл параметра из схемы");
+    EchoApiPtr(L"mstudioData", L"CParamDef::GetCategoriesCount",   api.cpdGetCatsCount,         L"число категорий параметра");
+    EchoApiPtr(L"mstudioData", L"CParamDef::GetCategory",          api.cpdGetCategory,          L"имя категории параметра по индексу");
+    EchoApiPtr(L"mstudioData", L"CParamDef::IsHidden",             api.cpdIsHidden,             L"скрыт ли параметр в UI");
+    EchoApiPtr(L"mstudioData", L"CParamDefs::GetParam(name)",      api.cdsGetParam,             L"найти CParamDef по имени");
+    EchoApiPtr(L"mstudioData", L"CParamDefs::GetCount",            api.cdsGetCount,             L"число определений в реестре");
+    EchoApiPtr(L"mstudioData", L"GetGlobalParamDefs",              api.getGlobalParamDefs,      L"получить глобальный реестр CParamDefs");
+    EchoApiPtr(L"mstudioData", L"CParamsOwner::GetParameterComment",      api.cpoGetParameterComment,      L"комментарий параметра по имени через владельца");
+    EchoApiPtr(L"mstudioData", L"CParamsOwner::GetParameterValueComment", api.cpoGetParameterValueComment, L"комментарий к значению по имени через владельца");
 
     EchoApiPtr(L"UnitsCS", L"getParametricInterface", api.getParametricInterface, L"получить параметрический интерфейс из выбранного DWG-объекта");
     EchoApiPtr(L"UnitsCS", L"getRootElementP", api.getRootElementP, L"получить корневой CElement текущего элемента Model Studio");
@@ -388,9 +487,24 @@ static bool LoadUnitsCsApi(UnitsCsApi& api)
     EchoApiPtr(L"UnitsCS", L"CParam::getName", api.cpGetName, L"внутреннее имя параметра, например PART_TAGNUMBER");
     EchoApiPtr(L"UnitsCS", L"CParam::getValue", api.cpGetValue, L"текущее значение параметра");
     EchoApiPtr(L"UnitsCS", L"CParam::getComment", api.cpGetComment, L"человекочитаемая подпись/комментарий параметра");
+    EchoApiPtr(L"UnitsCS", L"CParam::getValueComment", api.cpGetValueComment, L"комментарий на текущее значение (например метка enum)");
     EchoApiPtr(L"UnitsCS", L"CParam::setValue", api.cpSetValue, L"записать новое значение параметра");
     EchoApiPtr(L"UnitsCS", L"CParam::setComment", api.cpSetComment, L"записать общий комментарий/подпись параметра");
     EchoApiPtr(L"UnitsCS", L"CParam::setValueComment", api.cpSetValueComment, L"записать комментарий именно к значению параметра");
+
+    // Порты: linCSParametricSolidBase и linCSNode
+    api.sbGetCountNodes = (PFN_sbGetCountNodes)::GetProcAddress(
+        api.module, "?GetCountNodes@linCSParametricSolidBase@@QEBAHXZ");
+    api.sbGetNodeID = (PFN_sbGetNodeID)::GetProcAddress(
+        api.module, "?GetNodeID@linCSParametricSolidBase@@QEBA?AVNcDbObjectId@@H@Z");
+    api.nodeGetParamsCount = (PFN_nodeGetParamsCount)::GetProcAddress(
+        api.module, "?GetParamsCount@linCSNode@@QEAAHXZ");
+    api.nodeGetParamByIdx = (PFN_nodeGetParamByIdx)::GetProcAddress(
+        api.module, "?GetParameter@linCSNode@@QEBAPEAVCParam@@H@Z");
+    EchoApiPtr(L"UnitsCS", L"linCSParametricSolidBase::GetCountNodes", api.sbGetCountNodes, L"число портов компонента");
+    EchoApiPtr(L"UnitsCS", L"linCSParametricSolidBase::GetNodeID",     api.sbGetNodeID,     L"OID подключённого linCSNode по индексу порта");
+    EchoApiPtr(L"UnitsCS", L"linCSNode::GetParamsCount",               api.nodeGetParamsCount, L"число параметров оси (linCSNode)");
+    EchoApiPtr(L"UnitsCS", L"linCSNode::GetParameter(idx)",            api.nodeGetParamByIdx,  L"параметр оси по индексу");
 
     return api.getParametricInterface &&
            api.getRootElementP &&
@@ -469,9 +583,9 @@ static std::vector<AcDbObjectId> GetSelectedObjects()
     return result;
 }
 
-// в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
-// MAPI вЂ” РїРµСЂРµС‡РёСЃР»РёС‚СЊ РїР°СЂР°РјРµС‚СЂС‹ в†’ std::map
-// в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
+// ─────────────────────────────────────────────────────────────────
+// MAPI — перечислить параметры → std::map
+// ─────────────────────────────────────────────────────────────────
 
 static void MapiEnumParams(IMcParametricEnt* pPE,
                             std::map<std::wstring, std::wstring>& out)
@@ -494,9 +608,9 @@ static void MapiEnumParams(IMcParametricEnt* pPE,
     }
 }
 
-// в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
-// MAPI вЂ” СѓСЃС‚Р°РЅРѕРІРёС‚СЊ РѕРґРёРЅ РїР°СЂР°РјРµС‚СЂ
-// в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
+// ─────────────────────────────────────────────────────────────────
+// MAPI — установить один параметр
+// ─────────────────────────────────────────────────────────────────
 
 static HRESULT MapiSetParam(IMcParametricEnt* pPE,
                              LPCTSTR paramName, LPCTSTR paramValue)
@@ -507,9 +621,9 @@ static HRESULT MapiSetParam(IMcParametricEnt* pPE,
 
     exValue ev;
     ev.strParName = paramName;
-    ev.setValue(paramValue);    // в†’ m_ValType = MCSSTR
+    ev.setValue(paramValue);    // → m_ValType = MCSSTR
     ev.lFlag = MCPAR_PUBLIC;
-    params.AddDistinctByName(ev, true); // РґРѕР±Р°РІРёС‚СЊ РёР»Рё РїРµСЂРµР·Р°РїРёСЃР°С‚СЊ
+    params.AddDistinctByName(ev, true); // добавить или перезаписать
 
     return pPE->setParams(params);
 }
@@ -604,6 +718,17 @@ static std::wstring NativeClassName(AcDbObject* pObj)
     return name ? std::wstring(name) : L"<noname>";
 }
 
+static bool IsProxyClassName(const std::wstring& className)
+{
+    std::wstring lower = className;
+    for (wchar_t& ch : lower)
+        ch = (wchar_t)towlower(ch);
+    return lower == L"acdbproxyentity" ||
+           lower == L"acdbproxyobject" ||
+           lower.find(L"proxyentity") != std::wstring::npos ||
+           lower.find(L"proxyobject") != std::wstring::npos;
+}
+
 static void LogMapiInfoForId(IMcNativeGate* pGate, const mcsWorkID& id, const std::wstring& prefix)
 {
     if (!pGate) {
@@ -672,14 +797,17 @@ static void LogNativeOwnerChain(IMcNativeGate* pGate, const AcDbObjectId& startO
     }
 }
 
-// в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
-// Win32 РґРёР°Р»РѕРі
-// в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
+// ─────────────────────────────────────────────────────────────────
+// Win32 диалог
+// ─────────────────────────────────────────────────────────────────
 
 struct ParamState {
     std::wstring name;
-    std::wstring dispValue;  // С‚РµРєСѓС‰РµРµ Р·РЅР°С‡РµРЅРёРµ РёР»Рё "<СЂР°Р·РЅС‹Рµ>"
+    std::wstring dispValue;  // текущее значение или "<разные>"
     std::wstring comment;
+    bool hidden = false;     // не отображается в MCS UI (только CElement)
+    std::wstring valueComment;   // getValueComment() — метка текущего значения
+    std::wstring category;       // из CParamDef::GetCategory(0) — реальная категория MCS
 };
 
 struct UiPropState {
@@ -797,6 +925,9 @@ static LRESULT CALLBACK ParamDlgProc(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp)
     return ::DefWindowProcW(hWnd, msg, wp, lp);
 }
 
+static LRESULT CALLBACK ExplorerWndProc(HWND, UINT, WPARAM, LPARAM);  // forward decl
+static LRESULT CALLBACK PathExplorerWndProc(HWND, UINT, WPARAM, LPARAM);  // forward decl
+
 static void RegisterDlgClass()
 {
     WNDCLASSEXW wc = {sizeof(wc)};
@@ -807,10 +938,30 @@ static void RegisterDlgClass()
     wc.hbrBackground = (HBRUSH)(COLOR_BTNFACE+1);
     wc.lpszClassName = L"DtmxNrxDlg13";
     ::RegisterClassExW(&wc);
+
+    WNDCLASSEXW we = {sizeof(we)};
+    we.cbSize        = sizeof(we);
+    we.lpfnWndProc   = ExplorerWndProc;
+    we.hInstance     = g_hInst;
+    we.hCursor       = ::LoadCursorW(nullptr, IDC_ARROW);
+    we.hbrBackground = (HBRUSH)(COLOR_WINDOW+1);
+    we.lpszClassName = L"DtmxNrxExplorer";
+    ::RegisterClassExW(&we);
+
+    WNDCLASSEXW wp = {sizeof(wp)};
+    wp.cbSize        = sizeof(wp);
+    wp.lpfnWndProc   = PathExplorerWndProc;
+    wp.hInstance     = g_hInst;
+    wp.hCursor       = ::LoadCursorW(nullptr, IDC_ARROW);
+    wp.hbrBackground = (HBRUSH)(COLOR_WINDOW+1);
+    wp.lpszClassName = L"DtmxNrxPathExplorer";
+    ::RegisterClassExW(&wp);
 }
 static void UnregisterDlgClass()
 {
-    ::UnregisterClassW(L"DtmxNrxDlg13", g_hInst);
+    ::UnregisterClassW(L"DtmxNrxDlg13",   g_hInst);
+    ::UnregisterClassW(L"DtmxNrxExplorer", g_hInst);
+    ::UnregisterClassW(L"DtmxNrxPathExplorer", g_hInst);
 }
 
 static bool ShowPickParamDlg(std::vector<ParamState>& params,
@@ -849,9 +1000,9 @@ static bool ShowPickParamDlg(std::vector<ParamState>& params,
     return ctx.applied;
 }
 
-// в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
-// MAPI РґРёР°РіРЅРѕСЃС‚РёРєР° (РєРѕРјР°РЅРґР° DTMXNRX10PING)
-// в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
+// ─────────────────────────────────────────────────────────────────
+// MAPI диагностика (команда DTMXNRX10PING)
+// ─────────────────────────────────────────────────────────────────
 
 struct MapiDllInfo { const char* dllName; HMODULE hMod; };
 
@@ -961,9 +1112,9 @@ static void dtmxNrxProbeCmd()
     ::acutPrintf(L"\nDTMXNRX11PROBE: done, log = %ls\n", LOG_PATH);
 }
 
-// в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
-// РљРѕРјР°РЅРґР° SET вЂ” С‡РёСЃС‚С‹Р№ MAPI, Р±РµР· COM
-// в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
+// ─────────────────────────────────────────────────────────────────
+// Команда SET — чистый MAPI, без COM
+// ─────────────────────────────────────────────────────────────────
 
 static void dtmxNrxSetCmd()
 {
@@ -978,7 +1129,7 @@ static void dtmxNrxSetCmd()
     }
     Log(L"IMcNativeGate: " + Ptr(pGate));
 
-    // 1. Р’С‹Р±РѕСЂ РѕР±СЉРµРєС‚РѕРІ
+    // 1. Выбор объектов
     ads_name ss = {};
     bool gotSS = (::acedSSGet(L":I", nullptr, nullptr, nullptr, ss) == RTNORM);
     if (!gotSS) {
@@ -992,7 +1143,7 @@ static void dtmxNrxSetCmd()
     if (ssLen == 0) { ::acedSSFree(ss); return; }
     Log(L"Выделено: " + std::to_wstring(ssLen));
 
-    // 2. РЎРѕР±СЂР°С‚СЊ РѕР±СЉРµРєС‚С‹ + РїР°СЂР°РјРµС‚СЂС‹ С‡РµСЂРµР· MAPI
+    // 2. Собрать объекты + параметры через MAPI
     struct ObjInfo {
         AcDbObjectId oid;
         std::map<std::wstring, std::wstring> params;
@@ -1029,7 +1180,7 @@ static void dtmxNrxSetCmd()
         return;
     }
 
-    // 3. РћР±С‰РёРµ РїР°СЂР°РјРµС‚СЂС‹
+    // 3. Общие параметры
     std::map<std::wstring, std::wstring> common = objects[0].params;
     for (size_t oi = 1; oi < objects.size(); ++oi) {
         for (auto it = common.begin(); it != common.end(); ) {
@@ -1057,14 +1208,14 @@ static void dtmxNrxSetCmd()
         return;
     }
 
-    // 4. Р”РёР°Р»РѕРі
+    // 4. Диалог
     std::wstring pickedName, pickedValue;
     if (!ShowPickParamDlg(paramList, pickedName, pickedValue)) {
         Log(L"Диалог отменён"); return;
     }
     Log(L"Применяем: " + pickedName + L" = " + pickedValue);
 
-    // 5. РџСЂРёРјРµРЅРёС‚СЊ С‡РµСЂРµР· MAPI setParams
+    // 5. Применить через MAPI setParams
     int ok = 0;
     for (auto& obj : objects) {
         mcsWorkID mcid;
@@ -1297,9 +1448,9 @@ static void dtmxNrx12xSetParamArg4Cmd()
     Log(L"=== DTMXNRX12XSETP4 done ===");
 }
 
-// в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
+// ─────────────────────────────────────────────────────────────────
 // DllMain
-// в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
+// ─────────────────────────────────────────────────────────────────
 
 
 // Safely dereferences *(wchar_t**)((char*)pBase + byteOffset) via VirtualQuery.
@@ -1349,20 +1500,57 @@ static int ProbeCParamNameOffset(void* pCParam)
     return -1;
 }
 
+// forward declarations (определения ниже, после SEH-блока)
+static void* SehCdsGetParam(PFN_cdsGetParam fn, void* pDefs, const wchar_t* name);
+static const wchar_t* SehCpdGetComment(PFN_cpdGetComment fn, void* pDef);
+static const wchar_t* SehCpdGetCategory(PFN_cpdGetCategory fn, void* pDef, long long idx);
+static void SehGetGlobalParamDefs(PFN_GetGlobalParamDefs fn, void** ppOut, bool hidden);
+static void FillParamDefInfo(const UnitsCsApi& api, void* pGlobalDefs, ParamState& ps);
+static bool SehIfaceCount(const UnitsCsApi* api, void* pIface, int* pOutCount);
+static bool SehParamGetValue       (const UnitsCsApi* api, const void* pParam, const wchar_t** ppValue);
+static bool SehParamGetComment     (const UnitsCsApi* api, const void* pParam, const wchar_t** ppValue);
+static bool SehParamGetValueComment(const UnitsCsApi* api, const void* pParam, const wchar_t** ppValue);
+static CElement* SehGetRootElementP(PFN_getRootElementP fn, void* pIface);
+
+// SEH-обёртки для getParameterByIndex и subEntParameterStr
+static void* SehGetParamByIndex(PFN_getParameterByIndex fn, void* pIface, int idx)
+{
+    if (!fn || !pIface) return nullptr;
+    __try { return fn(pIface, idx); } __except(EXCEPTION_EXECUTE_HANDLER) { return nullptr; }
+}
+static const wchar_t* SehSubEntParamStr(PFN_subEntParameterStr fn,
+    const void* pEl, const wchar_t* nm, bool def, bool formula)
+{
+    if (!fn || !pEl || !nm) return nullptr;
+    __try { return fn(pEl, nm, def, formula); } __except(EXCEPTION_EXECUTE_HANDLER) { return nullptr; }
+}
+// Обёртка для cpGetValueComment (та же сигнатура что cpGetValue/cpGetComment)
+static bool SehParamGetValueComment(const UnitsCsApi* api, const void* pParam, const wchar_t** ppValue)
+{
+    if (!api || !pParam || !ppValue || !api->cpGetValueComment) return false;
+    __try {
+        *ppValue = api->cpGetValueComment(pParam);
+        return true;
+    }
+    __except(EXCEPTION_EXECUTE_HANDLER) { return false; }
+}
+
 static std::vector<ParamState> EnumParamsViaNative(UnitsCsApi& api, void* pIface)
 {
     std::vector<ParamState> result;
     if (!api.getParamsCount || !api.getParameterByIndex) return result;
 
-    int count = api.getParamsCount(pIface);
+    int count = 0;
+    if (!SehIfaceCount(&api, pIface, &count)) { Log(L"EnumParamsViaNative: getParamsCount CRASHED"); return result; }
     Log(L"EnumParamsViaNative: count=" + std::to_wstring(count));
     if (count <= 0 || count > 2000) return result;
 
-    CElement* pRoot = api.getRootElementP ? api.getRootElementP(pIface) : nullptr;
+    CElement* pRoot = SehGetRootElementP(api.getRootElementP, pIface);
 
     // Probe name offset from first CParam with hex dump
     int nameOff = 8; // default: vtable-ptr at 0, CStringW name at 8
-    void* pC0 = api.getParameterByIndex(pIface, 0);
+    void* pC0 = SehGetParamByIndex(api.getParameterByIndex, pIface, 0);
+    if (!pC0) Log(L"EnumParamsViaNative: getParameterByIndex(0) returned null/crashed");
     if (pC0) {
         MEMORY_BASIC_INFORMATION mbi = {};
         if (::VirtualQuery(pC0, &mbi, sizeof(mbi)) && mbi.State == MEM_COMMIT) {
@@ -1381,25 +1569,45 @@ static std::vector<ParamState> EnumParamsViaNative(UnitsCsApi& api, void* pIface
     }
 
     for (int i = 0; i < count; ++i) {
-        void* pCParam = api.getParameterByIndex(pIface, i);
+        void* pCParam = SehGetParamByIndex(api.getParameterByIndex, pIface, i);
         if (!pCParam) continue;
         const wchar_t* pName = SafeWcharPtrAt(pCParam, nameOff);
         if (!pName || !pName[0]) continue;
         ParamState ps;
         ps.name = pName;
         {
-            const wchar_t* rawValue = api.cpGetValue ? api.cpGetValue((const void*)pCParam) : nullptr;
-            const wchar_t* rawComment = api.cpGetComment ? api.cpGetComment((const void*)pCParam) : nullptr;
-            if (rawValue) ps.dispValue = rawValue;
-            if (rawComment) ps.comment = rawComment;
+            const wchar_t* rawValue   = nullptr; SehParamGetValue       (&api, pCParam, &rawValue);
+            const wchar_t* rawComment = nullptr; SehParamGetComment     (&api, pCParam, &rawComment);
+            const wchar_t* rawValCmt  = nullptr; SehParamGetValueComment(&api, pCParam, &rawValCmt);
+            if (rawValue)   ps.dispValue    = rawValue;
+            if (rawComment) ps.comment      = rawComment;
+            if (rawValCmt)  ps.valueComment = rawValCmt;
         }
-        if (api.subEntParameterStr && pRoot) {
-            const wchar_t* val = api.subEntParameterStr(pRoot, pName, false, false);
-            if (val && (!val[0] ? false : true)) ps.dispValue = val;
+        {
+            const wchar_t* val = SehSubEntParamStr(api.subEntParameterStr, pRoot, pName, false, false);
+            if (val && val[0]) ps.dispValue = val;
         }
         result.push_back(std::move(ps));
     }
     Log(L"EnumParamsViaNative: found=" + std::to_wstring(result.size()));
+
+    // Обогащаем лейблами и категориями из глобального реестра CParamDef
+    void* pGlobalDefs = nullptr;
+    SehGetGlobalParamDefs(api.getGlobalParamDefs, &pGlobalDefs, false);
+    Log(L"EnumParamsViaNative: pGlobalDefs=" + Ptr(pGlobalDefs));
+    if (pGlobalDefs) {
+        for (auto& ps : result) FillParamDefInfo(api, pGlobalDefs, ps);
+    }
+
+    // Диагностика: первые 3 параметра
+    for (int dbg = 0; dbg < (int)result.size() && dbg < 3; ++dbg) {
+        const auto& p = result[dbg];
+        Log(L"  param[" + std::to_wstring(dbg) + L"] name=" + p.name
+            + L" comment='" + p.comment + L"'"
+            + L" cat='" + p.category + L"'"
+            + L" val='" + p.dispValue + L"'");
+    }
+
     return result;
 }
 
@@ -1497,6 +1705,119 @@ static std::vector<UiPropState> CollectMapiProperties(IMcDbObject* pDbObj, mcsPr
         props.push_back(std::move(p));
     }
     return props;
+}
+
+static void LogMapiPropertySource(IMcDbObject* pDbObj, mcsPropertyType eType, const std::wstring& label);
+static void LogMapiReferenceProbes(IMcObject* pObj, int depth);
+static bool SehCeGetChildCount(const UnitsCsApi* api, const void* pEl, long long* pOut);
+static bool SehCeGetChild(const UnitsCsApi* api, const void* pEl, long long index, CElement** ppChild);
+static bool SehCeGetName(const UnitsCsApi* api, const void* pEl, const wchar_t** ppName);
+static int LogElementSubtree(const UnitsCsApi& api, CElement* pEl, int depth, int maxDepth);
+
+static bool IsInterestingUiText(const std::wstring& text)
+{
+    if (text.empty()) return false;
+    return ContainsNormalized(text, L"порт") ||
+           ContainsNormalized(text, L"работ") ||
+           ContainsNormalized(text, L"изоля") ||
+           ContainsNormalized(text, L"параметр") ||
+           ContainsNormalized(text, L"осев") ||
+           ContainsNormalized(text, L"param") ||
+           ContainsNormalized(text, L"port") ||
+           ContainsNormalized(text, L"work") ||
+           ContainsNormalized(text, L"insul");
+}
+
+static bool IsRelationCandidateClass(const std::wstring& cls)
+{
+    return _wcsicmp(cls.c_str(), L"vCSNode") == 0 ||
+           _wcsicmp(cls.c_str(), L"vCSInLine") == 0 ||
+           _wcsicmp(cls.c_str(), L"vCSSegment2") == 0 ||
+           _wcsicmp(cls.c_str(), L"vCSAxis") == 0 ||
+           _wcsicmp(cls.c_str(), L"vCSSubSegment") == 0;
+}
+
+static std::wstring DescribeRootChildren(const UnitsCsApi& api, CElement* pRoot, int maxChildren)
+{
+    if (!pRoot || !api.ceGetChildCount || !api.ceGetChildByIndex || !api.ceGetName) {
+        return L"";
+    }
+
+    long long childCount = 0;
+    if (!SehCeGetChildCount(&api, pRoot, &childCount) || childCount <= 0) {
+        return L"";
+    }
+
+    std::wstring out;
+    const long long limit = (childCount < maxChildren) ? childCount : maxChildren;
+    for (long long index = 0; index < limit; ++index) {
+        CElement* pChild = nullptr;
+        if (!SehCeGetChild(&api, pRoot, index, &pChild) || !pChild) continue;
+
+        const wchar_t* pChildName = nullptr;
+        SehCeGetName(&api, pChild, &pChildName);
+
+        long long grandCount = -1;
+        SehCeGetChildCount(&api, pChild, &grandCount);
+
+        if (!out.empty()) out += L"; ";
+        out += L"[";
+        out += std::to_wstring(index);
+        out += L"] ";
+        out += SafeWs(pChildName);
+        if (grandCount >= 0) {
+            out += L" children=";
+            out += std::to_wstring(grandCount);
+        }
+    }
+
+    if (childCount > limit) {
+        out += L"; ...";
+    }
+    return out;
+}
+
+static std::vector<UiPropState> CollectInterestingUniqueMapiProps(IMcDbObject* pDbObj)
+{
+    std::vector<UiPropState> all;
+    if (!pDbObj) return all;
+
+    auto appendProps = [&](mcsPropertyType propType)
+    {
+        std::vector<UiPropState> part = CollectMapiProperties(pDbObj, propType);
+        all.insert(all.end(), part.begin(), part.end());
+    };
+
+    appendProps(mcPropsVisible2);
+    appendProps(mcPropsObject);
+    appendProps(mcPropsUser);
+    appendProps(mcPropsSystem);
+
+    std::vector<UiPropState> filtered;
+    std::set<std::wstring> seen;
+    for (const auto& p : all) {
+        if (!(IsInterestingUiText(p.category) ||
+              IsInterestingUiText(p.local) ||
+              IsInterestingUiText(p.internal) ||
+              IsInterestingUiText(p.value))) {
+            continue;
+        }
+
+        const std::wstring key =
+            p.category + L"\x1F" + p.local + L"\x1F" + p.internal + L"\x1F" + p.value;
+        if (seen.insert(key).second) {
+            filtered.push_back(p);
+        }
+    }
+    return filtered;
+}
+
+static bool ShouldDumpRelationSubtree(const std::wstring& text)
+{
+    return ContainsNormalized(text, L"group") ||
+           ContainsNormalized(text, L"array") ||
+           ContainsNormalized(text, L"revolve") ||
+           ContainsNormalized(text, L"nozzle");
 }
 
 static void LogDirectMapiJoin(const std::vector<ParamState>& direct, const std::vector<UiPropState>& uiProps)
@@ -1648,6 +1969,20 @@ static bool SehCeGetName(const UnitsCsApi* api, const void* pEl, const wchar_t**
     __except(EXCEPTION_EXECUTE_HANDLER) { return false; }
 }
 
+static bool SehCeGetId(const UnitsCsApi* api, const void* pEl, int* pOut)
+{
+    if (!api || !pEl || !pOut || !api->ceGetId) return false;
+    __try { *pOut = api->ceGetId(pEl); return true; }
+    __except(EXCEPTION_EXECUTE_HANDLER) { return false; }
+}
+
+static bool SehCeGetLevel(const UnitsCsApi* api, const void* pEl, int* pOut)
+{
+    if (!api || !pEl || !pOut || !api->ceGetLevel) return false;
+    __try { *pOut = api->ceGetLevel(pEl); return true; }
+    __except(EXCEPTION_EXECUTE_HANDLER) { return false; }
+}
+
 // Recursive CElement subtree dump — returns total element count visited
 static int LogElementSubtree(const UnitsCsApi& api, CElement* pEl, int depth, int maxDepth)
 {
@@ -1695,6 +2030,104 @@ static int LogElementSubtree(const UnitsCsApi& api, CElement* pEl, int depth, in
         total += LogElementSubtree(api, pChild, depth + 1, maxDepth);
     }
     return total;
+}
+
+// ── CParamDef SEH-хелперы ─────────────────────────────────────────────────
+
+static const wchar_t* SehCpdGetComment(PFN_cpdGetComment fn, void* pDef)
+{
+    if (!fn || !pDef) return nullptr;
+    __try { return fn(pDef); } __except(EXCEPTION_EXECUTE_HANDLER) { return nullptr; }
+}
+static bool SehCpdIsHidden(PFN_cpdIsHidden fn, void* pDef)
+{
+    if (!fn || !pDef) return false;
+    __try { return fn(pDef); } __except(EXCEPTION_EXECUTE_HANDLER) { return false; }
+}
+static long long SehCpdGetCatsCount(PFN_cpdGetCatsCount fn, void* pDef)
+{
+    if (!fn || !pDef) return 0;
+    __try { return fn(pDef); } __except(EXCEPTION_EXECUTE_HANDLER) { return 0; }
+}
+static const wchar_t* SehCpdGetCategory(PFN_cpdGetCategory fn, void* pDef, long long idx)
+{
+    if (!fn || !pDef) return nullptr;
+    __try { return fn(pDef, idx); } __except(EXCEPTION_EXECUTE_HANDLER) { return nullptr; }
+}
+static void* SehCdsGetParam(PFN_cdsGetParam fn, void* pDefs, const wchar_t* name)
+{
+    if (!fn || !pDefs || !name) return nullptr;
+    __try { return fn(pDefs, name); } __except(EXCEPTION_EXECUTE_HANDLER) { return nullptr; }
+}
+static long long SehCdsGetCount(PFN_cdsGetCount fn, void* pDefs)
+{
+    if (!fn || !pDefs) return 0;
+    __try { return fn(pDefs); } __except(EXCEPTION_EXECUTE_HANDLER) { return 0; }
+}
+static void SehGetGlobalParamDefs(PFN_GetGlobalParamDefs fn, void** ppOut, bool hidden)
+{
+    if (!fn || !ppOut) return;
+    __try { fn(ppOut, hidden); } __except(EXCEPTION_EXECUTE_HANDLER) {}
+}
+static const wchar_t* SehCpoGetParamComment(PFN_cpoGetParameterComment fn,
+    const void* pOwner, const wchar_t* name, const wchar_t* def)
+{
+    if (!fn || !pOwner || !name) return nullptr;
+    __try { return fn(pOwner, name, def); } __except(EXCEPTION_EXECUTE_HANDLER) { return nullptr; }
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+
+// Дополняет ParamState: берёт comment из CParamDef если инстанс имеет пустой,
+// и заполняет category из CParamDef::GetCategory(0).
+static void FillParamDefInfo(const UnitsCsApi& api, void* pGlobalDefs, ParamState& ps)
+{
+    if (!pGlobalDefs || !api.cdsGetParam) return;
+    void* pDef = SehCdsGetParam(api.cdsGetParam, pGlobalDefs, ps.name.c_str());
+    if (!pDef) return;
+    if (ps.comment.empty() && api.cpdGetComment) {
+        const wchar_t* c = SehCpdGetComment(api.cpdGetComment, pDef);
+        if (c && c[0]) ps.comment = c;
+    }
+    if (api.cpdGetCategory) {
+        const wchar_t* cat = SehCpdGetCategory(api.cpdGetCategory, pDef, 0);
+        if (cat && cat[0]) ps.category = cat;
+    }
+}
+
+static int SehSbGetCountNodes(PFN_sbGetCountNodes fn, const void* pThis)
+{
+    if (!fn || !pThis) return 0;
+    __try { return fn(pThis); } __except(EXCEPTION_EXECUTE_HANDLER) { return 0; }
+}
+static void SehSbGetNodeID(PFN_sbGetNodeID fn, AcDbObjectId* outOid, const void* pThis, int idx)
+{
+    if (!fn || !outOid || !pThis) return;
+    __try { fn(outOid, pThis, idx); } __except(EXCEPTION_EXECUTE_HANDLER) {}
+}
+static int SehNodeGetParamsCount(PFN_nodeGetParamsCount fn, void* pThis)
+{
+    if (!fn || !pThis) return 0;
+    __try { return fn(pThis); } __except(EXCEPTION_EXECUTE_HANDLER) { return 0; }
+}
+static void* SehNodeGetParamByIdx(PFN_nodeGetParamByIdx fn, const void* pThis, int idx)
+{
+    if (!fn || !pThis) return nullptr;
+    __try { return fn(pThis, idx); } __except(EXCEPTION_EXECUTE_HANDLER) { return nullptr; }
+}
+
+// Защита от AV при вызове getParametricInterface на proxy-объектах
+static void* SehGetParametricInterface(PFN_getParametricInterface fn, void* pObj)
+{
+    if (!fn || !pObj) return nullptr;
+    __try { return fn(pObj); }
+    __except(EXCEPTION_EXECUTE_HANDLER) { return nullptr; }
+}
+static CElement* SehGetRootElementP(PFN_getRootElementP fn, void* pIface)
+{
+    if (!fn || !pIface) return nullptr;
+    __try { return fn(pIface); }
+    __except(EXCEPTION_EXECUTE_HANDLER) { return nullptr; }
 }
 
 static bool SehParamGetComment(const UnitsCsApi* api, const void* pParam, const wchar_t** ppValue)
@@ -2006,14 +2439,434 @@ static int DumpElementTreeRecursive(
     return total;
 }
 
+struct SubElementItem
+{
+    int depth = 0;
+    int level = -1;
+    int id = -1;
+    long long childCount = -1;
+    std::wstring name;
+    std::wstring path;
+};
+
+static int CollectSubElementsRecursive(
+    const UnitsCsApi& api,
+    CElement* pElement,
+    const std::wstring& parentPath,
+    int depth,
+    int maxDepth,
+    int maxNodes,
+    std::set<const void*>& visited,
+    std::vector<SubElementItem>& items)
+{
+    if (!pElement) return 0;
+    if (depth > maxDepth) {
+        Log(L"[SUBTREE] depth limit reached at " + Ptr(pElement));
+        return 0;
+    }
+    if ((int)visited.size() >= maxNodes) {
+        Log(L"[SUBTREE] node limit reached at " + Ptr(pElement));
+        return 0;
+    }
+    if (!visited.insert((const void*)pElement).second) {
+        Log(L"[SUBTREE] cycle detected at " + Ptr(pElement));
+        return 0;
+    }
+
+    const wchar_t* pName = nullptr;
+    SehCeGetName(&api, pElement, &pName);
+    int id = -1;
+    SehCeGetId(&api, pElement, &id);
+    int level = -1;
+    SehCeGetLevel(&api, pElement, &level);
+    long long childCount = -1;
+    SehCeGetChildCount(&api, pElement, &childCount);
+
+    const std::wstring name = NormalizeNodeName(SafeWs(pName), L"<unnamed>");
+    const std::wstring path = JoinNodePath(parentPath, WithNodeIdSuffix(name, id));
+
+    SubElementItem item;
+    item.depth = depth;
+    item.level = level;
+    item.id = id;
+    item.childCount = childCount;
+    item.name = name;
+    item.path = path;
+    items.push_back(item);
+
+    int total = 1;
+    if (childCount <= 0) return total;
+
+    for (long long i = 0; i < childCount; ++i) {
+        CElement* pChild = nullptr;
+        if (!SehCeGetChild(&api, pElement, i, &pChild) || !pChild) {
+            Log(L"[SUBTREE] child index=" + std::to_wstring(i) + L" null/crash at " + path);
+            continue;
+        }
+        total += CollectSubElementsRecursive(
+            api, pChild, path, depth + 1, maxDepth, maxNodes, visited, items);
+    }
+    return total;
+}
+
+static void dtmxSubElementsCmd()
+{
+    LogClear();
+    Log(L"=== DTMXSUBELEMENTS start ===");
+
+    UnitsCsApi api;
+    if (!LoadUnitsCsApi(api)) {
+        ::acutPrintf(L"\nDTMXSUBELEMENTS: UnitsCS not available\n");
+        return;
+    }
+    if (!api.getParametricInterface || !api.getRootElementP ||
+        !api.ceGetChildCount || !api.ceGetChildByIndex || !api.ceGetName) {
+        Log(L"DTMXSUBELEMENTS: CElement API is incomplete");
+        ::acutPrintf(L"\nDTMXSUBELEMENTS: CElement API incomplete\n");
+        return;
+    }
+
+    std::vector<AcDbObjectId> selected = GetSelectedObjects();
+    Log(L"selectedCount=" + std::to_wstring((int)selected.size()));
+    if (selected.empty()) {
+        ::acutPrintf(L"\nDTMXSUBELEMENTS: preselect one Model Studio object first\n");
+        return;
+    }
+
+    AcDbObject* pObj = nullptr;
+    Acad::ErrorStatus es = ::acdbOpenAcDbObject(pObj, selected.front(), AcDb::kForRead);
+    Log(L"selected open status=" + std::to_wstring((int)es));
+    if (es != Acad::eOk || !pObj) {
+        ::acutPrintf(L"\nDTMXSUBELEMENTS: failed to open selected object\n");
+        return;
+    }
+
+    Log(L"selected class=" + NativeClassName(pObj));
+    void* pIface = api.getParametricInterface((void*)pObj);
+    Log(L"selected iface=" + Ptr(pIface));
+    if (!pIface) {
+        pObj->close();
+        ::acutPrintf(L"\nDTMXSUBELEMENTS: selected object is not parametric\n");
+        return;
+    }
+
+    CElement* pRoot = api.getRootElementP(pIface);
+    Log(L"selected root=" + Ptr(pRoot));
+    if (!pRoot) {
+        pObj->close();
+        ::acutPrintf(L"\nDTMXSUBELEMENTS: root element not found\n");
+        return;
+    }
+
+    std::set<const void*> visited;
+    std::vector<SubElementItem> items;
+    CollectSubElementsRecursive(api, pRoot, L"", 0, 16, 2000, visited, items);
+    pObj->close();
+
+    if (items.empty()) {
+        Log(L"[SUBSUMMARY] no items collected");
+        ::acutPrintf(L"\nDTMXSUBELEMENTS: no sub-elements collected\n");
+        return;
+    }
+
+    std::map<std::wstring, int> byName;
+    for (size_t i = 0; i < items.size(); ++i) {
+        const SubElementItem& item = items[i];
+        byName[item.name]++;
+        Log(L"[SUB] index=" + std::to_wstring((int)i) +
+            L" depth=" + std::to_wstring(item.depth) +
+            L" level=" + std::to_wstring(item.level) +
+            L" id=" + std::to_wstring(item.id) +
+            L" childCount=" + std::to_wstring(item.childCount) +
+            L" name=" + item.name +
+            L" path=" + item.path);
+    }
+
+    Log(L"[SUBSUMMARY] totalNodesIncludingRoot=" + std::to_wstring((int)items.size()));
+    Log(L"[SUBSUMMARY] subElementsWithoutRoot=" + std::to_wstring((int)items.size() - 1));
+    Log(L"[SUBSUMMARY] uniqueNames=" + std::to_wstring((int)byName.size()));
+    for (const auto& kv : byName) {
+        Log(L"[SUBNAME] " + kv.first + L" = " + std::to_wstring(kv.second));
+    }
+
+    Log(L"=== DTMXSUBELEMENTS done ===");
+    ::acutPrintf(L"\nDTMXSUBELEMENTS: nodes=%d unique=%d — см. лог\n",
+        (int)items.size(), (int)byName.size());
+}
+
+static void dtmxContainersProbeCmd()
+{
+    LogClear();
+    Log(L"=== DTMXCONTAINERPROBE start ===");
+
+    UnitsCsApi api;
+    if (!LoadUnitsCsApi(api)) {
+        ::acutPrintf(L"\nDTMXCONTAINERPROBE: UnitsCS not available\n");
+        return;
+    }
+    IMcNativeGate* pGate = GetNativeGate();
+
+    std::vector<AcDbObjectId> selected = GetSelectedObjects();
+    Log(L"selectedCount=" + std::to_wstring((int)selected.size()));
+    if (selected.empty()) {
+        ::acutPrintf(L"\nDTMXCONTAINERPROBE: preselect one Model Studio object first\n");
+        return;
+    }
+
+    AcDbObjectId oid = selected.front();
+    AcDbObject* pObj = nullptr;
+    Acad::ErrorStatus es = ::acdbOpenAcDbObject(pObj, oid, AcDb::kForRead);
+    Log(L"[SELECTED] open=" + std::to_wstring((int)es));
+    if (es != Acad::eOk || !pObj) {
+        ::acutPrintf(L"\nDTMXCONTAINERPROBE: failed to open selected object\n");
+        return;
+    }
+
+    Log(L"[SELECTED] class=" + NativeClassName(pObj));
+    Log(L"[SELECTED] ownerOldId=" + std::to_wstring((long long)pObj->ownerId().asOldId()));
+    void* pIface = api.getParametricInterface ? api.getParametricInterface((void*)pObj) : nullptr;
+    CElement* pRoot = (pIface && api.getRootElementP) ? api.getRootElementP(pIface) : nullptr;
+    Log(L"[SELECTED] iface=" + Ptr(pIface));
+    Log(L"[SELECTED] root=" + Ptr(pRoot));
+
+    if (pRoot && api.ceGetName && api.ceGetChildCount) {
+        std::wstring rootName = SafeWs(api.ceGetName((const void*)pRoot));
+        long long rootChildCount = api.ceGetChildCount((const void*)pRoot);
+        int rootId = api.ceGetId ? api.ceGetId((const void*)pRoot) : -1;
+        int rootLevel = api.ceGetLevel ? api.ceGetLevel((const void*)pRoot) : -1;
+        Log(L"[SELECTED] rootName=" + rootName +
+            L" rootId=" + std::to_wstring(rootId) +
+            L" rootLevel=" + std::to_wstring(rootLevel) +
+            L" rootChildCount=" + std::to_wstring(rootChildCount));
+    }
+
+    if (pGate) {
+        mcsWorkID wid;
+        HRESULT hr = pGate->getMcsIdByNative(wid, *(int64_t*)&oid);
+        Log(L"[MAPI] getMcsIdByNative hr=" + Hex(hr) + L" id=" + WidStr(wid));
+        if (SUCCEEDED(hr)) {
+            IMcObjectPtr pMcObj = pGate->QueryObject(wid);
+            Log(L"[MAPI] QueryObject=" + Ptr((IMcObject*)pMcObj));
+            if (pMcObj) {
+                GUID clsid = pGate->QueryObjectClassID(wid, nullptr);
+                Log(L"[MAPI] classId=" + GuidStr(clsid));
+
+                IMcDbObjectPtr pDbObj = pMcObj;
+                if (pDbObj) {
+                    const mcsWorkID& pid = pDbObj->getParentID();
+                    Log(L"[MAPI] parentID=" + WidStr(pid));
+
+                    LogMapiPropertySource(pDbObj, mcPropsVisible2, L"[MAPI-VIS]");
+                    LogMapiPropertySource(pDbObj, mcPropsObject, L"[MAPI-OBJ]");
+                    LogMapiPropertySource(pDbObj, mcPropsUser, L"[MAPI-USER]");
+                    LogMapiPropertySource(pDbObj, mcPropsSystem, L"[MAPI-SYS]");
+
+                    std::vector<UiPropState> interesting;
+                    auto appendInteresting = [&](mcsPropertyType propType)
+                    {
+                        std::vector<UiPropState> props = CollectMapiProperties(pDbObj, propType);
+                        for (const auto& p : props) {
+                            if (IsInterestingUiText(p.category) ||
+                                IsInterestingUiText(p.local) ||
+                                IsInterestingUiText(p.internal) ||
+                                IsInterestingUiText(p.value)) {
+                                interesting.push_back(p);
+                            }
+                        }
+                    };
+                    appendInteresting(mcPropsVisible2);
+                    appendInteresting(mcPropsObject);
+                    appendInteresting(mcPropsUser);
+                    appendInteresting(mcPropsSystem);
+
+                    Log(L"[MAPI-HITS] count=" + std::to_wstring((int)interesting.size()));
+                    for (size_t i = 0; i < interesting.size(); ++i) {
+                        const UiPropState& p = interesting[i];
+                        Log(L"[MAPI-HIT] index=" + std::to_wstring((int)i) +
+                            L" cat=" + p.category +
+                            L" local=" + p.local +
+                            L" internal=" + p.internal +
+                            L" value=" + p.value);
+                    }
+                }
+
+                LogMapiReferenceProbes(pMcObj, 0);
+            }
+        }
+    }
+
+    AcDbObjectId ownerId = pObj->ownerId();
+    pObj->close();
+
+    Log(L"[OWNERBLOCK] scan start");
+    AcDbObject* pOwnerObj = nullptr;
+    if (::acdbOpenAcDbObject(pOwnerObj, ownerId, AcDb::kForRead) == Acad::eOk && pOwnerObj) {
+        AcDbBlockTableRecord* pBtr = AcDbBlockTableRecord::cast(pOwnerObj);
+        if (pBtr) {
+            AcDbBlockTableRecordIterator* pIt = nullptr;
+            pBtr->newIterator(pIt);
+            int total = 0;
+            int mcsCount = 0;
+            for (; pIt && !pIt->done() && total < 200; pIt->step(), ++total) {
+                AcDbObjectId entId;
+                if (pIt->getEntityId(entId) != Acad::eOk) continue;
+
+                AcDbObject* pEnt = nullptr;
+                if (::acdbOpenAcDbObject(pEnt, entId, AcDb::kForRead) != Acad::eOk || !pEnt) continue;
+                const std::wstring cls = NativeClassName(pEnt);
+                void* pEntIface = SehGetParametricInterface(api.getParametricInterface, (void*)pEnt);
+                CElement* pEntRoot = (pEntIface && api.getRootElementP) ? api.getRootElementP(pEntIface) : nullptr;
+
+                std::wstring line = L"[OWNERBLOCK] index=" + std::to_wstring(total) +
+                    L" oldId=" + std::to_wstring((long long)entId.asOldId()) +
+                    L" class=" + cls +
+                    L" parametric=" + std::to_wstring(pEntIface ? 1 : 0);
+
+                if (pEntRoot && api.ceGetName && api.ceGetChildCount) {
+                    std::wstring rootName = SafeWs(api.ceGetName((const void*)pEntRoot));
+                    long long childCount = api.ceGetChildCount((const void*)pEntRoot);
+                    line += L" rootName=" + rootName +
+                        L" rootChildCount=" + std::to_wstring(childCount);
+                }
+                Log(line);
+
+                if (pEntIface) {
+                    ++mcsCount;
+                    std::vector<ParamState> ps = EnumParamsViaNative(api, pEntIface);
+                    if (!ps.empty()) {
+                        for (const auto& p : ps) {
+                            if (IsInterestingUiText(p.name) ||
+                                IsInterestingUiText(p.comment) ||
+                                IsInterestingUiText(p.dispValue)) {
+                                std::wstring pl = L"  [OWNERBLOCK-HIT] class=" + cls +
+                                    L" param=" + p.name +
+                                    L" value=" + p.dispValue;
+                                if (!p.comment.empty()) pl += L" | comment=" + p.comment;
+                                Log(pl);
+                            }
+                        }
+                    }
+                }
+                pEnt->close();
+            }
+            if (pIt) delete pIt;
+            Log(L"[OWNERBLOCK] scanned=" + std::to_wstring(total) +
+                L" parametricObjects=" + std::to_wstring(mcsCount));
+        }
+        pOwnerObj->close();
+    }
+    Log(L"[OWNERBLOCK] scan done");
+
+    Log(L"=== DTMXCONTAINERPROBE done ===");
+    ::acutPrintf(L"\nDTMXCONTAINERPROBE: done — см. лог\n");
+}
+
+static void dtmxRelationProbeCmd()
+{
+    LogClear();
+    Log(L"=== DTMXRELPROBE start ===");
+    Log(L"[MODE] selected-object-only");
+
+    UnitsCsApi api;
+    if (!LoadUnitsCsApi(api)) {
+        ::acutPrintf(L"\nDTMXRELPROBE: UnitsCS not available\n");
+        return;
+    }
+    IMcNativeGate* pGate = GetNativeGate();
+
+    std::vector<AcDbObjectId> selected = GetSelectedObjects();
+    Log(L"selectedCount=" + std::to_wstring((int)selected.size()));
+    if (selected.empty()) {
+        ::acutPrintf(L"\nDTMXRELPROBE: preselect one Model Studio object first\n");
+        return;
+    }
+
+    AcDbObject* pSelected = nullptr;
+    Acad::ErrorStatus es = ::acdbOpenAcDbObject(pSelected, selected.front(), AcDb::kForRead);
+    Log(L"[SELECTED] open=" + std::to_wstring((int)es));
+    if (es != Acad::eOk || !pSelected) {
+        ::acutPrintf(L"\nDTMXRELPROBE: failed to open selected object\n");
+        return;
+    }
+
+    const std::wstring selectedClass = NativeClassName(pSelected);
+    Log(L"[SELECTED] class=" + selectedClass);
+    Log(L"[SELECTED] oldId=" + std::to_wstring((long long)selected.front().asOldId()));
+    Log(L"[SELECTED] ownerOldId=" + std::to_wstring((long long)pSelected->ownerId().asOldId()));
+
+    void* pIface = api.getParametricInterface ? api.getParametricInterface((void*)pSelected) : nullptr;
+    CElement* pRoot = (pIface && api.getRootElementP) ? api.getRootElementP(pIface) : nullptr;
+
+    std::wstring line = L"[REL] idx=0 oldId=" + std::to_wstring((long long)selected.front().asOldId()) +
+        L" class=" + selectedClass +
+        L" parametric=" + std::to_wstring(pIface ? 1 : 0) +
+        L" [SELECTED]";
+    if (pRoot && api.ceGetName && api.ceGetChildCount) {
+        line += L" rootName=" + SafeWs(api.ceGetName((const void*)pRoot)) +
+            L" rootChildCount=" + std::to_wstring(api.ceGetChildCount((const void*)pRoot));
+    }
+    Log(line);
+
+    if (pRoot) {
+        const std::wstring childDesc = DescribeRootChildren(api, pRoot, 12);
+        if (!childDesc.empty()) {
+            Log(L"[REL-ROOTCHILDREN] class=" + selectedClass + L" -> " + childDesc);
+            if (ShouldDumpRelationSubtree(childDesc)) {
+                Log(L"[REL-TREE-DUMP] class=" + selectedClass + L" oldId=" +
+                    std::to_wstring((long long)selected.front().asOldId()) + L" begin");
+                LogElementSubtree(api, pRoot, 0, 5);
+                Log(L"[REL-TREE-DUMP] class=" + selectedClass + L" oldId=" +
+                    std::to_wstring((long long)selected.front().asOldId()) + L" end");
+            }
+        }
+    }
+
+    if (pIface) {
+        std::vector<ParamState> direct = EnumParamsViaNative(api, pIface);
+        Log(L"[REL-DIRECT] class=" + selectedClass + L" count=" + std::to_wstring((int)direct.size()));
+        for (const auto& p : direct) {
+            if (IsInterestingUiText(p.name) || IsInterestingUiText(p.comment) || IsInterestingUiText(p.dispValue)) {
+                std::wstring dl = L"  [REL-DIRECT-HIT] " + p.name + L" = " + p.dispValue;
+                if (!p.comment.empty()) dl += L" | comment=" + p.comment;
+                Log(dl);
+            }
+        }
+    }
+
+    if (pGate) {
+        mcsWorkID wid;
+        HRESULT hr = pGate->getMcsIdByNative(wid, *(int64_t*)&selected.front());
+        Log(L"[REL-MAPI] class=" + selectedClass + L" hr=" + Hex(hr));
+        if (SUCCEEDED(hr)) {
+            IMcObjectPtr pMcObj = pGate->QueryObject(wid);
+            IMcDbObjectPtr pDbObj = pMcObj;
+            if (pDbObj) {
+                std::vector<UiPropState> props = CollectInterestingUniqueMapiProps(pDbObj);
+                for (const auto& p : props) {
+                    Log(L"  [REL-MAPI-HIT] cat=" + p.category +
+                        L" | local=" + p.local +
+                        L" | internal=" + p.internal +
+                        L" | value=" + p.value);
+                }
+                Log(L"[REL-MAPI] class=" + selectedClass + L" hits=" + std::to_wstring((int)props.size()));
+            }
+        }
+    }
+
+    pSelected->close();
+    Log(L"[REL] scanned=1 candidates=1");
+    Log(L"=== DTMXRELPROBE done ===");
+    ::acutPrintf(L"\nDTMXRELPROBE: selected object only — см. лог\n");
+}
+
 static void LogIfaceSnapshot(UnitsCsApi& api, AcDbObject* pObj, const std::wstring& prefix)
 {
     if (!pObj) return;
-    void* pIface = api.getParametricInterface ? api.getParametricInterface((void*)pObj) : nullptr;
+    void* pIface = SehGetParametricInterface(api.getParametricInterface, (void*)pObj);
     Log(prefix + L" class=" + NativeClassName(pObj) + L" iface=" + Ptr(pIface));
     if (!pIface) return;
 
-    CElement* pRoot = api.getRootElementP ? api.getRootElementP(pIface) : nullptr;
+    CElement* pRoot = SehGetRootElementP(api.getRootElementP, pIface);
     Log(prefix + L" root=" + Ptr(pRoot));
     if (pRoot && api.ceGetName && api.ceGetChildCount) {
         std::wstring name = SafeWs(api.ceGetName((const void*)pRoot));
@@ -2318,7 +3171,12 @@ static int DumpMcsObjectById(UnitsCsApi& api, AcDbObjectId oid, const std::wstri
     pObj->close();
     if (ps.empty()) return 0;
     Log(prefix + L"[" + cn + L"] " + std::to_wstring(ps.size()) + L" параметров:");
-    for (auto& p : ps) Log(prefix + L"  " + p.name + L" = " + p.dispValue);
+    for (auto& p : ps) {
+        std::wstring line = prefix + L"  " + p.name + L" = " + p.dispValue;
+        if (!p.comment.empty())      line += L"  [comment: " + p.comment + L"]";
+        if (!p.valueComment.empty()) line += L"  [valComment: " + p.valueComment + L"]";
+        Log(line);
+    }
     return (int)ps.size();
 }
 
@@ -2417,6 +3275,104 @@ static void dtmxNrx19DumpCmd()
     ::acutPrintf(L"\nDTMXNRX19DUMP: %d параметров — см. лог\n", total);
 }
 
+// ─────────────────────────────────────────────────────────
+// DTMXNRX21PARAMDEF — дамп глобального реестра CParamDefs
+// ─────────────────────────────────────────────────────────
+static void dtmxNrx21ParamDefCmd()
+{
+    LogClear();
+    Log(L"=== DTMXNRX21PARAMDEF start ===");
+
+    UnitsCsApi api;
+    if (!LoadUnitsCsApi(api)) {
+        ::acutPrintf(L"\nDTMXNRX21PARAMDEF: UnitsCS not available\n");
+        return;
+    }
+
+    // ── 1. GetGlobalParamDefs ─────────────────────────────
+    if (!api.getGlobalParamDefs || !api.cdsGetParam || !api.cdsGetCount) {
+        Log(L"GetGlobalParamDefs / CParamDefs API не загружен");
+    } else {
+        void* pDefs = nullptr;
+        SehGetGlobalParamDefs(api.getGlobalParamDefs, &pDefs, false);
+        if (!pDefs) {
+            Log(L"GetGlobalParamDefs(false) вернул null — пробуем includeHidden=true");
+            SehGetGlobalParamDefs(api.getGlobalParamDefs, &pDefs, true);
+        }
+        if (!pDefs) {
+            Log(L"GetGlobalParamDefs: нет данных");
+        } else {
+            long long total2 = SehCdsGetCount(api.cdsGetCount, pDefs);
+            Log(L"CParamDefs::GetCount = " + std::to_wstring(total2));
+
+            const wchar_t* probeNames[] = {
+                L"PART_NAME", L"PART_TAG", L"BOM_GROUP", L"BOM_COMMENT",
+                L"PART_SPECIALITY", L"PART_GROUP", L"PART_TYPE",
+                L"PART_PIPE_DN", L"SYS_DB_UID", L"PART_STANDARD", L"PART_MATERIAL"
+            };
+            for (const wchar_t* nm : probeNames) {
+                void* pDef = SehCdsGetParam(api.cdsGetParam, pDefs, nm);
+                if (!pDef) { Log(std::wstring(L"  [") + nm + L"] NOT FOUND"); continue; }
+
+                const wchar_t* cmt = SehCpdGetComment  (api.cpdGetComment,   pDef);
+                bool    hidden     = SehCpdIsHidden     (api.cpdIsHidden,     pDef);
+                long long catsN    = SehCpdGetCatsCount (api.cpdGetCatsCount, pDef);
+
+                std::wstring line = std::wstring(L"  [") + nm + L"] cmt=\"" + SafeWs(cmt)
+                    + L"\"  hidden=" + (hidden ? L"YES" : L"no")
+                    + L"  cats=" + std::to_wstring(catsN);
+                for (long long ci = 0; ci < catsN && ci < 8; ++ci)
+                    line += L"  cat[" + std::to_wstring(ci) + L"]=\""
+                        + SafeWs(SehCpdGetCategory(api.cpdGetCategory, pDef, ci)) + L"\"";
+                Log(line);
+            }
+        }
+    }
+
+    // ── 2. CParamsOwner::GetParameterComment через выделенный объект ──
+    Log(L"");
+    Log(L"=== GetParameterComment via selected object ===");
+    if (!api.cpoGetParameterComment) {
+        Log(L"CParamsOwner::GetParameterComment не загружен");
+    } else {
+        ads_name ss = {};
+        bool gotSS = (::acedSSGet(L":I", nullptr, nullptr, nullptr, ss) == RTNORM);
+        if (!gotSS) gotSS = (::acedSSGet(nullptr, nullptr, nullptr, nullptr, ss) == RTNORM);
+        if (!gotSS) { Log(L"нет выделенного объекта"); }
+        else {
+            ads_name en = {}; NCAD_SSName(ss, 0, en);
+            AcDbObjectId oid; ::acdbGetObjectId(oid, en);
+            ::acedSSFree(ss);
+
+            AcDbObject* pObj = nullptr;
+            if (::acdbOpenAcDbObject(pObj, oid, AcDb::kForRead) == Acad::eOk) {
+                void* pIface = SehGetParametricInterface(api.getParametricInterface, (void*)pObj);
+                CElement* pRoot = pIface && api.getRootElementP
+                                ? api.getRootElementP(pIface) : nullptr;
+                if (!pRoot) { Log(L"pRoot = null"); }
+                else {
+                    const wchar_t* probeNames2[] = {
+                        L"PART_NAME", L"PART_TAG", L"BOM_GROUP", L"BOM_COMMENT",
+                        L"PART_SPECIALITY", L"PART_GROUP", L"PART_TYPE",
+                        L"PART_PIPE_DN", L"SYS_DB_UID", L"PART_STANDARD", L"PART_MATERIAL"
+                    };
+                    for (const wchar_t* nm : probeNames2) {
+                        const wchar_t* cmt  = SehCpoGetParamComment(api.cpoGetParameterComment, pRoot, nm, nullptr);
+                        const wchar_t* vcmt = SehCpoGetParamComment(
+                            (PFN_cpoGetParameterComment)api.cpoGetParameterValueComment, pRoot, nm, nullptr);
+                        Log(std::wstring(L"  [") + nm + L"] cpoComment=\"" + SafeWs(cmt)
+                            + L"\"  cpoValComment=\"" + SafeWs(vcmt) + L"\"");
+                    }
+                }
+                pObj->close();
+            }
+        }
+    }
+
+    Log(L"=== DTMXNRX21PARAMDEF done ===");
+    ::acutPrintf(L"\nDTMXNRX21PARAMDEF: готово — см. лог\n");
+}
+
 static void dtmxNrx20TreeCmd()
 {
     LogClear();
@@ -2487,7 +3443,7 @@ static void dtmxNrx20TreeCmd()
         return;
     }
 
-    CElement* pRoot = api.getRootElementP ? api.getRootElementP(pIface) : nullptr;
+    CElement* pRoot = SehGetRootElementP(api.getRootElementP, pIface);
     Log(L"selected root=" + Ptr(pRoot));
     if (!pRoot) {
         pObj->close();
@@ -2577,10 +3533,12 @@ static void RunDtmxNrx21OwnerCmd(bool doWrite)
     SafeOwnerCount(api, pIface, L"[OWNER-IFACE]");
     SafeOwnerCount(api, pRoot, L"[OWNER-ROOT]");
 
-    Log(L"--- owner params on pIface ---");
-    LogOwnerParams(api, pIface, L"[OWNER-IFACE]", 64);
-    Log(L"--- owner params on root element ---");
-    LogOwnerParams(api, pRoot, L"[OWNER-ROOT]", 64);
+    // pIface (linCSParametricSolidBase*) нельзя передавать в CParamsOwner-методы —
+    // multiple-inheritance смещение делает cpoGetParameterByIndex(pIface,i) краш.
+    // Вместо этого обходим CElement-дерево от pRoot.
+    Log(L"--- CElement tree ---");
+    int elemTotal = LogElementSubtree(api, pRoot, 0, 8);
+    Log(L"--- tree: " + std::to_wstring(elemTotal) + L" element(s) ---");
 
     LogNamedParamSnapshot(api, pIface, pRoot, L"PART_TAG", L"[BEFORE]");
     LogNamedParamSnapshot(api, pIface, pRoot, L"PART_TAGNUMBER", L"[BEFORE]");
@@ -2624,14 +3582,2751 @@ static void dtmxNrx21OwnerSetCmd()
     RunDtmxNrx21OwnerCmd(true);
 }
 
+// ─────────────────────────────────────────────────────────────────────────────
+// DTMXNRX22EXPLORE — интерактивный TreeView-проводник CElement / vtable параметров
+// ─────────────────────────────────────────────────────────────────────────────
+
+#define IDC_EXPLORE_TREE  305
+#define IDC_FIND_BTN      306
+#define IDC_HANDLE_LABEL  307
+
+enum ExNodeKind : int {
+    kEN_Root = 0,       // корень DWG-объекта
+    kEN_CElSection,     // секция «CElement дерево»
+    kEN_VtSection,      // секция «vtable параметры (N)»
+    kEN_MapiUiSection,  // секция «Свойства элемента (UI/MAPI)»
+    kEN_AxisComSection, // секция «Параметры осевой (COM)»
+    kEN_AxisComElement, // узел осевой вкладки, например "2"
+    kEN_RelSection,     // секция «Связи и соседи»
+    kEN_BlockSection,   // подсекция «Соседи в блоке»
+    kEN_MapiSection,    // подсекция «MAPI / IMcCtrDriver»
+    kEN_Element,        // CElement-узел (основной объект)
+    kEN_Param,          // CParam (CParamsOwner на CElement)
+    kEN_VtParam,        // vtable-параметр (строка, лист)
+    kEN_Neighbor,       // соседний MCS-объект (по блоку или CtrDriver)
+    kEN_ParentSection,  // секция «MAPI родитель (уровень выше)»
+    kEN_ChildSection,   // секция «MAPI дочерние (уровень ниже)»
+    kEN_PortSection,    // секция «Порты (N)»
+    kEN_Port,           // один порт (связь с соседним объектом)
+    kEN_AxisSection,    // секция «Параметры оси (N)» для linCSNode
+};
+
+struct ExNode {
+    ExNodeKind   kind          = kEN_Root;
+    CElement*    pElement      = nullptr;
+    void*        pParam        = nullptr;
+    int          vtIndex       = -1;
+    AcDbObjectId neighborOid;           // для kEN_Neighbor
+    bool         childrenAdded = false;
+};
+
+struct ExplorerCtx {
+    UnitsCsApi              api;
+    AcDbObject*             pObj       = nullptr;
+    void*                   pIface     = nullptr;
+    CElement*               pRoot      = nullptr;
+    const void*             pPortBase  = nullptr; // база для GetCountNodes/GetNodeID
+    void*                   pAxisBase  = nullptr; // база для linCSNode::GetParamsCount
+    AcDbObjectId            oid;
+    AcDbObjectId            selOid;     // oid узла, выбранного в дереве (для Find)
+    IMcNativeGate*          pGate      = nullptr;
+    HWND                    hWnd       = nullptr;
+    HWND                    hTree      = nullptr;
+    HWND                    hFindBtn   = nullptr;
+    HWND                    hHandleLbl = nullptr;
+    HFONT                   hFont      = nullptr;
+    std::vector<ExNode*>    allNodes;
+    std::vector<ParamState> vtParams;
+    std::vector<UiPropState> mapiUiProps;
+    std::vector<ParamState> axisComParams;
+    std::vector<AcDbObjectId> portNodeOids;  // OID подключённых объектов (порты)
+    bool                    isLinCSNode   = false; // выбранный объект — труба/ось
+    int                     axisParamCount = 0;    // кол-во параметров оси (linCSNode)
+    std::wstring            axisSource;            // откуда удалось получить осевые параметры
+    std::wstring            portSource;            // откуда удалось получить порты
+    std::wstring            axisComName;           // имя узла на вкладке "Параметры осевой", например "2"
+    void*                   pGlobalDefs = nullptr; // CParamDefs* из GetGlobalParamDefs
+
+    ExNode* alloc(ExNodeKind k) {
+        auto* n = new ExNode();
+        n->kind = k;
+        allNodes.push_back(n);
+        return n;
+    }
+    // addLeaf определена ниже как свободная функция ExAddLeaf (после AddExItem)
+    ~ExplorerCtx() {
+        for (auto* n : allNodes) delete n;
+        if (hFont) { ::DeleteObject(hFont); hFont = nullptr; }
+        if (pObj)  { pObj->close(); pObj = nullptr; }
+    }
+};
+
+static HTREEITEM AddExItem(HWND hTree, HTREEITEM hParent,
+                           const std::wstring& label, ExNode* node)
+{
+    TVINSERTSTRUCTW tvis = {};
+    tvis.hParent      = hParent;
+    tvis.hInsertAfter = TVI_LAST;
+    tvis.item.mask    = TVIF_TEXT | TVIF_PARAM;
+    tvis.item.pszText = const_cast<LPWSTR>(label.c_str());
+    tvis.item.lParam  = (LPARAM)node;
+    return TreeView_InsertItem(hTree, &tvis);
+}
+
+static void AddExPlaceholder(HWND hTree, HTREEITEM hParent)
+{
+    TVINSERTSTRUCTW tvis = {};
+    tvis.hParent      = hParent;
+    tvis.hInsertAfter = TVI_LAST;
+    tvis.item.mask    = TVIF_TEXT | TVIF_PARAM;
+    tvis.item.pszText = const_cast<LPWSTR>(L"…");
+    tvis.item.lParam  = 0;
+    TreeView_InsertItem(hTree, &tvis);
+}
+
+// Возвращает hex-строку DWG handle объекта, например "1A4F"
+static std::wstring OidHandleStr(AcDbObjectId oid)
+{
+    if (oid.isNull()) return L"?";
+    AcDbObject* pTmp = nullptr;
+    if (::acdbOpenAcDbObject(pTmp, oid, AcDb::kForRead) != Acad::eOk) return L"?";
+    AcDbHandle h;
+    pTmp->getAcDbHandle(h);
+    wchar_t buf[32] = {};
+    h.getIntoAsciiBuffer(buf, 32);
+    pTmp->close();
+    return std::wstring(buf);
+}
+
+// Ищет "Handle=#HEX" в строке, возвращает hex-часть или пустую строку
+static std::wstring ExtractHandleHex(const std::wstring& text)
+{
+    size_t pos = text.find(L"Handle=#");
+    if (pos != std::wstring::npos) {
+        pos += 8;
+        size_t end = pos;
+        while (end < text.size() && iswxdigit(text[end])) ++end;
+        if (end > pos) return text.substr(pos, end - pos);
+    }
+    return {};
+}
+
+static AcDbObjectId OidFromHandleStr(const std::wstring& hex)
+{
+    AcDbDatabase* pDb = acdbHostApplicationServices()->workingDatabase();
+    if (!pDb || hex.empty()) return AcDbObjectId::kNull;
+    AcDbHandle h(hex.c_str());
+    AcDbObjectId oid;
+    if (pDb->getAcDbObjectId(oid, false, h) != Acad::eOk) return AcDbObjectId::kNull;
+    return oid;
+}
+
+static ExplorerCtx* g_explorerCtx = nullptr;
+
+static void ExAddLeaf(ExplorerCtx* ctx, HTREEITEM hParent, const std::wstring& label)
+{
+    ExNode* n = ctx->alloc(kEN_VtParam);
+    n->childrenAdded = true;
+    AddExItem(ctx->hTree, hParent, label, n);
+}
+
+// ---------- скрытые параметры из CElement-дерева ----------
+
+// Обходит CElement-дерево, собирает параметры, которых нет в knownNames.
+static void CollectCElementHiddenParams(
+    const UnitsCsApi& api, CElement* pEl,
+    const std::set<std::wstring>& knownNames,
+    std::set<std::wstring>& seenNames,
+    std::vector<ParamState>& out)
+{
+    if (!pEl) return;
+    long long cnt = -1;
+    if (SehOwnerCount(&api, pEl, &cnt) && cnt > 0 && cnt < 500) {
+        for (long long i = 0; i < cnt && i < 300; ++i) {
+            void* pParam = nullptr;
+            if (!SehOwnerGetParamAt(&api, pEl, i, &pParam) || !pParam) continue;
+            const wchar_t* pName = nullptr;
+            SehParamGetName(&api, pParam, &pName);
+            std::wstring nm = SafeWs(pName);
+            if (nm.empty() || knownNames.count(nm) || seenNames.count(nm)) continue;
+            seenNames.insert(nm);
+            const wchar_t* pVal = nullptr; SehParamGetValue  (&api, pParam, &pVal);
+            const wchar_t* pCmt = nullptr; SehParamGetComment(&api, pParam, &pCmt);
+            ParamState ps;
+            ps.name      = nm;
+            ps.dispValue = SafeWs(pVal);
+            ps.comment   = SafeWs(pCmt);
+            ps.hidden    = true;
+            out.push_back(ps);
+        }
+    }
+    long long cc = 0;
+    if (!SehCeGetChildCount(&api, pEl, &cc)) return;
+    for (long long ci = 0; ci < cc && ci < 200; ++ci) {
+        CElement* pChild = nullptr;
+        if (!SehCeGetChild(&api, pEl, ci, &pChild) || !pChild) continue;
+        CollectCElementHiddenParams(api, pChild, knownNames, seenNames, out);
+    }
+}
+
+// ---------- группировка параметров по префиксу имени ----------
+
+// Порядок групп для сортировки
+static const std::vector<std::wstring> kParamGroupOrder = {
+    L"Изделие", L"Классификация", L"Изоляция", L"Трубопровод",
+    L"Документ Спецификация", L"Спецификация",
+    L"Программа СТАРТ", L"Системные", L"Прочие"
+};
+
+static std::wstring GetParamGroup(const std::wstring& nm)
+{
+    auto sw = [&](const wchar_t* p) {
+        return nm.size() >= wcslen(p) && nm.compare(0, wcslen(p), p) == 0;
+    };
+    if (sw(L"BOM_"))             return L"Спецификация";
+    if (sw(L"PART_INSULATION_")) return L"Изоляция";
+    if (sw(L"PART_PIPE_"))       return L"Трубопровод";
+    if (nm == L"PART_SPECIALITY" || nm == L"PART_GROUP" || nm == L"PART_TYPE")
+                                  return L"Классификация";
+    if (sw(L"PART_"))             return L"Изделие";
+    if (sw(L"START_"))            return L"Программа СТАРТ";
+    if (sw(L"SYS_"))              return L"Системные";
+    return L"Прочие";
+}
+
+// Отображает вектор ParamState в дерево, разбитое по группам.
+// Формат листа: «Comment» = Value  [INTERNAL_NAME]
+// Используется и для root-объекта, и для соседей.
+static void AddGroupedVtableParams(ExplorerCtx* ctx, HTREEITEM hParent,
+                                   const std::vector<ParamState>& params)
+{
+    if (params.empty()) { ExAddLeaf(ctx, hParent, L"(параметров нет)"); return; }
+
+    // Группируем: реальная категория из CParamDef, иначе prefix-fallback
+    std::map<std::wstring, std::vector<const ParamState*>> groups;
+    for (auto& p : params) {
+        std::wstring grp = !p.category.empty() ? p.category : GetParamGroup(p.name);
+        groups[grp].push_back(&p);
+    }
+
+    // Добавляем в порядке kParamGroupOrder
+    auto addGroup = [&](const std::wstring& gname) {
+        auto it = groups.find(gname);
+        if (it == groups.end()) return;
+        std::wstring hdr = gname + L"  (" + std::to_wstring(it->second.size()) + L")";
+        ExNode* gsec = ctx->alloc(kEN_VtParam); gsec->childrenAdded = true;
+        HTREEITEM hGrp = AddExItem(ctx->hTree, hParent, hdr, gsec);
+        for (auto* p : it->second) {
+            // Лейбл: comment → valueComment → внутреннее имя
+            const std::wstring& lbl_src = !p->comment.empty()      ? p->comment
+                                        : !p->valueComment.empty() ? p->valueComment
+                                        : p->name;
+            bool hasLabel = (!p->comment.empty() || !p->valueComment.empty());
+            std::wstring lbl = lbl_src + L" = " + p->dispValue;
+            if (hasLabel) lbl += L"  [" + p->name + L"]";
+            ExNode* pn = ctx->alloc(kEN_VtParam); pn->childrenAdded = true;
+            AddExItem(ctx->hTree, hGrp, lbl, pn);
+        }
+        groups.erase(it);
+    };
+
+    for (auto& g : kParamGroupOrder) addGroup(g);
+    // Оставшиеся (нестандартные префиксы)
+    for (auto& kv2 : groups) {
+        const std::wstring& g = kv2.first;
+        const auto& plist = kv2.second;
+        std::wstring hdr = g + L"  (" + std::to_wstring(plist.size()) + L")";
+        ExNode* gsec = ctx->alloc(kEN_VtParam); gsec->childrenAdded = true;
+        HTREEITEM hGrp = AddExItem(ctx->hTree, hParent, hdr, gsec);
+        for (auto* p : plist) {
+            const std::wstring& lbl_src = !p->comment.empty()      ? p->comment
+                                        : !p->valueComment.empty() ? p->valueComment
+                                        : p->name;
+            bool hasLabel = (!p->comment.empty() || !p->valueComment.empty());
+            std::wstring lbl = lbl_src + L" = " + p->dispValue;
+            if (hasLabel) lbl += L"  [" + p->name + L"]";
+            ExNode* pn = ctx->alloc(kEN_VtParam); pn->childrenAdded = true;
+            AddExItem(ctx->hTree, hGrp, lbl, pn);
+        }
+    }
+}
+
+static std::vector<UiPropState> CollectAllUniqueMapiProps(IMcDbObject* pDbObj)
+{
+    std::vector<UiPropState> all;
+    if (!pDbObj) return all;
+
+    auto appendProps = [&](mcsPropertyType propType)
+    {
+        std::vector<UiPropState> part = CollectMapiProperties(pDbObj, propType);
+        all.insert(all.end(), part.begin(), part.end());
+    };
+
+    appendProps(mcPropsVisible2);
+    appendProps(mcPropsObject);
+    appendProps(mcPropsUser);
+    appendProps(mcPropsSystem);
+
+    std::vector<UiPropState> unique;
+    std::set<std::wstring> seen;
+    for (const auto& p : all) {
+        const std::wstring key =
+            p.category + L"\x1F" + p.local + L"\x1F" + p.internal + L"\x1F" + p.value;
+        if (seen.insert(key).second) {
+            unique.push_back(p);
+        }
+    }
+    return unique;
+}
+
+static void AddGroupedMapiProps(ExplorerCtx* ctx, HTREEITEM hParent,
+                                const std::vector<UiPropState>& props)
+{
+    if (props.empty()) {
+        ExAddLeaf(ctx, hParent, L"(свойств нет)");
+        return;
+    }
+
+    std::map<std::wstring, std::vector<const UiPropState*>> groups;
+    for (const auto& p : props) {
+        std::wstring grp = p.category.empty() ? L"Без категории" : p.category;
+        groups[grp].push_back(&p);
+    }
+
+    for (const auto& kv : groups) {
+        const std::wstring& groupName = kv.first;
+        const auto& items = kv.second;
+        std::wstring hdr = groupName;
+        ExNode* gsec = ctx->alloc(kEN_VtParam);
+        gsec->childrenAdded = true;
+        HTREEITEM hGrp = AddExItem(ctx->hTree, hParent, hdr, gsec);
+
+        for (const UiPropState* p : items) {
+            std::wstring label = !p->local.empty() ? p->local : p->internal;
+            if (label.empty()) label = L"<без имени>";
+            std::wstring line = label + L" = " + p->value;
+            ExNode* pn = ctx->alloc(kEN_VtParam);
+            pn->childrenAdded = true;
+            AddExItem(ctx->hTree, hGrp, line, pn);
+        }
+    }
+}
+
+static std::wstring GetAxisComGroup(const std::wstring& nm)
+{
+    auto sw = [&](const wchar_t* p) {
+        return nm.size() >= wcslen(p) && nm.compare(0, wcslen(p), p) == 0;
+    };
+    if (sw(L"LINE_SYSTEM_") || nm == L"PIPE_MINIDIR") return L"Параметры системы";
+    if (sw(L"LINE_")) return L"Параметры линии";
+    if (sw(L"SYMBOL_")) return L"Условно-графические обозначения";
+    if (sw(L"PART_PIPE_")) return L"Трубопровод";
+    if (nm == L"PART_SPECIALITY" || nm == L"PART_GROUP" || nm == L"PART_TYPE")
+        return L"Классификация";
+    if (nm == L"PART_AUTHOR")
+        return L"Общие";
+    if (nm == L"PART_REFDRAWING")
+        return L"Переменные параметры";
+    if (sw(L"PART_"))
+        return L"Изделие";
+    return L"Прочие";
+}
+
+static void AddGroupedAxisComParams(ExplorerCtx* ctx, HTREEITEM hParent,
+                                    const std::vector<ParamState>& params)
+{
+    if (params.empty()) {
+        ExAddLeaf(ctx, hParent, L"(параметров нет)");
+        return;
+    }
+
+    static const std::vector<std::wstring> kAxisOrder = {
+        L"Изделие",
+        L"Классификация",
+        L"Переменные параметры",
+        L"Общие",
+        L"Параметры линии",
+        L"Параметры системы",
+        L"Условно-графические обозначения",
+        L"Трубопровод",
+        L"Прочие"
+    };
+
+    std::map<std::wstring, std::vector<const ParamState*>> groups;
+    for (const auto& p : params) {
+        groups[GetAxisComGroup(p.name)].push_back(&p);
+    }
+
+    for (const auto& groupName : kAxisOrder) {
+        auto it = groups.find(groupName);
+        if (it == groups.end()) continue;
+
+        std::wstring hdr = groupName;
+        ExNode* gsec = ctx->alloc(kEN_VtParam);
+        gsec->childrenAdded = true;
+        HTREEITEM hGrp = AddExItem(ctx->hTree, hParent, hdr, gsec);
+
+        for (const ParamState* p : it->second) {
+            std::wstring line = p->name + L" = " + p->dispValue;
+            ExNode* pn = ctx->alloc(kEN_VtParam);
+            pn->childrenAdded = true;
+            AddExItem(ctx->hTree, hGrp, line, pn);
+        }
+    }
+}
+
+static bool DispGetDispId(IDispatch* pDisp, const wchar_t* name, DISPID* pOut)
+{
+    if (!pDisp || !name || !pOut) return false;
+    LPOLESTR names[1] = { const_cast<LPOLESTR>(name) };
+    HRESULT hr = E_FAIL;
+    __try {
+        hr = pDisp->GetIDsOfNames(IID_NULL, names, 1, LOCALE_USER_DEFAULT, pOut);
+    } __except(EXCEPTION_EXECUTE_HANDLER) {
+        return false;
+    }
+    return SUCCEEDED(hr);
+}
+
+static bool DispInvoke(IDispatch* pDisp, DISPID dispid, WORD flags,
+                       VARIANT* pResult, VARIANT* pArgs, int argCount)
+{
+    if (!pDisp) return false;
+    DISPPARAMS dp = {};
+    dp.rgvarg = pArgs;
+    dp.cArgs = (UINT)argCount;
+    DISPID dispidNamed = DISPID_PROPERTYPUT;
+    if (flags & DISPATCH_PROPERTYPUT) {
+        dp.rgdispidNamedArgs = &dispidNamed;
+        dp.cNamedArgs = 1;
+    }
+    EXCEPINFO ex = {};
+    UINT argErr = 0;
+    HRESULT hr = E_FAIL;
+    __try {
+        hr = pDisp->Invoke(dispid, IID_NULL, LOCALE_USER_DEFAULT, flags,
+                           &dp, pResult, &ex, &argErr);
+    } __except(EXCEPTION_EXECUTE_HANDLER) {
+        return false;
+    }
+    return SUCCEEDED(hr);
+}
+
+static bool DispGet(IDispatch* pDisp, const wchar_t* name, VARIANT* pResult)
+{
+    DISPID dispid = DISPID_UNKNOWN;
+    if (!DispGetDispId(pDisp, name, &dispid)) return false;
+    return DispInvoke(pDisp, dispid, DISPATCH_PROPERTYGET, pResult, nullptr, 0);
+}
+
+static bool DispCall1(IDispatch* pDisp, const wchar_t* name, VARIANT* pResult, VARIANT arg0)
+{
+    DISPID dispid = DISPID_UNKNOWN;
+    if (!DispGetDispId(pDisp, name, &dispid)) return false;
+    VARIANT args[1];
+    VariantInit(&args[0]);
+    args[0] = arg0;
+    return DispInvoke(pDisp, dispid, DISPATCH_METHOD | DISPATCH_PROPERTYGET, pResult, args, 1);
+}
+
+static bool DispCall0(IDispatch* pDisp, const wchar_t* name, VARIANT* pResult)
+{
+    DISPID dispid = DISPID_UNKNOWN;
+    if (!DispGetDispId(pDisp, name, &dispid)) return false;
+    return DispInvoke(pDisp, dispid, DISPATCH_METHOD | DISPATCH_PROPERTYGET, pResult, nullptr, 0);
+}
+
+static bool DispCallN(IDispatch* pDisp, const wchar_t* name, VARIANT* pResult,
+                      const std::vector<VARIANT>& callArgs)
+{
+    DISPID dispid = DISPID_UNKNOWN;
+    if (!DispGetDispId(pDisp, name, &dispid)) return false;
+    std::vector<VARIANT> args(callArgs.size());
+    for (size_t i = 0; i < callArgs.size(); ++i) {
+        VariantInit(&args[i]);
+        args[i] = callArgs[callArgs.size() - 1 - i];
+    }
+    return DispInvoke(pDisp, dispid, DISPATCH_METHOD | DISPATCH_PROPERTYGET,
+                      pResult, args.empty() ? nullptr : args.data(), (int)args.size());
+}
+
+static std::wstring VariantWs(const VARIANT& v)
+{
+    VARIANT tmp;
+    VariantInit(&tmp);
+    if (SUCCEEDED(VariantChangeType(&tmp, const_cast<VARIANT*>(&v), 0, VT_BSTR)) && tmp.vt == VT_BSTR) {
+        std::wstring out = tmp.bstrVal ? tmp.bstrVal : L"";
+        VariantClear(&tmp);
+        return out;
+    }
+    VariantClear(&tmp);
+    if (v.vt == VT_EMPTY || v.vt == VT_NULL) return L"";
+    if (v.vt == VT_DISPATCH) return L"<IDispatch>";
+    if (v.vt == VT_UNKNOWN) return L"<IUnknown>";
+    return L"<VARIANT>";
+}
+
+static IDispatch* VariantDetachDispatch(VARIANT* pVar)
+{
+    if (!pVar || pVar->vt != VT_DISPATCH || !pVar->pdispVal) return nullptr;
+    IDispatch* p = pVar->pdispVal;
+    pVar->vt = VT_EMPTY;
+    pVar->pdispVal = nullptr;
+    return p;
+}
+
+static std::wstring DispatchPropWs(IDispatch* pDisp, const wchar_t* prop)
+{
+    if (!pDisp || !prop) return L"";
+    VARIANT v; VariantInit(&v);
+    std::wstring out;
+    if (DispGet(pDisp, prop, &v)) out = VariantWs(v);
+    VariantClear(&v);
+    return out;
+}
+
+static std::wstring DescribeComDispatch(IDispatch* pDisp)
+{
+    if (!pDisp) return L"<null>";
+    std::wstring objectName = DispatchPropWs(pDisp, L"ObjectName");
+    std::wstring entityName = DispatchPropWs(pDisp, L"EntityName");
+    std::wstring handle = DispatchPropWs(pDisp, L"Handle");
+
+    std::wstring out;
+    if (!objectName.empty()) out += L"ObjectName=" + objectName;
+    if (!entityName.empty()) out += (out.empty() ? L"" : L" | ") + std::wstring(L"EntityName=") + entityName;
+    if (!handle.empty()) out += (out.empty() ? L"" : L" | ") + std::wstring(L"Handle=#") + handle;
+    return out.empty() ? L"<IDispatch>" : out;
+}
+
+static std::wstring AxisCallObjLine(IDispatch* pAxis, const wchar_t* name, IDispatch* pArg = nullptr)
+{
+    VARIANT v; VariantInit(&v);
+    bool ok = false;
+    if (pArg) {
+        VARIANT arg; VariantInit(&arg);
+        arg.vt = VT_DISPATCH;
+        arg.pdispVal = pArg;
+        ok = DispCall1(pAxis, name, &v, arg);
+    } else {
+        ok = DispCall0(pAxis, name, &v);
+    }
+    IDispatch* pObj = ok ? VariantDetachDispatch(&v) : nullptr;
+    std::wstring line = std::wstring(name) + L" -> " + (pObj ? DescribeComDispatch(pObj) : L"<нет>");
+    if (pObj) pObj->Release();
+    VariantClear(&v);
+    return line;
+}
+
+static std::wstring AxisPropObjLine(IDispatch* pAxis, const wchar_t* name)
+{
+    VARIANT v; VariantInit(&v);
+    IDispatch* pObj = nullptr;
+    if (DispGet(pAxis, name, &v)) pObj = VariantDetachDispatch(&v);
+    std::wstring line = std::wstring(name) + L" -> " + (pObj ? DescribeComDispatch(pObj) : L"<нет>");
+    if (pObj) pObj->Release();
+    VariantClear(&v);
+    return line;
+}
+
+static long VariantToLong(const VARIANT& v, long fallback = -1)
+{
+    VARIANT tmp; VariantInit(&tmp);
+    long out = fallback;
+    if (SUCCEEDED(VariantChangeType(&tmp, const_cast<VARIANT*>(&v), 0, VT_I4))) out = tmp.lVal;
+    VariantClear(&tmp);
+    return out;
+}
+
+static void EnumDispatchCollection(IDispatch* pCollection, std::vector<IDispatch*>& outItems, int limit = 300)
+{
+    outItems.clear();
+    if (!pCollection) return;
+
+    DISPID dispid = DISPID_UNKNOWN;
+    LPOLESTR enumName = const_cast<LPOLESTR>(L"_NewEnum");
+    HRESULT hrNames = E_FAIL;
+    __try { hrNames = pCollection->GetIDsOfNames(IID_NULL, &enumName, 1, LOCALE_USER_DEFAULT, &dispid); }
+    __except(EXCEPTION_EXECUTE_HANDLER) { hrNames = E_FAIL; }
+    if (FAILED(hrNames)) dispid = DISPID_NEWENUM;
+
+    VARIANT vEnum; VariantInit(&vEnum);
+    if (!DispInvoke(pCollection, dispid, DISPATCH_PROPERTYGET, &vEnum, nullptr, 0)) {
+        VariantClear(&vEnum);
+        return;
+    }
+
+    IUnknown* pUnk = nullptr;
+    if (vEnum.vt == VT_UNKNOWN && vEnum.punkVal) {
+        pUnk = vEnum.punkVal;
+        pUnk->AddRef();
+    } else if (vEnum.vt == VT_DISPATCH && vEnum.pdispVal) {
+        vEnum.pdispVal->QueryInterface(IID_IUnknown, (void**)&pUnk);
+    }
+    VariantClear(&vEnum);
+    if (!pUnk) return;
+
+    IEnumVARIANT* pEnum = nullptr;
+    if (FAILED(pUnk->QueryInterface(IID_IEnumVARIANT, (void**)&pEnum)) || !pEnum) {
+        pUnk->Release();
+        return;
+    }
+    pUnk->Release();
+
+    for (int i = 0; i < limit; ++i) {
+        VARIANT vItem; VariantInit(&vItem);
+        ULONG fetched = 0;
+        HRESULT hr = pEnum->Next(1, &vItem, &fetched);
+        if (hr != S_OK || fetched == 0) {
+            VariantClear(&vItem);
+            break;
+        }
+        IDispatch* pItem = VariantDetachDispatch(&vItem);
+        if (pItem) outItems.push_back(pItem);
+        VariantClear(&vItem);
+    }
+    pEnum->Release();
+}
+
+static bool ReadElementComParamsFromEntityDispatch(IDispatch* pEnt,
+                                                   std::wstring* pOutName,
+                                                   std::vector<ParamState>* pOutParams)
+{
+    if (!pEnt || !pOutName || !pOutParams) return false;
+    VARIANT vEl, vName, vParams, vCount;
+    VariantInit(&vEl); VariantInit(&vName); VariantInit(&vParams); VariantInit(&vCount);
+
+    bool ok = false;
+    IDispatch* pEl = nullptr;
+    IDispatch* pParams = nullptr;
+    do {
+        if (!DispGet(pEnt, L"Element", &vEl)) break;
+        pEl = VariantDetachDispatch(&vEl);
+        if (!pEl) break;
+
+        if (DispGet(pEl, L"Name", &vName))
+            *pOutName = VariantWs(vName);
+        VariantClear(&vName);
+        if (pOutName->empty()) *pOutName = L"Element";
+
+        if (!DispGet(pEl, L"Parameters", &vParams)) break;
+        pParams = VariantDetachDispatch(&vParams);
+        if (!pParams) break;
+
+        if (!DispGet(pParams, L"Count", &vCount)) break;
+        long paramCount = 0;
+        VARIANT vCountI4; VariantInit(&vCountI4);
+        if (SUCCEEDED(VariantChangeType(&vCountI4, &vCount, 0, VT_I4))) paramCount = vCountI4.lVal;
+        VariantClear(&vCountI4);
+        VariantClear(&vCount);
+
+        for (long i = 0; i < paramCount && i < 512; ++i) {
+            VARIANT vParamItem; VariantInit(&vParamItem);
+            VARIANT vidx; VariantInit(&vidx); vidx.vt = VT_I4; vidx.lVal = i;
+            if (!DispCall1(pParams, L"Item", &vParamItem, vidx)) {
+                VariantClear(&vParamItem);
+                continue;
+            }
+            IDispatch* pParamItem = VariantDetachDispatch(&vParamItem);
+            if (!pParamItem) continue;
+
+            VARIANT vPn, vPv, vPc;
+            VariantInit(&vPn); VariantInit(&vPv); VariantInit(&vPc);
+            ParamState ps;
+            if (DispGet(pParamItem, L"Name", &vPn)) ps.name = VariantWs(vPn);
+            if (DispGet(pParamItem, L"Value", &vPv)) ps.dispValue = VariantWs(vPv);
+            if (DispGet(pParamItem, L"Comment", &vPc)) ps.comment = VariantWs(vPc);
+            VariantClear(&vPn); VariantClear(&vPv); VariantClear(&vPc);
+            pParamItem->Release();
+            if (!ps.name.empty()) pOutParams->push_back(ps);
+        }
+
+        ok = !pOutParams->empty();
+    } while (false);
+
+    if (pParams) pParams->Release();
+    if (pEl) pEl->Release();
+    VariantClear(&vEl); VariantClear(&vName); VariantClear(&vParams); VariantClear(&vCount);
+    return ok;
+}
+
+static bool ReadAxisComParamsFromEntityDispatch(IDispatch* pEnt,
+                                                std::wstring* pOutName,
+                                                std::vector<ParamState>* pOutParams)
+{
+    if (!pEnt || !pOutName || !pOutParams) return false;
+
+    VARIANT vAxis, vAxisEl, vName, vParams, vCount;
+    VariantInit(&vAxis); VariantInit(&vAxisEl); VariantInit(&vName);
+    VariantInit(&vParams); VariantInit(&vCount);
+
+    bool ok = false;
+    IDispatch* pAxis = nullptr;
+    IDispatch* pAxisEl = nullptr;
+    IDispatch* pParams = nullptr;
+
+    do {
+        if (DispGet(pEnt, L"ElementAxis", &vAxis)) {
+            pAxis = VariantDetachDispatch(&vAxis);
+        } else {
+            break;
+        }
+        if (!pAxis) break;
+
+        if (!DispGet(pAxis, L"Element", &vAxisEl)) break;
+        pAxisEl = VariantDetachDispatch(&vAxisEl);
+        if (!pAxisEl) break;
+
+        if (DispGet(pAxisEl, L"Name", &vName))
+            *pOutName = VariantWs(vName);
+        VariantClear(&vName);
+        if (pOutName->empty()) *pOutName = L"Осевая";
+
+        if (!DispGet(pAxisEl, L"Parameters", &vParams)) break;
+        pParams = VariantDetachDispatch(&vParams);
+        if (!pParams) break;
+
+        if (!DispGet(pParams, L"Count", &vCount)) break;
+        long paramCount = 0;
+        VARIANT vCountI4; VariantInit(&vCountI4);
+        if (SUCCEEDED(VariantChangeType(&vCountI4, &vCount, 0, VT_I4))) paramCount = vCountI4.lVal;
+        VariantClear(&vCountI4);
+        VariantClear(&vCount);
+
+        for (long i = 0; i < paramCount && i < 512; ++i) {
+            VARIANT vParamItem; VariantInit(&vParamItem);
+            VARIANT vidx; VariantInit(&vidx); vidx.vt = VT_I4; vidx.lVal = i;
+            if (!DispCall1(pParams, L"Item", &vParamItem, vidx)) {
+                VariantClear(&vParamItem);
+                continue;
+            }
+            IDispatch* pParamItem = VariantDetachDispatch(&vParamItem);
+            if (!pParamItem) continue;
+
+            VARIANT vPn, vPv, vPc;
+            VariantInit(&vPn); VariantInit(&vPv); VariantInit(&vPc);
+            ParamState ps;
+            if (DispGet(pParamItem, L"Name", &vPn)) ps.name = VariantWs(vPn);
+            if (DispGet(pParamItem, L"Value", &vPv)) ps.dispValue = VariantWs(vPv);
+            if (DispGet(pParamItem, L"Comment", &vPc)) ps.comment = VariantWs(vPc);
+            VariantClear(&vPn); VariantClear(&vPv); VariantClear(&vPc);
+            pParamItem->Release();
+
+            if (!ps.name.empty()) pOutParams->push_back(ps);
+        }
+
+        ok = !pOutParams->empty();
+    } while (false);
+
+    if (pParams) pParams->Release();
+    if (pAxisEl) pAxisEl->Release();
+    if (pAxis) pAxis->Release();
+    VariantClear(&vAxis); VariantClear(&vAxisEl); VariantClear(&vName);
+    VariantClear(&vParams); VariantClear(&vCount);
+    return ok;
+}
+
+static bool ReadAxisComParamsForOid(const AcDbObjectId& oid,
+                                    std::wstring* pOutName,
+                                    std::vector<ParamState>* pOutParams)
+{
+    if (!pOutName || !pOutParams || oid.isNull()) return false;
+    IDispatch* pApp = acedGetIDispatch(TRUE);
+    if (!pApp) return false;
+
+    bool ok = false;
+    VARIANT vDoc, vDb, vEnt, vHandleArg;
+    VariantInit(&vDoc); VariantInit(&vDb); VariantInit(&vEnt); VariantInit(&vHandleArg);
+
+    do {
+        if (!DispGet(pApp, L"ActiveDocument", &vDoc)) break;
+        IDispatch* pDoc = VariantDetachDispatch(&vDoc);
+        if (!pDoc) break;
+
+        if (!DispGet(pDoc, L"Database", &vDb)) {
+            pDoc->Release();
+            break;
+        }
+        IDispatch* pDb = VariantDetachDispatch(&vDb);
+        pDoc->Release();
+        if (!pDb) break;
+
+        const std::wstring handle = OidHandleStr(oid);
+        vHandleArg.vt = VT_BSTR;
+        vHandleArg.bstrVal = ::SysAllocString(handle.c_str());
+        if (!DispCall1(pDb, L"HandleToObject", &vEnt, vHandleArg)) {
+            VariantClear(&vHandleArg);
+            pDb->Release();
+            break;
+        }
+        VariantClear(&vHandleArg);
+
+        IDispatch* pEnt = VariantDetachDispatch(&vEnt);
+        pDb->Release();
+        if (!pEnt) break;
+
+        ok = ReadAxisComParamsFromEntityDispatch(pEnt, pOutName, pOutParams);
+        pEnt->Release();
+    } while (false);
+
+    VariantClear(&vDoc); VariantClear(&vDb); VariantClear(&vEnt); VariantClear(&vHandleArg);
+    pApp->Release();
+    return ok;
+}
+
+static bool ReadAxisComRelationsFromEntityDispatch(IDispatch* pEnt,
+                                                   std::vector<std::wstring>* pOutLines)
+{
+    if (!pEnt || !pOutLines) return false;
+
+    VARIANT vAxis, vComponents, vCount;
+    VariantInit(&vAxis); VariantInit(&vComponents); VariantInit(&vCount);
+    IDispatch* pAxis = nullptr;
+    IDispatch* pComponents = nullptr;
+
+    do {
+        if (DispGet(pEnt, L"ElementAxis", &vAxis)) {
+            pAxis = VariantDetachDispatch(&vAxis);
+        } else {
+            std::wstring objectName = DispatchPropWs(pEnt, L"ObjectName");
+            if (objectName == L"vCSAxis") {
+                pEnt->AddRef();
+                pAxis = pEnt;
+            } else {
+                break;
+            }
+        }
+        if (!pAxis) break;
+
+        pOutLines->push_back(L"Маршрут: entity.ElementAxis -> topology API");
+        pOutLines->push_back(L"Axis: " + DescribeComDispatch(pAxis));
+
+        for (const wchar_t* prop : {
+                 L"Length", L"HasEquipmentNodeStart", L"HasEquipmentNodeEnd",
+                 L"HasStartTee", L"HasEndTee", L"HasStartPipe", L"HasEndPipe"
+             }) {
+            VARIANT v; VariantInit(&v);
+            if (DispGet(pAxis, prop, &v))
+                pOutLines->push_back(std::wstring(prop) + L" = " + VariantWs(v));
+            VariantClear(&v);
+        }
+
+        pOutLines->push_back(AxisPropObjLine(pAxis, L"EquipmentNodeStart"));
+        pOutLines->push_back(AxisPropObjLine(pAxis, L"EquipmentNodeEnd"));
+        pOutLines->push_back(AxisPropObjLine(pAxis, L"StartTee"));
+        pOutLines->push_back(AxisPropObjLine(pAxis, L"EndTee"));
+        pOutLines->push_back(AxisPropObjLine(pAxis, L"StartPipe"));
+        pOutLines->push_back(AxisPropObjLine(pAxis, L"EndPipe"));
+
+        pOutLines->push_back(AxisCallObjLine(pAxis, L"GetFirstComponent"));
+        pOutLines->push_back(AxisCallObjLine(pAxis, L"GetLastComponent"));
+        pOutLines->push_back(AxisCallObjLine(pAxis, L"GetPrevComponent", pEnt));
+        pOutLines->push_back(AxisCallObjLine(pAxis, L"GetNextComponent", pEnt));
+
+        auto addCountItems = [&](const wchar_t* label, bool terminators, bool elbows,
+                                 bool pipes, bool inlines, bool supports) {
+            std::vector<VARIANT> args(5);
+            for (auto& a : args) VariantInit(&a);
+            args[0].vt = VT_BOOL; args[0].boolVal = terminators ? VARIANT_TRUE : VARIANT_FALSE;
+            args[1].vt = VT_BOOL; args[1].boolVal = elbows ? VARIANT_TRUE : VARIANT_FALSE;
+            args[2].vt = VT_BOOL; args[2].boolVal = pipes ? VARIANT_TRUE : VARIANT_FALSE;
+            args[3].vt = VT_BOOL; args[3].boolVal = inlines ? VARIANT_TRUE : VARIANT_FALSE;
+            args[4].vt = VT_BOOL; args[4].boolVal = supports ? VARIANT_TRUE : VARIANT_FALSE;
+            VARIANT v; VariantInit(&v);
+            if (DispCallN(pAxis, L"CountItems", &v, args))
+                pOutLines->push_back(std::wstring(L"CountItems ") + label + L" = " + std::to_wstring(VariantToLong(v)));
+            VariantClear(&v);
+        };
+        addCountItems(L"all", true, true, true, true, true);
+        addCountItems(L"pipes", false, false, true, false, false);
+        addCountItems(L"elbows+inlines", false, true, false, true, false);
+        addCountItems(L"supports", false, false, false, false, true);
+
+        if (DispGet(pAxis, L"Components", &vComponents)) {
+            pComponents = VariantDetachDispatch(&vComponents);
+            if (pComponents) {
+                long componentCount = -1;
+                if (DispGet(pComponents, L"Count", &vCount)) {
+                    componentCount = VariantToLong(vCount);
+                    pOutLines->push_back(L"Components.Count = " + std::to_wstring(componentCount));
+                }
+                VariantClear(&vCount);
+
+                std::vector<IDispatch*> components;
+                EnumDispatchCollection(pComponents, components, 300);
+                pOutLines->push_back(L"Components enumerated = " + std::to_wstring((int)components.size()));
+                for (size_t i = 0; i < components.size(); ++i) {
+                    pOutLines->push_back(L"Component[" + std::to_wstring((long long)i) + L"] -> " + DescribeComDispatch(components[i]));
+                    components[i]->Release();
+                }
+            }
+        }
+    } while (false);
+
+    if (pComponents) pComponents->Release();
+    if (pAxis) pAxis->Release();
+    VariantClear(&vAxis); VariantClear(&vComponents); VariantClear(&vCount);
+    return !pOutLines->empty();
+}
+
+static bool ReadAxisComRelationsForOid(const AcDbObjectId& oid,
+                                       std::vector<std::wstring>* pOutLines)
+{
+    if (!pOutLines || oid.isNull()) return false;
+    IDispatch* pApp = acedGetIDispatch(TRUE);
+    if (!pApp) return false;
+
+    bool ok = false;
+    VARIANT vDoc, vDb, vEnt, vHandleArg;
+    VariantInit(&vDoc); VariantInit(&vDb); VariantInit(&vEnt); VariantInit(&vHandleArg);
+
+    do {
+        if (!DispGet(pApp, L"ActiveDocument", &vDoc)) break;
+        IDispatch* pDoc = VariantDetachDispatch(&vDoc);
+        if (!pDoc) break;
+
+        if (!DispGet(pDoc, L"Database", &vDb)) {
+            pDoc->Release();
+            break;
+        }
+        IDispatch* pDb = VariantDetachDispatch(&vDb);
+        pDoc->Release();
+        if (!pDb) break;
+
+        const std::wstring handle = OidHandleStr(oid);
+        vHandleArg.vt = VT_BSTR;
+        vHandleArg.bstrVal = ::SysAllocString(handle.c_str());
+        if (!DispCall1(pDb, L"HandleToObject", &vEnt, vHandleArg)) {
+            VariantClear(&vHandleArg);
+            pDb->Release();
+            break;
+        }
+        VariantClear(&vHandleArg);
+
+        IDispatch* pEnt = VariantDetachDispatch(&vEnt);
+        pDb->Release();
+        if (!pEnt) break;
+
+        ok = ReadAxisComRelationsFromEntityDispatch(pEnt, pOutLines);
+        pEnt->Release();
+    } while (false);
+
+    VariantClear(&vDoc); VariantClear(&vDb); VariantClear(&vEnt); VariantClear(&vHandleArg);
+    pApp->Release();
+    return ok;
+}
+
+// Собирает OID всех компонентов оси через COM Components.
+// pAxisDisp — IDispatch оси (vCSAxis / vMSAxis).
+static std::vector<AcDbObjectId> CollectAxisComponentOids(IDispatch* pAxisDisp)
+{
+    std::vector<AcDbObjectId> result;
+    if (!pAxisDisp) return result;
+    VARIANT vComps; VariantInit(&vComps);
+    if (!DispGet(pAxisDisp, L"Components", &vComps)) { VariantClear(&vComps); return result; }
+    IDispatch* pComps = VariantDetachDispatch(&vComps);
+    VariantClear(&vComps);
+    if (!pComps) return result;
+
+    std::vector<IDispatch*> items;
+    EnumDispatchCollection(pComps, items, 1000);
+    pComps->Release();
+
+    for (IDispatch* pItem : items) {
+        if (pItem) {
+            std::wstring hx = DispatchPropWs(pItem, L"Handle");
+            if (!hx.empty()) {
+                AcDbObjectId oid = OidFromHandleStr(hx);
+                if (!oid.isNull()) result.push_back(oid);
+            }
+            pItem->Release();
+        }
+    }
+    return result;
+}
+
+// Возвращает IDispatch оси: если сам oid — ось (имеет Components), возвращает его;
+// иначе пробует entity.ElementAxis. Вызывающий обязан Release() результат.
+static IDispatch* GetAxisDispatchForOid(const AcDbObjectId& oid)
+{
+    IDispatch* pApp = acedGetIDispatch(TRUE);  // TRUE = AddRef, Release в конце обязателен
+    if (!pApp) return nullptr;
+    VARIANT vDoc, vDb, vEntV, vHandleArg;
+    VariantInit(&vDoc); VariantInit(&vDb); VariantInit(&vEntV); VariantInit(&vHandleArg);
+    IDispatch* pResult = nullptr;
+    do {
+        if (!DispGet(pApp, L"ActiveDocument", &vDoc)) break;
+        IDispatch* pDoc = VariantDetachDispatch(&vDoc);
+        if (!pDoc) break;
+        if (!DispGet(pDoc, L"Database", &vDb)) { pDoc->Release(); break; }
+        IDispatch* pDb = VariantDetachDispatch(&vDb);
+        pDoc->Release();
+        if (!pDb) break;
+        vHandleArg.vt = VT_BSTR;
+        vHandleArg.bstrVal = ::SysAllocString(OidHandleStr(oid).c_str());
+        if (!DispCall1(pDb, L"HandleToObject", &vEntV, vHandleArg)) {
+            VariantClear(&vHandleArg); pDb->Release(); break;
+        }
+        VariantClear(&vHandleArg);
+        IDispatch* pEnt = VariantDetachDispatch(&vEntV);
+        pDb->Release();
+        if (!pEnt) break;
+        VARIANT vCompsTest; VariantInit(&vCompsTest);
+        if (DispGet(pEnt, L"Components", &vCompsTest)) {
+            VariantClear(&vCompsTest);
+            pResult = pEnt;  // сам является осью
+        } else {
+            VariantClear(&vCompsTest);
+            VARIANT vAxis; VariantInit(&vAxis);
+            if (DispGet(pEnt, L"ElementAxis", &vAxis))
+                pResult = VariantDetachDispatch(&vAxis);
+            else
+                VariantClear(&vAxis);
+            pEnt->Release();
+        }
+    } while (false);
+    VariantClear(&vDoc); VariantClear(&vDb); VariantClear(&vEntV); VariantClear(&vHandleArg);
+    pApp->Release();
+    return pResult;
+}
+
+static bool ReadElementComParamsForOid(const AcDbObjectId& oid,
+                                       std::wstring* pOutName,
+                                       std::vector<ParamState>* pOutParams)
+{
+    if (!pOutName || !pOutParams || oid.isNull()) return false;
+    IDispatch* pApp = acedGetIDispatch(TRUE);
+    if (!pApp) return false;
+
+    bool ok = false;
+    VARIANT vDoc, vDb, vEnt, vHandleArg;
+    VariantInit(&vDoc); VariantInit(&vDb); VariantInit(&vEnt); VariantInit(&vHandleArg);
+
+    do {
+        if (!DispGet(pApp, L"ActiveDocument", &vDoc)) break;
+        IDispatch* pDoc = VariantDetachDispatch(&vDoc);
+        if (!pDoc) break;
+
+        if (!DispGet(pDoc, L"Database", &vDb)) {
+            pDoc->Release();
+            break;
+        }
+        IDispatch* pDb = VariantDetachDispatch(&vDb);
+        pDoc->Release();
+        if (!pDb) break;
+
+        const std::wstring handle = OidHandleStr(oid);
+        vHandleArg.vt = VT_BSTR;
+        vHandleArg.bstrVal = ::SysAllocString(handle.c_str());
+        if (!DispCall1(pDb, L"HandleToObject", &vEnt, vHandleArg)) {
+            VariantClear(&vHandleArg);
+            pDb->Release();
+            break;
+        }
+        VariantClear(&vHandleArg);
+
+        IDispatch* pEnt = VariantDetachDispatch(&vEnt);
+        pDb->Release();
+        if (!pEnt) break;
+
+        ok = ReadElementComParamsFromEntityDispatch(pEnt, pOutName, pOutParams);
+        pEnt->Release();
+    } while (false);
+
+    VariantClear(&vDoc); VariantClear(&vDb); VariantClear(&vEnt); VariantClear(&vHandleArg);
+    pApp->Release();
+    return ok;
+}
+
+static bool ReadAxisComParams(ExplorerCtx* ctx)
+{
+    if (!ctx) return false;
+    return ReadAxisComParamsForOid(ctx->oid, &ctx->axisComName, &ctx->axisComParams);
+}
+
+static void RemovePlaceholder(HWND hTree, HTREEITEM hParent)
+{
+    HTREEITEM hFirst = TreeView_GetChild(hTree, hParent);
+    if (!hFirst) return;
+    TVITEMW ti = {}; ti.mask = TVIF_PARAM; ti.hItem = hFirst;
+    TreeView_GetItem(hTree, &ti);
+    if (!ti.lParam) TreeView_DeleteItem(hTree, hFirst);
+}
+
+// Возвращает лейбл из CParamDef::GetComment для имени параметра, или пустую строку.
+static std::wstring CeParamLabel(const ExplorerCtx* ctx, const wchar_t* paramName)
+{
+    if (!ctx->pGlobalDefs || !paramName || !paramName[0] || !ctx->api.cdsGetParam) return L"";
+    void* pDef = SehCdsGetParam(ctx->api.cdsGetParam, ctx->pGlobalDefs, paramName);
+    if (!pDef || !ctx->api.cpdGetComment) return L"";
+    const wchar_t* c = SehCpdGetComment(ctx->api.cpdGetComment, pDef);
+    return (c && c[0]) ? std::wstring(c) : L"";
+}
+
+static void ExpandElementNode(ExplorerCtx* ctx, HTREEITEM hItem, CElement* pEl)
+{
+    Log(L"[ExpandElementNode] pEl=" + Ptr(pEl));
+    if (!pEl) { ExAddLeaf(ctx, hItem, L"(pEl=null)"); return; }
+
+    // Параметры CParamsOwner этого CElement
+    long long pc = -1;
+    if (SehOwnerCount(&ctx->api, pEl, &pc) && pc > 0 && pc < 500) {
+        Log(L"[ExpandElementNode] paramCount=" + std::to_wstring(pc));
+        for (long long i = 0; i < pc && i < 200; ++i) {
+            void* pParam = nullptr;
+            if (!SehOwnerGetParamAt(&ctx->api, pEl, i, &pParam) || !pParam) continue;
+            const wchar_t* pName = nullptr;    SehParamGetName   (&ctx->api, pParam, &pName);
+            const wchar_t* pVal  = nullptr;    SehParamGetValue  (&ctx->api, pParam, &pVal);
+            const wchar_t* pCom  = nullptr;    SehParamGetComment(&ctx->api, pParam, &pCom);
+            std::wstring defLabel = (pCom && pCom[0]) ? std::wstring(pCom) : CeParamLabel(ctx, pName);
+            std::wstring lbl;
+            if (!defLabel.empty())
+                lbl = defLabel + L" = " + SafeWs(pVal) + L"  [" + SafeWs(pName) + L"]";
+            else
+                lbl = SafeWs(pName) + L" = " + SafeWs(pVal);
+            ExNode* pn = ctx->alloc(kEN_Param);
+            pn->pParam = pParam; pn->childrenAdded = true;
+            AddExItem(ctx->hTree, hItem, lbl, pn);
+        }
+    } else {
+        Log(L"[ExpandElementNode] paramCount=" + std::to_wstring(pc) + L" (skip)");
+    }
+    // Дочерние CElement-узлы
+    long long cc = 0;
+    if (!SehCeGetChildCount(&ctx->api, pEl, &cc) || cc <= 0) {
+        Log(L"[ExpandElementNode] childCount=0 or crash");
+        return;
+    }
+    Log(L"[ExpandElementNode] childCount=" + std::to_wstring(cc));
+    for (long long ci = 0; ci < cc && ci < 500; ++ci) {
+        CElement* pChild = nullptr;
+        if (!SehCeGetChild(&ctx->api, pEl, ci, &pChild) || !pChild) {
+            Log(L"[ExpandElementNode] child[" + std::to_wstring(ci) + L"] null/crash");
+            continue;
+        }
+        const wchar_t* cn = nullptr; SehCeGetName(&ctx->api, pChild, &cn);
+        long long cpc = -1; SehOwnerCount(&ctx->api, pChild, &cpc);
+        long long ccc = 0;  SehCeGetChildCount(&ctx->api, pChild, &ccc);
+        Log(L"[ExpandElementNode] child[" + std::to_wstring(ci) + L"] name=" + SafeWs(cn)
+            + L" p=" + std::to_wstring(cpc >= 0 ? cpc : -1) + L" ch=" + std::to_wstring(ccc)
+            + L" ptr=" + Ptr(pChild));
+        std::wstring lbl = SafeWs(cn);
+        lbl += L"  [" + std::to_wstring(cpc >= 0 ? cpc : 0) + L" P";
+        if (ccc > 0) lbl += L" | " + std::to_wstring(ccc) + L" ch";
+        lbl += L"]";
+        ExNode* en = ctx->alloc(kEN_Element);
+        en->pElement = pChild;
+        HTREEITEM hChild = AddExItem(ctx->hTree, hItem, lbl, en);
+        if ((cpc > 0 && cpc < 500) || ccc > 0) AddExPlaceholder(ctx->hTree, hChild);
+    }
+}
+
+// Рекурсивно добавляет CElement-поддерево за один проход (объект должен быть открыт).
+// Все узлы — «листья» (childrenAdded=true), т.к. данные читаются сразу.
+static void EagerAddCElement(ExplorerCtx* ctx, HTREEITEM hParent,
+                              CElement* pEl, int depth, int maxDepth)
+{
+    if (!pEl || depth > maxDepth) return;
+    const wchar_t* elName = nullptr;
+    SehCeGetName(&ctx->api, pEl, &elName);
+    long long paramCnt = -1; bool pcOk = SehOwnerCount(&ctx->api, pEl, &paramCnt);
+    long long childCnt = 0;  SehCeGetChildCount(&ctx->api, pEl, &childCnt);
+
+    std::wstring lbl = SafeWs(elName);
+    lbl += L"  [" + (pcOk && paramCnt >= 0 ? std::to_wstring(paramCnt) : L"?") + L" P";
+    lbl += L" | " + std::to_wstring(childCnt) + L" ch]";
+
+    ExNode* en = ctx->alloc(kEN_VtParam);
+    en->childrenAdded = true;
+    HTREEITEM hEl = AddExItem(ctx->hTree, hParent, lbl, en);
+
+    if (pcOk && paramCnt > 0 && paramCnt < 200) {
+        for (long long i = 0; i < paramCnt && i < 64; ++i) {
+            void* pParam = nullptr;
+            if (!SehOwnerGetParamAt(&ctx->api, pEl, i, &pParam) || !pParam) continue;
+            const wchar_t* pName  = nullptr; SehParamGetName (&ctx->api, pParam, &pName);
+            const wchar_t* pValue = nullptr; SehParamGetValue(&ctx->api, pParam, &pValue);
+            std::wstring defLbl = CeParamLabel(ctx, pName);
+            std::wstring plbl;
+            if (!defLbl.empty())
+                plbl = defLbl + L" = " + SafeWs(pValue) + L"  [" + SafeWs(pName) + L"]";
+            else
+                plbl = SafeWs(pName) + L" = " + SafeWs(pValue);
+            ExNode* pn = ctx->alloc(kEN_VtParam); pn->childrenAdded = true;
+            AddExItem(ctx->hTree, hEl, plbl, pn);
+        }
+    }
+    for (long long ci = 0; ci < childCnt && ci < 50; ++ci) {
+        CElement* pChild = nullptr;
+        if (!SehCeGetChild(&ctx->api, pEl, ci, &pChild) || !pChild) continue;
+        EagerAddCElement(ctx, hEl, pChild, depth + 1, maxDepth);
+    }
+}
+
+// Открывает соседний объект, читает vtable + CElement-дерево за один открытый сеанс, закрывает.
+// Сосед полноценный MCS-объект — показываем ту же структуру что у root.
+static void ExpandNeighborNode(ExplorerCtx* ctx, HTREEITEM hItem, AcDbObjectId noid)
+{
+    AcDbObject* pObj2 = nullptr;
+    if (::acdbOpenAcDbObject(pObj2, noid, AcDb::kForRead) != Acad::eOk) {
+        ExAddLeaf(ctx, hItem, L"(не удалось открыть объект)"); return;
+    }
+    void* pIface2 = SehGetParametricInterface(ctx->api.getParametricInterface, (void*)pObj2);
+    if (!pIface2) { pObj2->close(); ExAddLeaf(ctx, hItem, L"(не параметрический / proxy)"); return; }
+
+    // Читаем vtable-параметры
+    std::vector<ParamState> ps = EnumParamsViaNative(ctx->api, pIface2);
+
+    // Читаем CElement-корень — ДО закрытия объекта
+    CElement* pRoot2 = SehGetRootElementP(ctx->api.getRootElementP, pIface2);
+
+    // Секция параметров — по группам
+    if (!ps.empty()) {
+        std::wstring vtLbl = L"Параметры (" + std::to_wstring(ps.size()) + L")";
+        ExNode* vtSec = ctx->alloc(kEN_VtParam); vtSec->childrenAdded = true;
+        HTREEITEM hVt = AddExItem(ctx->hTree, hItem, vtLbl, vtSec);
+        AddGroupedVtableParams(ctx, hVt, ps);
+    }
+
+    // Секция CElement-дерево — жадный обход пока объект открыт
+    if (pRoot2) {
+        ExNode* celSec = ctx->alloc(kEN_VtParam); celSec->childrenAdded = true;
+        HTREEITEM hCel = AddExItem(ctx->hTree, hItem, L"CElement дерево", celSec);
+        EagerAddCElement(ctx, hCel, pRoot2, 0, 6);
+    }
+
+    std::wstring axisName2;
+    std::vector<ParamState> axisParams2;
+    if (ReadAxisComParamsForOid(noid, &axisName2, &axisParams2) && !axisParams2.empty()) {
+        ExNode* axisSec = ctx->alloc(kEN_VtParam); axisSec->childrenAdded = true;
+        HTREEITEM hAxisSec = AddExItem(ctx->hTree, hItem, L"Параметры осевой", axisSec);
+
+        ExNode* axisNode = ctx->alloc(kEN_VtParam); axisNode->childrenAdded = true;
+        HTREEITEM hAxisNode = AddExItem(ctx->hTree, hAxisSec,
+            axisName2.empty() ? L"Осевая" : axisName2, axisNode);
+        AddGroupedAxisComParams(ctx, hAxisNode, axisParams2);
+    }
+
+    pObj2->close();   // закрываем только после чтения ВСЕГО (vtable + CElement)
+}
+
+// Вспомогательная: строит множество OID объектов, связанных с ctx->oid через IMcCtrDriver
+static std::set<AcDbObjectId> BuildConnectedSet(ExplorerCtx* ctx)
+{
+    std::set<AcDbObjectId> result;
+    if (!ctx->pGate) return result;
+    mcsWorkID mcid = {};
+    if (FAILED(ctx->pGate->getMcsIdByNative(mcid, ctx->oid.asOldId()))) return result;
+    IMcObjectPtr pMcObj = ctx->pGate->QueryObject(mcid);
+    IMcCtrDriverPtr pCtr = pMcObj;
+    if (!pCtr) return result;
+    mcsWorkIDArray connected;
+    if (FAILED(pCtr->getObjectsConnectedTo(connected, L"", ctUndefined, IMcCtrDriver::kMcCtrDrv_Any)))
+        return result;
+    for (int i = 0; i < connected.GetCount(); ++i) {
+        LONG_PTR nid = 0;
+        if (FAILED(ctx->pGate->getNativeIdByMcs(nid, connected[i]))) continue;
+        AcDbObjectId coid; coid.setFromOldId(nid);
+        if (!coid.isNull()) result.insert(coid);
+    }
+    return result;
+}
+
+// Сканирует owner-блок главного объекта, добавляет соседние MCS-объекты
+// Признак связи: «(прямая IMcCtrDriver)» — помечает тех, с кем есть сетевое соединение.
+static void ExpandBlockSection(ExplorerCtx* ctx, HTREEITEM hItem)
+{
+    AcDbObject* pMain = nullptr;
+    if (::acdbOpenAcDbObject(pMain, ctx->oid, AcDb::kForRead) != Acad::eOk) {
+        ExAddLeaf(ctx, hItem, L"(не удалось открыть объект)"); return;
+    }
+    AcDbObjectId ownerId = pMain->ownerId();
+    pMain->close();
+
+    AcDbObject* pBTRObj = nullptr;
+    if (::acdbOpenAcDbObject(pBTRObj, ownerId, AcDb::kForRead) != Acad::eOk) {
+        ExAddLeaf(ctx, hItem, L"(не удалось открыть блок)"); return;
+    }
+    AcDbBlockTableRecord* pBTR = AcDbBlockTableRecord::cast(pBTRObj);
+    if (!pBTR) { pBTRObj->close(); ExAddLeaf(ctx, hItem, L"(не блок)"); return; }
+
+    // Имя блока (признак объединения — общее пространство)
+    NCHAR* pBlockName = nullptr;
+    std::wstring bname = L"?";
+    if (pBTR->getName(pBlockName) == Acad::eOk && pBlockName) {
+        bname = pBlockName;
+        acutDelString(pBlockName);
+    }
+    ExAddLeaf(ctx, hItem, L"Общий блок: " + bname);
+
+    // Предвычисляем прямые IMcCtrDriver-связи для маркировки
+    std::set<AcDbObjectId> connectedSet = BuildConnectedSet(ctx);
+    if (!connectedSet.empty()) {
+        wchar_t buf[64];
+        swprintf(buf, 64, L"IMcCtrDriver прямых связей: %d", (int)connectedSet.size());
+        ExAddLeaf(ctx, hItem, buf);
+    }
+
+    AcDbBlockTableRecordIterator* pIt = nullptr;
+    pBTR->newIterator(pIt);
+    int found = 0;
+    for (; pIt && !pIt->done() && found < 200; pIt->step()) {
+        AcDbObjectId entId;
+        if (pIt->getEntityId(entId) != Acad::eOk) continue;
+        if (entId == ctx->oid) continue;
+        AcDbObject* pTest = nullptr;
+        if (::acdbOpenAcDbObject(pTest, entId, AcDb::kForRead) != Acad::eOk) continue;
+        void* pIface2 = SehGetParametricInterface(ctx->api.getParametricInterface, (void*)pTest);
+        if (!pIface2) { pTest->close(); continue; }  // пропускаем proxy/non-parametric в block-view
+        std::wstring cn = NativeClassName(pTest);
+        int vtp = 0;
+        SehIfaceCount(&ctx->api, pIface2, &vtp);
+        AcDbHandle bh;
+        pTest->getAcDbHandle(bh);
+        wchar_t bhbuf[32] = {};
+        bh.getIntoAsciiBuffer(bhbuf, 32);
+        pTest->close();
+
+        bool direct = (connectedSet.count(entId) > 0);
+        std::wstring lbl = cn + L"  #" + bhbuf + L"  [" + std::to_wstring(vtp) + L" P]";
+        if (direct) lbl += L"  ⇄ IMcCtrDriver";   // ⇄ — прямая сетевая связь
+
+        ExNode* en = ctx->alloc(kEN_Neighbor);
+        en->neighborOid = entId;
+        HTREEITEM hNbr = AddExItem(ctx->hTree, hItem, lbl, en);
+        AddExPlaceholder(ctx->hTree, hNbr);
+        ++found;
+    }
+    delete pIt;
+    pBTRObj->close();
+    if (found == 0) ExAddLeaf(ctx, hItem, L"(нет соседних MCS-объектов)");
+}
+
+// MAPI: показывает mcsWorkID, parentID и IMcCtrDriver-связи
+static void ExpandMapiSection(ExplorerCtx* ctx, HTREEITEM hItem)
+{
+    if (!ctx->pGate) {
+        ExAddLeaf(ctx, hItem, L"MAPI gate недоступен"); return;
+    }
+    mcsWorkID mcid = {};
+    HRESULT hr = ctx->pGate->getMcsIdByNative(mcid, ctx->oid.asOldId());
+    if (FAILED(hr)) {
+        wchar_t buf[64]; swprintf(buf, 64, L"getMcsIdByNative hr=0x%08X", (unsigned)hr);
+        ExAddLeaf(ctx, hItem, buf); return;
+    }
+    // Показать mcsWorkID первые 8 байт
+    {
+        wchar_t buf[64];
+        const unsigned char* b = (const unsigned char*)&mcid;
+        swprintf(buf, 64, L"mcsWorkID: %02X%02X%02X%02X-%02X%02X-%02X%02X…",
+                 b[0],b[1],b[2],b[3],b[4],b[5],b[6],b[7]);
+        ExAddLeaf(ctx, hItem, buf);
+    }
+
+    IMcObjectPtr pMcObj = ctx->pGate->QueryObject(mcid);
+    if (!pMcObj) { ExAddLeaf(ctx, hItem, L"QueryObject: null"); return; }
+
+    // parentID
+    IMcDbObjectPtr pDbObj = pMcObj;
+    if (pDbObj) {
+        mcsWorkID pid = pDbObj->getParentID();
+        mcsWorkID nullId = WID_NULL;
+        bool isNull = (memcmp(&pid, &nullId, sizeof(mcsWorkID)) == 0);
+        ExAddLeaf(ctx, hItem, isNull ? L"parentID: NULL (root)" : L"parentID: есть родитель");
+    }
+
+    // IMcCtrDriver
+    IMcCtrDriverPtr pCtr = pMcObj;
+    if (!pCtr) { ExAddLeaf(ctx, hItem, L"IMcCtrDriver: не поддерживается"); return; }
+
+    mcsWorkIDArray connected;
+    hr = pCtr->getObjectsConnectedTo(connected, L"", ctUndefined, IMcCtrDriver::kMcCtrDrv_Any);
+    if (FAILED(hr)) {
+        wchar_t buf[64]; swprintf(buf, 64, L"getObjectsConnectedTo hr=0x%08X", (unsigned)hr);
+        ExAddLeaf(ctx, hItem, buf); return;
+    }
+    wchar_t cntBuf[64];
+    swprintf(cntBuf, 64, L"IMcCtrDriver: %d связей", (int)connected.GetCount());
+    ExAddLeaf(ctx, hItem, cntBuf);
+
+    for (int i = 0; i < (int)connected.GetCount() && i < 100; ++i) {
+        LONG_PTR nativeId = 0;
+        if (FAILED(ctx->pGate->getNativeIdByMcs(nativeId, connected[i]))) {
+            const unsigned char* b = (const unsigned char*)&connected[i];
+            wchar_t buf[80];
+            swprintf(buf, 80, L"  → [%d] MAPI-only %02X%02X%02X%02X…", i, b[0],b[1],b[2],b[3]);
+            ExAddLeaf(ctx, hItem, buf); continue;
+        }
+        AcDbObjectId connOid;
+        connOid.setFromOldId(nativeId);
+        if (connOid.isNull()) { ExAddLeaf(ctx, hItem, L"  → (null DWG id)"); continue; }
+        AcDbObject* pTest = nullptr;
+        std::wstring cn = L"?";
+        int vtp = 0;
+        std::wstring connHex = L"?";
+        if (::acdbOpenAcDbObject(pTest, connOid, AcDb::kForRead) == Acad::eOk) {
+            cn = NativeClassName(pTest);
+            AcDbHandle ch;
+        pTest->getAcDbHandle(ch);
+            wchar_t chbuf[32] = {};
+            ch.getIntoAsciiBuffer(chbuf, 32);
+            connHex = chbuf;
+            void* pI2 = SehGetParametricInterface(ctx->api.getParametricInterface, (void*)pTest);
+            SehIfaceCount(&ctx->api, pI2, &vtp);
+            pTest->close();
+        }
+        std::wstring lbl = L"  → " + cn + L"  #" + connHex + L"  [" + std::to_wstring(vtp) + L" P]";
+        ExNode* en = ctx->alloc(kEN_Neighbor);
+        en->neighborOid = connOid;
+        HTREEITEM hNbr = AddExItem(ctx->hTree, hItem, lbl, en);
+        if (vtp > 0) AddExPlaceholder(ctx->hTree, hNbr);
+    }
+}
+
+// Вспомогательная: добавляет один MCS-объект как Neighbor-узел с плейсхолдером
+static void AddMcObjectAsNeighbor(ExplorerCtx* ctx, HTREEITEM hItem,
+                                   const mcsWorkID& wid, const wchar_t* prefix)
+{
+    LONG_PTR nativeId = 0;
+    if (FAILED(ctx->pGate->getNativeIdByMcs(nativeId, wid))) {
+        const unsigned char* b = (const unsigned char*)&wid;
+        wchar_t buf[80];
+        swprintf(buf, 80, L"%s MAPI-only %02X%02X%02X%02X…", prefix, b[0],b[1],b[2],b[3]);
+        ExAddLeaf(ctx, hItem, buf); return;
+    }
+    AcDbObjectId oid; oid.setFromOldId(nativeId);
+    if (oid.isNull()) { ExAddLeaf(ctx, hItem, std::wstring(prefix) + L" (null DWG id)"); return; }
+
+    AcDbObject* pObj = nullptr;
+    std::wstring cn = L"?"; int vtp = 0; wchar_t hbuf[32] = {};
+    if (::acdbOpenAcDbObject(pObj, oid, AcDb::kForRead) == Acad::eOk) {
+        cn = NativeClassName(pObj);
+        void* pI = SehGetParametricInterface(ctx->api.getParametricInterface, (void*)pObj);
+        SehIfaceCount(&ctx->api, pI, &vtp);
+        AcDbHandle h; pObj->getAcDbHandle(h); h.getIntoAsciiBuffer(hbuf, 32);
+        pObj->close();
+    }
+    std::wstring lbl = std::wstring(prefix) + cn + L"  #" + hbuf +
+                       L"  [" + std::to_wstring(vtp) + L" P]";
+    ExNode* en = ctx->alloc(kEN_Neighbor);
+    en->neighborOid = oid;
+    HTREEITEM hNbr = AddExItem(ctx->hTree, hItem, lbl, en);
+    if (vtp > 0) AddExPlaceholder(ctx->hTree, hNbr);
+}
+
+// Уровень ВЫШЕ: MAPI родитель (и выше по цепочке)
+static void ExpandMapiParentSection(ExplorerCtx* ctx, HTREEITEM hItem)
+{
+    if (!ctx->pGate) { ExAddLeaf(ctx, hItem, L"MAPI gate недоступен"); return; }
+    mcsWorkID mcid = {};
+    if (FAILED(ctx->pGate->getMcsIdByNative(mcid, ctx->oid.asOldId()))) {
+        ExAddLeaf(ctx, hItem, L"getMcsIdByNative: ошибка"); return;
+    }
+    IMcObjectPtr pMcObj = ctx->pGate->QueryObject(mcid);
+    IMcDbObjectPtr pDbObj = pMcObj;
+    if (!pDbObj) { ExAddLeaf(ctx, hItem, L"IMcDbObject не поддерживается"); return; }
+
+    // Идём вверх по цепочке родителей (макс 8 уровней)
+    mcsWorkID curId = mcid;
+    int level = 0;
+    while (level < 8) {
+        IMcObjectPtr pCurObj = ctx->pGate->QueryObject(curId);
+        IMcDbObjectPtr pCurDb = pCurObj;
+        if (!pCurDb) break;
+
+        mcsWorkID parentId = pCurDb->getParentID();
+        mcsWorkID nullId = WID_NULL;
+        if (memcmp(&parentId, &nullId, sizeof(mcsWorkID)) == 0) {
+            ExAddLeaf(ctx, hItem,
+                level == 0 ? L"(корневой объект — родителя нет)" : L"(достигнут корень)");
+            break;
+        }
+        wchar_t pfx[32];
+        swprintf(pfx, 32, L"[+%d] ", level + 1);
+        AddMcObjectAsNeighbor(ctx, hItem, parentId, pfx);
+        curId = parentId;
+        ++level;
+    }
+    if (level == 8) ExAddLeaf(ctx, hItem, L"(цепочка обрезана на 8 уровнях)");
+}
+
+// Уровень НИЖЕ: MAPI дочерние объекты
+static void ExpandMapiChildSection(ExplorerCtx* ctx, HTREEITEM hItem)
+{
+    if (!ctx->pGate) { ExAddLeaf(ctx, hItem, L"MAPI gate недоступен"); return; }
+    mcsWorkID mcid = {};
+    if (FAILED(ctx->pGate->getMcsIdByNative(mcid, ctx->oid.asOldId()))) {
+        ExAddLeaf(ctx, hItem, L"getMcsIdByNative: ошибка"); return;
+    }
+    IMcObjectPtr pMcObj = ctx->pGate->QueryObject(mcid);
+    IMcDbObjectPtr pDbObj = pMcObj;
+    if (!pDbObj) { ExAddLeaf(ctx, hItem, L"IMcDbObject не поддерживается"); return; }
+
+    const mcsWorkIDArray& children = pDbObj->getChildrenIDs();
+    int cnt = children.GetCount();
+    wchar_t cntBuf[64];
+    swprintf(cntBuf, 64, L"MAPI дочерних: %d", cnt);
+    ExAddLeaf(ctx, hItem, cntBuf);
+
+    for (int i = 0; i < cnt && i < 100; ++i) {
+        wchar_t pfx[32]; swprintf(pfx, 32, L"[%d] ", i);
+        AddMcObjectAsNeighbor(ctx, hItem, children[i], pfx);
+    }
+    if (cnt == 0) ExAddLeaf(ctx, hItem, L"(нет дочерних)");
+}
+
+// Добавляет все подсекции в секцию «Связи и соседи»
+static void ExpandRelSection(ExplorerCtx* ctx, HTREEITEM hItem)
+{
+    // Уровень ВЫШЕ
+    ExNode* parSec = ctx->alloc(kEN_ParentSection);
+    HTREEITEM hPar = AddExItem(ctx->hTree, hItem, L"MAPI родитель (уровень выше)", parSec);
+    AddExPlaceholder(ctx->hTree, hPar);
+
+    // Соседи в блоке (с признаком объединения)
+    ExNode* bSec = ctx->alloc(kEN_BlockSection);
+    HTREEITEM hB = AddExItem(ctx->hTree, hItem, L"Соседи в блоке (общий блок)", bSec);
+    AddExPlaceholder(ctx->hTree, hB);
+
+    // Прямые IMcCtrDriver-связи
+    ExNode* mSec = ctx->alloc(kEN_MapiSection);
+    HTREEITEM hM = AddExItem(ctx->hTree, hItem, L"IMcCtrDriver (прямые сетевые связи)", mSec);
+    AddExPlaceholder(ctx->hTree, hM);
+
+    // Уровень НИЖЕ
+    ExNode* chSec = ctx->alloc(kEN_ChildSection);
+    HTREEITEM hCh = AddExItem(ctx->hTree, hItem, L"MAPI дочерние (уровень ниже)", chSec);
+    AddExPlaceholder(ctx->hTree, hCh);
+}
+
+// Раскрывает узел порта — показывает тип и handle подключённого объекта
+static void ExpandPortNode(ExplorerCtx* ctx, HTREEITEM hItem, const AcDbObjectId& nodeOid)
+{
+    if (nodeOid.isNull()) {
+        AddExItem(ctx->hTree, hItem, L"[нет подключения]", ctx->alloc(kEN_VtParam));
+        return;
+    }
+    AcDbObject* pNodeObj = nullptr;
+    std::wstring cls;
+    if (acdbOpenAcDbObject(pNodeObj, nodeOid, AcDb::kForRead) == Acad::eOk && pNodeObj) {
+        cls = NativeClassName(pNodeObj);
+        pNodeObj->close();
+    }
+    std::wstring info = OidHandleStr(nodeOid);
+    if (!cls.empty()) info += L"  [" + cls + L"]";
+    AddExItem(ctx->hTree, hItem, info, ctx->alloc(kEN_VtParam));
+}
+
+// Раскрывает секцию «Параметры оси» для linCSNode — собственные параметры трубы
+static void ExpandAxisSection(ExplorerCtx* ctx, HTREEITEM hItem)
+{
+    if (!ctx->api.nodeGetParamsCount || !ctx->api.nodeGetParamByIdx) return;
+    if (!ctx->pAxisBase) {
+        ExAddLeaf(ctx, hItem, L"(base for axis parameters not detected)");
+        return;
+    }
+    if (!ctx->axisSource.empty()) {
+        ExAddLeaf(ctx, hItem, L"Источник: " + ctx->axisSource);
+    }
+    int n = SehNodeGetParamsCount(ctx->api.nodeGetParamsCount, ctx->pAxisBase);
+    for (int pi = 0; pi < n && pi < 2000; ++pi) {
+        void* pParam = SehNodeGetParamByIdx(ctx->api.nodeGetParamByIdx, ctx->pAxisBase, pi);
+        if (!pParam) continue;
+
+        const wchar_t* pName = nullptr;
+        const wchar_t* pVal  = nullptr;
+        const wchar_t* pCom  = nullptr;
+        SehParamGetName   (&ctx->api, pParam, &pName);
+        SehParamGetValue  (&ctx->api, pParam, &pVal);
+        SehParamGetComment(&ctx->api, pParam, &pCom);
+
+        std::wstring label = CeParamLabel(ctx, pName);
+        std::wstring lbl;
+        if (!label.empty())
+            lbl = label + L" = " + SafeWs(pVal) + L"  [" + SafeWs(pName) + L"]";
+        else
+            lbl = SafeWs(pName) + L" = " + SafeWs(pVal);
+        if (pCom && pCom[0])
+            lbl += L"  (" + std::wstring(pCom) + L")";
+
+        AddExItem(ctx->hTree, hItem, lbl, ctx->alloc(kEN_VtParam));
+    }
+}
+
+// Раскрывает секцию «Порты (N)» — добавляет дочерний узел на каждый порт
+static void ExpandPortSection(ExplorerCtx* ctx, HTREEITEM hItem)
+{
+    if (!ctx->portSource.empty()) {
+        ExAddLeaf(ctx, hItem, L"Источник: " + ctx->portSource);
+    }
+    for (size_t i = 0; i < ctx->portNodeOids.size(); ++i) {
+        const AcDbObjectId& oid = ctx->portNodeOids[i];
+        std::wstring lbl = L"Порт " + std::to_wstring(i);
+        if (!oid.isNull())
+            lbl += L"  #" + OidHandleStr(oid);
+        else
+            lbl += L"  [нет подключения]";
+
+        ExNode* portNode = ctx->alloc(kEN_Port);
+        portNode->neighborOid = oid;
+        if (!oid.isNull()) {
+            HTREEITEM hP = AddExItem(ctx->hTree, hItem, lbl, portNode);
+            AddExPlaceholder(ctx->hTree, hP);
+        } else {
+            AddExItem(ctx->hTree, hItem, lbl, portNode);
+        }
+    }
+}
+
+static LRESULT CALLBACK ExplorerWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
+{
+    ExplorerCtx* ctx = (ExplorerCtx*)::GetWindowLongPtrW(hwnd, GWLP_USERDATA);
+
+    switch (msg) {
+    case WM_CREATE: {
+        auto* cs = (CREATESTRUCTW*)lParam;
+        ctx = (ExplorerCtx*)cs->lpCreateParams;
+        ::SetWindowLongPtrW(hwnd, GWLP_USERDATA, (LONG_PTR)ctx);
+        ctx->hWnd = hwnd;
+
+        RECT rc; ::GetClientRect(hwnd, &rc);
+        const int kBotH = 34;   // высота нижней панели (метка + кнопка)
+        ctx->hTree = ::CreateWindowExW(0, WC_TREEVIEWW, L"",
+            WS_CHILD | WS_VISIBLE | WS_VSCROLL | WS_HSCROLL |
+            TVS_HASBUTTONS | TVS_HASLINES | TVS_LINESATROOT | TVS_SHOWSELALWAYS,
+            0, 0, rc.right, rc.bottom - kBotH,
+            hwnd, (HMENU)(UINT_PTR)IDC_EXPLORE_TREE, g_hInst, nullptr);
+
+        // Нижняя панель: метка handle + кнопка «Найти»
+        ctx->hHandleLbl = ::CreateWindowExW(0, L"STATIC", L"(выберите узел с handle)",
+            WS_CHILD | WS_VISIBLE | SS_LEFT | SS_ENDELLIPSIS,
+            4, rc.bottom - kBotH + 4, rc.right - 140, 24,
+            hwnd, (HMENU)(UINT_PTR)IDC_HANDLE_LABEL, g_hInst, nullptr);
+        ctx->hFindBtn = ::CreateWindowExW(0, L"BUTTON", L"Найти в модели",
+            WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON | WS_DISABLED,
+            rc.right - 135, rc.bottom - kBotH + 4, 130, 24,
+            hwnd, (HMENU)(UINT_PTR)IDC_FIND_BTN, g_hInst, nullptr);
+
+        ctx->hFont = ::CreateFontW(16, 0, 0, 0, FW_NORMAL, 0, 0, 0,
+            DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
+            CLEARTYPE_QUALITY, DEFAULT_PITCH | FF_DONTCARE, L"Consolas");
+        if (!ctx->hFont)
+            ctx->hFont = ::CreateFontW(16, 0, 0, 0, FW_NORMAL, 0, 0, 0,
+                DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
+                CLEARTYPE_QUALITY, DEFAULT_PITCH | FF_DONTCARE, L"Courier New");
+        if (ctx->hFont) ::SendMessageW(ctx->hTree, WM_SETFONT, (WPARAM)ctx->hFont, TRUE);
+
+        // Корневой узел
+        AcDbHandle mainH;
+        ctx->pObj->getAcDbHandle(mainH);
+        wchar_t mainHbuf[32] = {};
+        mainH.getIntoAsciiBuffer(mainHbuf, 32);
+        std::wstring rootLbl = NativeClassName(ctx->pObj);
+        rootLbl += L"  #" + std::wstring(mainHbuf);
+        rootLbl += L"  [vtable: " + std::to_wstring(ctx->vtParams.size()) + L" param(s)]";
+        ExNode* rootNode = ctx->alloc(kEN_Root);
+        rootNode->childrenAdded = true;
+        HTREEITEM hRoot = AddExItem(ctx->hTree, TVI_ROOT, rootLbl, rootNode);
+
+        // Секция CElement дерево
+        ExNode* celSec = ctx->alloc(kEN_CElSection);
+        HTREEITEM hCel = AddExItem(ctx->hTree, hRoot, L"CElement дерево", celSec);
+        AddExPlaceholder(ctx->hTree, hCel);
+
+        // Секция параметры (по группам)
+        if (!ctx->vtParams.empty()) {
+            std::wstring vtLbl = L"Параметры (" +
+                                 std::to_wstring(ctx->vtParams.size()) + L")";
+            ExNode* vtSec = ctx->alloc(kEN_VtSection);
+            HTREEITEM hVt = AddExItem(ctx->hTree, hRoot, vtLbl, vtSec);
+            AddExPlaceholder(ctx->hTree, hVt);
+        }
+        if (!ctx->mapiUiProps.empty()) {
+            std::wstring uiLbl = L"Свойства элемента (UI/MAPI) (" +
+                                 std::to_wstring(ctx->mapiUiProps.size()) + L")";
+            ExNode* uiSec = ctx->alloc(kEN_MapiUiSection);
+            HTREEITEM hUi = AddExItem(ctx->hTree, hRoot, uiLbl, uiSec);
+            AddExPlaceholder(ctx->hTree, hUi);
+        }
+        if (!ctx->axisComParams.empty()) {
+            std::wstring axisComLbl = L"Параметры осевой (COM) (" +
+                                      std::to_wstring(ctx->axisComParams.size()) + L")";
+            ExNode* axisComSec = ctx->alloc(kEN_AxisComSection);
+            HTREEITEM hAxisCom = AddExItem(ctx->hTree, hRoot, axisComLbl, axisComSec);
+            AddExPlaceholder(ctx->hTree, hAxisCom);
+        }
+        // Секция «Параметры оси» (только для linCSNode/труб)
+        if (ctx->isLinCSNode && ctx->axisParamCount > 0) {
+            std::wstring axLbl = L"Параметры оси (" + std::to_wstring(ctx->axisParamCount) + L")";
+            ExNode* axSec = ctx->alloc(kEN_AxisSection);
+            HTREEITEM hAx = AddExItem(ctx->hTree, hRoot, axLbl, axSec);
+            AddExPlaceholder(ctx->hTree, hAx);
+        }
+        // Секция «Порты»
+        if (!ctx->portNodeOids.empty()) {
+            std::wstring portLbl = L"Порты (" + std::to_wstring(ctx->portNodeOids.size()) + L")";
+            ExNode* portSec = ctx->alloc(kEN_PortSection);
+            HTREEITEM hPort = AddExItem(ctx->hTree, hRoot, portLbl, portSec);
+            AddExPlaceholder(ctx->hTree, hPort);
+        }
+        // Секция «Связи и соседи»
+        {
+            ExNode* relSec = ctx->alloc(kEN_RelSection);
+            HTREEITEM hRel = AddExItem(ctx->hTree, hRoot, L"Связи и соседи", relSec);
+            AddExPlaceholder(ctx->hTree, hRel);
+        }
+        TreeView_Expand(ctx->hTree, hRoot, TVE_EXPAND);
+        return 0;
+    }
+    case WM_SIZE: {
+        const int kBotH = 34;
+        int cw = LOWORD(lParam), ch = HIWORD(lParam);
+        if (ctx && ctx->hTree)
+            ::SetWindowPos(ctx->hTree, nullptr, 0, 0, cw, ch - kBotH, SWP_NOZORDER);
+        if (ctx && ctx->hHandleLbl)
+            ::SetWindowPos(ctx->hHandleLbl, nullptr, 4, ch - kBotH + 4, cw - 140, 24, SWP_NOZORDER);
+        if (ctx && ctx->hFindBtn)
+            ::SetWindowPos(ctx->hFindBtn, nullptr, cw - 135, ch - kBotH + 4, 130, 24, SWP_NOZORDER);
+        return 0;
+    }
+
+    case WM_NOTIFY: {
+        if (!ctx) break;
+        auto* pnm = (NMHDR*)lParam;
+        if (pnm->hwndFrom != ctx->hTree) break;
+
+        // Обновить кнопку и метку при смене выбранного узла
+        if (pnm->code == TVN_SELCHANGED) {
+            auto* pnmtv = (NMTREEVIEWW*)lParam;
+            ExNode* selNode = (ExNode*)pnmtv->itemNew.lParam;
+            AcDbObjectId foundOid;
+            if (selNode) {
+                if (selNode->kind == kEN_Root)
+                    foundOid = ctx->oid;
+                else if (selNode->kind == kEN_Neighbor)
+                    foundOid = selNode->neighborOid;
+            }
+            ctx->selOid = foundOid;
+            BOOL hasOid = !foundOid.isNull();
+            ::EnableWindow(ctx->hFindBtn, hasOid);
+            if (ctx->hHandleLbl) {
+                std::wstring lbl = hasOid
+                    ? (L"handle: " + OidHandleStr(foundOid))
+                    : L"(выберите объект или соседа)";
+                ::SetWindowTextW(ctx->hHandleLbl, lbl.c_str());
+            }
+            break;
+        }
+
+        if (pnm->code != TVN_ITEMEXPANDING) break;
+        auto* pnmtv = (NMTREEVIEWW*)lParam;
+        if (pnmtv->action != TVE_EXPAND) break;
+        ExNode* node = (ExNode*)pnmtv->itemNew.lParam;
+        if (!node || node->childrenAdded) break;
+        node->childrenAdded = true;
+        HTREEITEM hItem = pnmtv->itemNew.hItem;
+        RemovePlaceholder(ctx->hTree, hItem);
+
+        if (node->kind == kEN_CElSection) {
+            Log(L"[TVN] kEN_CElSection: pRoot=" + Ptr(ctx->pRoot));
+            if (!ctx->pRoot) { ExAddLeaf(ctx, hItem, L"(pRoot=null, объект не параметрический)"); break; }
+            const wchar_t* rn = nullptr; SehCeGetName(&ctx->api, ctx->pRoot, &rn);
+            long long rpc = -1; SehOwnerCount    (&ctx->api, ctx->pRoot, &rpc);
+            long long rcc = 0;  SehCeGetChildCount(&ctx->api, ctx->pRoot, &rcc);
+            Log(L"[TVN] CElSection root: name=" + SafeWs(rn) + L" params=" + std::to_wstring(rpc) + L" children=" + std::to_wstring(rcc));
+            std::wstring lbl = L"[root] " + SafeWs(rn);
+            lbl += L"  [" + std::to_wstring(rpc >= 0 ? rpc : 0) + L" P | "
+                + std::to_wstring(rcc) + L" ch]";
+            ExNode* en = ctx->alloc(kEN_Element);
+            en->pElement = ctx->pRoot;
+            HTREEITEM hEl = AddExItem(ctx->hTree, hItem, lbl, en);
+            if ((rpc > 0 && rpc < 500) || rcc > 0) AddExPlaceholder(ctx->hTree, hEl);
+        } else if (node->kind == kEN_Element) {
+            Log(L"[TVN] kEN_Element: pElement=" + Ptr(node->pElement));
+            ExpandElementNode(ctx, hItem, node->pElement);
+        } else if (node->kind == kEN_VtSection) {
+            AddGroupedVtableParams(ctx, hItem, ctx->vtParams);
+        } else if (node->kind == kEN_MapiUiSection) {
+            AddGroupedMapiProps(ctx, hItem, ctx->mapiUiProps);
+        } else if (node->kind == kEN_AxisComSection) {
+            ExNode* axisNode = ctx->alloc(kEN_AxisComElement);
+            HTREEITEM hAxis = AddExItem(ctx->hTree, hItem,
+                ctx->axisComName.empty() ? L"Осевая" : ctx->axisComName, axisNode);
+            AddExPlaceholder(ctx->hTree, hAxis);
+        } else if (node->kind == kEN_AxisComElement) {
+            AddGroupedAxisComParams(ctx, hItem, ctx->axisComParams);
+        } else if (node->kind == kEN_RelSection) {
+            ExpandRelSection(ctx, hItem);
+        } else if (node->kind == kEN_BlockSection) {
+            ExpandBlockSection(ctx, hItem);
+        } else if (node->kind == kEN_MapiSection) {
+            ExpandMapiSection(ctx, hItem);
+        } else if (node->kind == kEN_Neighbor) {
+            ExpandNeighborNode(ctx, hItem, node->neighborOid);
+        } else if (node->kind == kEN_ParentSection) {
+            ExpandMapiParentSection(ctx, hItem);
+        } else if (node->kind == kEN_ChildSection) {
+            ExpandMapiChildSection(ctx, hItem);
+        } else if (node->kind == kEN_PortSection) {
+            ExpandPortSection(ctx, hItem);
+        } else if (node->kind == kEN_Port) {
+            ExpandPortNode(ctx, hItem, node->neighborOid);
+        } else if (node->kind == kEN_AxisSection) {
+            ExpandAxisSection(ctx, hItem);
+        }
+        break;
+    }
+    case WM_COMMAND:
+        if (LOWORD(wParam) == IDC_FIND_BTN && ctx && !ctx->selOid.isNull()) {
+            std::wstring hs = OidHandleStr(ctx->selOid);
+            ads_name en;
+            if (acdbGetAdsName(en, ctx->selOid) == Acad::eOk) {
+                acedRedraw(en, 3);   // highlight (mode 3)
+                acedUpdateDisplay(); // форсируем перерисовку viewport
+                acutPrintf(L"\n[MCS Explorer] Найден объект #%s\n", hs.c_str());
+            } else {
+                acutPrintf(L"\n[MCS Explorer] Не удалось найти объект #%s\n", hs.c_str());
+            }
+        }
+        break;
+    case WM_KEYDOWN:
+        if (wParam == VK_ESCAPE) ::PostMessageW(hwnd, WM_CLOSE, 0, 0);
+        break;
+    case WM_CLOSE:
+        ::DestroyWindow(hwnd);
+        return 0;
+    case WM_DESTROY:
+        if (ctx) {
+            delete ctx;   // закрывает pObj, чистит allNodes
+            ::SetWindowLongPtrW(hwnd, GWLP_USERDATA, 0);
+            g_explorerCtx = nullptr;
+        }
+        return 0;   // modeless: НЕ вызываем PostQuitMessage — loop nanoCAD продолжается
+    }
+    return ::DefWindowProcW(hwnd, msg, wParam, lParam);
+}
+
+static void dtmxNrx22ExploreCmd()
+{
+    LogClear();
+    Log(L"=== DTMXNRX22EXPLORE start ===");
+
+    // Singleton: если окно уже открыто — выводим его
+    if (g_explorerCtx && ::IsWindow(g_explorerCtx->hWnd)) {
+        ::SetForegroundWindow(g_explorerCtx->hWnd);
+        ::acutPrintf(L"\nDTMXNRX22EXPLORE: окно уже открыто\n");
+        return;
+    }
+
+    std::vector<AcDbObjectId> selected = GetSelectedObjects();
+    if (selected.empty()) {
+        ::acutPrintf(L"\nDTMXNRX22EXPLORE: выберите элемент Model Studio\n");
+        return;
+    }
+
+    auto* ctx = new ExplorerCtx();
+    if (!LoadUnitsCsApi(ctx->api)) {
+        delete ctx;
+        ::acutPrintf(L"\nDTMXNRX22EXPLORE: UnitsCS недоступен\n");
+        return;
+    }
+
+    Acad::ErrorStatus es =
+        ::acdbOpenAcDbObject(ctx->pObj, selected.front(), AcDb::kForRead);
+    if (es != Acad::eOk || !ctx->pObj) {
+        delete ctx;
+        ::acutPrintf(L"\nDTMXNRX22EXPLORE: не удалось открыть объект\n");
+        return;
+    }
+
+    ctx->pIface = SehGetParametricInterface(ctx->api.getParametricInterface, (void*)ctx->pObj);
+    ctx->pRoot  = SehGetRootElementP(ctx->api.getRootElementP, ctx->pIface);
+    Log(L"Explorer init: pIface=" + Ptr(ctx->pIface) + L" pRoot=" + Ptr(ctx->pRoot));
+
+    if (!ctx->pIface || !ctx->pRoot) {
+        delete ctx;
+        ::acutPrintf(L"\nDTMXNRX22EXPLORE: объект не является параметрическим\n");
+        return;
+    }
+
+    ctx->oid      = selected.front();
+    ctx->pGate    = GetNativeGate();
+    ctx->vtParams = EnumParamsViaNative(ctx->api, ctx->pIface);
+    SehGetGlobalParamDefs(ctx->api.getGlobalParamDefs, &ctx->pGlobalDefs, false);
+    ReadAxisComParams(ctx);
+    if (ctx->pGate) {
+        mcsWorkID mcid = {};
+        if (SUCCEEDED(ctx->pGate->getMcsIdByNative(mcid, ctx->oid.asOldId()))) {
+            IMcObjectPtr pMcObj = ctx->pGate->QueryObject(mcid);
+            IMcDbObjectPtr pDbObj = pMcObj;
+            if (pDbObj) {
+                ctx->mapiUiProps = CollectAllUniqueMapiProps(pDbObj);
+                Log(L"Explorer: mapiUiProps=" + std::to_wstring((int)ctx->mapiUiProps.size()));
+            }
+        }
+    }
+    Log(L"Explorer: axisComName=" + (ctx->axisComName.empty() ? L"<empty>" : ctx->axisComName));
+    Log(L"Explorer: axisComParams=" + std::to_wstring((int)ctx->axisComParams.size()));
+
+    // Определяем тип объекта
+    std::wstring objCls = NativeClassName(ctx->pObj);
+    ctx->isLinCSNode = (objCls.find(L"linCSNode") != std::wstring::npos);
+    Log(L"Explorer: class=" + objCls + L" isLinCSNode=" + std::to_wstring(ctx->isLinCSNode));
+
+    // Пробуем осевые параметры через несколько candidate-base.
+    if (ctx->api.nodeGetParamsCount) {
+        auto probeAxis = [&](void* pBase, const wchar_t* source) {
+            if (!pBase) return;
+            int n = SehNodeGetParamsCount(ctx->api.nodeGetParamsCount, pBase);
+            Log(L"Explorer: axis probe [" + std::wstring(source) + L"] = " + std::to_wstring(n));
+            if (n > ctx->axisParamCount && n > 0 && n < 2000) {
+                ctx->axisParamCount = n;
+                ctx->pAxisBase = pBase;
+                ctx->axisSource = source;
+            }
+        };
+        probeAxis((void*)ctx->pObj,  L"pObj");
+        if (ctx->pIface && ctx->pIface != (void*)ctx->pObj)
+            probeAxis(ctx->pIface, L"pIface");
+        if (ctx->axisParamCount > 0) {
+            ctx->isLinCSNode = true;
+            Log(L"Explorer: axisParamCount=" + std::to_wstring(ctx->axisParamCount) +
+                L" source=" + ctx->axisSource);
+        }
+    }
+
+    // Перечисляем порты: пробуем и pIface, и pObj, берём лучший результат.
+    if (ctx->api.sbGetCountNodes && ctx->api.sbGetNodeID) {
+        int bestPorts = -1;
+        auto probePorts = [&](const void* pBase, const wchar_t* source) {
+            if (!pBase) return;
+            int nPorts = SehSbGetCountNodes(ctx->api.sbGetCountNodes, pBase);
+            Log(L"Explorer: port probe [" + std::wstring(source) + L"] = " + std::to_wstring(nPorts));
+            if (nPorts > bestPorts && nPorts >= 0 && nPorts < 128) {
+                bestPorts = nPorts;
+                ctx->pPortBase = pBase;
+                ctx->portSource = source;
+            }
+        };
+        probePorts(ctx->pIface, L"pIface");
+        if ((const void*)ctx->pObj != ctx->pIface)
+            probePorts((const void*)ctx->pObj, L"pObj");
+
+        if (ctx->pPortBase && bestPorts > 0) {
+            Log(L"Explorer: GetCountNodes=" + std::to_wstring(bestPorts) +
+                L" source=" + ctx->portSource);
+            for (int pi = 0; pi < bestPorts && pi < 64; ++pi) {
+                AcDbObjectId nodeOid;
+                nodeOid.setNull();
+                SehSbGetNodeID(ctx->api.sbGetNodeID, &nodeOid, ctx->pPortBase, pi);
+                ctx->portNodeOids.push_back(nodeOid);
+            }
+        } else {
+            Log(L"Explorer: GetCountNodes=0");
+        }
+    }
+
+    std::wstring title = L"MCS Explorer — " + NativeClassName(ctx->pObj);
+    // Owner = главное окно nanoCAD: без этого при наведении мыши nanoCAD
+    // получает WM_ACTIVATE(WA_INACTIVE) и сворачивается/прячется.
+    HWND hNcadMain = adsw_acadMainWnd();
+    HWND hWnd = ::CreateWindowExW(
+        WS_EX_APPWINDOW,
+        L"DtmxNrxExplorer",
+        title.c_str(),
+        WS_OVERLAPPEDWINDOW,
+        CW_USEDEFAULT, CW_USEDEFAULT, 900, 650,
+        hNcadMain, nullptr, g_hInst, ctx);
+
+    if (!hWnd) {
+        delete ctx;
+        Log(L"CreateWindowExW DtmxNrxExplorer failed err=" +
+            std::to_wstring(::GetLastError()));
+        return;
+    }
+    g_explorerCtx = ctx;   // сохраняем singleton до ShowWindow
+    ::ShowWindow(hWnd, SW_SHOW);
+    ::SetForegroundWindow(hWnd);
+    // Modeless: возвращаемся немедленно. nanoCAD ведёт свой message loop,
+    // он же передаёт сообщения нашему окну. PostQuitMessage не нужен.
+    Log(L"=== DTMXNRX22EXPLORE window shown (modeless) ===");
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// DTMXNRX23PATHS — проводник путей доступа к данным
+// ─────────────────────────────────────────────────────────────────────────────
+
+enum PathNodeKind : int {
+    kPN_Root = 0,
+    kPN_Leaf,
+    kPN_OidRef,
+    kPN_OwnerClass,
+    kPN_MapiConnSection,
+    kPN_OwnerBlockSection,
+    kPN_RootUnitsParams,
+    kPN_RootComElement,
+    kPN_RootComAxis
+};
+
+struct PathNode {
+    PathNodeKind kind = kPN_Leaf;
+    bool childrenAdded = false;
+    AcDbObjectId oid;
+    std::wstring text;
+};
+
+struct PathExplorerCtx {
+    UnitsCsApi api;
+    AcDbObject* pObj = nullptr;
+    void* pIface = nullptr;
+    CElement* pRoot = nullptr;
+    IMcNativeGate* pGate = nullptr;
+    AcDbObjectId oid;
+    AcDbObjectId selOid;
+    std::vector<AcDbObjectId> highlightedOids;  // подсвеченные объекты (снять при следующем Find)
+    std::wstring mainHandle;   // handle главного объекта (сохраняется до закрытия pObj)
+    AcDbObjectId ownerOid;     // ownerId главного объекта
+    HWND hWnd = nullptr;
+    HWND hTree = nullptr;
+    HWND hFindBtn = nullptr;
+    HWND hHandleLbl = nullptr;
+    HFONT hFont = nullptr;
+    std::vector<PathNode*> allNodes;
+    std::wstring nativeClass;
+    std::vector<ParamState> vtParams;
+    std::vector<UiPropState> mapiUiProps;
+    std::wstring comElementName;
+    std::vector<ParamState> comElementParams;
+    std::wstring axisComName;
+    std::vector<ParamState> axisComParams;
+    std::vector<std::wstring> axisComRelations;
+    int connectedCount = -1;
+    int mapiChildCount = -1;
+    bool hasMapiParent = false;
+    std::map<std::wstring, int> ownerClasses;
+
+    PathNode* alloc(PathNodeKind kind, AcDbObjectId oid = AcDbObjectId::kNull,
+                    const std::wstring& text = L"") {
+        auto* n = new PathNode();
+        n->kind = kind;
+        n->oid = oid;
+        n->text = text;
+        allNodes.push_back(n);
+        return n;
+    }
+    ~PathExplorerCtx() {
+        for (auto* n : allNodes) delete n;
+        if (hFont) { ::DeleteObject(hFont); hFont = nullptr; }
+        if (pObj) { pObj->close(); pObj = nullptr; }
+    }
+};
+
+static PathExplorerCtx* g_pathExplorerCtx = nullptr;
+
+static HTREEITEM AddPathItem(HWND hTree, HTREEITEM hParent,
+                             const std::wstring& label, PathNode* node)
+{
+    TVINSERTSTRUCTW tvis = {};
+    tvis.hParent      = hParent;
+    tvis.hInsertAfter = TVI_LAST;
+    tvis.item.mask    = TVIF_TEXT | TVIF_PARAM;
+    tvis.item.pszText = const_cast<LPWSTR>(label.c_str());
+    tvis.item.lParam  = (LPARAM)node;
+    return TreeView_InsertItem(hTree, &tvis);
+}
+
+static void PathAddLeaf(PathExplorerCtx* ctx, HTREEITEM hParent, const std::wstring& text)
+{
+    AddPathItem(ctx->hTree, hParent, text, ctx->alloc(kPN_Leaf));
+}
+
+static void PathAddPlaceholder(HWND hTree, HTREEITEM hParent)
+{
+    TVINSERTSTRUCTW tvis = {};
+    tvis.hParent      = hParent;
+    tvis.hInsertAfter = TVI_LAST;
+    tvis.item.mask    = TVIF_TEXT | TVIF_PARAM;
+    tvis.item.pszText = const_cast<LPWSTR>(L"…");
+    tvis.item.lParam  = 0;
+    TreeView_InsertItem(hTree, &tvis);
+}
+
+// Устарела — BuildOidSections теперь сам обрабатывает proxy через SehGetParametricInterface.
+// Оставлена как dead-code на случай прямого вызова где-то ещё.
+static void AddProxySafeSections(PathExplorerCtx* ctx, HTREEITEM hParent,
+                                 const AcDbObjectId& oid,
+                                 AcDbObject* pObj,
+                                 const std::wstring& nativeClass)
+{
+    (void)oid;
+    AcDbHandle h;
+    pObj->getAcDbHandle(h);
+    wchar_t hbuf[32] = {};
+    h.getIntoAsciiBuffer(hbuf, 32);
+    HTREEITEM hDwg = AddPathItem(ctx->hTree, hParent,
+        L"DWG / Native  ⚠ PROXY", ctx->alloc(kPN_Leaf));
+    PathAddLeaf(ctx, hDwg, L"NativeClassName = " + nativeClass);
+    PathAddLeaf(ctx, hDwg, L"Handle = " + std::wstring(hbuf));
+    PathAddLeaf(ctx, hDwg, L"ownerId = " + std::to_wstring((long long)pObj->ownerId().asOldId()));
+    PathAddLeaf(ctx, hDwg, L"[Fallback] proxy-секции через BuildOidSections с SEH");
+}
+
+static std::wstring DescribeOidShort(const AcDbObjectId& oid)
+{
+    if (oid.isNull()) return L"(null oid)";
+    AcDbObject* pObj = nullptr;
+    if (::acdbOpenAcDbObject(pObj, oid, AcDb::kForRead) != Acad::eOk || !pObj)
+        return L"#" + OidHandleStr(oid) + L"  [open failed]";
+    std::wstring cls = NativeClassName(pObj);
+    pObj->close();
+    return cls + L"  #" + OidHandleStr(oid);
+}
+
+static void CollectConnectedOids(IMcNativeGate* pGate, const AcDbObjectId& oid,
+                                 std::vector<AcDbObjectId>& outOids)
+{
+    outOids.clear();
+    if (!pGate || oid.isNull()) return;
+    mcsWorkID mcid = {};
+    if (FAILED(pGate->getMcsIdByNative(mcid, oid.asOldId()))) return;
+    IMcObjectPtr pMcObj = pGate->QueryObject(mcid);
+    IMcCtrDriverPtr pCtr = pMcObj;
+    if (!pCtr) return;
+    mcsWorkIDArray connected;
+    if (FAILED(pCtr->getObjectsConnectedTo(connected, L"", ctUndefined, IMcCtrDriver::kMcCtrDrv_Any)))
+        return;
+    for (int i = 0; i < connected.GetCount(); ++i) {
+        LONG_PTR nid = 0;
+        if (FAILED(pGate->getNativeIdByMcs(nid, connected[i]))) continue;
+        AcDbObjectId coid;
+        coid.setFromOldId(nid);
+        if (!coid.isNull()) outOids.push_back(coid);
+    }
+}
+
+static void CollectOwnerClassObjects(const AcDbObjectId& oid, const std::wstring& className,
+                                     std::vector<AcDbObjectId>& outOids)
+{
+    outOids.clear();
+    AcDbObject* pObj = nullptr;
+    if (::acdbOpenAcDbObject(pObj, oid, AcDb::kForRead) != Acad::eOk || !pObj) return;
+    AcDbObjectId ownerId = pObj->ownerId();
+    pObj->close();
+
+    AcDbObject* pOwnerObj = nullptr;
+    if (::acdbOpenAcDbObject(pOwnerObj, ownerId, AcDb::kForRead) != Acad::eOk || !pOwnerObj) return;
+    AcDbBlockTableRecord* pBtr = AcDbBlockTableRecord::cast(pOwnerObj);
+    if (!pBtr) { pOwnerObj->close(); return; }
+
+    AcDbBlockTableRecordIterator* pIt = nullptr;
+    pBtr->newIterator(pIt);
+    int total = 0;
+    for (; pIt && !pIt->done() && total < 1000; pIt->step(), ++total) {
+        AcDbObjectId entId;
+        if (pIt->getEntityId(entId) != Acad::eOk) continue;
+        AcDbObject* pEnt = nullptr;
+        if (::acdbOpenAcDbObject(pEnt, entId, AcDb::kForRead) != Acad::eOk || !pEnt) continue;
+        const std::wstring cls = NativeClassName(pEnt);
+        pEnt->close();
+        if (cls == className) outOids.push_back(entId);
+    }
+    if (pIt) delete pIt;
+    pOwnerObj->close();
+}
+
+static void CollectOwnerClassCounts(const AcDbObjectId& oid, std::map<std::wstring, int>& outCounts);
+
+static void BuildOwnerClassSummary(PathExplorerCtx* ctx, HTREEITEM hParent, const AcDbObjectId& oid)
+{
+    std::map<std::wstring, int> counts;
+    CollectOwnerClassCounts(oid, counts);
+    if (counts.empty()) {
+        PathAddLeaf(ctx, hParent, L"(owner-block пуст или недоступен)");
+        return;
+    }
+    for (const auto& kv : counts) {
+        std::wstring lbl = kv.first + L" = " + std::to_wstring(kv.second);
+        PathNode* n = ctx->alloc(kPN_OwnerClass, oid, kv.first);
+        HTREEITEM hCls = AddPathItem(ctx->hTree, hParent, lbl, n);
+        PathAddPlaceholder(ctx->hTree, hCls);
+    }
+}
+
+static void AddPathGroupedParams(PathExplorerCtx* ctx, HTREEITEM hParent,
+                                 const std::vector<ParamState>& params)
+{
+    if (params.empty()) {
+        PathAddLeaf(ctx, hParent, L"(параметров нет)");
+        return;
+    }
+
+    std::map<std::wstring, std::vector<const ParamState*>> byCat;
+    for (const auto& ps : params) {
+        std::wstring cat = ps.category.empty() ? L"Общие" : ps.category;
+        byCat[cat].push_back(&ps);
+    }
+
+    for (const auto& kv : byCat) {
+        const std::wstring catLbl = kv.first + L" (" + std::to_wstring((int)kv.second.size()) + L")";
+        HTREEITEM hCat = AddPathItem(ctx->hTree, hParent, catLbl, ctx->alloc(kPN_Leaf));
+        for (const ParamState* ps : kv.second) {
+            std::wstring label;
+            if (!ps->comment.empty() && ps->comment != ps->name)
+                label = ps->comment + L" = " + ps->dispValue + L"  [" + ps->name + L"]";
+            else
+                label = ps->name + L" = " + ps->dispValue;
+            if (!ps->valueComment.empty())
+                label += L"  {" + ps->valueComment + L"}";
+            AddPathItem(ctx->hTree, hCat, label, ctx->alloc(kPN_Leaf));
+        }
+    }
+}
+
+static void BuildOidSections(PathExplorerCtx* ctx, HTREEITEM hParent, const AcDbObjectId& oid)
+{
+    PathAddLeaf(ctx, hParent, L"Объект: " + DescribeOidShort(oid));
+
+    AcDbObject* pObj = nullptr;
+    if (::acdbOpenAcDbObject(pObj, oid, AcDb::kForRead) != Acad::eOk || !pObj) {
+        PathAddLeaf(ctx, hParent, L"(не удалось открыть объект)");
+        return;
+    }
+    const std::wstring nativeClass = NativeClassName(pObj);
+    const bool isProxy = IsProxyClassName(nativeClass);
+    AcDbHandle h;
+    pObj->getAcDbHandle(h);
+    wchar_t hbuf[32] = {};
+    h.getIntoAsciiBuffer(hbuf, 32);
+    AcDbObjectId ownerId = pObj->ownerId();
+    // SEH-защита: proxy-объекты не поддерживают getParametricInterface — без SEH → AV
+    Log(L"[BOS 1] getParametricInterface class=" + nativeClass);
+    void* pIface = SehGetParametricInterface(ctx->api.getParametricInterface, (void*)pObj);
+    Log(L"[BOS 2] getRootElementP pIface=" + Ptr(pIface));
+    CElement* pRoot = SehGetRootElementP(ctx->api.getRootElementP, pIface);
+    int vtCount = -1; SehIfaceCount(&ctx->api, pIface, &vtCount);
+    Log(L"[BOS 3] pRoot=" + Ptr(pRoot) + L" vtCount=" + std::to_wstring(vtCount));
+    std::vector<ParamState> vtParams;
+    if (pIface) vtParams = EnumParamsViaNative(ctx->api, pIface);
+    pObj->close();
+    Log(L"[BOS 4] vtParams=" + std::to_wstring((int)vtParams.size()));
+
+    std::wstring comElementName;
+    std::vector<ParamState> comElementParams;
+    Log(L"[BOS 5] ReadElementComParams...");
+    ReadElementComParamsForOid(oid, &comElementName, &comElementParams);
+    Log(L"[BOS 6] comElementParams=" + std::to_wstring((int)comElementParams.size()));
+
+    std::wstring axisComName;
+    std::vector<ParamState> axisComParams;
+    Log(L"[BOS 7] ReadAxisComParams...");
+    ReadAxisComParamsForOid(oid, &axisComName, &axisComParams);
+    Log(L"[BOS 8] axisComParams=" + std::to_wstring((int)axisComParams.size()));
+
+    HTREEITEM hDwg = AddPathItem(ctx->hTree, hParent, L"DWG / Native", ctx->alloc(kPN_Leaf));
+    PathAddLeaf(ctx, hDwg, L"NativeClassName = " + nativeClass + (isProxy ? L"  ⚠ PROXY" : L""));
+    PathAddLeaf(ctx, hDwg, L"Handle = " + std::wstring(hbuf));
+    PathAddLeaf(ctx, hDwg, L"ownerId = " + std::to_wstring((long long)ownerId.asOldId()));
+
+    Log(L"[BOS 9] building UnitsCS section vtParams=" + std::to_wstring((int)vtParams.size()));
+    HTREEITEM hUnits = AddPathItem(ctx->hTree, hParent, L"C++ / UnitsCS", ctx->alloc(kPN_Leaf));
+    PathAddLeaf(ctx, hUnits, L"pIface = " + Ptr(pIface));
+    PathAddLeaf(ctx, hUnits, L"pRoot = " + Ptr(pRoot));
+    PathAddLeaf(ctx, hUnits, L"vtable parameters count = " + std::to_wstring(vtCount));
+    if (!vtParams.empty()) {
+        HTREEITEM hParams = AddPathItem(ctx->hTree, hUnits,
+            L"Параметры (" + std::to_wstring((int)vtParams.size()) + L")", ctx->alloc(kPN_Leaf));
+        AddPathGroupedParams(ctx, hParams, vtParams);
+    }
+    Log(L"[BOS 10] building COM section");
+
+    HTREEITEM hCom = AddPathItem(ctx->hTree, hParent, L"COM", ctx->alloc(kPN_Leaf));
+    std::wstring hComElLbl = L"entity.Element";
+    if (!comElementParams.empty())
+        hComElLbl += L" (" + std::to_wstring((int)comElementParams.size()) + L")";
+    HTREEITEM hComEl = AddPathItem(ctx->hTree, hCom, hComElLbl, ctx->alloc(kPN_Leaf));
+    PathAddLeaf(ctx, hComEl, L"Name = " + (comElementName.empty() ? L"<empty>" : comElementName));
+    if (!comElementParams.empty())
+        AddPathGroupedParams(ctx, hComEl, comElementParams);
+
+    std::wstring hComAxisLbl = L"entity.ElementAxis";
+    if (!axisComParams.empty())
+        hComAxisLbl += L" (" + std::to_wstring((int)axisComParams.size()) + L")";
+    HTREEITEM hComAxis = AddPathItem(ctx->hTree, hCom, hComAxisLbl, ctx->alloc(kPN_Leaf));
+    PathAddLeaf(ctx, hComAxis, L"Name = " + (axisComName.empty() ? L"<empty>" : axisComName));
+    if (!axisComParams.empty())
+        AddPathGroupedParams(ctx, hComAxis, axisComParams);
+
+    Log(L"[BOS 11] CollectConnectedOids");
+    std::vector<AcDbObjectId> connected;
+    CollectConnectedOids(ctx->pGate, oid, connected);
+    std::wstring connLbl = L"MAPI direct connections (" + std::to_wstring((int)connected.size()) + L")";
+    PathNode* connNode = ctx->alloc(kPN_MapiConnSection, oid);
+    HTREEITEM hConn = AddPathItem(ctx->hTree, hParent, connLbl, connNode);
+    PathAddPlaceholder(ctx->hTree, hConn);
+
+    PathNode* ownerNode = ctx->alloc(kPN_OwnerBlockSection, oid);
+    HTREEITEM hOwner = AddPathItem(ctx->hTree, hParent, L"owner-block classes", ownerNode);
+    PathAddPlaceholder(ctx->hTree, hOwner);
+    Log(L"[BOS done] " + nativeClass);
+}
+
+static int GetMapiConnectedCount(IMcNativeGate* pGate, const AcDbObjectId& oid)
+{
+    if (!pGate || oid.isNull()) return -1;
+    mcsWorkID mcid = {};
+    if (FAILED(pGate->getMcsIdByNative(mcid, oid.asOldId()))) return -1;
+    IMcObjectPtr pMcObj = pGate->QueryObject(mcid);
+    IMcCtrDriverPtr pCtr = pMcObj;
+    if (!pCtr) return -1;
+    mcsWorkIDArray connected;
+    if (FAILED(pCtr->getObjectsConnectedTo(connected, L"", ctUndefined, IMcCtrDriver::kMcCtrDrv_Any)))
+        return -1;
+    return connected.GetCount();
+}
+
+static void CollectOwnerClassCounts(const AcDbObjectId& oid, std::map<std::wstring, int>& outCounts)
+{
+    AcDbObject* pObj = nullptr;
+    if (::acdbOpenAcDbObject(pObj, oid, AcDb::kForRead) != Acad::eOk || !pObj) return;
+    AcDbObjectId ownerId = pObj->ownerId();
+    pObj->close();
+
+    AcDbObject* pOwnerObj = nullptr;
+    if (::acdbOpenAcDbObject(pOwnerObj, ownerId, AcDb::kForRead) != Acad::eOk || !pOwnerObj) return;
+    AcDbBlockTableRecord* pBtr = AcDbBlockTableRecord::cast(pOwnerObj);
+    if (!pBtr) { pOwnerObj->close(); return; }
+
+    AcDbBlockTableRecordIterator* pIt = nullptr;
+    pBtr->newIterator(pIt);
+    int total = 0;
+    for (; pIt && !pIt->done() && total < 400; pIt->step(), ++total) {
+        AcDbObjectId entId;
+        if (pIt->getEntityId(entId) != Acad::eOk) continue;
+        AcDbObject* pEnt = nullptr;
+        if (::acdbOpenAcDbObject(pEnt, entId, AcDb::kForRead) != Acad::eOk || !pEnt) continue;
+        outCounts[NativeClassName(pEnt)]++;
+        pEnt->close();
+    }
+    if (pIt) delete pIt;
+    pOwnerObj->close();
+}
+
+static void CollectMapiShape(PathExplorerCtx* ctx)
+{
+    if (!ctx || !ctx->pGate || ctx->oid.isNull()) return;
+    mcsWorkID mcid = {};
+    if (FAILED(ctx->pGate->getMcsIdByNative(mcid, ctx->oid.asOldId()))) return;
+    IMcObjectPtr pMcObj = ctx->pGate->QueryObject(mcid);
+    IMcDbObjectPtr pDbObj = pMcObj;
+    if (!pDbObj) return;
+    mcsWorkID nullId = WID_NULL;
+    mcsWorkID parentId = pDbObj->getParentID();
+    ctx->hasMapiParent = (memcmp(&parentId, &nullId, sizeof(mcsWorkID)) != 0);
+    ctx->mapiChildCount = pDbObj->getChildrenIDs().GetCount();
+}
+
+static void BuildPathTree(PathExplorerCtx* ctx)
+{
+    // pObj уже закрыт на этапе инита — используем сохранённые данные
+    const std::wstring& hbufS = ctx->mainHandle;
+
+    std::wstring rootLbl = L"Пути доступа — " + ctx->nativeClass + L"  #" + hbufS;
+    HTREEITEM hRoot = AddPathItem(ctx->hTree, TVI_ROOT, rootLbl, ctx->alloc(kPN_Root, ctx->oid));
+
+    HTREEITEM hDwg = AddPathItem(ctx->hTree, hRoot, L"1. DWG / Native", ctx->alloc(kPN_Leaf));
+    PathAddLeaf(ctx, hDwg, L"AcDbObjectId -> acdbOpenAcDbObject(...) -> AcDbObject*");
+    PathAddLeaf(ctx, hDwg, L"NativeClassName = " + ctx->nativeClass);
+    PathAddLeaf(ctx, hDwg, L"Handle = " + hbufS);
+    PathAddLeaf(ctx, hDwg, L"ownerId = " + std::to_wstring((long long)ctx->ownerOid.asOldId()));
+
+    HTREEITEM hUnits = AddPathItem(ctx->hTree, hRoot, L"2. C++ / UnitsCS", ctx->alloc(kPN_Leaf));
+    PathAddLeaf(ctx, hUnits, L"AcDbObject* -> getParametricInterface() -> pIface");
+    PathAddLeaf(ctx, hUnits, L"pIface = " + Ptr(ctx->pIface));
+    PathAddLeaf(ctx, hUnits, L"pIface -> getRootElementP() -> CElement root");
+    PathAddLeaf(ctx, hUnits, L"pRoot = " + Ptr(ctx->pRoot));
+    PathAddLeaf(ctx, hUnits, L"vtable parameters count = " + std::to_wstring((int)ctx->vtParams.size()));
+    PathAddLeaf(ctx, hUnits, L"CElement root -> CParamsOwner::GetParamsCount / GetParameter");
+    if (!ctx->vtParams.empty()) {
+        HTREEITEM hUnitsParams = AddPathItem(ctx->hTree, hUnits,
+            L"Параметры (" + std::to_wstring((int)ctx->vtParams.size()) + L")", ctx->alloc(kPN_RootUnitsParams));
+        PathAddPlaceholder(ctx->hTree, hUnitsParams);
+    }
+
+    HTREEITEM hCom = AddPathItem(ctx->hTree, hRoot, L"3. COM", ctx->alloc(kPN_Leaf));
+    PathAddLeaf(ctx, hCom, L"ActiveDocument.Database.HandleToObject(handle) -> entity");
+    PathAddLeaf(ctx, hCom, L"entity.ObjectName = " + ctx->nativeClass);
+    HTREEITEM hComEl = AddPathItem(ctx->hTree, hCom, L"entity.Element", ctx->alloc(kPN_Leaf));
+    PathAddLeaf(ctx, hComEl, L"entity -> Element -> Name = " + (ctx->comElementName.empty() ? L"<empty>" : ctx->comElementName));
+    PathAddLeaf(ctx, hComEl, L"entity -> Element -> Parameters.Count = " + std::to_wstring((int)ctx->comElementParams.size()));
+    PathAddLeaf(ctx, hComEl, L"Маршрут: entity.Element.Parameters.Item(i) -> Name / Value / Comment");
+    if (!ctx->comElementParams.empty())
+    {
+        PathNode* n = ctx->alloc(kPN_RootComElement);
+        HTREEITEM hParams = AddPathItem(ctx->hTree, hComEl,
+            L"Параметры (" + std::to_wstring((int)ctx->comElementParams.size()) + L")", n);
+        PathAddPlaceholder(ctx->hTree, hParams);
+    }
+    HTREEITEM hComAxis = AddPathItem(ctx->hTree, hCom, L"entity.ElementAxis", ctx->alloc(kPN_Leaf));
+    PathAddLeaf(ctx, hComAxis, L"entity -> ElementAxis -> Element -> Name = " + (ctx->axisComName.empty() ? L"<empty>" : ctx->axisComName));
+    PathAddLeaf(ctx, hComAxis, L"entity -> ElementAxis -> Element -> Parameters.Count = " + std::to_wstring((int)ctx->axisComParams.size()));
+    PathAddLeaf(ctx, hComAxis, L"Маршрут: entity.ElementAxis.Element.Parameters.Item(i)");
+    if (!ctx->axisComParams.empty())
+    {
+        PathNode* n = ctx->alloc(kPN_RootComAxis);
+        HTREEITEM hParams = AddPathItem(ctx->hTree, hComAxis,
+            L"Параметры (" + std::to_wstring((int)ctx->axisComParams.size()) + L")", n);
+        PathAddPlaceholder(ctx->hTree, hParams);
+    }
+    if (!ctx->axisComRelations.empty()) {
+        HTREEITEM hAxisRelations = AddPathItem(ctx->hTree, hCom,
+            L"entity.ElementAxis topology (" + std::to_wstring((int)ctx->axisComRelations.size()) + L")",
+            ctx->alloc(kPN_Leaf));
+        for (const auto& line : ctx->axisComRelations)
+            PathAddLeaf(ctx, hAxisRelations, line);
+    }
+
+    HTREEITEM hMapi = AddPathItem(ctx->hTree, hRoot, L"4. MAPI", ctx->alloc(kPN_Leaf));
+    PathAddLeaf(ctx, hMapi, L"oid -> getMcsIdByNative(...) -> mcsWorkID");
+    PathAddLeaf(ctx, hMapi, L"mcsWorkID -> QueryObject(...) -> IMcObject / IMcDbObject");
+    PathAddLeaf(ctx, hMapi, L"visible properties count = " + std::to_wstring((int)ctx->mapiUiProps.size()));
+    PathAddLeaf(ctx, hMapi, L"has parent = " + std::wstring(ctx->hasMapiParent ? L"yes" : L"no"));
+    PathAddLeaf(ctx, hMapi, L"children count = " + std::to_wstring(ctx->mapiChildCount));
+    PathAddLeaf(ctx, hMapi, L"direct connections count = " + std::to_wstring(ctx->connectedCount));
+
+    HTREEITEM hOwner = AddPathItem(ctx->hTree, hRoot, L"5. Соседи / owner-block", ctx->alloc(kPN_Leaf));
+    PathAddLeaf(ctx, hOwner, L"ownerId -> BlockTableRecord -> iterate entities");
+    BuildOwnerClassSummary(ctx, hOwner, ctx->oid);
+
+    HTREEITEM hRoutes = AddPathItem(ctx->hTree, hRoot, L"6. Быстрые маршруты", ctx->alloc(kPN_Leaf));
+    PathAddLeaf(ctx, hRoutes, L"Свойства элемента / COM: entity.Element.Parameters.Item(i)");
+    PathAddLeaf(ctx, hRoutes, L"Свойства элемента / C++: pIface -> getParameterByIndex(i) -> CParam");
+    PathAddLeaf(ctx, hRoutes, L"Параметры осевой / COM: entity.ElementAxis.Element.Parameters.Item(i)");
+    PathAddLeaf(ctx, hRoutes, L"Связи осевой / COM: entity.ElementAxis.Components + GetPrevComponent/GetNextComponent");
+    PathAddLeaf(ctx, hRoutes, L"Параметры осевой / C++: прямой native путь пока не подтверждён");
+    PathAddLeaf(ctx, hRoutes, L"Связи / MAPI: getMcsIdByNative -> QueryObject -> IMcCtrDriver / IMcDbObject");
+    PathAddLeaf(ctx, hRoutes, L"Соседи / C++: ownerId -> BlockTableRecord iterator");
+
+    TreeView_Expand(ctx->hTree, hRoot, TVE_EXPAND);
+    TreeView_Expand(ctx->hTree, hDwg, TVE_EXPAND);
+    TreeView_Expand(ctx->hTree, hUnits, TVE_EXPAND);
+    TreeView_Expand(ctx->hTree, hCom, TVE_EXPAND);
+}
+
+static LRESULT CALLBACK PathExplorerWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
+{
+    PathExplorerCtx* ctx = (PathExplorerCtx*)::GetWindowLongPtrW(hwnd, GWLP_USERDATA);
+    switch (msg) {
+    case WM_CREATE: {
+        auto* cs = (CREATESTRUCTW*)lParam;
+        ctx = (PathExplorerCtx*)cs->lpCreateParams;
+        ::SetWindowLongPtrW(hwnd, GWLP_USERDATA, (LONG_PTR)ctx);
+        ctx->hWnd = hwnd;
+
+        RECT rc; ::GetClientRect(hwnd, &rc);
+        const int kBotH = 34;
+        ctx->hTree = ::CreateWindowExW(0, WC_TREEVIEWW, L"",
+            WS_CHILD | WS_VISIBLE | WS_VSCROLL | WS_HSCROLL |
+            TVS_HASBUTTONS | TVS_HASLINES | TVS_LINESATROOT | TVS_SHOWSELALWAYS,
+            0, 0, rc.right, rc.bottom - kBotH,
+            hwnd, (HMENU)(UINT_PTR)IDC_EXPLORE_TREE, g_hInst, nullptr);
+        ctx->hHandleLbl = ::CreateWindowExW(0, L"STATIC", L"(выберите узел с handle)",
+            WS_CHILD | WS_VISIBLE | SS_LEFT | SS_ENDELLIPSIS,
+            4, rc.bottom - kBotH + 4, rc.right - 140, 24,
+            hwnd, (HMENU)(UINT_PTR)IDC_HANDLE_LABEL, g_hInst, nullptr);
+        ctx->hFindBtn = ::CreateWindowExW(0, L"BUTTON", L"Найти в модели",
+            WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON | WS_DISABLED,
+            rc.right - 135, rc.bottom - kBotH + 4, 130, 24,
+            hwnd, (HMENU)(UINT_PTR)IDC_FIND_BTN, g_hInst, nullptr);
+        ctx->hFont = ::CreateFontW(16, 0, 0, 0, FW_NORMAL, 0, 0, 0,
+            DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
+            CLEARTYPE_QUALITY, DEFAULT_PITCH | FF_DONTCARE, L"Consolas");
+        if (!ctx->hFont)
+            ctx->hFont = ::CreateFontW(16, 0, 0, 0, FW_NORMAL, 0, 0, 0,
+                DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
+                CLEARTYPE_QUALITY, DEFAULT_PITCH | FF_DONTCARE, L"Courier New");
+        if (ctx->hFont) ::SendMessageW(ctx->hTree, WM_SETFONT, (WPARAM)ctx->hFont, TRUE);
+        BuildPathTree(ctx);
+        return 0;
+    }
+    case WM_SIZE: {
+        const int kBotH = 34;
+        int cw = LOWORD(lParam), ch = HIWORD(lParam);
+        if (ctx && ctx->hTree)
+            ::SetWindowPos(ctx->hTree, nullptr, 0, 0, cw, ch - kBotH, SWP_NOZORDER);
+        if (ctx && ctx->hHandleLbl)
+            ::SetWindowPos(ctx->hHandleLbl, nullptr, 4, ch - kBotH + 4, cw - 140, 24, SWP_NOZORDER);
+        if (ctx && ctx->hFindBtn)
+            ::SetWindowPos(ctx->hFindBtn, nullptr, cw - 135, ch - kBotH + 4, 130, 24, SWP_NOZORDER);
+        return 0;
+    }
+    case WM_NOTIFY: {
+        if (!ctx) break;
+        auto* pnm = (NMHDR*)lParam;
+        if (pnm->hwndFrom != ctx->hTree) break;
+        if (pnm->code == TVN_SELCHANGED) {
+            auto* pnmtv = (NMTREEVIEWW*)lParam;
+            PathNode* selNode = (PathNode*)pnmtv->itemNew.lParam;
+            AcDbObjectId foundOid;
+            if (selNode && selNode->kind == kPN_OidRef) foundOid = selNode->oid;
+            if (selNode && selNode->kind == kPN_Root)   foundOid = ctx->oid;
+            // Для листьев: ищем "Handle=#HEX" в тексте узла
+            if (foundOid.isNull() && pnmtv->itemNew.hItem) {
+                wchar_t lblBuf[512] = {};
+                TVITEMEXW tvi = {};
+                tvi.hItem      = pnmtv->itemNew.hItem;
+                tvi.mask       = TVIF_TEXT;
+                tvi.pszText    = lblBuf;
+                tvi.cchTextMax = 512;
+                TreeView_GetItem(ctx->hTree, &tvi);
+                std::wstring hex = ExtractHandleHex(std::wstring(lblBuf));
+                if (!hex.empty()) foundOid = OidFromHandleStr(hex);
+            }
+            ctx->selOid = foundOid;
+            BOOL hasOid = !foundOid.isNull();
+            ::EnableWindow(ctx->hFindBtn, hasOid);
+            std::wstring lbl = hasOid ? (L"handle: " + OidHandleStr(foundOid)) : L"(информационный узел)";
+            ::SetWindowTextW(ctx->hHandleLbl, lbl.c_str());
+        }
+        if (pnm->code == TVN_ITEMEXPANDING) {
+            auto* pnmtv = (NMTREEVIEWW*)lParam;
+            if (pnmtv->action != TVE_EXPAND) break;
+            PathNode* node = (PathNode*)pnmtv->itemNew.lParam;
+            if (!node || node->childrenAdded) break;
+            node->childrenAdded = true;
+            HTREEITEM hItem = pnmtv->itemNew.hItem;
+            RemovePlaceholder(ctx->hTree, hItem);
+
+            if (node->kind == kPN_OwnerClass) {
+                std::vector<AcDbObjectId> oids;
+                CollectOwnerClassObjects(node->oid, node->text, oids);
+                if (oids.empty()) {
+                    PathAddLeaf(ctx, hItem, L"(объекты класса не найдены)");
+                } else {
+                    for (const auto& oid : oids) {
+                        std::wstring lbl = DescribeOidShort(oid);
+                        PathNode* objNode = ctx->alloc(kPN_OidRef, oid);
+                        HTREEITEM hObj = AddPathItem(ctx->hTree, hItem, lbl, objNode);
+                        PathAddPlaceholder(ctx->hTree, hObj);
+                    }
+                }
+            } else if (node->kind == kPN_OidRef) {
+                BuildOidSections(ctx, hItem, node->oid);
+            } else if (node->kind == kPN_MapiConnSection) {
+                std::vector<AcDbObjectId> connected;
+                CollectConnectedOids(ctx->pGate, node->oid, connected);
+                if (connected.empty()) {
+                    PathAddLeaf(ctx, hItem, L"(прямых MAPI-связей нет)");
+                } else {
+                    for (const auto& coid : connected) {
+                        std::wstring lbl = DescribeOidShort(coid);
+                        PathNode* objNode = ctx->alloc(kPN_OidRef, coid);
+                        HTREEITEM hObj = AddPathItem(ctx->hTree, hItem, lbl, objNode);
+                        PathAddPlaceholder(ctx->hTree, hObj);
+                    }
+                }
+            } else if (node->kind == kPN_OwnerBlockSection) {
+                BuildOwnerClassSummary(ctx, hItem, node->oid);
+            } else if (node->kind == kPN_RootUnitsParams) {
+                AddPathGroupedParams(ctx, hItem, ctx->vtParams);
+            } else if (node->kind == kPN_RootComElement) {
+                AddPathGroupedParams(ctx, hItem, ctx->comElementParams);
+            } else if (node->kind == kPN_RootComAxis) {
+                AddPathGroupedParams(ctx, hItem, ctx->axisComParams);
+            }
+        }
+        break;
+    }
+    case WM_COMMAND:
+        if (LOWORD(wParam) == IDC_FIND_BTN && ctx && !ctx->selOid.isNull()) {
+            std::wstring hs = OidHandleStr(ctx->selOid);
+
+            // --- Снять предыдущую подсветку ---
+            for (const AcDbObjectId& prevOid : ctx->highlightedOids) {
+                mcsWorkID widPrev;
+                if (ctx->pGate &&
+                    ctx->pGate->getMcsIdByNative(widPrev, *(int64_t*)&prevOid) == S_OK) {
+                    IMcObjectPtr p = ctx->pGate->QueryObject(widPrev);
+                    IMcDbEntityPtr pe = p;
+                    if (pe) pe->highlight(false);
+                }
+                ads_name enPrev;
+                if (acdbGetAdsName(enPrev, prevOid) == Acad::eOk)
+                    acedRedraw(enPrev, 4);  // 4 = unhighlight
+            }
+            ctx->highlightedOids.clear();
+
+            // --- Собрать OID-ы для подсветки ---
+            // Пытаемся получить компоненты оси через COM
+            std::vector<AcDbObjectId> toHighlight;
+            IDispatch* pAxisDisp = GetAxisDispatchForOid(ctx->selOid);
+            if (pAxisDisp) {
+                toHighlight = CollectAxisComponentOids(pAxisDisp);
+                pAxisDisp->Release();
+            }
+            // Если компоненты не нашли — подсвечиваем сам объект
+            if (toHighlight.empty()) toHighlight.push_back(ctx->selOid);
+
+            // --- Подсветить все ---
+            int highlighted = 0;
+            for (const AcDbObjectId& hoid : toHighlight) {
+                // MAPI
+                mcsWorkID wid;
+                if (ctx->pGate &&
+                    ctx->pGate->getMcsIdByNative(wid, *(int64_t*)&hoid) == S_OK) {
+                    IMcObjectPtr pM = ctx->pGate->QueryObject(wid);
+                    IMcDbEntityPtr pE = pM;
+                    if (pE) { pE->highlight(true); ++highlighted; }
+                }
+                // DWG fallback
+                ads_name en;
+                if (acdbGetAdsName(en, hoid) == Acad::eOk)
+                    acedRedraw(en, 3);
+                ctx->highlightedOids.push_back(hoid);
+            }
+
+            acedUpdateDisplay();
+            acutPrintf(L"\n[MCS Paths] Handle=#%s  highlighted=%d objects\n",
+                       hs.c_str(), highlighted);
+        }
+        break;
+    case WM_CLOSE:
+        ::DestroyWindow(hwnd);
+        return 0;
+    case WM_DESTROY:
+        if (ctx) {
+            delete ctx;
+            ::SetWindowLongPtrW(hwnd, GWLP_USERDATA, 0);
+            g_pathExplorerCtx = nullptr;
+        }
+        return 0;
+    }
+    return ::DefWindowProcW(hwnd, msg, wParam, lParam);
+}
+
+static void dtmxNrx23PathsCmd()
+{
+    LogClear();
+    Log(L"=== DTMXNRX23PATHS start ===");
+
+    if (g_pathExplorerCtx && ::IsWindow(g_pathExplorerCtx->hWnd)) {
+        ::SetForegroundWindow(g_pathExplorerCtx->hWnd);
+        ::acutPrintf(L"\nDTMXNRX23PATHS: окно уже открыто\n");
+        return;
+    }
+
+    std::vector<AcDbObjectId> selected = GetSelectedObjects();
+    if (selected.empty()) {
+        ::acutPrintf(L"\nDTMXNRX23PATHS: выберите объект Model Studio\n");
+        return;
+    }
+
+    auto* ctx = new PathExplorerCtx();
+    if (!LoadUnitsCsApi(ctx->api)) {
+        delete ctx;
+        ::acutPrintf(L"\nDTMXNRX23PATHS: UnitsCS недоступен\n");
+        return;
+    }
+
+    if (::acdbOpenAcDbObject(ctx->pObj, selected.front(), AcDb::kForRead) != Acad::eOk || !ctx->pObj) {
+        delete ctx;
+        ::acutPrintf(L"\nDTMXNRX23PATHS: не удалось открыть объект\n");
+        return;
+    }
+
+    ctx->oid = selected.front();
+    ctx->nativeClass = NativeClassName(ctx->pObj);
+    ctx->pGate = GetNativeGate();
+    // Сохраняем handle и owner до того как pObj будет закрыт
+    { AcDbHandle h; ctx->pObj->getAcDbHandle(h); wchar_t hb[32]={}; h.getIntoAsciiBuffer(hb,32); ctx->mainHandle=hb; }
+    ctx->ownerOid = ctx->pObj->ownerId();
+    Log(L"Paths init [1] UnitsCS: class=" + ctx->nativeClass);
+    ctx->pIface = SehGetParametricInterface(ctx->api.getParametricInterface, (void*)ctx->pObj);
+    ctx->pRoot  = SehGetRootElementP(ctx->api.getRootElementP, ctx->pIface);
+    Log(L"Paths init [2] pIface=" + Ptr(ctx->pIface) + L" pRoot=" + Ptr(ctx->pRoot));
+    if (ctx->pIface) ctx->vtParams = EnumParamsViaNative(ctx->api, ctx->pIface);
+    Log(L"Paths init [3] vtParams=" + std::to_wstring((int)ctx->vtParams.size()));
+
+    Log(L"Paths init [4] MAPI...");
+    if (ctx->pGate) {
+        mcsWorkID mcid = {};
+        if (SUCCEEDED(ctx->pGate->getMcsIdByNative(mcid, ctx->oid.asOldId()))) {
+            IMcObjectPtr pMcObj = ctx->pGate->QueryObject(mcid);
+            IMcDbObjectPtr pDbObj = pMcObj;
+            if (pDbObj) ctx->mapiUiProps = CollectAllUniqueMapiProps(pDbObj);
+        }
+    }
+    Log(L"Paths init [5] COM element params...");
+    ReadElementComParamsForOid(ctx->oid, &ctx->comElementName, &ctx->comElementParams);
+    Log(L"Paths init [6] COM axis params...");
+    ReadAxisComParamsForOid(ctx->oid, &ctx->axisComName, &ctx->axisComParams);
+    Log(L"Paths init [7] COM axis relations...");
+    ReadAxisComRelationsForOid(ctx->oid, &ctx->axisComRelations);
+    Log(L"Paths init [8] MAPI connected count...");
+    ctx->connectedCount = GetMapiConnectedCount(ctx->pGate, ctx->oid);
+    Log(L"Paths init [9] MAPI shape...");
+    CollectMapiShape(ctx);
+    Log(L"Paths init [10] owner class counts...");
+    CollectOwnerClassCounts(ctx->oid, ctx->ownerClasses);
+    // Закрываем объект — он больше не нужен, данные уже собраны
+    if (ctx->pObj) { ctx->pObj->close(); ctx->pObj = nullptr; }
+    Log(L"Paths init [11] done, building window...");
+
+    std::wstring title = L"MCS Paths — " + ctx->nativeClass;
+    HWND hNcadMain = adsw_acadMainWnd();
+    HWND hWnd = ::CreateWindowExW(
+        WS_EX_APPWINDOW,
+        L"DtmxNrxPathExplorer",
+        title.c_str(),
+        WS_OVERLAPPEDWINDOW,
+        CW_USEDEFAULT, CW_USEDEFAULT, 920, 700,
+        hNcadMain, nullptr, g_hInst, ctx);
+
+    if (!hWnd) {
+        delete ctx;
+        Log(L"CreateWindowExW DtmxNrxPathExplorer failed err=" + std::to_wstring(::GetLastError()));
+        return;
+    }
+    g_pathExplorerCtx = ctx;
+    ::ShowWindow(hWnd, SW_SHOW);
+    ::SetForegroundWindow(hWnd);
+    Log(L"=== DTMXNRX23PATHS window shown ===");
+}
+
 static void dtmxEditCmd()
 {
     dtmxNrx18SetCmd();
 }
 
+static void dtmxPingPublicCmd()
+{
+    LogClear();
+    Log(L"=== DTMXPING start ===");
+    Log(L"DTMXPING: ribbon/public command invoked");
+    ::acutPrintf(L"\nDTMXPING: OK, log = %ls\n", LOG_PATH);
+    ::MessageBoxW(nullptr,
+                  L"DTMXPING: кнопка ribbon дошла до NRX.\nПроверьте dtmx_nrx_log.txt на рабочем столе.",
+                  L"DTMX ribbon ping",
+                  MB_OK | MB_ICONINFORMATION | MB_TOPMOST);
+}
+
 static void dtmxLogCmd()
 {
     dtmxNrx20TreeCmd();
+}
+
+static void dtmxSubElementsPublicCmd()
+{
+    dtmxSubElementsCmd();
+}
+
+static void dtmxContainerProbePublicCmd()
+{
+    dtmxContainersProbeCmd();
+}
+
+static void dtmxRelationProbePublicCmd()
+{
+    dtmxRelationProbeCmd();
 }
 
 static void dtmxNrx18SetCmd()
@@ -2650,14 +6345,14 @@ static void dtmxNrx18SetCmd()
         return;
     }
 
-    // 1. Selection
-    ads_name ss = {};
-    bool gotSS = (::acedSSGet(L":I", nullptr, nullptr, nullptr, ss) == RTNORM);
-    if (!gotSS) gotSS = (::acedSSGet(nullptr, nullptr, nullptr, nullptr, ss) == RTNORM);
-    if (!gotSS) { Log(L"no selection"); return; }
-    long ssLen = 0;
-    NCAD_SSLength(ss, &ssLen);
-    if (ssLen == 0) { ::acedSSFree(ss); return; }
+    // 1. Selection: preselected only
+    std::vector<AcDbObjectId> selected = GetSelectedObjects();
+    if (selected.empty()) {
+        Log(L"no preselected objects");
+        ::acutPrintf(L"\nDTMXEDIT: сначала выделите объекты, затем запускайте команду\n");
+        return;
+    }
+    const long ssLen = (long)selected.size();
     Log(L"selected: " + std::to_wstring(ssLen));
 
     // 2. Enumerate params — MAPI first, vtable fallback
@@ -2665,11 +6360,7 @@ static void dtmxNrx18SetCmd()
     struct ObjEntry { AcDbObjectId oid; std::map<std::wstring,std::wstring> params; };
     std::vector<ObjEntry> objects;
     for (long i = 0; i < ssLen; ++i) {
-        ads_name en = {};
-        NCAD_SSName(ss, i, en);
-        AcDbObjectId oid;
-        Acad::ErrorStatus es = ::acdbGetObjectId(oid, en);
-        if (es != Acad::eOk) { Log(L"  [" + std::to_wstring(i) + L"] getObjectId es=" + std::to_wstring((int)es)); continue; }
+        AcDbObjectId oid = selected[(size_t)i];
 
         // --- MAPI path ---
         bool mapiOk = false;
@@ -2711,8 +6402,6 @@ static void dtmxNrx18SetCmd()
         for (auto& p : ps) oe.params[p.name] = p.dispValue;
         objects.push_back(std::move(oe));
     }
-    ::acedSSFree(ss);
-
     if (objects.empty()) {
         ::acutPrintf(L"\nDTMXNRX18SET: no parametric objects found — see log\n");
         return;
@@ -2794,9 +6483,9 @@ BOOL WINAPI DllMain(HINSTANCE hInst, DWORD reason, LPVOID)
     return TRUE;
 }
 
-// в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
+// ─────────────────────────────────────────────────────────────────
 // NRX entry point
-// в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
+// ─────────────────────────────────────────────────────────────────
 
 #ifdef DTMXNRX_MODULE
   #define DLLEXP __declspec(dllexport)
@@ -2838,8 +6527,16 @@ acrxEntryPoint(AcRx::AppMsgCode msg, void* appId)
                                   ACRX_CMD_MODAL, dtmxNrx12xSetParamArg4Cmd);
         ::acedRegCmds->addCommand(L"DTMX_PUBLIC_GROUP", L"DTMXEDIT",  L"DTMXEDIT",
                                   ACRX_CMD_MODAL, dtmxEditCmd);
+        ::acedRegCmds->addCommand(L"DTMX_PUBLIC_GROUP", L"DTMXPING",  L"DTMXPING",
+                                  ACRX_CMD_MODAL, dtmxPingPublicCmd);
         ::acedRegCmds->addCommand(L"DTMX_PUBLIC_GROUP", L"DTMXLOG",  L"DTMXLOG",
                                   ACRX_CMD_MODAL, dtmxLogCmd);
+        ::acedRegCmds->addCommand(L"DTMX_PUBLIC_GROUP", L"DTMXSUBELEMENTS",  L"DTMXSUBELEMENTS",
+                                  ACRX_CMD_MODAL, dtmxSubElementsPublicCmd);
+        ::acedRegCmds->addCommand(L"DTMX_PUBLIC_GROUP", L"DTMXCONTAINERPROBE",  L"DTMXCONTAINERPROBE",
+                                  ACRX_CMD_MODAL, dtmxContainerProbePublicCmd);
+        ::acedRegCmds->addCommand(L"DTMX_PUBLIC_GROUP", L"DTMXRELPROBE",  L"DTMXRELPROBE",
+                                  ACRX_CMD_MODAL, dtmxRelationProbePublicCmd);
         ::acedRegCmds->addCommand(L"DTMXNRX18_GROUP", L"DTMXNRX18SET",  L"DTMXNRX18SET",
                                   ACRX_CMD_MODAL, dtmxNrx18SetCmd);
         ::acedRegCmds->addCommand(L"DTMXNRX19_GROUP", L"DTMXNRX19DUMP", L"DTMXNRX19DUMP",
@@ -2850,7 +6547,13 @@ acrxEntryPoint(AcRx::AppMsgCode msg, void* appId)
                                   ACRX_CMD_MODAL, dtmxNrx21OwnerProbeCmd);
         ::acedRegCmds->addCommand(L"DTMXNRX21_GROUP", L"DTMXNRX21OSET", L"DTMXNRX21OSET",
                                   ACRX_CMD_MODAL, dtmxNrx21OwnerSetCmd);
-        ::acutPrintf(L"\nDTMXNRX loaded. Main: DTMXEDIT  DTMXLOG\n");
+        ::acedRegCmds->addCommand(L"DTMXNRX21_GROUP", L"DTMXNRX21PARAMDEF", L"DTMXNRX21PARAMDEF",
+                                  ACRX_CMD_MODAL, dtmxNrx21ParamDefCmd);
+        ::acedRegCmds->addCommand(L"DTMXNRX22_GROUP", L"DTMXNRX22EXPLORE", L"DTMXNRX22EXPLORE",
+                                  ACRX_CMD_MODAL, dtmxNrx22ExploreCmd);
+        ::acedRegCmds->addCommand(L"DTMXNRX23_GROUP", L"DTMXNRX23PATHS", L"DTMXNRX23PATHS",
+                                  ACRX_CMD_MODAL, dtmxNrx23PathsCmd);
+        ::acutPrintf(L"\nDTMXNRX loaded. Main: DTMXEDIT  DTMXNRX22EXPLORE  DTMXNRX23PATHS\n");
         break;
     case AcRx::kUnloadAppMsg:
         ::acedRegCmds->removeGroup(L"DTMX_PUBLIC_GROUP");
@@ -2863,6 +6566,12 @@ acrxEntryPoint(AcRx::AppMsgCode msg, void* appId)
         ::acedRegCmds->removeGroup(L"DTMXNRX19_GROUP");
         ::acedRegCmds->removeGroup(L"DTMXNRX20_GROUP");
         ::acedRegCmds->removeGroup(L"DTMXNRX21_GROUP");
+        ::acedRegCmds->removeGroup(L"DTMXNRX22_GROUP");
+        ::acedRegCmds->removeGroup(L"DTMXNRX23_GROUP");
+        if (g_explorerCtx && ::IsWindow(g_explorerCtx->hWnd))
+            ::DestroyWindow(g_explorerCtx->hWnd);  // WM_DESTROY сам почистит ctx
+        if (g_pathExplorerCtx && ::IsWindow(g_pathExplorerCtx->hWnd))
+            ::DestroyWindow(g_pathExplorerCtx->hWnd);  // WM_DESTROY сам почистит ctx
         UnregisterDlgClass();
         break;
     }

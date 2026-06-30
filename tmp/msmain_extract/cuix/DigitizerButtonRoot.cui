@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!--
+Внимание! Не изменяйте содержимое этого файла.
+При попытке редактирования этого файла с помощью редактора XML функциональные
+возможности адаптации и переноса могут быть утрачены. Для изменения
+информации в файле адаптации воспользуйтесь диалоговым окном
+"Адаптация пользовательского интерфейса" в программе.
+Для доступа к диалоговому окну "Адаптация пользовательского интерфейса" выберите меню "Сервис",
+откройте панель "Адаптация" и нажмите кнопку "Пользовательский интерфейс" либо введите НПИ в командной строке.
+-->
+<DigitizerButtonRoot xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ButtonGroup UID="BGU_220_5E754">
+    <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    <Alias>ALTERNATE BUTTONS1</Alias>
+    <ButtonItem BlankLine="true" UID="BIU_220_BA7CD">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ButtonItem>
+  </ButtonGroup>
+  <ButtonGroup UID="BGU_220_287D1">
+    <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    <Alias>ALTERNATE BUTTONS2</Alias>
+    <ButtonItem BlankLine="true" UID="BIU_220_22437">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ButtonItem>
+  </ButtonGroup>
+  <ButtonGroup UID="BGU_220_92201">
+    <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    <Alias>ALTERNATE BUTTONS3</Alias>
+    <ButtonItem BlankLine="true" UID="BIU_220_92C5D">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ButtonItem>
+  </ButtonGroup>
+  <ButtonGroup UID="BGU_220_94EC3">
+    <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    <Alias>ALTERNATE BUTTONS4</Alias>
+    <ButtonItem BlankLine="true" UID="BIU_220_D2949">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ButtonItem>
+  </ButtonGroup>
+</DigitizerButtonRoot>

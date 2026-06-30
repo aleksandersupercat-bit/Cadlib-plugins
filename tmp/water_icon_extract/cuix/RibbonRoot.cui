@@ -1,0 +1,682 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+Внимание! Не изменяйте содержимое этого файла.
+При попытке редактирования этого файла с помощью редактора XML функциональные
+возможности адаптации и переноса могут быть утрачены. Для изменения
+информации в файле адаптации воспользуйтесь диалоговым окном
+"Адаптация пользовательского интерфейса" в программе.
+Для доступа к диалоговому окну "Адаптация пользовательского интерфейса" выберите меню "Сервис",
+откройте панель "Адаптация" и нажмите кнопку "Пользовательский интерфейс" либо введите НПИ в командной строке.
+-->
+<RibbonRoot>
+  <RibbonPanelSourceCollection xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <RibbonPanelSource UID="RBNU_0480" Text="Трубопровод" HiddenInEditor="false">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_6876">Трубопровод</Name>
+      <RibbonRow UID="RBNU_1597">
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <RibbonRowPanel UID="RBNU_220_EAC2E" ResizeStyle="None" ResizePriority="100" TopJustify="True">
+          <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+          <RibbonRow UID="RBNU_220_2B17C">
+            <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+            <RibbonSplitButton UID="RBNU_220_27826" Id="AcRibbonSplitButton" Text="Разное" Behavior="SplitFollow" ListStyle="IconText" ButtonStyle="LargeWithText" Grouping="false">
+              <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+              <RibbonCommandButton UID="RBNU_220_40978" Id="AcRibbonCommandButton" Text="Сетка&#xD;осей" ButtonStyle="LargeWithText" MenuMacroID="urs_axis_new" KeyTip="">
+                <TooltipTitle xlate="true" UID="XLS_220_7E17E">Сетка осей</TooltipTitle>
+                <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonSeparator UID="RBNU_220_2C229" Id="AcRibbonSeparator" SeparatorStyle="Line">
+                <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+              </RibbonSeparator>
+              <RibbonCommandButton UID="RBNU_220_3CECF" Id="AcRibbonCommandButton" Text="ПСК&#xD;по детали" ButtonStyle="LargeWithText" MenuMacroID="pipe_ucs">
+                <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="RBNU_220_2E515" Id="AcRibbonCommandButton" Text="ПСК&#xD;по XY детали" ButtonStyle="LargeWithText" MenuMacroID="pipe_ucsxy">
+                <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="RBNU_220_0E3BB" Id="AcRibbonCommandButton" Text="ПСК&#xD;по XZ детали" ButtonStyle="LargeWithText" MenuMacroID="pipe_ucsxz">
+                <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="RBNU_220_76056" Id="AcRibbonCommandButton" Text="ПСК&#xD;по YZ детали" ButtonStyle="LargeWithText" MenuMacroID="pipe_ucsyz">
+                <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonSeparator UID="RBNU_220_3243A" Id="AcRibbonSeparator" SeparatorStyle="Line">
+                <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+              </RibbonSeparator>
+              <RibbonCommandButton UID="RBNU_220_BC38C" Id="AcRibbonCommandButton" Text="Параметры&#xD;трубопровода" ButtonStyle="LargeWithText" MenuMacroID="pipe_draw_settings" KeyTip="">
+                <TooltipTitle xlate="true" UID="XLS_220_A99C2">Параметры отрисовки трубопровода</TooltipTitle>
+                <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="RBNU_220_C3715" Id="AcRibbonCommandButton" Text="Параметры&#xD;детали" ButtonStyle="LargeWithText" MenuMacroID="pipe_edit_Parameters" KeyTip="">
+                <TooltipTitle xlate="true" UID="XLS_220_7392F">Параметры отрисовки детали</TooltipTitle>
+                <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonSeparator UID="RBNU_220_45214" Id="AcRibbonSeparator" SeparatorStyle="Line">
+                <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+              </RibbonSeparator>
+              <RibbonCommandButton UID="RBNU_230_C4588" Id="AcRibbonCommandButton" Text="Регенерация&#xD;трубопровода" ButtonStyle="LargeWithText" MenuMacroID="pipe_regen_model" KeyTip="">
+                <TooltipTitle xlate="true" UID="XLS_230_E4570">Регенерация трубопровода</TooltipTitle>
+                <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="RBNU_220_94D8D" Id="AcRibbonCommandButton" Text="Восстановление&#xD;объектов ветвления" ButtonStyle="LargeWithText" MenuMacroID="pipe_restore_tee" KeyTip="">
+                <TooltipTitle xlate="true" UID="XLS_220_67A75">Сервис: Восстановление объектов ветвления</TooltipTitle>
+                <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="RBNU_220_274DC" Id="AcRibbonCommandButton" Text="Восстановление&#xD;целостности" ButtonStyle="LargeWithText" MenuMacroID="pipe_repair" KeyTip="">
+                <TooltipTitle xlate="true" UID="XLS_220_AF5BC">Сервис: Восстановление целостности</TooltipTitle>
+                <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="RBNU_220_A5CD7" Id="AcRibbonCommandButton" Text="Информация по&#xD;деталям трубопровода" ButtonStyle="LargeWithText" MenuMacroID="PIPE_DUMP" KeyTip="">
+                <TooltipTitle xlate="true" UID="XLS_220_BC178">Сервис: Информация по деталям трубопровода</TooltipTitle>
+                <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="RBNU_220_94757" Id="AcRibbonCommandButton" Text="Информация по&#xD;сегменту трубопровода" ButtonStyle="LargeWithText" MenuMacroID="PIPE_SEG_DIAG" KeyTip="">
+                <TooltipTitle xlate="true" UID="XLS_220_FF0AD">Сервис: Информация по сегменту трубопровода</TooltipTitle>
+                <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+            </RibbonSplitButton>
+          </RibbonRow>
+        </RibbonRowPanel>
+        <RibbonSeparator UID="RBNU_220_51F91" Id="AcRibbonSeparator" SeparatorStyle="Line">
+          <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        </RibbonSeparator>
+        <RibbonRowPanel UID="RBNU_220_39CA8" ResizeStyle="None" ResizePriority="100" TopJustify="True">
+          <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+          <RibbonRow UID="RBNU_220_E1BA7">
+            <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+            <RibbonSplitButton UID="RBNU_200_25101" Id="AcRibbonSplitButton" CommandID="pipe_draw_pipeline" CommandType="Macro" Text="Трубопроводы" Behavior="SplitFollow" ListStyle="IconText" ButtonStyle="LargeWithText" Grouping="false">
+              <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+              <RibbonCommandButton UID="RBNU_220_936CB" Id="AcRibbonCommandButton" Text="Отрисовать&#xD;трубопровод" ButtonStyle="LargeWithText" MenuMacroID="pipe_draw_pipeline" KeyTip="">
+                <TooltipTitle xlate="true" UID="XLS_220_B1868">Отрисовать трубопровод</TooltipTitle>
+                <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonSeparator UID="RBNU_220_17DCB" Id="AcRibbonSeparator" SeparatorStyle="Line">
+                <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+              </RibbonSeparator>
+              <RibbonCommandButton UID="RBNU_220_63D20" Id="AcRibbonCommandButton" Text="Параллельные&#xD;трубы" ButtonStyle="LargeWithText" MenuMacroID="PIPE_PARALLELPIPE">
+                <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="RBNU_220_F96FB" Id="AcRibbonCommandButton" Text="Гнутая&#xD;труба" ButtonStyle="LargeWithText" MenuMacroID="PIPE_DRAWNSEG" KeyTip="">
+                <TooltipTitle xlate="true" UID="XLS_220_D31C3">Гнутая труба</TooltipTitle>
+                <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="RBNU_241_D67D5" Id="AcRibbonCommandButton" Text="Расстановка соединений" ButtonStyle="LargeWithText" MenuMacroID="PIPE_PIPEJOINT" KeyTip="">
+                <TooltipTitle xlate="true" UID="XLS_241_85FDE">Расстановка соединительных элементов</TooltipTitle>
+                <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="RBNU_241_FBEC2" Id="AcRibbonCommandButton" Text="Расстановка отверстий" ButtonStyle="LargeWithText" MenuMacroID="pipe_holeprocess" KeyTip="">
+                <TooltipTitle xlate="true" UID="XLS_241_2B0F6">Разместить в модели элементы отверстий/проходок.</TooltipTitle>
+                <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonSeparator UID="RBNU_220_4BCCA" Id="AcRibbonSeparator" SeparatorStyle="Line">
+                <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+              </RibbonSeparator>
+              <RibbonCommandButton UID="RBNU_220_0DD00" Id="AcRibbonCommandButton" Text="Создать&#xD;трассу" ButtonStyle="LargeWithText" MenuMacroID="PIPE_CREATEPATH">
+                <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="RBNU_220_39427" Id="AcRibbonCommandButton" Text="Автотрассирование" ButtonStyle="LargeWithText" MenuMacroID="eq_connect">
+                <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="RBNU_220_C17E5" Id="AcRibbonCommandButton" Text="Перетрассировать" ButtonStyle="LargeWithText" MenuMacroID="pipe_retrace">
+                <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonSeparator UID="RBNU_220_69B54" Id="AcRibbonSeparator" SeparatorStyle="Line">
+                <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+              </RibbonSeparator>
+              <RibbonCommandButton UID="RBNU_220_71307" Id="AcRibbonCommandButton" Text="Редактор&#xD;соединений" ButtonStyle="LargeWithText" MenuMacroID="connector_show">
+                <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="RBNU_220_2D91D" Id="AcRibbonCommandButton" Text="Создать&#xD;задание" ButtonStyle="LargeWithText" MenuMacroID="connector_xml_out">
+                <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="RBNU_220_2A936" Id="AcRibbonCommandButton" Text="Выполнить&#xD;задание" ButtonStyle="LargeWithText" MenuMacroID="connector_xml_in">
+                <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+            </RibbonSplitButton>
+          </RibbonRow>
+        </RibbonRowPanel>
+        <RibbonSeparator UID="RBNU_220_359EC" Id="AcRibbonSeparator" SeparatorStyle="Line">
+          <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        </RibbonSeparator>
+        <RibbonRowPanel UID="RBNU_220_89422" ResizeStyle="None" ResizePriority="100" TopJustify="True">
+          <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+          <RibbonRow UID="RBNU_220_F05BA">
+            <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+            <RibbonSplitButton UID="RBNU_220_CCE54" Id="AcRibbonSplitButton" Text="Арматура" Behavior="SplitFollow" ListStyle="IconText" ButtonStyle="LargeWithText" Grouping="false">
+              <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+              <RibbonCommandButton UID="RBNU_220_C4A15" Id="AcRibbonCommandButton" Text="Арматура" ButtonStyle="LargeWithText" MenuMacroID="pipe_InLine" KeyTip="">
+                <TooltipTitle xlate="true" UID="XLS_220_23408">Добавить арматуру</TooltipTitle>
+                <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonSeparator UID="RBNU_220_78027" Id="AcRibbonSeparator" SeparatorStyle="Line">
+                <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+              </RibbonSeparator>
+              <RibbonCommandButton UID="RBNU_220_FBCF8" Id="AcRibbonCommandButton" Text="Арматура со&#xD;смещением осей" ButtonStyle="LargeWithText" MenuMacroID="pipe_Offset" KeyTip="">
+                <TooltipTitle xlate="true" UID="XLS_220_0CD62">Добавить арматуру со смещением осей</TooltipTitle>
+                <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="RBNU_241_ADC7D" Id="AcRibbonCommandButton" Text="Арматура угловая" ButtonStyle="LargeWithText" MenuMacroID="pipe_elbow_inline" KeyTip="">
+                <TooltipTitle xlate="true" UID="XLS_241_2F985">Добавить угловую арматуру</TooltipTitle>
+                <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonSeparator UID="RBNU_220_1E817" Id="AcRibbonSeparator" SeparatorStyle="Line">
+                <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+              </RibbonSeparator>
+              <RibbonCommandButton UID="RBNU_220_FA85F" Id="AcRibbonCommandButton" Text="Элемент" ButtonStyle="LargeWithText" MenuMacroID="PIPE_PIPEELEMENT" KeyTip="">
+                <TooltipTitle xlate="true" UID="XLS_220_293E2">Добавить элемент</TooltipTitle>
+                <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="RBNU_220_8CFD3" Id="AcRibbonCommandButton" Text="Линейное&#xD;оборудование" ButtonStyle="LargeWithText" MenuMacroID="PIPE_INLINEEQ" KeyTip="">
+                <TooltipTitle xlate="true" UID="XLS_220_1B0D4">Добавить линейное оборудование</TooltipTitle>
+                <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonSeparator UID="RBNU_220_E04A8" Id="AcRibbonSeparator" SeparatorStyle="Line">
+                <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+              </RibbonSeparator>
+              <RibbonCommandButton UID="RBNU_220_9EF4A" Id="AcRibbonCommandButton" Text="Комплектная&#xD;арматура" ButtonStyle="LargeWithText" MenuMacroID="pipe_ValveAsm" KeyTip="">
+                <TooltipTitle xlate="true" UID="XLS_220_86F79">Сформировать комплектную арматуру</TooltipTitle>
+                <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="RBNU_220_44C4D" Id="AcRibbonCommandButton" Text="Укомплектовать&#xD;арматуру" ButtonStyle="LargeWithText" MenuMacroID="PIPE_ITEM_COMPLETE" KeyTip="">
+                <TooltipTitle xlate="true" UID="XLS_220_74EFD">Укомплектовать арматуру</TooltipTitle>
+                <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="RBNU_210_7D128" Id="AcRibbonCommandButton" Text="Создать&#xD;прототип" ButtonStyle="LargeWithText" MenuMacroID="pipe_prototype_new" KeyTip="">
+                <TooltipTitle xlate="true" UID="XLS_210_9F107">Создать прототип комплектной арматуры</TooltipTitle>
+                <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+            </RibbonSplitButton>
+          </RibbonRow>
+        </RibbonRowPanel>
+        <RibbonRowPanel UID="RBNU_220_B1F5B" ResizeStyle="None" ResizePriority="100" TopJustify="True">
+          <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+          <RibbonRow UID="RBNU_220_8F306">
+            <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+            <RibbonSplitButton UID="RBNU_220_DBAE9" Id="AcRibbonSplitButton" Text="Переходы" Behavior="SplitFollow" ListStyle="IconText" ButtonStyle="LargeWithText" Grouping="false">
+              <ModifiedRev MajorVersion="20" MinorVersion="1" UserVersion="1" />
+              <RibbonCommandButton UID="RBNU_220_56036" Id="AcRibbonCommandButton" Text="Переход" ButtonStyle="LargeWithText" MenuMacroID="pipe_Reducer">
+                <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="RBNU_220_21F04" Id="AcRibbonCommandButton" Text="Эксцентрический&#xD;переход" ButtonStyle="LargeWithText" MenuMacroID="pipe_ReducerEx">
+                <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="RBNU_220_D5A45" Id="AcRibbonCommandButton" Text="Cужение&#xD;/расширение" ButtonStyle="LargeWithText" MenuMacroID="pipe_reducer_Span">
+                <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="RBNU_220_4A7A1" Id="AcRibbonCommandButton" Text="Заменить&#xD;тип перехода" ButtonStyle="LargeWithText" MenuMacroID="pipe_reducer_Swap">
+                <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+            </RibbonSplitButton>
+          </RibbonRow>
+        </RibbonRowPanel>
+        <RibbonRowPanel UID="RBNU_220_771ED" ResizeStyle="None" ResizePriority="100" TopJustify="True">
+          <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+          <RibbonRow UID="RBNU_220_12AB2">
+            <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+            <RibbonSplitButton UID="RBNU_220_5B096" Id="AcRibbonSplitButton" CommandID="pipe_tee" CommandType="Macro" Text="Ветвление" Behavior="SplitFollow" ListStyle="IconText" ButtonStyle="LargeWithText" Grouping="false">
+              <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+              <RibbonCommandButton UID="RBNU_220_65651" Id="AcRibbonCommandButton" Text="Соединить&#xD;тройником" ButtonStyle="LargeWithText" MenuMacroID="pipe_tee">
+                <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="RBNU_241_EE6E5" Id="AcRibbonCommandButton" Text="Вставить тройник" ButtonStyle="LargeWithText" MenuMacroID="pipe_pipetee" KeyTip="">
+                <TooltipTitle xlate="true" UID="XLS_241_7F0BF">Вставить тройник</TooltipTitle>
+                <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="RBNU_220_D3044" Id="AcRibbonCommandButton" Text="Отвод" ButtonStyle="LargeWithText" MenuMacroID="pipe_Elbow">
+                <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="RBNU_220_1B80F" Id="AcRibbonCommandButton" Text="Отвод со&#xD;смещением осей" ButtonStyle="LargeWithText" MenuMacroID="PIPE_ELBOW_OFFSET" KeyTip="">
+                <TooltipTitle xlate="true" UID="XLS_220_D55DE">Добавить отвод со смещением осей</TooltipTitle>
+                <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="RBNU_220_D6DEF" Id="AcRibbonCommandButton" Text="Байпас" ButtonStyle="LargeWithText" MenuMacroID="pipe_Bypass">
+                <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="RBNU_220_5B2C7" Id="AcRibbonCommandButton" Text="Вертикальный&#xD;участок" ButtonStyle="LargeWithText" MenuMacroID="pipe_CreateVerticalSect">
+                <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="RBNU_220_AF9A6" Id="AcRibbonCommandButton" Text="П-образный&#xD;компенсатор" ButtonStyle="LargeWithText" MenuMacroID="pipe_UShaped">
+                <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+            </RibbonSplitButton>
+          </RibbonRow>
+        </RibbonRowPanel>
+        <RibbonRowPanel UID="RBNU_220_E149A" ResizeStyle="None" ResizePriority="100" TopJustify="True">
+          <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+          <RibbonRow UID="RBNU_220_2B3D0">
+            <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+            <RibbonSplitButton UID="RBNU_220_9D347" Id="AcRibbonSplitButton" Text="Опоры" Behavior="SplitFollow" ListStyle="IconText" ButtonStyle="LargeWithText" Grouping="false">
+              <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+              <RibbonCommandButton UID="RBNU_220_54425" Id="AcRibbonCommandButton" Text="Опора" ButtonStyle="LargeWithText" MenuMacroID="pipe_Support">
+                <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="RBNU_220_EEB6B" Id="AcRibbonCommandButton" Text="Нумеровать&#xD;опоры" ButtonStyle="LargeWithText" MenuMacroID="PIPE_SUPPORT_ENUM" KeyTip="">
+                <TooltipTitle xlate="true" UID="XLS_220_3B62B">Нумеровать опору</TooltipTitle>
+                <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="RBNU_220_D9B09" Id="AcRibbonCommandButton" Text="Удалить&#xD;нумерацию" ButtonStyle="LargeWithText" MenuMacroID="PIPE_SUPPORT_ENUMCLEAR" KeyTip="">
+                <TooltipTitle xlate="true" UID="XLS_220_A562E">Удалить нумерацию опор</TooltipTitle>
+                <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="RBNU_230_40041" Id="AcRibbonCommandButton" Text="Нумерация опор&#xD;по траверсам" ButtonStyle="LargeWithText" MenuMacroID="pipe_Support_trnum" KeyTip="">
+                <TooltipTitle xlate="true" UID="XLS_230_4C3C1">Нумерация опор по траверсам</TooltipTitle>
+                <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+            </RibbonSplitButton>
+          </RibbonRow>
+        </RibbonRowPanel>
+        <RibbonRowPanel UID="RBNU_220_9E095" ResizeStyle="None" ResizePriority="100" TopJustify="True">
+          <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+          <RibbonRow UID="RBNU_220_50596">
+            <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+            <RibbonSplitButton UID="RBNU_210_7A787" Id="AcRibbonSplitButton" Text="Изоляция" Behavior="DropDownFollow" ListStyle="IconText" ButtonStyle="LargeWithText" Grouping="false">
+              <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+              <RibbonCommandButton UID="RBNU_210_A6376" Id="AcRibbonCommandButton" Text="Изоляция" ButtonStyle="LargeWithText" MenuMacroID="PIPE_MULTIPIPE_INSULATION">
+                <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="RBNU_210_A848C" Id="AcRibbonCommandButton" Text="" ButtonStyle="LargeWithText" MenuMacroID="PIPE_INSULATION_SEGSPLIT" KeyTip="">
+                <TooltipTitle xlate="true" UID="XLS_210_0C4F7">Разрыв изоляции</TooltipTitle>
+                <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+            </RibbonSplitButton>
+          </RibbonRow>
+        </RibbonRowPanel>
+      </RibbonRow>
+      <RibbonPanelBreak UID="RBNU_0500" Id="AcRibbonPanelBreak" />
+    </RibbonPanelSource>
+    <RibbonPanelSource UID="RBNU_220_5D1A2" Text="Редактирование" HiddenInEditor="false">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_BF98C">Редактирование</Name>
+      <RibbonRow UID="RBNU_220_91857">
+        <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+        <RibbonRowPanel UID="RBNU_220_64614" ResizeStyle="None" ResizePriority="100" TopJustify="True">
+          <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+          <RibbonRow UID="RBNU_220_D2F8C">
+            <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+            <RibbonSplitButton UID="RBNU_220_062BC" Id="AcRibbonSplitButton" CommandID="eq_disconnect" CommandType="Macro" Text="Редактировать трубопровод" Behavior="SplitFollow" ListStyle="IconText" ButtonStyle="LargeWithText" Grouping="false">
+              <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+              <RibbonCommandButton UID="ID_RBN_220_E4CCB" Id="AcRibbonCommandButton" Text="Уклон&#xD;трубопровода" ButtonStyle="LargeWithText" MenuMacroID="pipe_edit_Slope">
+                <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="ID_RBN_220_5083B" Id="AcRibbonCommandButton" Text="Направление&#xD;трубопровода" ButtonStyle="LargeWithText" MenuMacroID="pipe_edit_ReverseFlow">
+                <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="RBNU_220_ADFDB" Id="AcRibbonCommandButton" Text="Изменить&#xD;диаметр" ButtonStyle="LargeWithText" MenuMacroID="PIPE_CHANGE_DIAMETER" KeyTip="">
+                <TooltipTitle xlate="true" UID="XLS_220_01E08">Изменить диаметр</TooltipTitle>
+                <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonSeparator UID="ID_RBN_220_4FD30" Id="AcRibbonSeparator" SeparatorStyle="Line" />
+              <RibbonCommandButton UID="ID_RBN_220_13778" Id="AcRibbonCommandButton" Text="Назначить&#xD;диаметр узлу" ButtonStyle="LargeWithText" MenuMacroID="pipe_SetNodeDN">
+                <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonSeparator UID="ID_RBN_220_5C0C3" Id="AcRibbonSeparator" SeparatorStyle="Line" />
+              <RibbonCommandButton UID="ID_RBN_220_2B46E" Id="AcRibbonCommandButton" Text="Разделить&#xD;трубопровод" ButtonStyle="LargeWithText" MenuMacroID="pipe_edit_BreakAxis">
+                <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="ID_RBN_220_B7282" Id="AcRibbonCommandButton" Text="Объединить&#xD;трубопровод" ButtonStyle="LargeWithText" MenuMacroID="pipe_edit_JoinAxis">
+                <TooltipTitle xlate="true" UID="XLS_241_E6B3F">Объединить трубопровод</TooltipTitle>
+                <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="ID_RBN_220_D2DE6" Id="AcRibbonCommandButton" Text="Удалить&#xD;трубопровод" ButtonStyle="LargeWithText" MenuMacroID="pipe_delete">
+                <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="ID_RBN_220_C94AE" Id="AcRibbonCommandButton" Text="Перетрассировать&#xD;трубопровод" ButtonStyle="LargeWithText" MenuMacroID="pipe_retrace">
+                <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="ID_RBN_220_81D66" Id="AcRibbonCommandButton" Text="Отключить трубу&#xD;от оборудования" ButtonStyle="LargeWithText" MenuMacroID="eq_disconnect">
+                <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="ID_RBN_220_CD9A8" Id="AcRibbonCommandButton" Text="Обозначение трубной&#xD;сборки (для профиля)" ButtonStyle="LargeWithText" MenuMacroID="MSS_SET_PIPE_ASM">
+                <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="RBNU_241_182C6" Id="AcRibbonCommandButton" Text="Граница проектирования" ButtonStyle="LargeWithText" MenuMacroID="URS_BORDER_PROJECT" KeyTip="">
+                <TooltipTitle xlate="true" UID="XLS_241_7DA7C">Граница проектирования</TooltipTitle>
+                <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+              </RibbonCommandButton>
+            </RibbonSplitButton>
+          </RibbonRow>
+        </RibbonRowPanel>
+        <RibbonRowPanel UID="RBNU_220_FBDC8" ResizeStyle="None" ResizePriority="100" TopJustify="True">
+          <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+          <RibbonRow UID="RBNU_220_28310">
+            <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+            <RibbonSplitButton UID="RBNU_220_EECE3" Id="AcRibbonSplitButton" CommandID="pipe_copy" CommandType="Macro" Text="Копирование и преобразование" Behavior="SplitFollow" ListStyle="IconText" ButtonStyle="LargeWithText" Grouping="false">
+              <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+              <RibbonCommandButton UID="ID_RBN_220_C5631" Id="AcRibbonCommandButton" Text="Копировать весь трубопровод" ButtonStyle="LargeWithText" MenuMacroID="pipe_copy">
+                <TooltipTitle xlate="true" UID="XLS_241_D2C77">Копировать весь трубопровод</TooltipTitle>
+                <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="ID_RBN_220_BD459" Id="AcRibbonCommandButton" Text="Копировать&#xD;в другой файл" ButtonStyle="LargeWithText" MenuMacroID="pipe_xcopy">
+                <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="ID_RBN_220_DEDFC" Id="AcRibbonCommandButton" Text="Копировать фрагмент трубопровода" ButtonStyle="LargeWithText" MenuMacroID="pipe_CopyGroup">
+                <TooltipTitle xlate="true" UID="XLS_241_F989B">Копировать фрагмент трубопровода</TooltipTitle>
+                <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="ID_RBN_220_58A2C" Id="AcRibbonCommandButton" Text="Копировать деталь" ButtonStyle="LargeWithText" MenuMacroID="pipe_inlinecopy">
+                <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="RBNU_201_29F25" Id="AcRibbonCommandButton" Text="Расставить &#xD;элементы &#xD;трубопровода" ButtonStyle="SmallWithoutText" MenuMacroID="pipe_InsertIntersections" KeyTip="">
+                <TooltipTitle xlate="true" UID="XLS_201_EAB2F">Расставить элементы трубопровода</TooltipTitle>
+                <ModifiedRev MajorVersion="20" MinorVersion="1" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonSeparator UID="RBNU_210_2F260" Id="AcRibbonSeparator" SeparatorStyle="Line">
+                <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+              </RibbonSeparator>
+              <RibbonCommandButton UID="RBNU_231_312E5" Id="AcRibbonCommandButton" Text="Копировать параметры осевой" ButtonStyle="LargeWithText" MenuMacroID="pipe_axis_params_painter" KeyTip="">
+                <TooltipTitle xlate="true" UID="XLS_231_5243E">Копировать параметры осевой</TooltipTitle>
+                <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonSeparator UID="RBNU_231_E9270" Id="AcRibbonSeparator" SeparatorStyle="Line">
+                <ModifiedRev MajorVersion="23" MinorVersion="1" UserVersion="1" />
+              </RibbonSeparator>
+              <RibbonCommandButton UID="ID_RBN_220_63FF6" Id="AcRibbonCommandButton" Text="Переместить фрагмент трубопровода" ButtonStyle="LargeWithText" MenuMacroID="PIPE_MOVE">
+                <TooltipTitle xlate="true" UID="XLS_241_CF1A5">Переместить фрагмент трубопровода</TooltipTitle>
+                <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="ID_RBN_220_FD741" Id="AcRibbonCommandButton" Text="Переместить весь трубопровод" ButtonStyle="LargeWithText" MenuMacroID="pipe_moveAssembly">
+                <TooltipTitle xlate="true" UID="XLS_241_0D938">Переместить весь трубопровод</TooltipTitle>
+                <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="RBNU_230_B9E3D" Id="AcRibbonCommandButton" Text="Переместить&#xD;детали" ButtonStyle="LargeWithText" MenuMacroID="pipe_move_details" KeyTip="">
+                <TooltipTitle xlate="true" UID="XLS_230_21875">Переместить детали</TooltipTitle>
+                <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="ID_RBN_220_EC489" Id="AcRibbonCommandButton" Text="Повернуть весь трубопровод" ButtonStyle="LargeWithText" MenuMacroID="pipe_rotateAssembly">
+                <TooltipTitle xlate="true" UID="XLS_241_FF18E">Повернуть весь трубопровод</TooltipTitle>
+                <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonSeparator UID="ID_RBN_220_5D2E7" Id="AcRibbonSeparator" SeparatorStyle="Line" />
+              <RibbonCommandButton UID="ID_RBN_220_E702F" Id="AcRibbonCommandButton" Text="Труба&#xD;из полилинии" ButtonStyle="LargeWithText" MenuMacroID="pipe_CreateAlongPolyline">
+                <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="ID_RBN_220_EBC73" Id="AcRibbonCommandButton" Text="Труба&#xD;в полилинию" ButtonStyle="LargeWithText" MenuMacroID="pipe_ConvertToPL">
+                <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="ID_RBN_220_189B8" Id="AcRibbonCommandButton" Text="Оборудование&#xD;в деталь" ButtonStyle="LargeWithText" MenuMacroID="pipe_edit_SetPEFully">
+                <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="ID_RBN_220_997C6" Id="AcRibbonCommandButton" Text="Деталь&#xD;в оборудование" ButtonStyle="LargeWithText" MenuMacroID="pipe_ExtractPE">
+                <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="ID_RBN_220_D86EE" Id="AcRibbonCommandButton" Text="Параметры&#xD;в деталь" ButtonStyle="LargeWithText" MenuMacroID="pipe_edit_SetPE">
+                <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonSeparator UID="RBNU_220_954A3" Id="AcRibbonSeparator" SeparatorStyle="Line">
+                <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+              </RibbonSeparator>
+              <RibbonCommandButton UID="RBNU_220_1A2B9" Id="AcRibbonCommandButton" Text="Переместить&#xD;элемент" ButtonStyle="LargeWithText" MenuMacroID="mst_move_detail">
+                <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="RBNU_220_56670" Id="AcRibbonCommandButton" Text="Создать оборудование&#xD;из деталей" ButtonStyle="LargeWithText" MenuMacroID="mst_create_equipment">
+                <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="RBNU_220_CE083" Id="AcRibbonCommandButton" Text="Сохранить оборудование&#xD;в базе данных" ButtonStyle="LargeWithText" MenuMacroID="mst_addtolib_equipment">
+                <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+            </RibbonSplitButton>
+          </RibbonRow>
+        </RibbonRowPanel>
+        <RibbonRowPanel UID="RBNU_220_36D0B" ResizeStyle="None" ResizePriority="100" TopJustify="True">
+          <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+          <RibbonRow UID="RBNU_220_F8F0D">
+            <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+            <RibbonSplitButton UID="RBNU_220_7711B" Id="AcRibbonSplitButton" CommandID="pipe_SetNodeDN" CommandType="Macro" Text="Металлоконструкции" Behavior="SplitFollow" ListStyle="IconText" ButtonStyle="LargeWithText" Grouping="false">
+              <ModifiedRev MajorVersion="20" MinorVersion="1" UserVersion="1" />
+              <RibbonCommandButton UID="ID_RBN_220_FD71F" Id="AcRibbonCommandButton" Text="Редактор&#xD;металлопроката" ButtonStyle="LargeWithText" MenuMacroID="IRON_AXES_EDIT">
+                <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="ID_RBN_220_836FF" Id="AcRibbonCommandButton" Text="Обрезать&#xD;профиль" ButtonStyle="LargeWithText" MenuMacroID="IRON_AXIS_CUT">
+                <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="ID_RBN_220_54003" Id="AcRibbonCommandButton" Text="Удлинить&#xD;профиль" ButtonStyle="LargeWithText" MenuMacroID="IRON_AXIS_EXTEND">
+                <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="ID_RBN_220_DDE32" Id="AcRibbonCommandButton" Text="Разрезать&#xD;профиль" ButtonStyle="LargeWithText" MenuMacroID="IRON_AXIS_BREAK">
+                <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="ID_RBN_220_4BC60" Id="AcRibbonCommandButton" Text="Обрезать профиль&#xD;плоскостью" ButtonStyle="LargeWithText" MenuMacroID="IRON_AXIS_PLANETRIM">
+                <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonSeparator UID="RBNU_220_76131" Id="AcRibbonSeparator" SeparatorStyle="Line">
+                <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+              </RibbonSeparator>
+              <RibbonCommandButton UID="RBNU_220_84314" Id="AcRibbonCommandButton" Text="Добавить&#xD;траверсы" ButtonStyle="LargeWithText" MenuMacroID="IRON_CROSSARM" KeyTip="">
+                <TooltipTitle xlate="true" UID="XLS_220_73184">Добавить траверсу</TooltipTitle>
+                <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="RBNU_220_696D8" Id="AcRibbonCommandButton" Text="Редактор&#xD;траверс" ButtonStyle="LargeWithText" MenuMacroID="IRON_EDIT_CROSSARM" KeyTip="">
+                <TooltipTitle xlate="true" UID="XLS_220_E5C23">Редактор траверсы</TooltipTitle>
+                <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="RBNU_220_86185" Id="AcRibbonCommandButton" Text="Нумерация&#xD;траверс" ButtonStyle="LargeWithText" MenuMacroID="IRON_ENUM_CROSSARM" KeyTip="">
+                <GroupName xlate="true" UID="XLS_220_448A7" />
+                <TooltipTitle xlate="true" UID="XLS_220_91D9E">Нумерация траверс</TooltipTitle>
+                <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+            </RibbonSplitButton>
+            <RibbonCommandButton UID="RBNU_241_A9629" Id="AcRibbonCommandButton" Text="Параметры помещения в объекты модели" ButtonStyle="LargeWithText" MenuMacroID="add_parameter_from_room_to_object" KeyTip="">
+              <TooltipTitle xlate="true" UID="XLS_241_229B7">Параметры помещения в объекты модели</TooltipTitle>
+              <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+            </RibbonCommandButton>
+          </RibbonRow>
+        </RibbonRowPanel>
+        <RibbonRowPanel UID="RBNU_241_D2F50" ResizeStyle="None" ResizePriority="100" TopJustify="True">
+          <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+          <RibbonRow UID="RBNU_241_51161">
+            <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+            <RibbonCommandButton UID="RBNU_241_D2F54" Id="AcRibbonCommandButton" Text="Сохранить&#xD;отметку уровня" ButtonStyle="LargeWithText" MenuMacroID="MSS_SET_GROUND_LEVEL " KeyTip="">
+              <TooltipTitle xlate="true" UID="XLS_241_B3ED5">Сохранить отметку уровня</TooltipTitle>
+              <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+            </RibbonCommandButton>
+          </RibbonRow>
+        </RibbonRowPanel>
+      </RibbonRow>
+      <RibbonPanelBreak UID="RBNU_220_B3F66" Id="AcRibbonPanelBreak">
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      </RibbonPanelBreak>
+    </RibbonPanelSource>
+    <RibbonPanelSource UID="RBNU_220_D8DD5" Text="Миникаталоги" HiddenInEditor="false">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_2FBA7">Миникаталоги</Name>
+      <RibbonRow UID="RBNU_220_93B58">
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <RibbonRowPanel UID="RBNU_220_B2AA6" ResizeStyle="None" ResizePriority="100" TopJustify="True">
+          <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+          <RibbonRow UID="RBNU_220_67BB3">
+            <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+            <RibbonCommandButton UID="RBNU_220_70E3A" Id="AcRibbonCommandButton" Text="Назначить&#xD;типоразмеры" ButtonStyle="LargeWithText" MenuMacroID="pipe_lib" KeyTip="">
+              <TooltipTitle xlate="true" UID="XLS_220_2889E">Назначить типоразмеры</TooltipTitle>
+              <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+            </RibbonCommandButton>
+          </RibbonRow>
+        </RibbonRowPanel>
+        <RibbonRowPanel UID="RBNU_220_A49DD" ResizeStyle="None" ResizePriority="100" TopJustify="True">
+          <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+          <RibbonRow UID="RBNU_220_27896">
+            <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+            <RibbonSplitButton UID="RBNU_220_80010" Id="AcRibbonSplitButton" Text="Миникаталоги" Behavior="SplitFollow" ListStyle="IconText" ButtonStyle="LargeWithText" Grouping="false">
+              <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+              <RibbonCommandButton UID="RBNU_241_3D9EB" Id="AcRibbonCommandButton" Text="Миникаталог" ButtonStyle="LargeWithText" MenuMacroID="pipe_minidir" KeyTip="">
+                <TooltipTitle xlate="true" UID="XLS_241_9D72C">Миникаталог</TooltipTitle>
+                <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="RBNU_220_64CBF" Id="AcRibbonCommandButton" Text="Задать&#xD;миникаталог" ButtonStyle="LargeWithText" MenuMacroID="PIPE_SET_MINIDIR">
+                <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="RBNU_220_08492" Id="AcRibbonCommandButton" Text="Изменить&#xD;миникаталог" ButtonStyle="LargeWithText" MenuMacroID="PIPE_MD_APPLY " KeyTip="">
+                <TooltipTitle xlate="true" UID="XLS_220_4B0A2">Изменить миникаталог трубопровода</TooltipTitle>
+                <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="RBNU_220_57DC1" Id="AcRibbonCommandButton" Text="Заменить&#xD;деталь" ButtonStyle="LargeWithText" MenuMacroID="PIPE_MD_REPLACE_ITEM">
+                <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+            </RibbonSplitButton>
+          </RibbonRow>
+        </RibbonRowPanel>
+      </RibbonRow>
+      <RibbonPanelBreak UID="RBNU_220_C92F2" Id="AcRibbonPanelBreak">
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      </RibbonPanelBreak>
+    </RibbonPanelSource>
+    <RibbonPanelSource UID="RBNU_220_8F67B" Text="Схемы и расчеты" HiddenInEditor="false">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_7E8AB">Axogen и расчеты</Name>
+      <RibbonRow UID="RBNU_220_04BCE">
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <RibbonRowPanel UID="RBNU_220_9F042" ResizeStyle="None" ResizePriority="100" TopJustify="True">
+          <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+          <RibbonRow UID="RBNU_220_1128E">
+            <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+            <RibbonSplitButton UID="RBNU_5038" Id="AcRibbonSplitButton" Text="Аксоген" Behavior="SplitFollow" ListStyle="IconText" ButtonStyle="LargeWithText" Grouping="false">
+              <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+              <RibbonCommandButton UID="RBNU_200_47613" Id="AcRibbonCommandButton" Text="Изометрическая&#xD;схема" ButtonStyle="LargeWithText" MenuMacroID="MSS_ISOGEN">
+                <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="RBNU_241_68B5A" Id="AcRibbonCommandButton" Text="Изометрические схемы из проекта" ButtonStyle="LargeWithText" MenuMacroID="clp_isogen_from_project" KeyTip="">
+                <TooltipTitle xlate="true" UID="XLS_241_DB924">Пакетная генерация изометрических схем из проекта.</TooltipTitle>
+                <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="RBNU_220_753C8" Id="AcRibbonCommandButton" Text="Генерация&#xD;схем" ButtonStyle="LargeWithText" MenuMacroID="mss_schema_generate" KeyTip="">
+                <TooltipTitle xlate="true" UID="XLS_220_37D9F">Axogen: Генерация схем</TooltipTitle>
+                <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="RBNU_220_65D6B" Id="AcRibbonCommandButton" Text="Изменить&#xD;плоскость УГО" ButtonStyle="LargeWithText" MenuMacroID="MSS_SYMBOL_TOGGLE_PLANE" KeyTip="">
+                <TooltipTitle xlate="true" UID="XLS_220_7447B">Axogen: Изменить плоскость УГО</TooltipTitle>
+                <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="RBNU_230_954DD" Id="AcRibbonCommandButton" Text="Добавить&#xD;вершину" ButtonStyle="LargeWithText" MenuMacroID="MSS_LINK_INSERT_VERTEX" KeyTip="">
+                <TooltipTitle xlate="true" UID="XLS_230_0DF07">Добавить вершину</TooltipTitle>
+                <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="RBNU_230_1033E" Id="AcRibbonCommandButton" Text="Удалить&#xD;вершину" ButtonStyle="LargeWithText" MenuMacroID="MSS_LINK_DELETE_VERTEX" KeyTip="">
+                <TooltipTitle xlate="true" UID="XLS_230_DF53C">Удалить вершину</TooltipTitle>
+                <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="RBNU_220_602FA" Id="AcRibbonCommandButton" Text="Разделить и&#xD;перенести схему" ButtonStyle="LargeWithText" MenuMacroID="MSS_AXOGEN_SPLIT" KeyTip="">
+                <TooltipTitle xlate="true" UID="XLS_220_1FA15">Axogen: Разделить и перенести схему</TooltipTitle>
+                <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="RBNU_200_CADA8" Id="AcRibbonCommandButton" Text="Таблица&#xD;спецификации" ButtonStyle="LargeWithText" MenuMacroID="MSS_AXOGEN_TAB_01BOM">
+                <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="RBNU_200_15CDF" Id="AcRibbonCommandButton" Text="Таблица&#xD;длин труб" ButtonStyle="LargeWithText" MenuMacroID="MSS_AXOGEN_TAB_02LPIPE">
+                <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+            </RibbonSplitButton>
+          </RibbonRow>
+        </RibbonRowPanel>
+        <RibbonRowPanel UID="RBNU_220_36F28" ResizeStyle="None" ResizePriority="100" TopJustify="True">
+          <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+          <RibbonRow UID="RBNU_220_92E49">
+            <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+            <RibbonSplitButton UID="RBNU_2508" Id="AcRibbonSplitButton" Text="Расчеты" Behavior="SplitFollow" ListStyle="IconText" ButtonStyle="LargeWithText" Grouping="false">
+              <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+              <RibbonCommandButton UID="RBNU_2673" Id="AcRibbonCommandButton" Text="Нагрузки&#xD;на опоры" ButtonStyle="LargeWithText" MenuMacroID="MSS_REACTION_CALCULATE">
+                <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="RBNU_220_6F3D8" Id="AcRibbonCommandButton" Text="Исходные&#xD;данные" ButtonStyle="LargeWithText" MenuMacroID="MSS_REACTION_DATA" KeyTip="">
+                <TooltipTitle xlate="true" UID="XLS_220_7D5BF">Расчет нагрузок на опоры (Исходные данные)</TooltipTitle>
+                <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonSeparator UID="RBNU_220_26E03" Id="AcRibbonSeparator" SeparatorStyle="Line">
+                <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+              </RibbonSeparator>
+              <RibbonCommandButton UID="RBNU_5037" Id="AcRibbonCommandButton" Text="Экспорт&#xD;в &quot;CPipe&quot;" ButtonStyle="LargeWithoutText" MenuMacroID="PIPE_EXPORTCPIPE">
+                <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="ID_RBN" Id="AcRibbonCommandButton" Text="Экспорт в &quot;Старт&quot;" ButtonStyle="LargeWithoutText" MenuMacroID="pipe_ExportStart">
+                <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="RBNU_220_C5667" Id="AcRibbonCommandButton" Text="Импорт &#xD;из &quot;Старт&quot;" ButtonStyle="LargeWithText" MenuMacroID="PIPE_IMPORTSTART" KeyTip="">
+                <TooltipTitle xlate="true" UID="XLS_220_BC544">Расчет прочности (импорт из Старт)</TooltipTitle>
+                <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="ID_RBN_0001" Id="AcRibbonCommandButton" Text="Экспорт&#xD;в &quot;Гидросистема&quot;" ButtonStyle="LargeWithText" MenuMacroID="PIPE_EXPORTPCF">
+                <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+              <RibbonCommandButton UID="ID_RBN_0002" Id="AcRibbonCommandButton" Text="Экспорт&#xD;в &quot;Изоляция&quot;" ButtonStyle="LargeWithText" MenuMacroID="pipe_ExportInsulation">
+                <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+              </RibbonCommandButton>
+            </RibbonSplitButton>
+          </RibbonRow>
+        </RibbonRowPanel>
+      </RibbonRow>
+      <RibbonPanelBreak UID="RBNU_220_4F36F" Id="AcRibbonPanelBreak">
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      </RibbonPanelBreak>
+    </RibbonPanelSource>
+    <RibbonPanelSource UID="RBNU_220_1EC24" Text="Разное" HiddenInEditor="false">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_53D50">Разное</Name>
+      <RibbonRow UID="RBNU_220_C68DB">
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <RibbonSplitButton UID="RBNU_220_DD131" Id="AcRibbonSplitButton" Text="Панели инструментов" Behavior="SplitFollow" ListStyle="IconText" ButtonStyle="LargeWithoutText" Grouping="false">
+          <ModifiedRev MajorVersion="20" MinorVersion="1" UserVersion="1" />
+          <RibbonCommandButton UID="RBNU_210_0DD8A" Id="AcRibbonCommandButton" Text="" ButtonStyle="SmallWithoutText" MenuMacroID="MSPIPE_GENERAL" KeyTip="">
+            <TooltipTitle xlate="true" UID="XLS_210_830DA">Панель инструментов: Трубопроводы</TooltipTitle>
+            <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+          </RibbonCommandButton>
+          <RibbonCommandButton UID="RBNU_220_4F624" Id="AcRibbonCommandButton" Text="" ButtonStyle="LargeWithoutText" MenuMacroID="MSPIPE_UCS" KeyTip="">
+            <TooltipTitle xlate="true" UID="XLS_220_C8015">Панель инструментов: Трубопроводы. ПСК</TooltipTitle>
+            <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+          </RibbonCommandButton>
+          <RibbonCommandButton UID="RBNU_220_0858B" Id="AcRibbonCommandButton" Text="" ButtonStyle="LargeWithoutText" MenuMacroID="MSPIPE_TRACE" KeyTip="">
+            <TooltipTitle xlate="true" UID="XLS_220_8DE9C">Панель инструментов: Трубопровод::Автотрассирование</TooltipTitle>
+            <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+          </RibbonCommandButton>
+          <RibbonCommandButton UID="RBNU_220_215E1" Id="AcRibbonCommandButton" Text="" ButtonStyle="LargeWithoutText" MenuMacroID="MSPIPE_EDIT" KeyTip="">
+            <TooltipTitle xlate="true" UID="XLS_220_799BB">Панель инструментов: Трубопровод::Редактирование</TooltipTitle>
+            <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+          </RibbonCommandButton>
+          <RibbonCommandButton UID="RBNU_220_12FAE" Id="AcRibbonCommandButton" Text="" ButtonStyle="LargeWithoutText" MenuMacroID="MSPIPE_COPY" KeyTip="">
+            <TooltipTitle xlate="true" UID="XLS_220_72A16">Панель инструментов: Трубопровод::Копирование</TooltipTitle>
+            <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+          </RibbonCommandButton>
+          <RibbonCommandButton UID="RBNU_220_8A17E" Id="AcRibbonCommandButton" Text="" ButtonStyle="LargeWithoutText" MenuMacroID="MSPIPE_STEEL" KeyTip="">
+            <TooltipTitle xlate="true" UID="XLS_220_48E5C">Панель инструментов: Профили КМ</TooltipTitle>
+            <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+          </RibbonCommandButton>
+          <RibbonCommandButton UID="RBNU_220_6AE51" Id="AcRibbonCommandButton" Text="" ButtonStyle="LargeWithoutText" MenuMacroID="MSPIPE_EQUIP" KeyTip="">
+            <TooltipTitle xlate="true" UID="XLS_220_BC382">Панель инструментов: Оборудование</TooltipTitle>
+            <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+          </RibbonCommandButton>
+          <RibbonCommandButton UID="RBNU_220_73133" Id="AcRibbonCommandButton" Text="" ButtonStyle="LargeWithoutText" MenuMacroID="MSPIPE_CALC" KeyTip="">
+            <TooltipTitle xlate="true" UID="XLS_220_25EC3">Панель инструментов: Расчеты</TooltipTitle>
+            <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+          </RibbonCommandButton>
+          <RibbonCommandButton UID="RBNU_220_E20BB" Id="AcRibbonCommandButton" Text="" ButtonStyle="LargeWithoutText" MenuMacroID="MSPIPE_MINICATALOG" KeyTip="">
+            <TooltipTitle xlate="true" UID="XLS_220_1FE88">Панель инструментов: Миникаталог</TooltipTitle>
+            <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+          </RibbonCommandButton>
+          <RibbonCommandButton UID="RBNU_220_83167" Id="AcRibbonCommandButton" Text="" ButtonStyle="LargeWithoutText" MenuMacroID="MSPIPE_DOCUM" KeyTip="">
+            <TooltipTitle xlate="true" UID="XLS_220_E5501">Панель инструментов: Документирование</TooltipTitle>
+            <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+          </RibbonCommandButton>
+        </RibbonSplitButton>
+      </RibbonRow>
+      <RibbonPanelBreak UID="RBNU_220_6C876" Id="AcRibbonPanelBreak">
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      </RibbonPanelBreak>
+    </RibbonPanelSource>
+  <RibbonPanelSource HiddenInEditor="false" UID="RBNU_DTMX_PANEL_939EF197FA" Text="DTMXtest"><ModifiedRev MajorVersion="24" UserVersion="1" MinorVersion="1" /><Name UID="XLS_DTMX_F1C0B4B26E" xlate="true">DTMXtest</Name><RibbonRow UID="RBNU_DTMX_ROW_2805F10F10"><ModifiedRev MajorVersion="24" UserVersion="1" MinorVersion="1" /><RibbonRowPanel ResizeStyle="None" UID="RBNU_DTMX_RP_79C9729597" ResizePriority="100" TopJustify="True"><ModifiedRev MajorVersion="24" UserVersion="1" MinorVersion="1" /><RibbonRow UID="RBNU_DTMX_INROW_AE297D0A8A"><ModifiedRev MajorVersion="24" UserVersion="1" MinorVersion="1" /><RibbonCommandButton Id="AcRibbonCommandButton" KeyTip="" Text="DMTX" UID="RBNU_DTMX_BTN_B3667AE56C" MenuMacroID="pipe_draw_pipeline" ButtonStyle="LargeWithText"><TooltipTitle UID="XLS_DTMX_1098686812" xlate="true">DMTX</TooltipTitle><ModifiedRev MajorVersion="24" UserVersion="1" MinorVersion="1" /></RibbonCommandButton><RibbonCommandButton UID="RBNU_DTMX_SCRIPT_08ACA4EFA1" Id="AcRibbonCommandButton" Text="Редактор скриптов" ButtonStyle="LargeWithText" MenuMacroID="SCRIPTED" KeyTip=""><TooltipTitle xlate="true" UID="XLS_DTMX_F9890A9A8B">Редактор скриптов</TooltipTitle><ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" /></RibbonCommandButton><RibbonCommandButton Id="AcRibbonCommandButton" KeyTip="" Text="Правка" UID="RBNU_DTMX_CMD_9CE97C149C" MenuMacroID="DTMX_CMD_EDIT" ButtonStyle="LargeWithText"><TooltipTitle UID="XLS_DTMX_D2BDE08240" xlate="true">Правка</TooltipTitle><ModifiedRev MajorVersion="24" UserVersion="1" MinorVersion="1" /></RibbonCommandButton><RibbonCommandButton Id="AcRibbonCommandButton" KeyTip="" Text="Свойства" UID="RBNU_DTMX_CMD_541067D37A" MenuMacroID="DTMX_CMD_EXPLORE" ButtonStyle="LargeWithText"><TooltipTitle UID="XLS_DTMX_2DCB6ED02D" xlate="true">Свойства</TooltipTitle><ModifiedRev MajorVersion="24" UserVersion="1" MinorVersion="1" /></RibbonCommandButton><RibbonCommandButton Id="AcRibbonCommandButton" KeyTip="" Text="Связи" UID="RBNU_DTMX_CMD_781204E271" MenuMacroID="DTMX_CMD_PATHS" ButtonStyle="LargeWithText"><TooltipTitle UID="XLS_DTMX_CDD4DFA863" xlate="true">Связи</TooltipTitle><ModifiedRev MajorVersion="24" UserVersion="1" MinorVersion="1" /></RibbonCommandButton><RibbonCommandButton Id="AcRibbonCommandButton" KeyTip="" Text="Тест" UID="RBNU_DTMX_CMD_BD46D1F296" MenuMacroID="DTMX_CMD_PING" ButtonStyle="LargeWithText"><TooltipTitle UID="XLS_DTMX_E1B827BC82" xlate="true">Тест</TooltipTitle><ModifiedRev MajorVersion="24" UserVersion="1" MinorVersion="1" /></RibbonCommandButton></RibbonRow></RibbonRowPanel></RibbonRow></RibbonPanelSource><RibbonPanelSource UID="RBNU_DTMX_WATER_PANEL_92167C26B6" Text="DTMXtestPanel" HiddenInEditor="false"><ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" /><Name xlate="true" UID="XLS_DTMX_B9BDFC4BD6">DTMXtestPanel</Name><RibbonRow UID="RBNU_DTMX_ROW_6494422E24"><ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" /><RibbonRowPanel UID="RBNU_DTMX_RP_5282D4A783" ResizeStyle="None" ResizePriority="100" TopJustify="True"><ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" /><RibbonRow UID="RBNU_DTMX_INROW_0DBCC22677"><ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" /><RibbonCommandButton UID="RBNU_DTMX_BTN_D86AA03A92" Id="AcRibbonCommandButton" Text="DMTX" ButtonStyle="LargeWithText" MenuMacroID="pipe_draw_pipeline" KeyTip=""><TooltipTitle xlate="true" UID="XLS_DTMX_7219DC5AFA">DMTX</TooltipTitle><ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" /></RibbonCommandButton></RibbonRow></RibbonRowPanel></RibbonRow></RibbonPanelSource></RibbonPanelSourceCollection>
+  <RibbonTabSourceCollection>
+    <RibbonTabSource Text="Водоснабжение и канализация" UID="RBNU_0007">
+      <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_6877">Model Studio CS ВК</Name>
+      <RibbonPanelSourceReference UID="RBNU_0505" PanelId="RBNU_0480" ResizeStyle="Default" />
+      <RibbonPanelSourceReference UID="RBNU_220_2A546" PanelId="RBNU_220_5D1A2" ResizeStyle="Default">
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      </RibbonPanelSourceReference>
+      <RibbonPanelSourceReference UID="RBNU_220_86C01" PanelId="RBNU_220_D8DD5" ResizeStyle="Default">
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      </RibbonPanelSourceReference>
+      <RibbonPanelSourceReference UID="RBNU_220_81953" PanelId="RBNU_220_8F67B" ResizeStyle="Default">
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      </RibbonPanelSourceReference>
+      <RibbonPanelSourceReference UID="RBNU_220_BBF9F" PanelId="RBNU_220_1EC24" ResizeStyle="Default">
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      </RibbonPanelSourceReference>
+    <RibbonPanelSourceReference UID="RBNU_DTMX_PREF_08C67DFD14" PanelId="RBNU_DTMX_WATER_PANEL_92167C26B6" ResizeStyle="Default"><ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" /></RibbonPanelSourceReference></RibbonTabSource>
+  <RibbonTabSource Text="DTMXtest" UID="RBNU_DTMX_TAB_53635A38B3"><ModifiedRev MajorVersion="24" UserVersion="1" MinorVersion="1" /><Name UID="XLS_DTMX_07D8CB420D" xlate="true">DTMXtest</Name><RibbonPanelSourceReference ResizeStyle="Default" UID="RBNU_DTMX_PREF_969B26B030" PanelId="RBNU_DTMX_PANEL_939EF197FA"><ModifiedRev MajorVersion="24" UserVersion="1" MinorVersion="1" /></RibbonPanelSourceReference></RibbonTabSource></RibbonTabSourceCollection>
+</RibbonRoot>

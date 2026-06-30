@@ -1,0 +1,962 @@
+<?xml version="1.0"?>
+<!--
+Внимание! Не изменяйте содержимое этого файла.
+При попытке редактирования этого файла с помощью редактора XML функциональные
+возможности адаптации и переноса могут быть утрачены. Для изменения
+информации в файле адаптации воспользуйтесь диалоговым окном
+"Адаптация пользовательского интерфейса" в программе.
+Для доступа к диалоговому окну "Адаптация пользовательского интерфейса" выберите меню "Сервис",
+откройте панель "Адаптация" и нажмите кнопку "Пользовательский интерфейс" либо введите НПИ в командной строке.
+-->
+<ToolbarRoot xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Toolbar ToolbarOrient="floating" ToolbarVisible="show" xval="200" yval="200" rows="6" UID="TBU_0002">
+    <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+    <Alias>MSPIPE_GENERAL</Alias>
+    <Description xlate="true" UID="XLS_1810">Model Studio CS Трубопроводы</Description>
+    <Name xlate="true" UID="XLS_1809">Трубопроводы</Name>
+    <ToolbarFlyout UseOwnIcon="false" pTargetAlias="MSPIPE_UCS" UID="TBFU_200_0EFD3">
+      <ModifiedRev MajorVersion="20" MinorVersion="0" UserVersion="1" />
+      <FlyoutName xlate="true" UID="XLS_200_F50E1">ПСК Трубопровода</FlyoutName>
+      <Description xlate="true" UID="XLS_200_483D7">Управление ПСК по трубопроводу</Description>
+    </ToolbarFlyout>
+    <ToolbarButton IsSeparator="true" UID="TBBU_0072">
+      <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_0002">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_0005">Отрисовать трубопровод</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_draw_pipeline" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="true" UID="TBBU_220_DC0AC">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_95E02">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_7BA9C">Параллельные трубопроводы</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="PIPE_PARALLELPIPE" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_F26DD">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_11E2A">Гнутая труба</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="PIPE_DRAWNSEG" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="true" UID="TBBU_220_3F4E3">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_0003">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_0006">Добавить арматуру</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_InLine" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_0005">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_1813">Добавить арматуру со смещением осей</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_Offset" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_241_7C46A">
+      <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+      <Name xlate="true" UID="XLS_241_5EEE2">Арматура угловая</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_elbow_inline" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_0223">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_6861">Сформировать комплектную арматуру</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_ValveAsm" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_200_40298">
+      <ModifiedRev MajorVersion="20" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_200_D18A9">Укомплектовать арматуру</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="PIPE_ITEM_COMPLETE" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="true" UID="TBBU_220_A9440">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_F01C4">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_5783F">Добавить элемент</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="PIPE_PIPEELEMENT" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_066FA">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_AE70C">Добавить линйное оборудование</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="PIPE_INLINEEQ" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="true" UID="TBBU_220_8214C">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_0009">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_1817">Добавить переход</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_Reducer" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_0057">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_1852">Добавить эксцентрический переход</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_ReducerEx" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_31DBB">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_0B1F2">Добавить сужение/расширение</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_reducer_Span" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_200_9450A">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_200_D0049">Заменить тип перехода</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_reducer_Swap" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="true" UID="TBBU_220_EF225">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_0216">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_6851">Соединить тройником</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_tee" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_0004">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_1811">Добавить отвод</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_Elbow" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_3D430">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_AAE27">Добавить отвод со смещением осей</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="PIPE_ELBOW_OFFSET" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_0083">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_2009">Добавить байпас</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_Bypass" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_0084">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_2010">Добавить вертикальный участок</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_CreateVerticalSect" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_0085">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_2011">Добавить П-образный компенсатор</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_UShaped" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="true" UID="TBBU_220_91B1C">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_0011">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_1819">Добавить опору</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_Support" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_81A0E">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_33197">Нумеровать опоры</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="PIPE_SUPPORT_ENUM" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_F529D">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_F5C45">Удалить нумерацию опор</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="PIPE_SUPPORT_ENUMCLEAR" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_230_A0DFC">
+      <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_230_0ADD6">Нумерация опор по траверсам</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_Support_trnum" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="true" UID="TBBU_220_EB769">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_200_63252">
+      <ModifiedRev MajorVersion="20" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_200_3652D">Добавить совместную изоляцию</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="PIPE_MULTIPIPE_INSULATION" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_210_4B397">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_210_86E1D">Разрыв изоляции</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="PIPE_INSULATION_SEGSPLIT" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="true" UID="TBBU_0082">
+      <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
+    </ToolbarButton>
+    <ToolbarFlyout UseOwnIcon="false" pTargetAlias="MSPIPE_EDIT" UID="TBFU_200_5BD28">
+      <ModifiedRev MajorVersion="20" MinorVersion="0" UserVersion="1" />
+      <FlyoutName xlate="true" UID="XLS_200_EC8A6">Редактирование трубопровода</FlyoutName>
+      <Description xlate="true" UID="XLS_200_54A21">Редактирование трубопровода</Description>
+    </ToolbarFlyout>
+    <ToolbarFlyout UseOwnIcon="false" pTargetAlias="MSPIPE_COPY" UID="TBFU_220_C792F">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <FlyoutName xlate="true" UID="XLS_220_6F403">Копирование трубопровода</FlyoutName>
+    </ToolbarFlyout>
+    <ToolbarButton IsSeparator="true" UID="TBBU_0087">
+      <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
+    </ToolbarButton>
+    <ToolbarFlyout UseOwnIcon="false" pTargetAlias="MSPIPE_EQUIP" UID="TBFU_220_F8A04">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <FlyoutName xlate="true" UID="XLS_220_64BE8">Оборудование</FlyoutName>
+    </ToolbarFlyout>
+    <ToolbarButton IsSeparator="true" UID="TBBU_220_D827A">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ToolbarButton>
+    <ToolbarFlyout UseOwnIcon="false" pTargetAlias="MSPIPE_CALC" UID="TBFU_220_E20E2">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <FlyoutName xlate="true" UID="XLS_220_5439A">Трубопроводы::Расчеты</FlyoutName>
+    </ToolbarFlyout>
+    <ToolbarButton IsSeparator="true" UID="TBBU_220_0F6BC">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_0086">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_2014">Назначить из БД</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_lib" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarFlyout UseOwnIcon="false" pTargetAlias="MSPIPE_DOCUM" UID="TBFU_0012">
+      <ModifiedRev MajorVersion="16" MinorVersion="2" UserVersion="1" />
+      <FlyoutName xlate="true" UID="XLS_1859">Документирование</FlyoutName>
+    </ToolbarFlyout>
+    <ToolbarButton IsSeparator="true" UID="TBBU_220_3C477">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ToolbarButton>
+    <ToolbarFlyout UseOwnIcon="false" pTargetAlias="MSPIPE_TOOLBOX" UID="TBFU_220_B0EA2">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <FlyoutName xlate="true" UID="XLS_220_04D3C">Палитры</FlyoutName>
+    </ToolbarFlyout>
+  </Toolbar>
+  <Toolbar ToolbarOrient="floating" ToolbarVisible="show" xval="200" yval="200" rows="1" UID="TBU_0007">
+    <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+    <Alias>MSPIPE_UCS</Alias>
+    <Description xlate="true" UID="XLS_2019">Управление ПСК, сервисные функции</Description>
+    <Name xlate="true" UID="XLS_2018">Разное</Name>
+    <ToolbarButton IsSeparator="false" UID="TBBU_200_E6C88">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_200_BB107">Сетка осей</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="urs_axis_new" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="true" UID="TBBU_220_937C3">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_0096">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_2033">ПСК по детали</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_ucs" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_0093">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_2026">ПСК по XY детали</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_ucsxy" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_0094">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_2031">ПСК по XZ детали</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_ucsxz" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_0095">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_2032">ПСК по YZ детали</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_ucsyz" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="true" UID="TBBU_220_57355">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_200_28BB8">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_200_4DB85">Параметры отрисовки трубопровода</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_draw_settings" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_200_D12B9">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_200_DC3E0">Параметры отрисовки детали</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_edit_Parameters" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="true" UID="TBBU_220_108F1">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_230_F3B4C">
+      <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_230_81CB7">Сервис: Регенерация трубопровода</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_regen_model" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_200_AB183">
+      <ModifiedRev MajorVersion="20" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_200_DDA7F">Сервис: Информация по деталям трубопровода</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="PIPE_DUMP" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_200_A7D41">
+      <ModifiedRev MajorVersion="20" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_200_4CC44">Сервис: Информация по сегменту трубопровода</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="PIPE_SEG_DIAG" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_200_B1A22">
+      <ModifiedRev MajorVersion="20" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_200_FD11D">Сервис: Восстановление целостности</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_repair" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_200_9F5AA">
+      <ModifiedRev MajorVersion="20" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_200_73069">Сервис: Восстановление объектов ветвления</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_restore_tee" />
+      </MenuItem>
+    </ToolbarButton>
+  </Toolbar>
+  <Toolbar ToolbarOrient="floating" ToolbarVisible="show" xval="200" yval="200" rows="4" UID="TBU_0006">
+    <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    <Alias>MSPIPE_EDIT</Alias>
+    <Description xlate="true" UID="XLS_200_2827C">Редактирование трубопровода</Description>
+    <Name xlate="true" UID="XLS_1857">Редактирование трубопровода</Name>
+    <ToolbarButton IsSeparator="false" UID="TBBU_0054">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_1849">Задать уклон</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_edit_Slope" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_0077">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_1999">Изменить направление потока</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_edit_ReverseFlow" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_FBDB9">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_3384A">Изменить диаметр</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="PIPE_CHANGE_DIAMETER" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="true" UID="TBBU_220_7CE72">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_0225">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_6862">Назначить диаметр узлу</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_SetNodeDN" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="true" UID="TBBU_200_851B6">
+      <ModifiedRev MajorVersion="20" MinorVersion="0" UserVersion="1" />
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_0069">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_1896">Разделить трубопровод</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_edit_BreakAxis" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_0056">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_1851">Соединить трубопроводы</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_edit_JoinAxis" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_0278">
+      <ModifiedRev MajorVersion="18" MinorVersion="2" UserVersion="1" />
+      <Name xlate="true" UID="XLS_00014421">Удалить трубопровод</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_delete" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_0104">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_2050">Перетрассировать трубопровод</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_retrace" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_200_F40A4">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_200_1A7B9">Отключить трубу от оборудования</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="eq_disconnect" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_200_24537">
+      <ModifiedRev MajorVersion="20" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_200_A0ACB">Обозначение трубной сборки (для профиля)</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="MSS_SET_PIPE_ASM" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="true" UID="TBBU_200_4A81D">
+      <ModifiedRev MajorVersion="20" MinorVersion="0" UserVersion="1" />
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_0276">
+      <ModifiedRev MajorVersion="18" MinorVersion="2" UserVersion="1" />
+      <Name xlate="true" UID="XLS_00014420">Создать прототип комплектной арматуры</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_prototype_new" />
+      </MenuItem>
+    </ToolbarButton>
+  </Toolbar>
+  <Toolbar ToolbarOrient="floating" ToolbarVisible="hide" xval="200" yval="200" rows="1" UID="TBU_200_F1E14">
+    <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+    <Alias>MSPIPE_COPY</Alias>
+    <Name xlate="true" UID="XLS_200_1A18F">Копирование трубопровода</Name>
+    <ToolbarButton IsSeparator="false" UID="TBBU_0103">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_2047">Копировать трубопровод</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_copy" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_0279">
+      <ModifiedRev MajorVersion="18" MinorVersion="2" UserVersion="1" />
+      <Name xlate="true" UID="XLS_00014422">Копировать в другой файл</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_xcopy" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_0215">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_6848">Копировать фрагмент трубопровода</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_CopyGroup" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_0282">
+      <ModifiedRev MajorVersion="18" MinorVersion="2" UserVersion="1" />
+      <Name xlate="true" UID="XLS_00014423">Копировать деталь трубопровода</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_inlinecopy" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_201_FBC04">
+      <ModifiedRev MajorVersion="20" MinorVersion="1" UserVersion="1" />
+      <Name xlate="true" UID="XLS_201_649A3">Расставить элементы трубопровода</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_InsertIntersections" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="true" UID="TBBU_201_7DB18">
+      <ModifiedRev MajorVersion="20" MinorVersion="1" UserVersion="1" />
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_231_8F4E7">
+      <ModifiedRev MajorVersion="23" MinorVersion="1" UserVersion="1" />
+      <Name xlate="true" UID="XLS_231_004B6">Копировать параметры осевой</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_axis_params_painter" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="true" UID="TBBU_200_8B426">
+      <ModifiedRev MajorVersion="20" MinorVersion="0" UserVersion="1" />
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_200_0F6D3">
+      <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+      <Name xlate="true" UID="XLS_200_57064">Повернуть фрагмент модели</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_rotateAssembly" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_200_BEBCA">
+      <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+      <Name xlate="true" UID="XLS_200_AD85F">Переместить фрагмент модели</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_moveAssembly" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_230_71ED0">
+      <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_230_BD262">Переместить детали</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_move_details" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_200_C3366">
+      <ModifiedRev MajorVersion="20" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_200_9FA44">Переместить трубопровод</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="PIPE_MOVE" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="true" UID="TBBU_220_1113C">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_0098">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_2039">Преобразовать из полилинии</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_CreateAlongPolyline" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_0097">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_2038">Преобразовать в полилинию</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_ConvertToPL" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_00023991">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_00090166">Преобразовать оборудование в деталь</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_edit_SetPEFully" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_00023990">
+      <ModifiedRev MajorVersion="18" MinorVersion="2" UserVersion="1" />
+      <Name xlate="true" UID="XLS_00090165">Преобразовать деталь в оборудование</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_ExtractPE" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_200_53B27">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_200_D62A0">Копировать параметры оборудования в деталь трубопровода</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_edit_SetPE" />
+      </MenuItem>
+    </ToolbarButton>
+  </Toolbar>
+  <Toolbar ToolbarOrient="floating" ToolbarVisible="show" xval="200" yval="200" rows="1" UID="TBU_200_C0CE4">
+    <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+    <Alias>MSPIPE_MINICATALOG</Alias>
+    <Name xlate="true" UID="XLS_200_9E969">Миникаталог</Name>
+    <ToolbarButton IsSeparator="false" UID="TBBU_200_FF41F">
+      <ModifiedRev MajorVersion="20" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_200_D2157">Задать миникаталог трубопровода</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="PIPE_SET_MINIDIR" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_200_57AA6">
+      <ModifiedRev MajorVersion="20" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_200_21DAD">Изменить миникаталог трубопровода</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="PIPE_MD_APPLY " />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_200_81067">
+      <ModifiedRev MajorVersion="20" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_200_566A8">Заменить деталь трубопровода по миникаталогу</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="PIPE_MD_REPLACE_ITEM" />
+      </MenuItem>
+    </ToolbarButton>
+  </Toolbar>
+  <Toolbar ToolbarOrient="floating" ToolbarVisible="show" xval="200" yval="200" rows="1" UID="TBU_200_DCE48">
+    <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+    <Alias>MSPIPE_TRACE</Alias>
+    <Description xlate="true" UID="XLS_200_9EA65">Автотрассирование</Description>
+    <Name xlate="true" UID="XLS_200_B92BA">Автотрассирование</Name>
+    <ToolbarButton IsSeparator="false" UID="TBBU_200_ABC7B">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_200_AA14F">Генерация параллельных трубопроводов</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="PIPE_PARALLELPIPE" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="true" UID="TBBU_200_59756">
+      <ModifiedRev MajorVersion="20" MinorVersion="0" UserVersion="1" />
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_200_7F042">
+      <ModifiedRev MajorVersion="20" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_200_45871">Создать трассу</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="PIPE_CREATEPATH" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_200_6088B">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_200_33CD8">Перетрассировать трубопровод</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_retrace" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_200_D0BFD">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_200_B3F3B">Соединить оборудование</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="eq_connect" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="true" UID="TBBU_220_701AC">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_200_24C17">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_200_279AB">Редактор соединений</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="connector_show" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_200_4350C">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_200_60FB9">Создать задание на трассировку</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="connector_xml_out" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_200_77DD6">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_200_80B7C">Выполнить задание на трассировку</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="connector_xml_in" />
+      </MenuItem>
+    </ToolbarButton>
+  </Toolbar>
+  <Toolbar ToolbarOrient="floating" ToolbarVisible="hide" xval="200" yval="200" rows="1" UID="TBU_0004">
+    <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    <Alias>MSPIPE_EQUIP</Alias>
+    <Name xlate="true" UID="XLS_1822">Оборудование</Name>
+    <ToolbarButton IsSeparator="false" UID="TBBU_0272">
+      <ModifiedRev MajorVersion="18" MinorVersion="1" UserVersion="1" />
+      <Name xlate="true" UID="XLS_6974">Переместить элемент оборудования</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="mst_move_detail" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_0271">
+      <ModifiedRev MajorVersion="18" MinorVersion="1" UserVersion="1" />
+      <Name xlate="true" UID="XLS_6973">Создать оборудование из деталей</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="mst_create_equipment" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_0273">
+      <ModifiedRev MajorVersion="18" MinorVersion="1" UserVersion="1" />
+      <Name xlate="true" UID="XLS_6975">Сохранить оборудование в базе данных</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="mst_addtolib_equipment" />
+      </MenuItem>
+    </ToolbarButton>
+  </Toolbar>
+  <Toolbar ToolbarOrient="floating" ToolbarVisible="show" xval="200" yval="200" rows="1" UID="TBU_0012">
+    <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    <Alias>MSPIPE_STEEL</Alias>
+    <Name xlate="true" UID="XLS_00090026">Строительные конструкции::Профили</Name>
+    <ToolbarButton IsSeparator="false" UID="TBBU_00023940">
+      <ModifiedRev MajorVersion="18" MinorVersion="2" UserVersion="1" />
+      <Name xlate="true" UID="XLS_00090032">Удлинить профиль</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="IRON_AXIS_EXTEND" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_00023941">
+      <ModifiedRev MajorVersion="18" MinorVersion="2" UserVersion="1" />
+      <Name xlate="true" UID="XLS_00090033">Обрезать профиль</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="IRON_AXIS_CUT" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_00023942">
+      <ModifiedRev MajorVersion="18" MinorVersion="2" UserVersion="1" />
+      <Name xlate="true" UID="XLS_00090034">Разрезать профиль</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="IRON_AXIS_BREAK" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_00023986">
+      <ModifiedRev MajorVersion="18" MinorVersion="2" UserVersion="1" />
+      <Name xlate="true" UID="XLS_00090148">Обрезать профиль плоскостью</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="IRON_AXIS_PLANETRIM" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="true" UID="TBBU_00023943">
+      <ModifiedRev MajorVersion="18" MinorVersion="2" UserVersion="1" />
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_00023944">
+      <ModifiedRev MajorVersion="18" MinorVersion="2" UserVersion="1" />
+      <Name xlate="true" UID="XLS_00090035">Редактор металлопроката</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="IRON_AXES_EDIT" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="true" UID="TBBU_220_BFA57">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_AF8CE">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_DA473">Добавить траверсы</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="IRON_CROSSARM" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_84141">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_D5ABE">Редактор траверс</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="IRON_EDIT_CROSSARM" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_D5197">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_9734D">Нумерация траверс</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="IRON_ENUM_CROSSARM" />
+      </MenuItem>
+    </ToolbarButton>
+  </Toolbar>
+  <Toolbar ToolbarOrient="floating" ToolbarVisible="show" xval="200" yval="200" rows="1" UID="TBU_0005">
+    <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+    <Alias>MSPIPE_DOCUM</Alias>
+    <Name xlate="true" UID="XLS_1853">Документирование</Name>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_95BE9">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_A5C93">Axogen: Генерация изометрических схем</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="MSS_ISOGEN" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_A3A0B">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_74A9E">Axogen: Генерация схем</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="mss_schema_generate" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_0B2DE">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_A5016">Axogen: Изменить плоскость УГО</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="MSS_SYMBOL_TOGGLE_PLANE" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_230_F9A32">
+      <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_230_B63A9">Добавить вершину</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="MSS_LINK_INSERT_VERTEX" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_230_22A19">
+      <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_230_68FFE">Удалить вершину</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="MSS_LINK_DELETE_VERTEX" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_26275">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_2C26D">Axogen: Разделить и перенести схему</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="MSS_AXOGEN_SPLIT" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_26B75">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_440B4">Axogen: Таблица длин труб</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="MSS_AXOGEN_TAB_02LPIPE" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_167EA">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_CDD5D">Axogen: Таблица спецификации</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="MSS_AXOGEN_TAB_01BOM" />
+      </MenuItem>
+    </ToolbarButton>
+  </Toolbar>
+  <Toolbar ToolbarOrient="floating" ToolbarVisible="show" xval="200" yval="200" rows="1" UID="TBU_0013">
+    <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    <Alias>MSPIPE_CALC</Alias>
+    <Name xlate="true" UID="XLS_00090085">Трубопроводы::Расчеты</Name>
+    <ToolbarButton IsSeparator="false" UID="TBBU_00023958">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_00090087">Расчет прочности (экспорт в Старт)</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_ExportStart" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_38F6C">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_C4FE7">Расчет прочности (импорт из Старт)</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="PIPE_IMPORTSTART" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_00023959">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_00090088">Расчет гидравлический (экспорт в Гидросистему)</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_ExportPCF" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_00023960">
+      <ModifiedRev MajorVersion="18" MinorVersion="2" UserVersion="1" />
+      <Name xlate="true" UID="XLS_00090089">Расчет изоляции (экспорт в Изоляцию)</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_ExportInsulation" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="true" UID="TBBU_00085372">
+      <ModifiedRev MajorVersion="18" MinorVersion="2" UserVersion="1" />
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_00085371">
+      <ModifiedRev MajorVersion="18" MinorVersion="2" UserVersion="1" />
+      <Name xlate="true" UID="XLS_00099265">Расчет прочности (экспорт в CPipe)</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="PIPE_EXPORTCPIPE" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="true" UID="TBBU_00023975">
+      <ModifiedRev MajorVersion="18" MinorVersion="2" UserVersion="1" />
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_00023974">
+      <ModifiedRev MajorVersion="18" MinorVersion="2" UserVersion="1" />
+      <Name xlate="true" UID="XLS_00090122">Расчет нагрузок на опоры (предварительный расчет)</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="MSS_REACTION_CALCULATE" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_0F525">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_CDE2E">Расчет нагрузок на опоры (Исходные данные)</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="MSS_REACTION_DATA" />
+      </MenuItem>
+    </ToolbarButton>
+  </Toolbar>
+  <Toolbar ToolbarOrient="floating" ToolbarVisible="show" xval="200" yval="200" rows="1" UID="TBU_200_8FF7C">
+    <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    <Alias>MSPIPE_TOOLBOX</Alias>
+    <Name xlate="true" UID="XLS_200_DC2C5">Палитры</Name>
+    <ToolbarButton IsSeparator="false" UID="TBBU_200_383D0">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_200_9B9E8">Панель инструментов: Трубопроводы</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="MSPIPE_GENERAL" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_69F9A">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_1E0BE">Панель инструментов: Трубопроводы. ПСК</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="MSPIPE_UCS" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_5B172">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_2EDC6">Панель инструментов: Трубопровод::Автотрассирование</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="MSPIPE_TRACE" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_08BE7">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_804F0">Панель инструментов: Трубопровод::Редактирование</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="MSPIPE_EDIT" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_73449">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_B11C4">Панель инструментов: Трубопровод::Копирование</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="MSPIPE_COPY" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_E488F">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_349E4">Панель инструментов: Профили КМ</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="MSPIPE_STEEL" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_85C1B">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_04DCF">Панель инструментов: Оборудование</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="MSPIPE_EQUIP" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_14981">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_9B931">Панель инструментов: Расчеты</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="MSPIPE_CALC" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_967C0">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_B046F">Панель инструментов: Миникаталог</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="MSPIPE_MINICATALOG" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_86003">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_CCDCA">Панель инструментов: Документирование</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="MSPIPE_DOCUM" />
+      </MenuItem>
+    </ToolbarButton>
+  </Toolbar>
+</ToolbarRoot>

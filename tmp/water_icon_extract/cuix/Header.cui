@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+Внимание! Не изменяйте содержимое этого файла.
+При попытке редактирования этого файла с помощью редактора XML функциональные
+возможности адаптации и переноса могут быть утрачены. Для изменения
+информации в файле адаптации воспользуйтесь диалоговым окном
+"Адаптация пользовательского интерфейса" в программе.
+Для доступа к диалоговому окну "Адаптация пользовательского интерфейса" выберите меню "Сервис",
+откройте панель "Адаптация" и нажмите кнопку "Пользовательский интерфейс" либо введите НПИ в командной строке.
+-->
+<CustSection xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <FileVersion MajorVersion="0" MinorVersion="6" IncrementalVersion="1" UserVersion="1" />
+  <Header>
+    <CommonConfiguration>
+      <CommonItems>
+        <ModifiedRev MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <PartialMenuFile>c:\users\anna\appdata\roaming\nanosoft\ek skr\schematics\support\schematics.cuix</PartialMenuFile>
+        <PartialMenuFile>c:\users\anna\appdata\roaming\autodesk\autocad 2015\r20.0\rus\support\spds extension 4.cuix</PartialMenuFile>
+        <PartialMenuFile>appmanager.cuix</PartialMenuFile>
+        <PartialMenuFile>c:\users\anna\appdata\roaming\autodesk\autocad 2015\r20.0\rus\support\sketchupimportskp.cuix</PartialMenuFile>
+      </CommonItems>
+    </CommonConfiguration>
+  </Header>
+</CustSection>

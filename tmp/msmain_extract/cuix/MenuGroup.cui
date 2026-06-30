@@ -1,0 +1,1708 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+Внимание! Не изменяйте содержимое этого файла.
+При попытке редактирования этого файла с помощью редактора XML функциональные
+возможности адаптации и переноса могут быть утрачены. Для изменения
+информации в файле адаптации воспользуйтесь диалоговым окном
+"Адаптация пользовательского интерфейса" в программе.
+Для доступа к диалоговому окну "Адаптация пользовательского интерфейса" выберите меню "Сервис",
+откройте панель "Адаптация" и нажмите кнопку "Пользовательский интерфейс" либо введите НПИ в командной строке.
+-->
+<MenuGroup xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Name="MSMAIN" DisplayName="MSMAIN">
+  <MacroGroup Name="НОВАЯГРУППА">
+    <MenuMacro UID="lcs_lib_palette">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_0059">База данных стандартного оборудования</Name>
+        <Command>^C^C_lcs_lib_palette </Command>
+        <HelpString xlate="true" UID="XLS_1810">Открыть панель базы данных стандартного оборудования</HelpString>
+        <SmallImage Name="ModelStudioDB.png" />
+        <LargeImage Name="MS_DB32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="urs_navigator">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="20" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_6905">Навигатор</Name>
+        <Command>^C^C_urs_navigator</Command>
+        <HelpString xlate="true" UID="XLS_220_978B0">Открывает вкладку «Навигатор», обеспечивающую навигацию по модели</HelpString>
+        <SmallImage Name="tree.png" />
+        <LargeImage Name="MS_NAV32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="urs_specification_palette">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="20" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_1760">Спецификатор</Name>
+        <Command>^C^C_urs_specification_palette</Command>
+        <HelpString xlate="true" UID="XLS_1761">Открывает диалоговое окно интерактивного спецификатора</HelpString>
+        <SmallImage Name="spec16.png" />
+        <LargeImage Name="MS_REPDLG32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="set_model_mode">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="20" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_1898">Переключить режим модели</Name>
+        <Command>^C^С_set_model_mode toggle </Command>
+        <HelpString xlate="true" UID="XLS_1899">Выбор способа представления модели: 2D или 3D</HelpString>
+        <SmallImage Name="MStudioModeToggle.png" />
+        <LargeImage Name="MS_SW2D3D32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="CLP_BUILDING_HIERARCHY_EDIT">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_00090153">CLP. Редактировать структуры зданий и сооружений</Name>
+        <Command>^C^C_CLP_BUILDING_HIERARCHY_EDIT</Command>
+        <HelpString xlate="true" UID="XLS_00090158">CADLib Проект. Позволяет задать и сохранить в базу данных проекта перечень зданий и сооружений</HelpString>
+        <SmallImage Name="CLPBuildingHierarchyEdit16.png" />
+        <LargeImage Name="MS_CLPZIS32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="CLP_PROJECT_STRUCTURE_EDIT">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_200_A9380">CLP. Редактировать структуру разделов проекта</Name>
+        <Command>^C^C_CLP_PROJECT_STRUCTURE_EDIT</Command>
+        <HelpString xlate="true" UID="XLS_200_8AF66">CADLib Проект. Позволяет задать и сохранить в базу данных проекта структуру модели</HelpString>
+        <SmallImage Name="CLPModelHierarchyEdit16.png" />
+        <LargeImage Name="MS_CLPRP32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="CLP_UPDATE_OBJECTS">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_00090155">CLP. Проверить актуальность модели</Name>
+        <Command>^C^C_CLP_UPDATE_OBJECTS</Command>
+        <HelpString xlate="true" UID="XLS_00090156">CADLib Проект. Выполняет проверку актуальности ссылочных элементов модели. При нахождении производятся обновления, а устаревшие попадают на специальный слой (см. настройки)</HelpString>
+        <SmallImage Name="CLPUpdateObjects16.png" />
+        <LargeImage Name="MS_CLPUPD32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="CLP_REMOVE_DUMMIES">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_200_A080E">CLP.Удалить объекты проекта</Name>
+        <Command>^C^C_CLP_REMOVE_DUMMIES</Command>
+        <HelpString xlate="true" UID="XLS_200_E0C5B">Удалить объекты проекта из текущего чертежа</HelpString>
+        <SmallImage Name="CLPRemoveDummies16.png" />
+        <LargeImage Name="MS_CLPCLNDUM32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="CLP_CLEAN_DOCUMENT">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_200_F67E2">CLP. Удалить связи с проектом</Name>
+        <Command>^C^C_CLP_CLEAN_DOCUMENT</Command>
+        <HelpString xlate="true" UID="XLS_200_5140A">Удалить связи объектов в текущем чертеже с проектом</HelpString>
+        <SmallImage Name="CLPCleanDocument16.png" />
+        <LargeImage Name="MS_CLPCLNDOC32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="CLP_LOAD_BY_POLY">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="20" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_190_27828">CLP. Загрузить объекты по полилинии</Name>
+        <Command>^C^C_CLP_LOAD_BY_POLY</Command>
+        <HelpString xlate="true" UID="XLS_190_CAB13">CADLib Проект. Выполняет загрузку объектов модели из базы данных по выбираемой полилинии. Рекомендуется для просмотра пересечений</HelpString>
+        <SmallImage Name="CLPLoadByPoly16.png" />
+        <LargeImage Name="MS_CLPLOADBYPOLY32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="CLP_LOAD_BY_AXIS_OBJ">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="20" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_190_B1E8B">CLP. Загрузить по объектам с осью</Name>
+        <Command>^C^C_CLP_LOAD_BY_AXIS_OBJ</Command>
+        <HelpString xlate="true" UID="XLS_190_556E8">CADLib Проект. Выполняет загрузку объектов модели из базы данных по выбираемым объектам с осью. Рекомендуется для просмотра пересечений</HelpString>
+        <SmallImage Name="CLPLoadByAxisObj16.png" />
+        <LargeImage Name="MS_CLPLOADBYAXISOBJ32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="CLP_SHOW_HIERARCHY_QUERY_FORM">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_200_8A8B2">CLP. Загрузить объекты по структуре</Name>
+        <Command>^C^C_CLP_SHOW_HIERARCHY_QUERY_FORM</Command>
+        <HelpString xlate="true" UID="XLS_200_66A24">CADLib Проект. Выполняет загрузку объектов модели из базы данных проекта путем перекрестного выбора здания/сооружения и структуры модели</HelpString>
+        <SmallImage Name="CLPShowHierarchyQueryForm16.png" />
+        <LargeImage Name="MS_CLPLOADBYSTRUCT32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="CLP_LOAD_PUBLICATION_OBJECTS">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="20" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_220_817D8">CLP. Загрузить публикацию по объектам проекта</Name>
+        <Command>^C^C_CLP_LOAD_PUBLICATION_OBJECTS</Command>
+        <HelpString xlate="true" UID="XLS_220_07C15">CADLib Проект. Выполняет загрузку из базы данных всех объектов проекта, входящих в публикации, определяемых по выбираемым объектам проекта. Рекомендуется для просмотра связанных объектов</HelpString>
+        <SmallImage Name="CLPLoadPublicationDummiesbyDummies16.png" />
+        <LargeImage Name="MS_CLPLOADBYDUM32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="CLP_FRAME_CREATE">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="20" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_200_920A7">CLP. Создать рамку листа</Name>
+        <Command>^C^C_CLP_FRAME_CREATE</Command>
+        <HelpString xlate="true" UID="XLS_200_E63E9">CADLib Проект. Позволяет задать рамку границ листа документа для сохранения в базу данных проекта. Рамка границ листа не ассоциирвана с проектом и требует установления связи отдельной командой</HelpString>
+        <SmallImage Name="CLPFrameCreate.png" />
+        <LargeImage Name="MS_CLPFRAMECREATE32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="CLP_FRAME_DEST_DOCUMENT">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_200_9FA1F">CLP. Ассоциировать лист с проектом</Name>
+        <Command>^C^C_CLP_FRAME_DEST_DOCUMENT</Command>
+        <HelpString xlate="true" UID="XLS_200_A95E8">CADLib Проект. Позволяет ассоциировать рамку границ листа документа с карточкой документа в проекте</HelpString>
+        <SmallImage Name="CLPFrameDestDocument.png" />
+        <LargeImage Name="MS_CLPFRAMESTRUCT32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="MSS_SETUP_SURFACE">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_00089991">Ссылка на модель изысканий и проектного рельефа</Name>
+        <Command>^C^C_MSS_SETUP_SURFACE</Command>
+        <HelpString xlate="true" UID="XLS_00089992">Команда открывает диалог настроек, где можно задать ссылку на источник данных по геодезическим поверхностям, геологическим поверхностям и поверхности проектного рельефа.</HelpString>
+        <SmallImage Name="MStudioMSSSetupSurface16.png" />
+        <LargeImage Name="MS_GRND_SETTINGS32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="MSS_SET_GROUND_LEVEL ">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_00090101">Сохранить отметку уровня</Name>
+        <Command>^C^C_MSS_SET_GROUND_LEVEL </Command>
+        <HelpString xlate="true" UID="XLS_00090102">Команда копирует в параметры объекта текущую отметку уровня земли в ключевых точках объекта. Перед запуском команды требуется задать источник данных о земле (см. текущие переменные)</HelpString>
+        <SmallImage Name="MStudioMssSetGroundLevel16.png" />
+        <LargeImage Name="MS_GRND_OBJLVL.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="urs_properties">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="20" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_0015">Параметры объекта</Name>
+        <Command>^C^C_urs_properties</Command>
+        <HelpString xlate="true" UID="XLS_1774">Команда вызывает диалоговое окно параметров оборудования. В этом диалоговом окне можно редактировать любые параметры объекта, используемые при составлении спецификаций, экспликаций, аксонометрических схем, расчетах и других документов</HelpString>
+        <SmallImage Name="MStudioEquipParam.png" />
+        <LargeImage Name="MS_PARAM32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="urs_properties_ex">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="20" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_191_27BEC">Параметры объекта во внешней ссылке</Name>
+        <Command>^C^C_urs_properties_ex</Command>
+        <HelpString xlate="true" UID="XLS_191_D96D6">Вызывается диалоговое окно параметров объекта, загруженного через внешнюю ссылку</HelpString>
+        <SmallImage Name="_urs_properties_ex 16x16.png" />
+        <LargeImage Name="MS_PARAM32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="urs_select">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_1911">Выбрать объекты</Name>
+        <Command>^C^C_urs_select</Command>
+        <HelpString xlate="true" UID="XLS_1912">Выбрать объекты, удовлетворяющие условию</HelpString>
+        <SmallImage Name="MStudioSearchDrawing.png" />
+        <LargeImage Name="MS_OBJ_SEARCH.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="URS_PROCESS_MODEL">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="20" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_00089985">Обработка модели</Name>
+        <Command>^C^C_URS_PROCESS_MODEL</Command>
+        <HelpString xlate="true" UID="XLS_00089986">Команда позволяет создавать, редактировать и запускать правила обработки модели. Обработка модели позволяет решать множество задач - обновление значений параметров по заданным условиям, обновление данных из БД и многое другое. Команда предназначена для продвинутых пользователей и не рекомендуется к применению начинающими пользователями</HelpString>
+        <SmallImage Name="MStudioURSProcessModel16.png" />
+        <LargeImage Name="MS_OBJ_ENGINE.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="Lcs_Lib_Params_Painter">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="20" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_00090032">Копировать параметры объектов</Name>
+        <Command>^C^C_Lcs_Lib_Params_Painter</Command>
+        <HelpString xlate="true" UID="XLS_00090033">Команда позволяет скопировать атрибутивные параметры объектов. Рекомендуется копировать параметры только для однотипных объектов, иначе возможно неверное представление параметризованной графики</HelpString>
+        <SmallImage Name="MStudioLcsLibParamsPainter16.png" />
+        <LargeImage Name="MS_COPY_PARAMS32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="PE_ASSOCIATE">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_200_394CD">Ассоциировать объекты</Name>
+        <Command>^C^C_PE_ASSOCIATE</Command>
+        <HelpString xlate="true" UID="XLS_200_3B07A">Команда позволяет создать ассоциативную связь между объектами модели. Ассоциативная связь устанавливает зависимость положения в пространстве "дочерних" объектов от "родительского"</HelpString>
+        <SmallImage Name="MStudioPEAssocCreate.png" />
+        <LargeImage Name="MS_ASSOC_OBJ.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="PE_ASSOCIATION_LINKDATA">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_200_C390B">Ассоциировать параметры</Name>
+        <Command>^C^C_PE_ASSOCIATION_LINKDATA</Command>
+        <HelpString xlate="true" UID="XLS_200_DC9A8">Команда позволяет создать ассоциативную связь параметров между ассоциированными объектами модели. Ассоциативная связь параметров устанавливает зависимость значений "дочерних" объектов от "родительского" - связь определяется формулой, т.е. значение может быть вычисляемым!</HelpString>
+        <SmallImage Name="AECReinfAssocDataLink.png" />
+        <LargeImage Name="MS_ASSOC_PARAMS.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="PE_ASSOCIATION_BREAK">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="20" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_200_797E1">Удалить ассоциированность</Name>
+        <Command>^C^C_PE_ASSOCIATION_BREAK </Command>
+        <HelpString xlate="true" UID="XLS_200_211CF">Команда удаляет ассоциативную связь между объектами модели</HelpString>
+        <SmallImage Name="MStudioPEAssocBreak.png" />
+        <LargeImage Name="MS_ASSOC_BREAK.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="MSS_CALC_AREA">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="20" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_00089978">Расчет объема и площади объекта</Name>
+        <Command>^C^C_MSS_CALC_AREA</Command>
+        <HelpString xlate="true" UID="XLS_00089979">Команда производит подсчет объема и площади поверхности объектов Model Studio CS. Внимание! Площадь рассчитывается как полная сумма площадей, т.е. внутренние поверхности тоже учитываются</HelpString>
+        <SmallImage Name="MStudioCalcVolumeArea16.png" />
+        <LargeImage Name="MS_OBJ_VOL_SURF.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="MSWORK_CLEAN">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="20" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_00090019">Удаление объемов работ</Name>
+        <Command>^C^C_MSWORK_CLEAN</Command>
+        <HelpString xlate="true" UID="XLS_00090020">Команда позволяет удалить одну или несколько работ, присвоенных объекту</HelpString>
+        <SmallImage Name="MStudioMSWorkClean16.png" />
+        <LargeImage Name="MS_OBJ_DELPARAMS32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="CreateParamEquipment">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="20" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_1736">Создать параметрический объект</Name>
+        <Command>^C^C_CreateParamEquipment</Command>
+        <HelpString xlate="true" UID="XLS_1737">Позволяет создать новое параметрическое оборудование</HelpString>
+        <SmallImage Name="MStudioParamEqCreate.png" />
+        <LargeImage Name="MS_OBJP_CREATE.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="EditParamEquipment">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="20" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_1738">Редактировать параметрический объект</Name>
+        <Command>^C^C_EditParamEquipment</Command>
+        <HelpString xlate="true" UID="XLS_1739">Вызывается диалоговое окно параметризатора Model Studio CS. Параметризатор позволяет редактировать любое параметрическое оборудование</HelpString>
+        <SmallImage Name="MStudioParamEqEdit.png" />
+        <LargeImage Name="MS_OBJP_EDIT.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="node_new">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_0023">Создать узел</Name>
+        <Command>^C^C_node_new </Command>
+        <HelpString xlate="true" UID="XLS_0069">Команда позволяет вставить в трехмерную модель параметрический объект в виде точки для вспомогательных построений</HelpString>
+        <SmallImage Name="MStudioNodeAdd.png" />
+        <LargeImage Name="MS_NODE_CREATE.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="node_attach">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_0027">Добавить узел к объекту</Name>
+        <Command>^C^C_node_attach </Command>
+        <HelpString xlate="true" UID="XLS_0070">Команда позволяет присоединить свободный узел к параметрическому объекту</HelpString>
+        <SmallImage Name="MStudioNodeToEquip.png" />
+        <LargeImage Name="MS_NODE_ATTACH.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="AddPEqToPEq">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_6894">Добавить оборудование</Name>
+        <Command>^C^C_AddPEqToPEq</Command>
+        <HelpString xlate="true" UID="XLS_6895">Позволяет добавить один параметрический объект к другому. Добавляемый объект становится частью выбранного оборудования</HelpString>
+        <SmallImage Name="MStudioEquipToEquip.png" />
+        <LargeImage Name="MS_OBJS_EDIT.png" />
+        <CLICommand xlate="true" UID="XLS_6896">Добавить оборудование</CLICommand>
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="MergePE">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_6891">Объединить оборудование</Name>
+        <Command>^C^C_MergePE</Command>
+        <HelpString xlate="true" UID="XLS_6892">Позволяет объединить несколько параметрических объектов в один</HelpString>
+        <SmallImage Name="MStudioMergeEquip.png" />
+        <LargeImage Name="MS_OBJS_EDIT.png" />
+        <CLICommand xlate="true" UID="XLS_6893">Объединить оборудование</CLICommand>
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="LCS_LIB_UID">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_1902">Просмотр GUID объекта</Name>
+        <Command>^C^C_lcs_lib_uid</Command>
+        <HelpString xlate="true" UID="XLS_1903">Просмотр уникального идентификатора объекта</HelpString>
+        <SmallImage Name="MStudioGUID.png" />
+        <LargeImage Name="MS_32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="URS_SET_FORM">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_00089987">Привязать форму к объекту</Name>
+        <Command>^C^C_URS_SET_FORM</Command>
+        <HelpString xlate="true" UID="XLS_00089988">Команда позволяет привязать форму к объекту. Команда не предназначена для начинающих пользователей!</HelpString>
+        <SmallImage Name="CommandBlue16.png" />
+        <LargeImage Name="MS_OBJS_FORM.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="pe_xml_export">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="20" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_6870">Экспорт оборудования в XML</Name>
+        <Command>^C^C_pe_xml_export</Command>
+        <HelpString xlate="true" UID="XLS_6871">Экспортирует выбранное параметрическое оборудование в файл формата XML. Файл содержит графическое и атрибутивное описание объекта. Этот файл может быть передан другому пользователю Model Studio CS, для работы и использования в своих проектах</HelpString>
+        <SmallImage Name="MStudioExportXPG16.png" />
+        <LargeImage Name="MS_EXPORT032.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="pe_xml_import">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_6872">Импорт параметрического оборудования из XML</Name>
+        <Command>^C^C_pe_xml_import</Command>
+        <HelpString xlate="true" UID="XLS_6873">Импортирует параметрическое оборудование из файла формата XML. Файл содержит графическое и атрибутивное описание объекта. Импорт файлов параметрического оборудования в формате XML является наиболее удобным и абсолютно безопасным способом обмена отдельными элементами БД. Импортированное оборудование не производит изменений в БД Оборудования, изделий и материалов и может использоваться на любом рабочем месте, оснащенным Model Studio CS.</HelpString>
+        <SmallImage Name="MStudioImportXPG16.png" />
+        <LargeImage Name="MS_IMPORT032.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="xblock_new">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="20" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_0007">Создать объект из блока</Name>
+        <Command>^C^C_xblock_new </Command>
+        <HelpString xlate="true" UID="XLS_0068">Позволяет создать оборудование из стандартных блоков и примитивов. Рекомендовано использовать эту команду только в тех случаях, когда это существующий графический компонент. Для создания "с нуля" нового оборудования пользуйтесь инструментами создания параметрического оборудования (параметризатор) Model Studio CS</HelpString>
+        <SmallImage Name="MStudioMergeEquip.png" />
+        <LargeImage Name="MS_OBJS_EDIT.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="xblock_wizard">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="20" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_0009">Мастер оборудования</Name>
+        <Command>^C^C_xblock_wizard </Command>
+        <HelpString xlate="true" UID="XLS_0077">Мастер оборудования позволяет упростить создание оборудования из стандартных блоков и примитивов. Рекомендовано использовать эту команду только в тех случаях, когда это существующий графический компонент. Для создания "с нуля" нового оборудования пользуйтесь инструментами создания параметрического оборудования (параметризатор) Model Studio CS</HelpString>
+        <SmallImage Name="MStudioEquipWizard.png" />
+        <LargeImage Name="MS_OBJS_EDIT.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="linkForNodes_XBlockWiz">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="20" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_0011">Связь узлов для Мастера оборудования</Name>
+        <Command>^C^C_linkForNodes_XBlockWiz</Command>
+        <HelpString xlate="true" UID="XLS_0079">При использовании Мастера оборудования необходимо указать, как соответствуют друг другу узлы, отображаемые в режиме модели 2D и в режиме 3D. Рекомендовано использовать эту команду только в тех случаях, когда это существующий графический компонент. Для создания "с нуля" нового оборудования пользуйтесь инструментами создания параметрического оборудования (параметризатор) Model Studio CS</HelpString>
+        <SmallImage Name="MStudioEquipWizLink.png" />
+        <LargeImage Name="MS_OBJS_EDIT.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="model_check">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_0055">Проверить модель</Name>
+        <Command>^C^C_model_check</Command>
+        <HelpString xlate="true" UID="XLS_0071">Проверить модель на коллизии</HelpString>
+        <SmallImage Name="MStudioWireClash.png" />
+        <LargeImage Name="MS_CLASH32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="lcs_collisions_setup">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_1951">Настроить профиль проверки модели</Name>
+        <Command>^C^C_lcs_collisions_setup</Command>
+        <HelpString xlate="true" UID="XLS_1952">Настроить профиль проверки модели</HelpString>
+        <SmallImage Name="MStudioClashSettings.png" />
+        <LargeImage Name="MS_CLASH_SETTINGS32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="lcs_collisions_clean">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_2041">Удалить обозначения коллизий</Name>
+        <Command>^C^C_lcs_collisions_clean</Command>
+        <HelpString xlate="true" UID="XLS_2042">Удалить обозначения коллизий</HelpString>
+        <SmallImage Name="MStudioWireClashDel.png" />
+        <LargeImage Name="MS_CLASH_CLEAN32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="urs_export_pack">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_1835">Создание пакета документации</Name>
+        <Command>^C^C_urs_export_pack</Command>
+        <HelpString xlate="true" UID="XLS_6888">Генерирует комплект документов. Больше не нужно генерировать каждый докумнент по отдельности - отдельно спецификацию, отдельно экспликацию и т.д. Теперь, достаточно один раз задать комплект и указать какие документы в него входят. В дальнейшей работе, будет достаточно выбрать комплект, который будет генерироваться и указать место, куда будет сохранен каждый документ входящий в этот комплект.</HelpString>
+        <SmallImage Name="MStudioExportPack.png" />
+        <LargeImage Name="MS_REPORT_GENMULTI.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="dg_vpdef">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_0032">Определить вид</Name>
+        <Command>^C^C_dg_vpdef </Command>
+        <HelpString xlate="true" UID="XLS_220_5E866">Команда позволяет задать границы, базовое направление вида на модели для последующей генерации видов и разрезов на чертежах</HelpString>
+        <SmallImage Name="MStudioViewAdd.png" />
+        <LargeImage Name="MS_3DVIEWDEF0.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="dg_obj_vpdef">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_6939">Определить вид по объекту</Name>
+        <Command>^C^C_dg_obj_vpdef</Command>
+        <HelpString xlate="true" UID="XLS_220_42E93">Команда позволяет разместить в трехмерной модели «видовой куб» по размерам выбранных объектов</HelpString>
+        <SmallImage Name="RCDATA_16_BOX_MAPPING" />
+        <LargeImage Name="MS_3DVIEWDEFBYOBJ0.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="dg_vpdef_setline ">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="20" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_6939">Задать ломаный вид</Name>
+        <Command>^C^C__dg_vpdef_setline </Command>
+        <HelpString xlate="true" UID="XLS_00089984">Команда позволяет задать границы и базовое направление ломаного вида на модели для последующей генерации видов и разрезов на чертежах. Ломаный вид (разрез) это инструмент позволяющий расширить возможность стандартного видового параллелепипеда</HelpString>
+        <SmallImage Name="dg_vpdef_setline16.png" />
+        <LargeImage Name="MS_3DVIEWDEFB0.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="DG_VPORT_EX">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="20" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_190_1E85C">Вставить преднастроенную проекцию</Name>
+        <Command>^C^C_DG_VPORT_EX</Command>
+        <HelpString xlate="true" UID="XLS_190_17CBF">Выполняет вставку преднастроенной проекции на чертеж. Преднастроенная проекция работает на основе предварительно сохраненных параметров и не требует ввода информации о плоскости проецирования, правил отображения и оформления</HelpString>
+        <SmallImage Name="MStudioSectionInsert.png" />
+        <LargeImage Name="MS_2DSECTION_PREDEF.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="DG_VPORT">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_1925">Вставить проекцию</Name>
+        <Command>^C^C_dg_vport</Command>
+        <HelpString xlate="true" UID="XLS_1926">Выполняет вставку проекции с возможностью задать плоскость и параметры отрисовки, обработки данных и надписывания</HelpString>
+        <SmallImage Name="MStudioSectionInsert.png" />
+        <LargeImage Name="MS_2DSECTION.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="DG_SETHOLE">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_190_60438">Вставить вырез на проекцию</Name>
+        <Command>^C^C_DG_SETHOLE</Command>
+        <HelpString xlate="true" UID="XLS_190_64C4D">Выполняет вставку выреза на проекцию</HelpString>
+        <SmallImage Name="MStudioDgSetHole16.png" />
+        <LargeImage Name="MS_2DSECTION_CUT.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="DG_SHOWHOLE">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_190_2C45D">Отображение выреза в 3D</Name>
+        <Command>^C^C_DG_SHOWHOLE</Command>
+        <HelpString xlate="true" UID="XLS_190_73BC7">Отрисовывает на 3D модели объем, соответствующий вырезу на виде</HelpString>
+        <SmallImage Name="MStudioDgShowHole16.png" />
+        <LargeImage Name="MS_2DSECTION_CUT3D.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="dg_regen">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="20" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_0036">Обновить проекцию</Name>
+        <Command>^C^C_dg_regen </Command>
+        <HelpString xlate="true" UID="XLS_190_F0112">Команда обновляет проекцию. Обновляются проекции и надписи</HelpString>
+        <SmallImage Name="MStudioViewRefresh.png" />
+        <LargeImage Name="MS_2DSECTION_UPD.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="dg_vp_rebuild">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="20" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_191_BC809">Обновить проекцию с учетом изменения видового куба</Name>
+        <Command>^C^C_dg_vp_rebuild</Command>
+        <HelpString xlate="true" UID="XLS_190_BE08A">Команда обновляет проекцию с учетом измененных размеров определения вида. Обновляется размер рамки вида, проекции и надписи</HelpString>
+        <SmallImage Name="MStudioViewRefresh16x16.png" />
+        <LargeImage Name="MS_2DSECTION_UPD.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="mss_plan_generate">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="20" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_1816">Автогенератор чертежа</Name>
+        <Command>^C^C_mss_plan_generate</Command>
+        <HelpString xlate="true" UID="XLS_1817">Автоматический генератор чертежей, выполняемых на основе задаваемых преднастроенных проекций и спецификации. Производит разбиение на листы в случае превышения размера форматки</HelpString>
+        <SmallImage Name="MStudioFormat.png" />
+        <LargeImage Name="MS_2DGENDRAWINGS.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="LCS_LIB_INSERT_OBJECT_DOCS">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="20" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_200_E7885">Вставка типовых чертежей по модели</Name>
+        <Command>^C^C_LCS_LIB_INSERT_OBJECT_DOCS</Command>
+        <HelpString xlate="true" UID="XLS_200_E0E54">Команда выполняет вставку типовых чертежей из базы данных оборудования, изделий и материалов на основе данных модели. Информация в типовых чертежах обновляется согласно данных модели. Рекомендуется для использования с типовыми проектами</HelpString>
+        <SmallImage Name="MStudioFileByObj.png" />
+        <LargeImage Name="MS_2DSECTION_TYPICAL.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="dg_ac_vport">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_0034">Вставить окно вида</Name>
+        <Command>^C^C_dg_ac_vport</Command>
+        <HelpString xlate="true" UID="XLS_1928">Вставить окно вида</HelpString>
+        <SmallImage Name="MStudioViewInsert.png" />
+        <LargeImage Name="MS_2DVIEWPORT.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="dg_ac_regen">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_1931">Обновить видовые окна</Name>
+        <Command>^C^C_dg_ac_regen</Command>
+        <HelpString xlate="true" UID="XLS_1932">Обновить видовые окна пространства листа</HelpString>
+        <SmallImage Name="MSViewRefresh_16x16.png" />
+        <LargeImage Name="MS_2DVIEWPORT_UPD.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="urs_dim_wizard">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="20" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_0057">Мастер простановки размеров</Name>
+        <Command>^C^C_urs_dim_wizard</Command>
+        <HelpString xlate="true" UID="XLS_6876">Автоматически проставляются размеры, выноски, отметки уровня и другие элементы оформления чертежей. Мастер простановки размеров - это диалоговое окно позволяющее создать, выбрать существующие правила простановки и применить их в выбранному виду или разрезу</HelpString>
+        <SmallImage Name="MStudioDimWizard.png" />
+        <LargeImage Name="MS_DIM32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="urs_dim_level">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_6890">Отметка уровня</Name>
+        <Command>^C^C_urs_dim_level</Command>
+        <HelpString xlate="true" UID="XLS_220_5E7FD">Команда позволяет задать на проекции отметки уровня</HelpString>
+        <SmallImage Name="MStudioDimLeader.png" />
+        <LargeImage Name="MS_DIMLVL32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="URS_DIM_ALEADER">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_200_10B27">Выноска к проекции объекта</Name>
+        <Command>^C^C_URS_DIM_ALEADER</Command>
+        <HelpString xlate="true" UID="XLS_200_562A8">Команда позволяет создать выноску к проекции объекта и аавтоматически нанести данные из параметров модели</HelpString>
+        <SmallImage Name="MSDimLeader.png" />
+        <LargeImage Name="MS_DIMLEADER32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="URS_DIM_TLEADER">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_6879">Выноска гребенчатая к проекции объекта</Name>
+        <Command>^C^C_URS_DIM_TLEADER</Command>
+        <HelpString xlate="true" UID="XLS_200_2909D">Команда позволяет создать гребенчатую (табличную) выноску к проекции объекта и автоматически нанести данные из параметров модели</HelpString>
+        <SmallImage Name="MSDimLeaderT.png" />
+        <LargeImage Name="MS_DIMLEADERLAYERS32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="URS_DATALINK_ALEADER">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_200_7B18E">Выноска к УГО</Name>
+        <Command>^C^C_URS_DATALINK_ALEADER</Command>
+        <HelpString xlate="true" UID="XLS_200_5382F">Команда позволяет создать выноску к УГО или схеме объекта и автоматически нанести данные из параметров модели</HelpString>
+        <SmallImage Name="MSDimLeaderA.png" />
+        <LargeImage Name="MS_DIMLEADERUGO32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="urs_dim_obj">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_6881">Проставить размеры указанного объекта</Name>
+        <Command>^C^C_urs_dim_obj</Command>
+        <HelpString xlate="true" UID="XLS_220_9D5E6">Команда позволяет на проекции проставить размеры для необходимых элементов</HelpString>
+        <SmallImage Name="MSDim.png" />
+        <LargeImage Name="MS_DIMBYOBJ32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="URS_COORD_MARKER">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_00090128">Координаты</Name>
+        <Command>^C^C_URS_COORD_MARKER</Command>
+        <HelpString xlate="true" UID="XLS_220_42562">Команда позволяет проставить координаты на проекции</HelpString>
+        <SmallImage Name="MStudioURSCoordMarker16.png" />
+        <LargeImage Name="MS_DIMCOORD32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="urs_dim_clean">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_6883">Удалить автоматически созданные размеры</Name>
+        <Command>^C^C_urs_dim_clean</Command>
+        <HelpString xlate="true" UID="XLS_220_B61B7">Команда позволяет одним нажатием удалить из проекции все размеры, проставленные автоматически</HelpString>
+        <SmallImage Name="MStudioDimDel.png" />
+        <LargeImage Name="MS_DIMDEL32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="nwe_db_publish">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="20" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_00014404">Опубликовать модель в CADLib</Name>
+        <Command>^C^C_nwe_db_publish</Command>
+        <HelpString xlate="true" UID="XLS_190_1C414">Команда экспортирует модель с атрибутами в базу данных проекта системы агрегирования модели - CADLib Модель и Архив</HelpString>
+        <SmallImage Name="ViewerSmallG.png" />
+        <LargeImage Name="MS_CLEXPORT32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="_MSPDF_EXPORT">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="20" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_00090023">Экспорт в PDF3D (ISO 32000)</Name>
+        <Command>^C^C_MSPDF_EXPORT</Command>
+        <HelpString xlate="true" UID="XLS_00090025">Команда экспортирует модель с атрибутами в документ формата pdf (ISO 32000). Полученный документ рекомендуется открывать при помощи бесплатного ПО - Acrobat reader</HelpString>
+        <SmallImage Name="MStudioExportPDF16.png" />
+        <LargeImage Name="MS_EXPORT032.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="NAVISWORKSEXPORT">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_6907">Экспорт в NavisWorks</Name>
+        <Command>^C^C_NAVISWORKSEXPORT</Command>
+        <HelpString xlate="true" UID="XLS_00099272">Сохраняет модель в формат NWC NavisWorks</HelpString>
+        <SmallImage Name="MStudioExportNW16.png" />
+        <LargeImage Name="MS_EXPORT032.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="NWE_EXPORT_MESH">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_00014448">Экспорт сеток OBJ</Name>
+        <Command>^C^C_NWE_EXPORT_MESH</Command>
+        <HelpString xlate="true" UID="XLS_00099273">Экспорт сеток OBJ</HelpString>
+        <SmallImage Name="MStudioExportMSM16.png" />
+        <LargeImage Name="MS_EXPORT032.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="MS_IMPORT_CSV">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_00014443">Импорт списка XPG (CSV)</Name>
+        <Command>^C^C_MS_IMPORT_CSV</Command>
+        <SmallImage Name="MStudioImportXPG16.png" />
+        <LargeImage Name="MS_IMPORT032.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="MS_IMPORT_RVM_WIZARD">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_00014447">Импорт из AVEVA RVM/ATT</Name>
+        <Command>^C^C_MS_IMPORT_RVM_WIZARD</Command>
+        <SmallImage Name="MStudioExportXPG16.png" />
+        <LargeImage Name="MS_IMPORT032.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="NWE_SET_DEVIATION">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_190_D7927">Экспорт/Настройка точности</Name>
+        <Command>^C^C_NWE_SET_DEVIATION</Command>
+        <HelpString xlate="true" UID="XLS_190_35451">Команда позволяет задать точность геометрии при публикации/экспорте трехмерной графики модели</HelpString>
+        <SmallImage Name="MStudioPublisherSetDeviation16.png" />
+        <LargeImage Name="MS_EXPORT032.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="ms_layout_generate">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_6940">Создать страницы по шаблону</Name>
+        <Command>^C^C_ms_layout_generate</Command>
+        <SmallImage Name="MStudioLayoutByTemplate.png" />
+        <LargeImage Name="MS_32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="ms_obj_layout_generate">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_6942">Создать страницы по шаблону для выбранных объектов</Name>
+        <Command>^C^C_ms_obj_layout_generate</Command>
+        <SmallImage Name="MStudioLayoutByObj.png" />
+        <LargeImage Name="MS_32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="ms_doc_generate">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_6944">Создать документ по шаблону</Name>
+        <Command>^C^C_ms_doc_generate</Command>
+        <SmallImage Name="MStudioFileByObj.png" />
+        <LargeImage Name="MS_32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="ms_obj_doc_generate">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_6946">Создать документ по шаблону для выбранных объектов</Name>
+        <Command>^C^C_ms_obj_doc_generate</Command>
+        <SmallImage Name="MStudioFileByObj.png" />
+        <LargeImage Name="MS_32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="cs_template">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_2856">Новый шаблон документа</Name>
+        <Command>^C^C_cs_template</Command>
+        <SmallImage Name="RCDATA_16_NEW" />
+        <LargeImage Name="RCDATA_32_NEW" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="cs_template_read">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_2858">Открыть шаблон документа</Name>
+        <Command>^C^C_cs_template_read</Command>
+        <SmallImage Name="RCDATA_16_OPEN" />
+        <LargeImage Name="RCDATA_32_OPEN" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="cs_template_save">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_2860">Сохранить шаблон документа</Name>
+        <Command>^C^C_cs_template_save</Command>
+        <SmallImage Name="RCDATA_16_SAVE" />
+        <LargeImage Name="RCDATA_32_SAVE" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="cs_template_saveas">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_2862">Сохранить шаблон документа как...</Name>
+        <Command>^C^C_cs_template_saveas</Command>
+        <SmallImage Name="RCDATA_16_SAVE_AS" />
+        <LargeImage Name="RCDATA_32_SAVE_AS" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="cs_template_page">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_2864">Добавить новую страницу</Name>
+        <Command>^C^C_cs_template_page</Command>
+        <SmallImage Name="RCDATA_16_LAYNEW" />
+        <LargeImage Name="RCDATA_32_LAYNEW" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="cs_template_page_next">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_6927">Добавить страницу-продолжение</Name>
+        <Command>^C^C_cs_template_page_next</Command>
+        <SmallImage Name="RCDATA_16_COPY" />
+        <LargeImage Name="RCDATA_16_COPY" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="cs_template_report">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_2866">Добавить отчет</Name>
+        <Command>^C^C_cs_template_report</Command>
+        <SmallImage Name="RCDATA_16_CONFIGSTD_NEW" />
+        <LargeImage Name="RCDATA_32_CONFIGSTD_NEW" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="cs_template_view">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_2868">Добавить проекцию</Name>
+        <Command>^C^C_cs_template_view</Command>
+        <SmallImage Name="RCDATA_16_SECTIO" />
+        <LargeImage Name="RCDATA_32_SECTIO" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="cs_template_element_property">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_6925">Свойства элемента шаблона</Name>
+        <Command>^C^C_cs_template_element_property</Command>
+        <SmallImage Name="RCDATA_16_SYSVDLG" />
+        <LargeImage Name="RCDATA_16_SYSVDLG" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="urs_options">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_0061">Настройки</Name>
+        <Command>^C^C_urs_options </Command>
+        <HelpString xlate="true" UID="XLS_0072">Настройки приложения</HelpString>
+        <SmallImage Name="MSELOptions.png" />
+        <LargeImage Name="MS_SETTINGS32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="URS_CREATEFROMTEMPLATE">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="20" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_200_62B0D">Создать чертеж по шаблону</Name>
+        <Command>^C^C_URS_CREATEFROMTEMPLATE</Command>
+        <HelpString xlate="true" UID="XLS_200_9F7DA">Создает новый файл DWG по шаблону DWT, хранящемуся в настройках Model Studio CS</HelpString>
+        <SmallImage Name="MStudioDwgByTemplate.png" />
+        <LargeImage Name="MS_DWG_TMPL.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="URS_APPTEMPLATE">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_190_92D4A">Импорт из шаблона DWG/DWT</Name>
+        <Command>^C^C_URS_APPTEMPLATE</Command>
+        <HelpString xlate="true" UID="XLS_190_4AB07">Команда производит импорт основных настроек из шаблона DWG/DWT в текущий файл DWG</HelpString>
+        <SmallImage Name="MStudioLayoutByTemplate.png" />
+        <LargeImage Name="MS_DWG_TMPL_UPD.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="CULLINGOBJ">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_200_6EAFB">Установить видимость ручек</Name>
+        <Command>^C^C_CULLINGOBJ 0 </Command>
+        <HelpString xlate="true" UID="XLS_200_24095">Команда устанавливает переменную CULLINGOBJ = 0, что обеспечивает нормальную видимость ручек</HelpString>
+        <SmallImage Name="CommandBlue16.png" />
+        <LargeImage Name="MS_32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="urs_help">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_1976">Справка по Model Studio CS</Name>
+        <Command>^C^C_urs_help</Command>
+        <HelpString xlate="true" UID="XLS_1977">Справка по Model Studio CS</HelpString>
+        <SmallImage Name="MStudioHelp16.png" />
+        <LargeImage Name="MS_HELP.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="lcs_about">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_1979">О программе...</Name>
+        <Command>^C^C_lcs_about</Command>
+        <HelpString xlate="true" UID="XLS_1980">Здесь можно посмотреть информацию о разработчиках, о совместимых программных продуктах, серийный номер и тип лицензии, а так же, версию используемого продукта.</HelpString>
+        <SmallImage Name="MStudioAbout16.png" />
+        <LargeImage Name="MS_INFO32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="URS_COMMANDS">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_190_BDB59">Палитра команд Model Studio CS</Name>
+        <Command>^C^C_URS_COMMANDS</Command>
+        <HelpString xlate="true" UID="XLS_190_C4434">Команда вызывает специальную палитру команд Model Studio CS.</HelpString>
+        <SmallImage Name="MStudioToolbar16.png" />
+        <LargeImage Name="MS_32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="TOOLBAR_MS_XPGEDIT">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_1963">Панель инструментов: Редактирование оборудования</Name>
+        <Command>^C^C_-toolbar;MSMAIN.MS_XPGEDIT;_show </Command>
+        <HelpString xlate="true" UID="XLS_1964">Панель инструментов: Редактирование оборудования</HelpString>
+        <SmallImage Name="MStudioToolbar16.png" />
+        <LargeImage Name="MS_32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="TOOLBAR_MS_CLASH">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_1960">Панель инструментов: Коллизии</Name>
+        <Command>^C^C_-toolbar;MSMAIN.MS_CLASH;_show </Command>
+        <HelpString xlate="true" UID="XLS_1961">Коллизии</HelpString>
+        <SmallImage Name="MStudioToolbar16.png" />
+        <LargeImage Name="MS_32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="TOOLBAR_MS_MAIN">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_190_6C0E1">Панель инструментов: Model Studio CS</Name>
+        <Command>^C^C_-toolbar;MSMAIN.MS_MAIN;_show </Command>
+        <HelpString xlate="true" UID="XLS_190_02ABD">Model Studio CS</HelpString>
+        <SmallImage Name="MStudioToolbar16.png" />
+        <LargeImage Name="MS_32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="TOOLBAR_MS_EDIT">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_1970">Панель инструментов: Редактирование</Name>
+        <Command>^C^C_-toolbar;MSMAIN.MS_EDIT;_show </Command>
+        <HelpString xlate="true" UID="XLS_1971">Редактирование</HelpString>
+        <SmallImage Name="MStudioToolbar16.png" />
+        <LargeImage Name="MS_32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="TOOLBAR_MS_MANAGE">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_6962">Панель инструментов: Управление</Name>
+        <Command>^C^C_-toolbar;MSMAIN.MS_MANAGE;_show</Command>
+        <HelpString xlate="true" UID="XLS_6963">Управление</HelpString>
+        <SmallImage Name="MStudioToolbar16.png" />
+        <LargeImage Name="MS_32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="TOOLBAR_MS_DOC">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_1967">Панель инструментов: Документирование</Name>
+        <Command>^C^C_-toolbar;MSMAIN.MS_DOC;_show </Command>
+        <HelpString xlate="true" UID="XLS_1968">Документирование</HelpString>
+        <SmallImage Name="MStudioToolbar16.png" />
+        <LargeImage Name="MS_32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="TOOLBAR_MS_IMPEXP">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_190_2CF1F">Панель инструментов: Импорт-Экспорт</Name>
+        <Command>^C^C_-toolbar;MSMAIN.MS_IMPEXP;_show </Command>
+        <HelpString xlate="true" UID="XLS_190_2A9C6">Импорт-Экспорт</HelpString>
+        <SmallImage Name="MStudioToolbar16.png" />
+        <LargeImage Name="MS_32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="TOOLBAR_MS_CLP">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_190_BD1A6">Панель инструментов: CADLib Проект</Name>
+        <Command>^C^C_-toolbar;MSMAIN.MS_CLP;_show </Command>
+        <HelpString xlate="true" UID="XLS_190_4FED7">CADLib Проект</HelpString>
+        <SmallImage Name="MStudioToolbar16.png" />
+        <LargeImage Name="MS_32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="URS_SETUP_PARAMETERS">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_220_ECCA2">Настройки параметров</Name>
+        <Command>^C^C_URS_SETUP_PARAMETERS</Command>
+        <HelpString xlate="true" UID="XLS_220_14CB1">Настройки параметров</HelpString>
+        <SmallImage Name="MSELOptions.png" />
+        <LargeImage Name="MS_SETTINGS32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="urs_datalink">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_1936">Привязать данные</Name>
+        <Command>^C^C_urs_datalink </Command>
+        <HelpString xlate="true" UID="XLS_1937">Привязать данные</HelpString>
+        <SmallImage Name="MStudioToolbar16.png" />
+        <LargeImage Name="MS_32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="urs_datalink_autobind">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_1939">Привязать данные к выноске</Name>
+        <Command>^C^C_urs_datalink_autobind </Command>
+        <HelpString xlate="true" UID="XLS_1940">Привязать данные к выноске</HelpString>
+        <SmallImage Name="MStudioToolbar16.png" />
+        <LargeImage Name="MS_32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="urs_datalink_edit ">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_1942">Редактировать привязку данных</Name>
+        <Command>^C^C_urs_datalink_edit </Command>
+        <HelpString xlate="true" UID="XLS_1943">Редактировать привязку данных</HelpString>
+        <SmallImage Name="CommandBlue16.png" />
+        <LargeImage Name="MS_32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="urs_datalink_refresh">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_1945">Обновить данные</Name>
+        <Command>^C^C_urs_datalink_refresh </Command>
+        <HelpString xlate="true" UID="XLS_1946">Обновить данные</HelpString>
+        <SmallImage Name="" />
+        <LargeImage Name="MS_32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="pe_converttoshell">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_1993">Преобразовать 3D объект в оборудование</Name>
+        <Command>^C^C_pe_converttoshell</Command>
+        <HelpString xlate="true" UID="XLS_1994">Производится преобразование 3D объекта AutoCAD в оборудование в виде триангуляционной сетки</HelpString>
+        <SmallImage Name="MStudioPeConverttoshell.png" />
+        <LargeImage Name="MStudioPeConverttoshell.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="pe_addshelltope">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_6900">Добавить 3D объект к оборудованию</Name>
+        <Command>^C^C_pe_addshelltope</Command>
+        <HelpString xlate="true" UID="XLS_6901">Производится добавление 3D объекта AutoCAD в виде триангуляционной сетки в структуру параметрического объекта</HelpString>
+        <SmallImage Name="MStudioPeAddshelltope.png" />
+        <LargeImage Name="MStudioPeAddshelltope.png" />
+        <CLICommand xlate="true" UID="XLS_6902">Добавить 3D объект к параметрическому объекту</CLICommand>
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="_urs_normacs">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_1956">Вызов NormaCS</Name>
+        <Command>^C^C_urs_normacs</Command>
+        <HelpString xlate="true" UID="XLS_1957">Вызов информационно-справочной системы по нормам и стандартам NormaCS</HelpString>
+        <SmallImage Name="MStudioNormaCS16.png" />
+        <LargeImage Name="" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="lcs_lib_cleanup_cache">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_1908">Очистить временный каталог</Name>
+        <Command>^C^C_lcs_lib_cleanup_cache</Command>
+        <HelpString xlate="true" UID="XLS_1909">Очистить временный каталог</HelpString>
+        <SmallImage Name="" />
+        <LargeImage Name="" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="viper_unloadmenu">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_1973">Выгрузить меню...</Name>
+        <Command>^C^C(command "_.menuunload" "MSPIPE") </Command>
+        <HelpString xlate="true" UID="XLS_1974">Выгрузить меню...</HelpString>
+        <SmallImage Name="MStudioToolbar16.png" />
+        <LargeImage Name="" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="TOOLBAR_MS_DIM">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_220_F50B5">Панель инструментов: Размеры</Name>
+        <Command>^C^C_-toolbar;MSMAIN.MS_DIM;_show </Command>
+        <HelpString xlate="true" UID="XLS_220_6CD3A">Размеры</HelpString>
+        <SmallImage Name="MStudioToolbar16.png" />
+        <LargeImage Name="MS_32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="TOOLBAR_MS_DOCTMPL">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_220_C6AC5">Панель инструментов: Шаблоны документов</Name>
+        <Command>^C^C_-toolbar;MSMAIN.MS_DOCTMPL;_show</Command>
+        <HelpString xlate="true" UID="XLS_220_8CD35">Шаблоны документов</HelpString>
+        <SmallImage Name="MStudioToolbar16.png" />
+        <LargeImage Name="MS_32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="TOOLBAR_MS_OTHER">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_220_D1D61">Панель инструментов: Разное</Name>
+        <Command>^C^C_-toolbar;MSMAIN.MS_OTHER;_show </Command>
+        <HelpString xlate="true" UID="XLS_220_5B237">Разное</HelpString>
+        <SmallImage Name="MStudioToolbar16.png" />
+        <LargeImage Name="MS_32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="CLP_PUBLISH_PIPE">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_220_B3819">CLP. Создать структуру из технологических схем</Name>
+        <Command>^C^C_CLP_PUBLISH_PIPE</Command>
+        <HelpString xlate="true" UID="XLS_220_5849B">CADLib Проект. Создает структуру модели из технологической схемы или фрагмента технологической схемы</HelpString>
+        <SmallImage Name="CLPBuildingHierarchyEdit16.png" />
+        <LargeImage Name="MS_CLZISFROMPID32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="urs_export_data">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="20" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_201_51138">Мастер экспорта данных</Name>
+        <Command>^C^C_urs_export_data</Command>
+        <HelpString xlate="true" UID="XLS_201_0432B">Автоматически генерирует таблицы на основе модели. По умолчанию в программе настроены наиболее важные таблицы, в том числе заказная спецификация, экспликация и другие. При выборе любой, имеющейся в списке, формы отчета Model Studio CS проанализирует модель, заполнит форму и создаст документ. Также здесь можно добавить и настроить собственные формы таблиц.</HelpString>
+        <SmallImage Name="MStudioExport.png" />
+        <LargeImage Name="MS_REPORT_GEN.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="urs_format">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="20" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_201_ED48C">Мастер оформления чертежа</Name>
+        <Command>^C^C_urs_format</Command>
+        <HelpString xlate="true" UID="XLS_201_2F17D">Установка слоя, цвета и других параметров графики в зависимости от параметров объекта</HelpString>
+        <SmallImage Name="MStudioFormat.png" />
+        <LargeImage Name="MS_2DSECTION_REORDER.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="LCS_FILL_DOCX">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="20" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_220_C2056">Создание опросных листов</Name>
+        <Command>^C^C_LCS_FILL_DOCX</Command>
+        <HelpString xlate="true" UID="XLS_220_D2466">Генерирует один или несколько опросных листов по данным модели. Опросные листы загружаются из базы данных оборудования, изделий и материалов и заполняются на основе данных модели</HelpString>
+        <SmallImage Name="MStudioExport.png" />
+        <LargeImage Name="MS_REPORT_GENMULTI.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="URS_LEADER_MODIFY">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="20" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_220_3018A">Упорядочить выноски</Name>
+        <Command>^C^C_URS_LEADER_MODIFY</Command>
+        <HelpString xlate="true" UID="XLS_220_F54BE">Команда позволяет упорядочить выноски путем уменьшения количества взаимных пересечений выносок</HelpString>
+        <SmallImage Name="MSDimLeaderA.png" />
+        <LargeImage Name="MS_DIMLEADER_MOD.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="LEADER_MODIFY_GRP">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="20" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_220_ACDE6">Группировать выноски</Name>
+        <Command>^C^C_LEADER_MODIFY_GRP</Command>
+        <HelpString xlate="true" UID="XLS_220_D5968">Команда позволяет упорядочить выноски путем выравнивания группы выносок</HelpString>
+        <SmallImage Name="MSDimLeaderA.png" />
+        <LargeImage Name="MS_DIMLEADER_MOD_GRP.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="DG_GROUP_VPDEF">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_220_CD254">Автоматически расставить виды</Name>
+        <Command>^C^C_dg_group_vpdef </Command>
+        <HelpString xlate="true" UID="XLS_220_38771">Команда позволяет на основе параметров объектов автоматически задать границы, базовое направление вида на модели для последующей генерации видов и разрезов на чертежах</HelpString>
+        <SmallImage Name="MStudioViewAdd.png" />
+        <LargeImage Name="MS_3DVIEWDEFAUTO.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="dg_vpdef_turn_eye">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="20" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_220_F841C">Повернуть вид</Name>
+        <Command>^C^C_dg_vpdef_turn_eye</Command>
+        <HelpString xlate="true" UID="XLS_220_C1150">Команда позволяет быстро повернуть основное направление вида</HelpString>
+        <SmallImage Name="MStudioViewAdd.png" />
+        <LargeImage Name="MS_3DVIEWDEFTURN.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="MSS_VPORT_DRWALL">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_220_26906">Автогенератор проекций</Name>
+        <Command>^C^C_MSS_VPORT_DRWALL</Command>
+        <HelpString xlate="true" UID="XLS_220_CE550">Автоматический генератор проекций с разбивкой на листы, выполняемых на основе задаваемых однотипных преднастроенных проекций. Производит пакетную генерацию проекций на основе выбранных определений видов с разбиением на листы в случае превышения размера форматки.</HelpString>
+        <SmallImage Name="MStudioFormat.png" />
+        <LargeImage Name="MS_2DGENDRAWINGS.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="pipe_net_tabugo">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_220_089D5">Таблица линий и УГО</Name>
+        <Command>^C^C_pipe_net_tabugo</Command>
+        <HelpString xlate="true" UID="XLS_220_B87D3">Позволяет сгенерировать таблицу условных обозначений</HelpString>
+        <SmallImage Name="MStudioExport.png" />
+        <LargeImage Name="MS_REPORT_GEN.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="PIPE_PUBLISH_SYSTEMS">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_220_F1E03">CLP. Создать структуру из 3D модели системы трубопроводов</Name>
+        <Command>^C^C_PIPE_PUBLISH_SYSTEMS</Command>
+        <HelpString xlate="true" UID="XLS_220_68B2F">CADLib Проект. Создает структуру модели из 3D модели системы трубопроводов</HelpString>
+        <SmallImage Name="CLPBuildingHierarchyEdit16.png" />
+        <LargeImage Name="MS_CLZISFROMPID32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="URS_DIM_MANUAL">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="20" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_220_B5095">Проставить размер</Name>
+        <Command>^C^C_urs_dim_manual</Command>
+        <HelpString xlate="true" UID="XLS_220_3668F">Команда позволяет проставить размер на проекции вручную. Размер ассоциирован с моделью и обновляется</HelpString>
+        <SmallImage Name="" />
+        <LargeImage Name="MS_DIMMANUAL32-.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="URS_DIM_SLOPE">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="20" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_220_1C74A">Проставить уклон</Name>
+        <Command>^C^C_urs_dim_slope</Command>
+        <HelpString xlate="true" UID="XLS_220_022B9">Команда позволяет проставить на проекции уклон протяженных объектов вручную</HelpString>
+        <SmallImage Name="" />
+        <LargeImage Name="MS_DIMSLOPE32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="generate_block_diagram_by_hierarchy">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_230_E68E0">CLP. Создать электротехническую схему из структуры</Name>
+        <Command>^C^C_generate_block_diagram_by_hierarchy</Command>
+        <HelpString xlate="true" UID="XLS_230_BE3CA">Команда позволяет осуществить генерацию электрической схемы на основании выбранной подсистемы электроснабжения иерархической структуры CadLib Проект и УГО подобранных элементов иерархии из Библиотеки стандартных компонентов.</HelpString>
+        <SmallImage Name="GENERATE_BLOCK_DIAGRAM_BY_HIERARCHY.png" />
+        <LargeImage Name="GENERATE_BLOCK_DIAGRAM_BY_HIERARCHY.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="generate_electric_system_by_3d_model">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_230_10530">CLP. Создать структуру из 3D модели системы электроснабжения</Name>
+        <Command>^C^C_generate_electric_system_by_3d_model</Command>
+        <HelpString xlate="true" UID="XLS_230_FCD1C">Команда позволяет создать структуру электроснабжения на основании 3D модели системы электроснабжения.</HelpString>
+        <SmallImage Name="GENERATE_ELECTRIC_SYSTEM_BY_3D_MODEL.png" />
+        <LargeImage Name="GENERATE_ELECTRIC_SYSTEM_BY_3D_MODEL.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="transfer_params_from_block_diagram_to_hierarchy">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_230_F85EE">CLP. Транслировать параметры ЭС из 2D схемы в 3D</Name>
+        <Command>^C^C_transfer_params_from_block_diagram_to_hierarchy</Command>
+        <HelpString xlate="true" UID="XLS_230_C758E">Команда позволяет осуществить трансляцию измененных значений параметров оборудования и кабелей сгенерированной схемы ЭС в исходную 3D модель и подсистему электроснабжения иерархической структуры CADLib Проект. </HelpString>
+        <SmallImage Name="GENERATE_BLOCK_DIAGRAM_BY_HIERARCHY.png" />
+        <LargeImage Name="GENERATE_BLOCK_DIAGRAM_BY_HIERARCHY.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="transfer_params_from_3d_to_hierarchy">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_230_5325D">CLP. Транслировать параметры ЭС из 3D в 2D схему</Name>
+        <Command>^C^C_transfer_params_from_3d_to_hierarchy</Command>
+        <HelpString xlate="true" UID="XLS_230_1DA21">Команда позволяет осуществить трансляцию измененных значений параметров оборудования и кабелей из 3D модели в ранее сгенерированную схему ЭС и подсистему электроснабжения иерархической структуры CADLib Проект. </HelpString>
+        <SmallImage Name="GENERATE_ELECTRIC_SYSTEM_BY_3D_MODEL.png" />
+        <LargeImage Name="GENERATE_ELECTRIC_SYSTEM_BY_3D_MODEL.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="urs_numerate">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_230_35491">Нумерация объектов</Name>
+        <Command>^C^C_urs_numerate</Command>
+        <HelpString xlate="true" UID="XLS_230_2C804">Команда запускает нумерацию объектов модели с учетом настроект нумерации объектов</HelpString>
+        <SmallImage Name="MS_OBJ_ENGINE.png" />
+        <LargeImage Name="MS_OBJ_ENGINE.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="CLP_SHOW_CLOUD">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_230_32A40">Загрузить облако точек</Name>
+        <Command>^C^C_CLP_SHOW_CLOUD</Command>
+        <HelpString xlate="true" UID="XLS_230_6FA08">Команда позволяет загрузить облако точек из БД CADLib Проект. Команда работает только под nanoCAD.</HelpString>
+        <SmallImage Name="MS_CLPPNTCLOUDNANOIMPORT32.png" />
+        <LargeImage Name="MS_CLPPNTCLOUDNANOIMPORT32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="PE_GRAPHICS_PAINTER">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_230_D88FF">Копировать параметрическую графику</Name>
+        <Command>^C^C_PE_GRAPHICS_PAINTER</Command>
+        <HelpString xlate="true" UID="XLS_230_DAE30">Команда позволяет скопировать параметрическую графику с образца в другие объекты.</HelpString>
+        <SmallImage Name="MS_COPY_GRAPHICS32.png" />
+        <LargeImage Name="MS_COPY_GRAPHICS32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="BIC_SET_CODES">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_230_425E4">Назначить код КСИ</Name>
+        <Command>^C^C_BIC_SET_CODES</Command>
+        <HelpString xlate="true" UID="XLS_230_08F07">Команда позволяет выполнить кодирование моделей в соответствии с классификатором строительной информации</HelpString>
+        <SmallImage Name="MS_BIC_SET_CODES.png" />
+        <LargeImage Name="MS_BIC_SET_CODES.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="MS_EXPORT_IFC">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_230_0ED74">Экспорт IFC (РФРИТ)</Name>
+        <Command>^C^C_MS_EXPORT_IFC</Command>
+        <HelpString xlate="true" UID="XLS_230_C5DF3">Команда Экспорт в IFC позволяет обмениваться графической и текстовой информацией на основе использования технологии BIM (Building Information Modeling), работает с версией IFC2х3 и IFC4 </HelpString>
+        <SmallImage Name="MS_EXPORTIFC.png" />
+        <LargeImage Name="MS_EXPORTIFC.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="MS_IMPORT_IFC">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_230_2DA38">Импорт IFC (РФРИТ)</Name>
+        <Command>^C^C_MS_IMPORT_IFC</Command>
+        <HelpString xlate="true" UID="XLS_230_CAAD6">Команда для импорта из формата IFC, которая позволяет импортировать информацию из приложений, поддерживающих технологию BIM (Build-ing Information Modeling), работает с версией IFC2х3 и IFC4</HelpString>
+        <SmallImage Name="MS_IMPORTIFC.png" />
+        <LargeImage Name="MS_IMPORTIFC.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="bic_check_absence">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_230_958B5">Проверка отсутствия кода КСИ</Name>
+        <Command>^C^C_bic_check_absence</Command>
+        <HelpString xlate="true" UID="XLS_230_3A2EA">Команда позволяет выполнить проверку всех или выбранных объектов на отсутствие кода КСИ с созданием коллизий на объектах</HelpString>
+        <SmallImage Name="MS_BIC_SET_CODES.png" />
+        <LargeImage Name="MS_BIC_SET_CODES.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="bic_check_relevance">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_230_A1BB9">Проверка актуальности кода КСИ</Name>
+        <Command>^C^C_bic_check_relevance</Command>
+        <HelpString xlate="true" UID="XLS_230_213BC">Команда позволяет выполнить проверку всех или выбранных объектов на актуальность кодов КСИ с созданием коллизий на объектах</HelpString>
+        <SmallImage Name="MS_BIC_SET_CODES.png" />
+        <LargeImage Name="MS_BIC_SET_CODES.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="CLP_CHECK_KKS">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_230_F6D2C">Проверка кода KKS</Name>
+        <Command>^C^C_CLP_CHECK_KKS</Command>
+        <HelpString xlate="true" UID="XLS_230_802E2">Команда выполняет проверку всех объектов на наличие кода KKS и в результате выделяет объекты с повторяющимися кодами</HelpString>
+        <SmallImage Name="CLP_CHECK_KKS.png" />
+        <LargeImage Name="CLP_CHECK_KKS.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="mss_refresh">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_230_02F42">Расчёт вычисляемых параметров</Name>
+        <Command>^C^C_mss_refresh</Command>
+        <HelpString xlate="true" UID="XLS_230_3D999">Команда позволяет обновить значение вычисляемых параметров по формулам заданным в комментарии</HelpString>
+        <SmallImage Name="MS_OBJ_ENGINE.png" />
+        <LargeImage Name="MS_OBJ_ENGINE.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="dg_vpdef_delline">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+        <Name xlate="true" UID="XLS_230_39168">Отменить ломаный вид</Name>
+        <Command>^C^C_dg_vpdef_delline</Command>
+        <HelpString xlate="true" UID="XLS_230_86C72">Команда позволяет вернуть ломаный вид к изначальному состоянию каркасного куба</HelpString>
+        <SmallImage Name="DG_VPDEF_DELLINE.png" />
+        <LargeImage Name="DG_VPDEF_DELLINE.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="CLP_FILL_FRAMES_ATTRS">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_241_5C902">CLP. Обновить штампы чертежа</Name>
+        <Command>^C^C_CLP_FILL_FRAMES_ATTRS</Command>
+        <HelpString xlate="true" UID="XLS_241_73E5E">CADLib Проект. Позволяет обновить все штампы документов открытого чертежа, ассоциированные с карточками документов в проекте</HelpString>
+        <SmallImage Name="CLP_FILL_FRAMES_ATTRS.png" />
+        <LargeImage Name="CLP_FILL_FRAMES_ATTRS.png" />
+        <CLICommand xlate="true" UID="XLS_241_C4E63">CLP. Обновить штампы чертежа</CLICommand>
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="kks_navigator">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_241_30E61">KKS навигатор</Name>
+        <Command>^C^C_kks_navigator</Command>
+        <HelpString xlate="true" UID="XLS_241_41A2F">Вызов палитры KKS навигатора. Кодирование оборудования и объектов в соответствии со стандартом KKS</HelpString>
+        <SmallImage Name="палитра-KKS-2.png" />
+        <LargeImage Name="палитра-KKS-2.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="urs_align_copy">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_241_36AF0">Разместить объект</Name>
+        <Command>^C^C_urs_align_copy</Command>
+        <HelpString xlate="true" UID="XLS_241_18407">Команда позволяет перемещать/копировать объекты из одной плоскости в другую.</HelpString>
+        <SmallImage Name="urs_align_copy.png" />
+        <LargeImage Name="urs_align_copy.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="dg_gen_blueprint">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_241_24466">Автогенератор документации</Name>
+        <Command>^C^C_dg_gen_blueprint</Command>
+        <HelpString xlate="true" UID="XLS_241_807A0">Команда загружает объекты модели по выбранной ветви ЗиС вместе с сеткой осей здания и формируются видовые кубы. По выбранным шаблонам в диалоговом окне запускается процесс генерации комплекта документации по указанному разделу проекта.</HelpString>
+        <SmallImage Name="MS_2DSECTION_REORDER.png" />
+        <LargeImage Name="MS_2DSECTION_REORDER.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="lcs_lib_sync">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_241_32749">Синхронизация параметров</Name>
+        <Command>^C^C_lcs_lib_sync</Command>
+        <HelpString xlate="true" UID="XLS_241_6A934">Команда позволяет обновить значения параметров выбираемых объектов модели по базе данных изделий и материалов.</HelpString>
+        <SmallImage Name="Синхронизация параметров.png" />
+        <LargeImage Name="Синхронизация параметров.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="clp_upd_binded_objs">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_241_521AE">Параметры ТХ из 2D схемы в 3D</Name>
+        <Command>^C^C_clp_upd_binded_objs</Command>
+        <HelpString xlate="true" UID="XLS_241_AC6A4">Команда позволяет обновить значения параметров объектов трехмерной модели, записанных в проект из технологической схемы.</HelpString>
+        <SmallImage Name="ico.png" />
+        <LargeImage Name="ico.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="clp_upd_binded_struct_objs">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_241_A4085">Параметры ТХ из 3D модели в 2D</Name>
+        <Command>^C^C_clp_upd_binded_struct_objs</Command>
+        <HelpString xlate="true" UID="XLS_241_3E1DE">Команда позволяет обновить значения параметров элементов структуры проекта по 3D модели.</HelpString>
+        <SmallImage Name="clp_upd_binded_struct_objs.png" />
+        <LargeImage Name="clp_upd_binded_struct_objs.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="aec_copying_to_another_object">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_241_09AA1">Копировать в объект</Name>
+        <Command>^C^C_aec_copying_to_another_object</Command>
+        <HelpString xlate="true" UID="XLS_241_03F81">Команда позволяет скопировать расположение объектов относительно выбранного элемента</HelpString>
+        <SmallImage Name="aec_copying_to_another_object.png" />
+        <LargeImage Name="aec_copying_to_another_object.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="PE_ASSOCIATION_SHOW">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_241_00CAF">Индикация ассоциированных объектов</Name>
+        <Command>^C^C_PE_ASSOCIATION_SHOW</Command>
+        <HelpString xlate="true" UID="XLS_241_21596">Команда позволяет выделить ассоциированные объекты в модели и сообщить в командную строку количество найденных связей.</HelpString>
+        <SmallImage Name="PE_ASSOCIATION_SHOW.png" />
+        <LargeImage Name="PE_ASSOCIATION_SHOW.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="add_parameter_from_room_to_object">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_241_65784">Параметры помещения в объекты модели</Name>
+        <Command>^C^C_add_parameter_from_room_to_object</Command>
+        <HelpString xlate="true" UID="XLS_241_84F6A">Команда позволяет передать параметры помещения в объекты модели</HelpString>
+        <SmallImage Name="add_parameter_from_room_to_object_32.png" />
+        <LargeImage Name="add_parameter_from_room_to_object_32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="urs_export_update">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_241_22579">Обновить таблицы на листе</Name>
+        <Command>^C^C_urs_export_update</Command>
+        <HelpString xlate="true" UID="XLS_241_B3430">Команда позволяет обновить содержимое таблиц, размещенных на листах чертежа, по изменениям в объектах модели.</HelpString>
+        <SmallImage Name="spec16.png" />
+        <LargeImage Name="MS_REPDLG32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="dg_regenall">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_241_0EDF2">Обновить проекции и таблицы</Name>
+        <Command>^C^C_dg_regenall</Command>
+        <HelpString xlate="true" UID="XLS_241_195BE">Команда позволяет обновить содержимое таблиц и проекций, размещенных на листах чертежа, по изменениям в объектах модели.</HelpString>
+        <SmallImage Name="MStudioViewRefresh.png" />
+        <LargeImage Name="MS_2DSECTION_UPD.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="urs_dim_select_obj">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_241_8FAF6">Выборочная простановка размеров</Name>
+        <Command>^C^C_urs_dim_select_obj</Command>
+        <HelpString xlate="true" UID="XLS_241_8B0D9">Выборочно проставляются размеры, выноски, отметки уровня и другие элементы оформления чертежей. Мастер простановки размеров - это диалоговое окно, позволяющее создать или выбрать существующие правила простановки и применить их к выбранному виду или разрезу.</HelpString>
+        <SmallImage Name="urs_dim_select_obj16.png" />
+        <LargeImage Name="urs_dim_select_obj32.png" />
+      </Macro>
+    </MenuMacro>
+    <MenuMacro UID="lcs_sync_params">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
+        <ModifiedRev MajorVersion="24" MinorVersion="1" UserVersion="1" />
+        <Name xlate="true" UID="XLS_241_C94F9">Синхронизировать параметры некаталожных объектов</Name>
+        <Command>^C^C_lcs_sync_params</Command>
+        <HelpString xlate="true" UID="XLS_241_6859C">Команда позволяет синхронизировать параметры некаталожных объектов с XPG файлами, которые используется при создании объектов.</HelpString>
+        <SmallImage Name="lcs_sync_params.png" />
+        <LargeImage Name="lcs_sync_params.png" />
+      </Macro>
+    </MenuMacro>
+  <MenuMacro UID="DTMX_MS_OTHER_BUTTON"><Macro type="Any"><Revision MajorVersion="24" UserVersion="1" MinorVersion="1" /><ModifiedRev MajorVersion="24" UserVersion="1" MinorVersion="1" /><Name UID="XLS_DTMX_E5DD9F7748" xlate="true">Draw Pipeline</Name><Command>^C^C_pipe_draw_pipeline</Command><HelpString UID="XLS_DTMX_BAACFD9BA5" xlate="true">Runs pipe_draw_pipeline</HelpString><SmallImage Name="PipeDrawPipeline.png"></SmallImage><LargeImage Name="MS_PIPE32.png"></LargeImage></Macro></MenuMacro></MacroGroup>
+</MenuGroup>

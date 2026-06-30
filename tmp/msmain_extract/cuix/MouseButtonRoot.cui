@@ -1,0 +1,112 @@
+<?xml version="1.0"?>
+<!--
+Внимание! Не изменяйте содержимое этого файла.
+При попытке редактирования этого файла с помощью редактора XML функциональные
+возможности адаптации и переноса могут быть утрачены. Для изменения
+информации в файле адаптации воспользуйтесь диалоговым окном
+"Адаптация пользовательского интерфейса" в программе.
+Для доступа к диалоговому окну "Адаптация пользовательского интерфейса" выберите меню "Сервис",
+откройте панель "Адаптация" и нажмите кнопку "Пользовательский интерфейс" либо введите НПИ в командной строке.
+-->
+<MouseButtonRoot xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ButtonGroup UID="BGU_220_DE02E">
+    <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    <Alias>ALTERNATE AUX1</Alias>
+    <ButtonItem BlankLine="true" UID="BIU_220_216F5">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ButtonItem>
+    <ButtonItem BlankLine="true" UID="BIU_220_8247E">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ButtonItem>
+    <ButtonItem BlankLine="true" UID="BIU_220_1A9EF">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ButtonItem>
+    <ButtonItem BlankLine="true" UID="BIU_220_D755B">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ButtonItem>
+    <ButtonItem BlankLine="true" UID="BIU_220_2FA9A">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ButtonItem>
+    <ButtonItem BlankLine="true" UID="BIU_220_3CA00">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ButtonItem>
+    <ButtonItem BlankLine="true" UID="BIU_220_12F8F">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ButtonItem>
+  </ButtonGroup>
+  <ButtonGroup UID="BGU_220_1DDFC">
+    <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    <Alias>ALTERNATE AUX2</Alias>
+    <ButtonItem BlankLine="true" UID="BIU_220_559FB">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ButtonItem>
+    <ButtonItem BlankLine="true" UID="BIU_220_1E40E">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ButtonItem>
+    <ButtonItem BlankLine="true" UID="BIU_220_BD75F">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ButtonItem>
+    <ButtonItem BlankLine="true" UID="BIU_220_5D4B0">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ButtonItem>
+    <ButtonItem BlankLine="true" UID="BIU_220_05AF8">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ButtonItem>
+    <ButtonItem BlankLine="true" UID="BIU_220_3B905">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ButtonItem>
+    <ButtonItem BlankLine="true" UID="BIU_220_5013C">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ButtonItem>
+  </ButtonGroup>
+  <ButtonGroup UID="BGU_220_7DEF8">
+    <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    <Alias>ALTERNATE AUX3</Alias>
+    <ButtonItem BlankLine="true" UID="BIU_220_D18ED">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ButtonItem>
+    <ButtonItem BlankLine="true" UID="BIU_220_EDE60">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ButtonItem>
+    <ButtonItem BlankLine="true" UID="BIU_220_541AF">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ButtonItem>
+    <ButtonItem BlankLine="true" UID="BIU_220_9A571">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ButtonItem>
+    <ButtonItem BlankLine="true" UID="BIU_220_871AA">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ButtonItem>
+    <ButtonItem BlankLine="true" UID="BIU_220_6E55A">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ButtonItem>
+    <ButtonItem BlankLine="true" UID="BIU_220_FCD81">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ButtonItem>
+  </ButtonGroup>
+  <ButtonGroup UID="BGU_220_0BCC4">
+    <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    <Alias>ALTERNATE AUX4</Alias>
+    <ButtonItem BlankLine="true" UID="BIU_220_BA2A5">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ButtonItem>
+    <ButtonItem BlankLine="true" UID="BIU_220_80E8A">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ButtonItem>
+    <ButtonItem BlankLine="true" UID="BIU_220_FC317">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ButtonItem>
+    <ButtonItem BlankLine="true" UID="BIU_220_90341">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ButtonItem>
+    <ButtonItem BlankLine="true" UID="BIU_220_8DDDA">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ButtonItem>
+    <ButtonItem BlankLine="true" UID="BIU_220_6164C">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ButtonItem>
+    <ButtonItem BlankLine="true" UID="BIU_220_BB317">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ButtonItem>
+  </ButtonGroup>
+</MouseButtonRoot>

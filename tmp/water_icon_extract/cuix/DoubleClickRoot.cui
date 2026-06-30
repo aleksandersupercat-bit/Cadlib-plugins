@@ -1,0 +1,115 @@
+<?xml version="1.0"?>
+<!--
+Warning! Do not edit the contents of this file.
+If you attempt to edit this file using an XML editor, you could lose
+customization and migration functionality. If you need to change
+information in the customization file, use the Customize User Interface
+dialog in the product.
+To access the Customize User Interface dialog, click the Tools menu,
+Customization panel, User Interface button, or enter CUI on the command line.
+-->
+<DoubleClickRoot xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <DoubleClickAction DxfName="IRNAXIS" UID="DCU_0001">
+    <ModifiedRev MajorVersion="18" MinorVersion="2" UserVersion="1" />
+    <Name xlate="true" UID="XLS_00090113">Металлопрокат</Name>
+    <MenuItem>
+      <MacroRef MenuMacroID="IRON_AXES_EDIT" />
+    </MenuItem>
+  </DoubleClickAction>
+  <DoubleClickAction DxfName="IRNNODE" UID="DCU_0002">
+    <ModifiedRev MajorVersion="18" MinorVersion="2" UserVersion="1" />
+    <Name xlate="true" UID="XLS_00090114">Узел металлопроката</Name>
+    <MenuItem>
+      <MacroRef MenuMacroID="AEC_EDIT_NODE" />
+    </MenuItem>
+  </DoubleClickAction>
+  <DoubleClickAction DxfName="AECTRENCH" UID="DCU_0003">
+    <ModifiedRev MajorVersion="18" MinorVersion="2" UserVersion="1" />
+    <Name xlate="true" UID="XLS_00090115">Траншея</Name>
+    <MenuItem>
+      <MacroRef MenuMacroID="AEC_TRENCH_EDIT" />
+    </MenuItem>
+  </DoubleClickAction>
+  <DoubleClickAction DxfName="AECBORE" UID="DCU_190_E1B68">
+    <ModifiedRev MajorVersion="19" MinorVersion="0" UserVersion="1" />
+    <Name xlate="true" UID="XLS_190_AAFB1">Скважина/точечный котлован</Name>
+    <MenuItem>
+      <MacroRef MenuMacroID="AEC_BORE_EDIT" />
+    </MenuItem>
+  </DoubleClickAction>
+  <DoubleClickAction DxfName="MSTCOORDINATEGRID" UID="DCU_0004">
+    <ModifiedRev MajorVersion="18" MinorVersion="2" UserVersion="1" />
+    <Name xlate="true" UID="XLS_00090116">Координационные оси</Name>
+  </DoubleClickAction>
+  <DoubleClickAction DxfName="LINCSPARAMETRICSOLID" UID="DCU_0005">
+    <ModifiedRev MajorVersion="18" MinorVersion="2" UserVersion="1" />
+    <Name xlate="true" UID="XLS_00090117">Оборудование</Name>
+    <MenuItem>
+      <MacroRef MenuMacroID="urs_properties" />
+    </MenuItem>
+  </DoubleClickAction>
+  <DoubleClickAction DxfName="CAECSURFACE" UID="DCU_0006">
+    <ModifiedRev MajorVersion="18" MinorVersion="2" UserVersion="1" />
+    <Name xlate="true" UID="XLS_00090118">Строительная поверхность</Name>
+    <MenuItem>
+      <MacroRef MenuMacroID="urs_properties" />
+    </MenuItem>
+  </DoubleClickAction>
+  <DoubleClickAction DxfName="CAECELEMENT" UID="DCU_0007">
+    <ModifiedRev MajorVersion="18" MinorVersion="2" UserVersion="1" />
+    <Name xlate="true" UID="XLS_00090119">Строительный элемент</Name>
+    <MenuItem>
+      <MacroRef MenuMacroID="urs_properties" />
+    </MenuItem>
+  </DoubleClickAction>
+  <DoubleClickAction DxfName="CSMSLINK" UID="DCU_0008">
+    <ModifiedRev MajorVersion="18" MinorVersion="2" UserVersion="1" />
+    <Name xlate="true" UID="XLS_00090113">Схемы.Связь</Name>
+    <MenuItem>
+      <MacroRef MenuMacroID="urs_properties" />
+    </MenuItem>
+  </DoubleClickAction>
+  <DoubleClickAction DxfName="LINCSNODE" UID="DCU_0009">
+    <ModifiedRev MajorVersion="18" MinorVersion="2" UserVersion="1" />
+    <Name xlate="true" UID="XLS_00090114">Схемы.Узел</Name>
+    <MenuItem>
+      <MacroRef MenuMacroID="urs_properties" />
+    </MenuItem>
+  </DoubleClickAction>
+  <DoubleClickAction DxfName="CSMSSYMBOL" UID="DCU_0010">
+    <ModifiedRev MajorVersion="18" MinorVersion="2" UserVersion="1" />
+    <Name xlate="true" UID="XLS_00090115">Схемы.Символ</Name>
+    <MenuItem>
+      <MacroRef MenuMacroID="urs_properties" />
+    </MenuItem>
+  </DoubleClickAction>
+  <DoubleClickAction DxfName="VCSSUBSEGMENT" UID="DCU_0011">
+    <ModifiedRev MajorVersion="18" MinorVersion="2" UserVersion="1" />
+    <Name xlate="true" UID="XLS_00090116">Трубы.Сегмент</Name>
+    <MenuItem>
+      <MacroRef MenuMacroID="urs_properties" />
+    </MenuItem>
+  </DoubleClickAction>
+  <DoubleClickAction DxfName="VCSNODE" UID="DCU_0012">
+    <ModifiedRev MajorVersion="18" MinorVersion="2" UserVersion="1" />
+    <Name xlate="true" UID="XLS_00090117">Трубы.Узел</Name>
+    <MenuItem>
+      <MacroRef MenuMacroID="urs_properties" />
+    </MenuItem>
+  </DoubleClickAction>
+  <DoubleClickAction DxfName="VCSINLINE" UID="DCU_0013">
+    <ModifiedRev MajorVersion="18" MinorVersion="2" UserVersion="1" />
+    <Name xlate="true" UID="XLS_00090118">Трубы.Инлайн</Name>
+    <MenuItem>
+      <MacroRef MenuMacroID="urs_properties" />
+    </MenuItem>
+  </DoubleClickAction>
+  <DoubleClickAction DxfName="LINCSVIEWPORTDEF" UID="DCU_0014">
+    <ModifiedRev MajorVersion="18" MinorVersion="2" UserVersion="1" />
+    <Name xlate="true" UID="XLS_00090119">Вид.Определение</Name>
+  </DoubleClickAction>
+  <DoubleClickAction DxfName="LINCSVIEWPORTFRAME" UID="DCU_0015">
+    <ModifiedRev MajorVersion="18" MinorVersion="2" UserVersion="1" />
+    <Name xlate="true" UID="XLS_00090120">Вид.Рамка проекции</Name>
+  </DoubleClickAction>
+</DoubleClickRoot>

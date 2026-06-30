@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!--
+Внимание! Не изменяйте содержимое этого файла.
+При попытке редактирования этого файла с помощью редактора XML функциональные
+возможности адаптации и переноса могут быть утрачены. Для изменения
+информации в файле адаптации воспользуйтесь диалоговым окном
+"Адаптация пользовательского интерфейса" в программе.
+Для доступа к диалоговому окну "Адаптация пользовательского интерфейса" выберите меню "Сервис",
+откройте панель "Адаптация" и нажмите кнопку "Пользовательский интерфейс" либо введите НПИ в командной строке.
+-->
+<DoubleClickRoot xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <DoubleClickAction DxfName="MSTCOORDINATEGRID" UID="DCU_220_C8CD0">
+    <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    <Name xlate="true" UID="XLS_220_1B273">Координационные оси</Name>
+  </DoubleClickAction>
+  <DoubleClickAction DxfName="LINCSPARAMETRICSOLID" UID="DCU_220_4651F">
+    <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    <Name xlate="true" UID="XLS_220_32513">Оборудование</Name>
+    <MenuItem>
+      <MacroRef MenuMacroID="urs_properties" />
+    </MenuItem>
+  </DoubleClickAction>
+  <DoubleClickAction DxfName="LINCSVIEWPORTDEF" UID="DCU_220_DFF12">
+    <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    <Name xlate="true" UID="XLS_220_2DBC1">Вид.Определение</Name>
+  </DoubleClickAction>
+  <DoubleClickAction DxfName="LINCSVIEWPORTFRAME" UID="DCU_220_E444B">
+    <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    <Name xlate="true" UID="XLS_220_9C0CE">Вид.Рамка проекции</Name>
+  </DoubleClickAction>
+</DoubleClickRoot>

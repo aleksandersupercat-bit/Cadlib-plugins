@@ -1,0 +1,1051 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+Внимание! Не изменяйте содержимое этого файла.
+При попытке редактирования этого файла с помощью редактора XML функциональные
+возможности адаптации и переноса могут быть утрачены. Для изменения
+информации в файле адаптации воспользуйтесь диалоговым окном
+"Адаптация пользовательского интерфейса" в программе.
+Для доступа к диалоговому окну "Адаптация пользовательского интерфейса" выберите меню "Сервис",
+откройте панель "Адаптация" и нажмите кнопку "Пользовательский интерфейс" либо введите НПИ в командной строке.
+-->
+<ToolbarRoot xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Toolbar ToolbarOrient="floating" ToolbarVisible="show" xval="200" yval="200" rows="1" UID="TBU_220_D6F7E">
+    <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+    <Alias>MS_CLP</Alias>
+    <Name xlate="true" UID="XLS_220_1BD9E">CADLib Проект</Name>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_024B1">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_331C8">CLP. Редактировать структуры зданий и сооружений</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="CLP_BUILDING_HIERARCHY_EDIT" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_871DF">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_657DD">CLP. Редактировать структуру разделов проекта</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="CLP_PROJECT_STRUCTURE_EDIT" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="true" UID="TBBU_220_9E24D">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_CF9D7">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_43E5C">CLP. Проверить актуальность модели</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="CLP_UPDATE_OBJECTS" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_D7B98">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_3F633">CLP.Удалить объекты проекта</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="CLP_REMOVE_DUMMIES" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_A67A0">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_E8CE6">CLP.Удалить связи с проектом</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="CLP_CLEAN_DOCUMENT" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_230_6B8BB">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_230_2F0E4">CLP. Транслировать параметры ЭС из 2D схемы в 3D</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="transfer_params_from_block_diagram_to_hierarchy" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_230_D4615">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_230_AF657">CLP. Транслировать параметры ЭС из 3D в 2D схему</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="transfer_params_from_3d_to_hierarchy" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="true" UID="TBBU_220_BF59B">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_8B34E">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_87E07">CLP. Загрузить публикацию по объектам проекта</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="CLP_LOAD_PUBLICATION_OBJECTS" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_C3059">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_2CB58">CLP. Загрузить по объектам с осью</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="CLP_LOAD_BY_AXIS_OBJ" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_EEABE">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_4A1F4">CLP. Загрузить объекты по структуре</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="CLP_SHOW_HIERARCHY_QUERY_FORM" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_FB3DF">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_E8949">CLP. Загрузить объекты по полилинии</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="CLP_LOAD_BY_POLY" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_230_4AAB0">
+      <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_230_B24D6">CLP. Загрузить облако точек</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="CLP_SHOW_CLOUD" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="true" UID="TBBU_220_AC503">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_45E2F">
+      <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_F3B1A">CLP. Создать структуру из технологических схем</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="CLP_PUBLISH_PIPE" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_6A247">
+      <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_4105D">CLP. Создать структуру из 3D модели системы трубопроводов</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="PIPE_PUBLISH_SYSTEMS" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_230_0028C">
+      <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_230_11756">CLP. Создать электротехническую схему из структуры</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="generate_block_diagram_by_hierarchy" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_230_6320B">
+      <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_230_33F1B">CLP.Создать структуру из 3D модели системы электроснабжения</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="generate_electric_system_by_3d_model" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="true" UID="TBBU_220_6F6BB">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_0F4FE">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_574C3">CLP. Создать рамку листа</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="CLP_FRAME_CREATE" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_40D6B">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_2C022">CLP. Ассоциировать лист с проектом</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="CLP_FRAME_DEST_DOCUMENT" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_230_F56B6">
+      <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_230_BCACB">Проверка кода KKS</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="CLP_CHECK_KKS" />
+      </MenuItem>
+    </ToolbarButton>
+  </Toolbar>
+  <Toolbar ToolbarOrient="floating" ToolbarVisible="show" xval="200" yval="200" rows="1" UID="TBU_220_3634E">
+    <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    <Alias>MS_MAIN</Alias>
+    <Name xlate="true" UID="XLS_220_A1A98">Model Studio CS</Name>
+    <ToolbarFlyout UseOwnIcon="false" pTargetAlias="MS_CLP" UID="TBFU_220_0646F">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <FlyoutName xlate="true" UID="XLS_220_90AEF">CADLib Проект</FlyoutName>
+    </ToolbarFlyout>
+    <ToolbarFlyout UseOwnIcon="false" pTargetAlias="MS_EDIT" UID="TBFU_220_D3F16">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <FlyoutName xlate="true" UID="XLS_220_CC209">Редактирование</FlyoutName>
+    </ToolbarFlyout>
+    <ToolbarFlyout UseOwnIcon="false" pTargetAlias="MS_DOC" UID="TBFU_220_083C7">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <FlyoutName xlate="true" UID="XLS_220_11B2A">Документирование</FlyoutName>
+    </ToolbarFlyout>
+    <ToolbarFlyout UseOwnIcon="false" pTargetAlias="MS_IMPEXP" UID="TBFU_220_79065">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <FlyoutName xlate="true" UID="XLS_220_D33AD">Импорт-Экспорт</FlyoutName>
+    </ToolbarFlyout>
+  </Toolbar>
+  <Toolbar ToolbarOrient="floating" ToolbarVisible="show" xval="200" yval="200" rows="1" UID="TBU_220_5C606">
+    <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    <Alias>MS_MANAGE</Alias>
+    <Name xlate="true" UID="XLS_220_4D813">Управление</Name>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_80E00">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_21FF0">База данных стандартного оборудования</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="lcs_lib_palette" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_BE42F">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_D624D">Навигатор</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="urs_navigator" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_83FB2">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_FEB9F">Спецификатор</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="urs_specification_palette" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="true" UID="TBBU_220_C3ADF">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_210_010C3">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_210_3E99A">Переключить режим модели</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="set_model_mode" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="true" UID="TBBU_220_FCF8D">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_D7DEB">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_83D25">Создать чертеж по шаблону</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="URS_CREATEFROMTEMPLATE" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_4F6CC">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_44633">Импорт из шаблона DWG/DWT</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="URS_APPTEMPLATE" />
+      </MenuItem>
+    </ToolbarButton>
+  </Toolbar>
+  <Toolbar ToolbarOrient="floating" ToolbarVisible="show" xval="200" yval="200" rows="1" UID="TBU_220_4AE31">
+    <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+    <Alias>MS_EDIT</Alias>
+    <Name xlate="true" UID="XLS_220_00273">Редактирование</Name>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_33EFD">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_1BC77">Параметры объекта</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="urs_properties" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_74D25">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_B65A7">Параметры объекта во внешней ссылке</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="urs_properties_ex" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="true" UID="TBBU_220_94CD8">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_CBC7B">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_6A3C9">Выбрать объекты</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="urs_select" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_66639">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_8F88B">Обработка модели</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="URS_PROCESS_MODEL" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_230_FBECE">
+      <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_230_60CF0">Расчёт вычисляемых параметров</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="mss_refresh" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="true" UID="TBBU_220_AC4FC">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_5E6BB">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_A04C3">Копировать параметры объектов</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="Lcs_Lib_Params_Painter" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_230_A129E">
+      <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_230_BDF08">Копировать параметрическую графику</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="PE_GRAPHICS_PAINTER" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="true" UID="TBBU_220_B96B6">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_83731">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_0555F">Ассоциировать параметры</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="PE_ASSOCIATION_LINKDATA" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_1418A">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_A2A9F">Ассоциировать объекты</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="PE_ASSOCIATE" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_47BDE">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_CF94B">Удалить ассоциированность</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="PE_ASSOCIATION_BREAK" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="true" UID="TBBU_220_04170">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_DFF9A">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_78249">Расчет объема и площади объекта</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="MSS_CALC_AREA" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_5204A">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_7E829">Удаление объемов работ</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="MSWORK_CLEAN" />
+      </MenuItem>
+    </ToolbarButton>
+  </Toolbar>
+  <Toolbar ToolbarOrient="floating" ToolbarVisible="show" xval="200" yval="200" rows="1" UID="TBU_220_C09F4">
+    <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+    <Alias>MS_DOC</Alias>
+    <Name xlate="true" UID="XLS_220_A46E7">Документирование</Name>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_90C07">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_B3349">Спецификатор</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="urs_specification_palette" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_230_14E39">
+      <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_230_EA854">Назначить код КСИ</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="BIC_SET_CODES" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_230_43C52">
+      <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_230_A70D0">Проверка отсутствия кода КСИ</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="bic_check_absence" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_230_8C19B">
+      <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_230_2729A">Проверка актуальности кода КСИ</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="bic_check_relevance" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_230_070F9">
+      <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_230_D524B">Нумерация объектов</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="urs_numerate" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_210_C70F2">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_210_2C36F">Мастер экспорта данных</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="urs_export_data" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_37C55">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_72B39">Таблица линий и УГО</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="pipe_net_tabugo" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_93BCA">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_E66D4">Создание опросных листов</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="LCS_FILL_DOCX" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_81D7B">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_65178">Создание пакета документации</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="urs_export_pack" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="true" UID="TBBU_220_05088">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_6A133">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_79EF6">Определить вид</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="dg_vpdef" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_DAA6B">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_FFC5F">Определить вид по объекту</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="dg_obj_vpdef" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_04523">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_F9F98">Задать ломаный вид</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="dg_vpdef_setline " />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_230_133B2">
+      <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_230_D70A2">Отменить ломанный вид</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="dg_vpdef_delline" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="true" UID="TBBU_220_7F334">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_9F9ED">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_64872">Автоматически расставить вид</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="DG_GROUP_VPDEF" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_08427">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_C8C7F">Повернуть вид</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="dg_vpdef_turn_eye" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="true" UID="TBBU_220_81D4C">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_70766">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_FF7F9">Вставить преднастроенную проекцию</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="DG_VPORT_EX" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_2418D">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_EBE5A">Вставить проекцию</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="DG_VPORT" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="true" UID="TBBU_220_5D6CF">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_DCE8F">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_ADA02">Вставить вырез на проекцию</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="DG_SETHOLE" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_33BDB">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_E8B4F">Отображение выреза в 3D</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="DG_SHOWHOLE" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="true" UID="TBBU_220_5F0FD">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_E0BFF">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_E1380">Обновить проекцию</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="dg_regen" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_8F782">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_726C6">Обновить проекцию с учетом изменения видового куба</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="dg_vp_rebuild" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="true" UID="TBBU_220_B0397">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_210_68B26">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_210_2064C">Мастер оформления чертежа</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="urs_format" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_201_DE81E">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_201_AE41B">Автогенератор чертежа</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="mss_plan_generate" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_8291D">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_7019B">Автогенератор проекций</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="MSS_VPORT_DRWALL" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="true" UID="TBBU_220_1D3F2">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_51530">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_1821E">Вставка типовых чертежей по модели</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="LCS_LIB_INSERT_OBJECT_DOCS" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="true" UID="TBBU_220_B3A05">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_68656">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_50E56">Вставить окно вида</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="dg_ac_vport" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_665CF">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_F7AFD">Обновить видовые окна</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="dg_ac_regen" />
+      </MenuItem>
+    </ToolbarButton>
+  </Toolbar>
+  <Toolbar ToolbarOrient="floating" ToolbarVisible="show" xval="200" yval="200" rows="1" UID="TBU_220_3358C">
+    <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    <Alias>MS_XPGEDIT</Alias>
+    <Name xlate="true" UID="XLS_220_CFBD8">Редактирование оборудования</Name>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_1852D">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_0F452">Создать параметрический объект</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="CreateParamEquipment" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_964B9">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_48D28">Редактировать параметрический объект</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="EditParamEquipment" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="true" UID="TBBU_220_6FF08">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_3E950">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_0CBD6">Создать узел</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="node_new" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_E74C7">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_D8B5C">Добавить узел к объекту</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="node_attach" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="true" UID="TBBU_220_7CC3A">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_0064C">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_0F17C">Добавить оборудование</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="AddPEqToPEq" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_54972">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_5C925">Объединить оборудование</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="MergePE" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_E4C4C">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_28681">Просмотр GUID объекта</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="LCS_LIB_UID" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="true" UID="TBBU_220_A1690">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_FA477">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_AD98C">Привязать форму к объекту</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="URS_SET_FORM" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="true" UID="TBBU_220_9C334">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_F1589">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_323AB">Экспорт параметрического оборудования в XML</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="pe_xml_export" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_48E01">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_B973C">Импорт параметрического оборудования из XML</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="pe_xml_import" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="true" UID="TBBU_220_755F6">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_6780D">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_A8BE6">Создать объект из блока</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="xblock_new" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_FE60E">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_FB8EB">Мастер оборудования</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="xblock_wizard" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_38453">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_AD5B7">Связь узлов для Мастера оборудования</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="linkForNodes_XBlockWiz" />
+      </MenuItem>
+    </ToolbarButton>
+  </Toolbar>
+  <Toolbar ToolbarOrient="floating" ToolbarVisible="show" xval="200" yval="200" rows="1" UID="TBU_220_B7EE8">
+    <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    <Alias>MS_CLASH</Alias>
+    <Name xlate="true" UID="XLS_220_EE48A">Коллизии</Name>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_F0CEC">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_8D039">Проверить модель</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="model_check" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_0DB45">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_A5A88">Настроить профиль проверки модели</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="lcs_collisions_setup" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_10D34">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_028A2">Удалить обозначения коллизий</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="lcs_collisions_clean" />
+      </MenuItem>
+    </ToolbarButton>
+  </Toolbar>
+  <Toolbar ToolbarOrient="floating" ToolbarVisible="show" xval="200" yval="200" rows="1" UID="TBU_220_034F3">
+    <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    <Alias>MS_DIM</Alias>
+    <Name xlate="true" UID="XLS_220_4ED46">Размеры</Name>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_96F32">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_1E7FC">Мастер простановки размеров</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="urs_dim_wizard" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="true" UID="TBBU_220_E3D9B">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_1EAEA">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_9E580">Отметка уровня</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="urs_dim_level" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_CC6AF">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_9FAAB">Выноска к проекции объекта</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="URS_DIM_ALEADER" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_F54C7">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_35825">Выноска гребенчатая к проекции объекта</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="URS_DIM_TLEADER" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_C383B">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_1C3F7">Выноска к УГО</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="URS_DATALINK_ALEADER" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_9EA72">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_3ADBF">Проставить размеры указанного объекта</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="urs_dim_obj" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_48EE0">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_3E8B4">Координаты</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="URS_COORD_MARKER" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_D135F">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_7A314">Проставить размер</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="URS_DIM_MANUAL" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_3C119">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_3E3CF">Проставить уклон</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="URS_DIM_SLOPE" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="true" UID="TBBU_220_D6E4B">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_B2E5A">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_09D9C">Упорядочить выноски</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="URS_LEADER_MODIFY" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_0AF06">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_F774B">Группировать выноски</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="LEADER_MODIFY_GRP" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="true" UID="TBBU_220_0856D">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_861BF">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_9692F">Привязать данные</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="urs_datalink" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_18575">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_0C432">Привязать данные к выноске</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="urs_datalink_autobind" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_A4630">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_2A34D">Редактировать привязку данных</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="urs_datalink_edit " />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_8B64F">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_B2A99">Обновить данные</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="urs_datalink_refresh" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="true" UID="TBBU_220_02D80">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_EAFD0">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_B92B5">Удалить автоматически созданные размеры</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="urs_dim_clean" />
+      </MenuItem>
+    </ToolbarButton>
+  </Toolbar>
+  <Toolbar ToolbarOrient="floating" ToolbarVisible="show" xval="200" yval="200" rows="1" UID="TBU_220_72E73">
+    <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+    <Alias>MS_IMPEXP</Alias>
+    <Name xlate="true" UID="XLS_220_5507D">Импорт-Экспорт</Name>
+    <ToolbarButton IsSeparator="false" UID="TBBU_230_8A1D9">
+      <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_230_1D832">Экспорт IFC (РФРИТ)</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="MS_EXPORT_IFC" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_230_AB56A">
+      <ModifiedRev MajorVersion="23" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_230_CE161">Импорт IFC (РФРИТ)</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="MS_IMPORT_IFC" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_0E733">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_E857E">Экспорт сеток MSM</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="NWE_EXPORT_MESH" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_210_B011E">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_210_FE079">Экспорт параметрического оборудования в XML</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="pe_xml_export" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_4D24D">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_B2429">Импорт параметрического оборудования из XML</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="pe_xml_import" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_BD62E">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_AF370">Импорт списка XPG (CSV)</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="MS_IMPORT_CSV" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_47BDD">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_5E2EF">Импорт из AVEVA RVM/ATT</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="MS_IMPORT_RVM_WIZARD" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_E60C6">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_AFDBB">Экспорт в PDF3D (ISO 32000)</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="_MSPDF_EXPORT" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_5C8A9">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_63911">Экспорт в NavisWorks</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="NAVISWORKSEXPORT" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="true" UID="TBBU_220_79655">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_8FA1E">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_736F0">Экспорт/Настройка точности</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="NWE_SET_DEVIATION" />
+      </MenuItem>
+    </ToolbarButton>
+  </Toolbar>
+  <Toolbar ToolbarOrient="floating" ToolbarVisible="show" xval="200" yval="200" rows="1" UID="TBU_220_75D69">
+    <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    <Alias>MS_DOCTMPL</Alias>
+    <Name xlate="true" UID="XLS_220_F1DCA">Шаблоны документов</Name>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_8E258">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_F8306">Создать страницы по шаблону</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="ms_layout_generate" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_8E21A">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_5CF55">Создать страницы по шаблону для выбранных объектов</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="ms_obj_layout_generate" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_B90DC">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_A56BC">Создать документ по шаблону</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="ms_doc_generate" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_7C452">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_78E5A">Создать документ по шаблону для выбранных объектов</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="ms_obj_doc_generate" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="true" UID="TBBU_220_F2541">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_D574E">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_18D61">Новый шаблон документа</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="cs_template" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_F0BE6">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_E1092">Открыть шаблон документа</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="cs_template_read" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_E0760">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_4FC87">Сохранить шаблон документа</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="cs_template_save" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_01F45">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_71044">Сохранить шаблон документа как...</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="cs_template_saveas" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_2ABDE">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_4C716">Добавить новую страницу</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="cs_template_page" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_3F771">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_69EE9">Добавить страницу-продолжение</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="cs_template_page_next" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_C6A23">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_0F610">Добавить отчет</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="cs_template_report" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_CAD94">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_42696">Добавить проекцию</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="cs_template_view" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_42934">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_F4632">Свойства элемента шаблона</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="cs_template_element_property" />
+      </MenuItem>
+    </ToolbarButton>
+  </Toolbar>
+  <Toolbar ToolbarOrient="floating" ToolbarVisible="show" xval="200" yval="200" rows="1" UID="TBU_220_F22BB">
+    <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    <Alias>MS_OTHER</Alias>
+    <Name xlate="true" UID="XLS_220_32490">Разное</Name>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_98FDE">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_D8572">Настройки</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="urs_options" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_777FE">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_7314A">Настройки параметров</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="URS_SETUP_PARAMETERS" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="true" UID="TBBU_220_C6AD5">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_CEB17">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_8853C">Установить видимость ручек</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="CULLINGOBJ" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_4F48A">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_79E68">Просмотр GUID объекта</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="LCS_LIB_UID" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="true" UID="TBBU_220_8FA68">
+      <ModifiedRev MajorVersion="22" MinorVersion="0" UserVersion="1" />
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_14835">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_4801E">Справка по Model Studio CS</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="urs_help" />
+      </MenuItem>
+    </ToolbarButton>
+    <ToolbarButton IsSeparator="false" UID="TBBU_220_C6EDF">
+      <ModifiedRev MajorVersion="21" MinorVersion="0" UserVersion="1" />
+      <Name xlate="true" UID="XLS_220_782AB">О программе...</Name>
+      <MenuItem>
+        <MacroRef MenuMacroID="lcs_about" />
+      </MenuItem>
+    </ToolbarButton>
+  <ToolbarButton IsSeparator="false" UID="TBBU_DTMX_56450350A2"><ModifiedRev MajorVersion="24" UserVersion="1" MinorVersion="1" /><Name UID="XLS_DTMX_252A6F4437" xlate="true">DMTX</Name><MenuItem><MacroRef MenuMacroID="DTMX_MS_OTHER_BUTTON" /></MenuItem></ToolbarButton></Toolbar>
+</ToolbarRoot>

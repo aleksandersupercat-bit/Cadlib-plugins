@@ -1,0 +1,9 @@
+DTMX_EDIT               ICON                    "res\\dtmx_edit.ico"
+DTMX_EXPLORE            ICON                    "res\\dtmx_explore.ico"
+DTMX_PATHS              ICON                    "res\\dtmx_paths.ico"
+DTMX_PING               ICON                    "res\\dtmx_ping.ico"
+
+DTMX_EDIT_DARK          ICON                    "res\\dtmx_edit.ico"
+DTMX_EXPLORE_DARK       ICON                    "res\\dtmx_explore.ico"
+DTMX_PATHS_DARK         ICON                    "res\\dtmx_paths.ico"
+DTMX_PING_DARK          ICON                    "res\\dtmx_ping.ico"
