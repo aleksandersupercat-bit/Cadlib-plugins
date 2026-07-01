@@ -5664,6 +5664,7 @@ struct PathExplorerCtx {
     std::wstring axisComName;
     std::vector<ParamState> axisComParams;
     std::vector<std::wstring> axisComRelations;
+    std::map<AcDbObjectId, std::vector<AcDbObjectId>> axisComponentsCache;
     int connectedCount = -1;
     int mapiChildCount = -1;
     bool hasMapiParent = false;
@@ -5687,6 +5688,10 @@ struct PathExplorerCtx {
 
 static PathExplorerCtx* g_pathExplorerCtx = nullptr;
 static int GetMapiConnectedCount(IMcNativeGate* pGate, const AcDbObjectId& oid);
+static void CollectConnectedOids(IMcNativeGate* pGate, const AcDbObjectId& oid,
+                                 std::vector<AcDbObjectId>& outOids);
+static void CollectOwnerClassObjects(const AcDbObjectId& oid, const std::wstring& className,
+                                     std::vector<AcDbObjectId>& outOids);
 static void CollectOwnerClassCounts(const AcDbObjectId& oid, std::map<std::wstring, int>& outCounts);
 static void CollectMapiShape(PathExplorerCtx* ctx);
 static void BuildPathTree(PathExplorerCtx* ctx);
@@ -5781,6 +5786,33 @@ static bool RebuildPathWindow(PathExplorerCtx* ctx, const AcDbObjectId& oid)
     return ok;
 }
 
+// Pre-collect component OIDs for all MAPI-connected axes during init (before any redraw/highlight).
+// acedGetIDispatch(TRUE) is safe here — no prior acedRedraw calls. Results cached in axisComponentsCache.
+static void PreCollectAxisComponents(PathExplorerCtx* ctx)
+{
+    if (!ctx || !ctx->pGate) return;
+    // Используем тот же источник, что и дерево "vCSAxis = 14": итерация блока по классу
+    std::vector<AcDbObjectId> axisOids;
+    CollectOwnerClassObjects(ctx->oid, L"vCSAxis", axisOids);
+    Log(L"Paths init [7.5] preCollect: " + std::to_wstring((int)axisOids.size()) + L" vCSAxis in block");
+    int count = 0;
+    for (const AcDbObjectId& axisOid : axisOids) {
+        if (count >= 30) break;
+        IDispatch* pAxisDisp = SehGetAxisDispatch(axisOid);
+        if (pAxisDisp) {
+            auto comps = CollectAxisComponentOids(pAxisDisp);
+            pAxisDisp->Release();
+            if (!comps.empty()) {
+                ctx->axisComponentsCache[axisOid] = std::move(comps);
+                Log(L"  cached axis #" + OidHandleStr(axisOid) + L" comps=" +
+                    std::to_wstring((int)ctx->axisComponentsCache[axisOid].size()));
+                ++count;
+            }
+        }
+    }
+    Log(L"Paths init [7.5] done, axes cached=" + std::to_wstring((int)ctx->axisComponentsCache.size()));
+}
+
 static bool InitPathCtxForOid(PathExplorerCtx* ctx, const AcDbObjectId& oid)
 {
     if (!ctx || oid.isNull()) return false;
@@ -5832,6 +5864,8 @@ static bool InitPathCtxForOid(PathExplorerCtx* ctx, const AcDbObjectId& oid)
     } else {
         SehReadAxisComRelations(ctx->oid, &ctx->axisComRelations);
     }
+    Log(L"Paths init [7.5] pre-collect axis components...");
+    PreCollectAxisComponents(ctx);
     Log(L"Paths init [8] MAPI connected count...");
     ctx->connectedCount = GetMapiConnectedCount(ctx->pGate, ctx->oid);
     Log(L"Paths init [9] MAPI shape...");
@@ -6465,26 +6499,16 @@ static LRESULT CALLBACK PathExplorerWndProc(HWND hwnd, UINT msg, WPARAM wParam, 
             ClearPathHighlights(ctx);
             Log(L"[PATH FIND] previous highlights cleared");
 
-            // --- Собрать OID-ы для подсветки ---
+            // --- Собрать OID-ы: кэш (init) → MAPI fallback (нет COM pump) ---
             std::vector<AcDbObjectId> toHighlight;
-            IDispatch* pAxisDisp = SehGetAxisDispatch(selOid);
-            if (!g_pathExplorerCtx) {
-                Log(L"[PATH FIND] ctx closed during GetAxisDispatch, abort");
-                if (pAxisDisp) pAxisDisp->Release();
-                break;
-            }
-            if (pAxisDisp) {
-                toHighlight = CollectAxisComponentOids(pAxisDisp);
-                pAxisDisp->Release();
-                Log(L"[PATH FIND] axis components collected=" + std::to_wstring((int)toHighlight.size()));
+            auto cacheIt = ctx->axisComponentsCache.find(selOid);
+            if (cacheIt != ctx->axisComponentsCache.end()) {
+                toHighlight = cacheIt->second;
+                Log(L"[PATH FIND] cache hit comps=" + std::to_wstring((int)toHighlight.size()));
             } else {
-                Log(L"[PATH FIND] axis dispatch not found, fallback to self");
+                CollectConnectedOids(pGate, selOid, toHighlight);
+                Log(L"[PATH FIND] MAPI fallback connections=" + std::to_wstring((int)toHighlight.size()));
             }
-            if (!g_pathExplorerCtx) {
-                Log(L"[PATH FIND] ctx closed after CollectAxis, abort");
-                break;
-            }
-            // Если компоненты не нашли — подсвечиваем сам объект
             if (toHighlight.empty()) toHighlight.push_back(selOid);
             Log(L"[PATH FIND] final targets=" + std::to_wstring((int)toHighlight.size()));
 
