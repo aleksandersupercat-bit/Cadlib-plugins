@@ -3646,6 +3646,7 @@ struct ExplorerCtx {
     std::wstring            portSource;            // откуда удалось получить порты
     std::wstring            axisComName;           // имя узла на вкладке "Параметры осевой", например "2"
     void*                   pGlobalDefs = nullptr; // CParamDefs* из GetGlobalParamDefs
+    bool                    isExpanding = false;   // guard: COM-вызов качает messages, предотвращаем re-entrancy
 
     ExNode* alloc(ExNodeKind k) {
         auto* n = new ExNode();
@@ -3967,7 +3968,11 @@ static void AddGroupedAxisComParams(ExplorerCtx* ctx, HTREEITEM hParent,
         HTREEITEM hGrp = AddExItem(ctx->hTree, hParent, hdr, gsec);
 
         for (const ParamState* p : it->second) {
-            std::wstring line = p->name + L" = " + p->dispValue;
+            std::wstring line;
+            if (!p->comment.empty() && p->comment != p->name)
+                line = p->comment + L" = " + p->dispValue + L"  [" + p->name + L"]";
+            else
+                line = p->name + L" = " + p->dispValue;
             ExNode* pn = ctx->alloc(kEN_VtParam);
             pn->childrenAdded = true;
             AddExItem(ctx->hTree, hGrp, line, pn);
@@ -4577,17 +4582,33 @@ static IDispatch* GetAxisDispatchForOid(const AcDbObjectId& oid)
             pResult = pEnt;  // сам является осью
         } else {
             VariantClear(&vCompsTest);
-            VARIANT vAxis; VariantInit(&vAxis);
-            if (DispGet(pEnt, L"ElementAxis", &vAxis))
-                pResult = VariantDetachDispatch(&vAxis);
-            else
-                VariantClear(&vAxis);
-            pEnt->Release();
+            pEnt->Release();  // не ось — подсвечиваем сам элемент, не лезем к родителю
         }
     } while (false);
     VariantClear(&vDoc); VariantClear(&vDb); VariantClear(&vEntV); VariantClear(&vHandleArg);
     pApp->Release();
     return pResult;
+}
+
+// SEH-обёртки: вызывающие функции имеют RAII-объекты, поэтому __try/__except выносим сюда.
+static void SehReadAxisComRelations(const AcDbObjectId& oid, std::vector<std::wstring>* pOut)
+{
+    __try {
+        ReadAxisComRelationsForOid(oid, pOut);
+    } __except(EXCEPTION_EXECUTE_HANDLER) {
+        Log(L"Paths init [7] SEH in ReadAxisComRelationsForOid, skipped");
+    }
+}
+
+static IDispatch* SehGetAxisDispatch(const AcDbObjectId& oid)
+{
+    IDispatch* result = nullptr;
+    __try {
+        result = GetAxisDispatchForOid(oid);
+    } __except(EXCEPTION_EXECUTE_HANDLER) {
+        Log(L"[PATH FIND] SEH in GetAxisDispatchForOid, fallback to selOid only");
+    }
+    return result;
 }
 
 static bool ReadElementComParamsForOid(const AcDbObjectId& oid,
@@ -4651,6 +4672,30 @@ static void RemovePlaceholder(HWND hTree, HTREEITEM hParent)
     TVITEMW ti = {}; ti.mask = TVIF_PARAM; ti.hItem = hFirst;
     TreeView_GetItem(hTree, &ti);
     if (!ti.lParam) TreeView_DeleteItem(hTree, hFirst);
+}
+
+template <typename TNode>
+static TNode* TreeItemNode(HWND hTree, HTREEITEM hItem)
+{
+    if (!hTree || !hItem) return nullptr;
+    TVITEMEXW tvi = {};
+    tvi.hItem = hItem;
+    tvi.mask = TVIF_PARAM;
+    if (!TreeView_GetItem(hTree, &tvi)) return nullptr;
+    return reinterpret_cast<TNode*>(tvi.lParam);
+}
+
+static std::wstring TreeItemText(HWND hTree, HTREEITEM hItem)
+{
+    if (!hTree || !hItem) return L"";
+    wchar_t buf[512] = {};
+    TVITEMEXW tvi = {};
+    tvi.hItem = hItem;
+    tvi.mask = TVIF_TEXT;
+    tvi.pszText = buf;
+    tvi.cchTextMax = 512;
+    if (!TreeView_GetItem(hTree, &tvi)) return L"";
+    return std::wstring(buf);
 }
 
 // Возвращает лейбл из CParamDef::GetComment для имени параметра, или пустую строку.
@@ -4797,17 +4842,23 @@ static void ExpandNeighborNode(ExplorerCtx* ctx, HTREEITEM hItem, AcDbObjectId n
 
     std::wstring axisName2;
     std::vector<ParamState> axisParams2;
-    if (ReadAxisComParamsForOid(noid, &axisName2, &axisParams2) && !axisParams2.empty()) {
+    ReadAxisComParamsForOid(noid, &axisName2, &axisParams2);  // COM-вызов, может качать messages
+
+    pObj2->close();
+    if (!g_explorerCtx) return;  // диалог закрыт во время COM-вызова — ctx уже удалён
+
+    if (ctx->pGlobalDefs) {
+        for (auto& ps : axisParams2) FillParamDefInfo(ctx->api, ctx->pGlobalDefs, ps);
+    }
+
+    if (!axisParams2.empty()) {
         ExNode* axisSec = ctx->alloc(kEN_VtParam); axisSec->childrenAdded = true;
         HTREEITEM hAxisSec = AddExItem(ctx->hTree, hItem, L"Параметры осевой", axisSec);
-
         ExNode* axisNode = ctx->alloc(kEN_VtParam); axisNode->childrenAdded = true;
         HTREEITEM hAxisNode = AddExItem(ctx->hTree, hAxisSec,
             axisName2.empty() ? L"Осевая" : axisName2, axisNode);
         AddGroupedAxisComParams(ctx, hAxisNode, axisParams2);
     }
-
-    pObj2->close();   // закрываем только после чтения ВСЕГО (vtable + CElement)
 }
 
 // Вспомогательная: строит множество OID объектов, связанных с ctx->oid через IMcCtrDriver
@@ -5298,7 +5349,7 @@ static LRESULT CALLBACK ExplorerWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPAR
         // Обновить кнопку и метку при смене выбранного узла
         if (pnm->code == TVN_SELCHANGED) {
             auto* pnmtv = (NMTREEVIEWW*)lParam;
-            ExNode* selNode = (ExNode*)pnmtv->itemNew.lParam;
+            ExNode* selNode = TreeItemNode<ExNode>(ctx->hTree, pnmtv->itemNew.hItem);
             AcDbObjectId foundOid;
             if (selNode) {
                 if (selNode->kind == kEN_Root)
@@ -5321,8 +5372,9 @@ static LRESULT CALLBACK ExplorerWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPAR
         if (pnm->code != TVN_ITEMEXPANDING) break;
         auto* pnmtv = (NMTREEVIEWW*)lParam;
         if (pnmtv->action != TVE_EXPAND) break;
-        ExNode* node = (ExNode*)pnmtv->itemNew.lParam;
+        ExNode* node = TreeItemNode<ExNode>(ctx->hTree, pnmtv->itemNew.hItem);
         if (!node || node->childrenAdded) break;
+        if (ctx->isExpanding) { Log(L"[TVN] skip: re-entrant expand blocked"); break; }
         node->childrenAdded = true;
         HTREEITEM hItem = pnmtv->itemNew.hItem;
         RemovePlaceholder(ctx->hTree, hItem);
@@ -5362,7 +5414,10 @@ static LRESULT CALLBACK ExplorerWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPAR
         } else if (node->kind == kEN_MapiSection) {
             ExpandMapiSection(ctx, hItem);
         } else if (node->kind == kEN_Neighbor) {
+            ctx->isExpanding = true;
             ExpandNeighborNode(ctx, hItem, node->neighborOid);
+            if (g_explorerCtx) ctx->isExpanding = false;
+            if (!g_explorerCtx) break;
         } else if (node->kind == kEN_ParentSection) {
             ExpandMapiParentSection(ctx, hItem);
         } else if (node->kind == kEN_ChildSection) {
@@ -5411,11 +5466,14 @@ static void dtmxNrx22ExploreCmd()
     LogClear();
     Log(L"=== DTMXNRX22EXPLORE start ===");
 
-    // Singleton: если окно уже открыто — выводим его
+    // Повторный запуск должен пересобирать окно по текущему выбору.
     if (g_explorerCtx && ::IsWindow(g_explorerCtx->hWnd)) {
-        ::SetForegroundWindow(g_explorerCtx->hWnd);
-        ::acutPrintf(L"\nDTMXNRX22EXPLORE: окно уже открыто\n");
-        return;
+        Log(L"[EXPLORE CMD] existing window found -> destroy and rebuild for current selection");
+        ::DestroyWindow(g_explorerCtx->hWnd);
+        if (g_explorerCtx) {
+            Log(L"[EXPLORE CMD] warning: ctx still alive after DestroyWindow");
+            return;
+        }
     }
 
     std::vector<AcDbObjectId> selected = GetSelectedObjects();
@@ -5454,6 +5512,9 @@ static void dtmxNrx22ExploreCmd()
     ctx->vtParams = EnumParamsViaNative(ctx->api, ctx->pIface);
     SehGetGlobalParamDefs(ctx->api.getGlobalParamDefs, &ctx->pGlobalDefs, false);
     ReadAxisComParams(ctx);
+    if (ctx->pGlobalDefs) {
+        for (auto& ps : ctx->axisComParams) FillParamDefInfo(ctx->api, ctx->pGlobalDefs, ps);
+    }
     if (ctx->pGate) {
         mcsWorkID mcid = {};
         if (SUCCEEDED(ctx->pGate->getMcsIdByNative(mcid, ctx->oid.asOldId()))) {
@@ -5530,6 +5591,7 @@ static void dtmxNrx22ExploreCmd()
     // Owner = главное окно nanoCAD: без этого при наведении мыши nanoCAD
     // получает WM_ACTIVATE(WA_INACTIVE) и сворачивается/прячется.
     HWND hNcadMain = adsw_acadMainWnd();
+    g_explorerCtx = ctx;   // нужен уже во время WM_CREATE: TreeView_Expand может прислать TVN_ITEMEXPANDING
     HWND hWnd = ::CreateWindowExW(
         WS_EX_APPWINDOW,
         L"DtmxNrxExplorer",
@@ -5539,12 +5601,12 @@ static void dtmxNrx22ExploreCmd()
         hNcadMain, nullptr, g_hInst, ctx);
 
     if (!hWnd) {
+        g_explorerCtx = nullptr;
         delete ctx;
         Log(L"CreateWindowExW DtmxNrxExplorer failed err=" +
             std::to_wstring(::GetLastError()));
         return;
     }
-    g_explorerCtx = ctx;   // сохраняем singleton до ShowWindow
     ::ShowWindow(hWnd, SW_SHOW);
     ::SetForegroundWindow(hWnd);
     // Modeless: возвращаемся немедленно. nanoCAD ведёт свой message loop,
@@ -5584,6 +5646,8 @@ struct PathExplorerCtx {
     AcDbObjectId oid;
     AcDbObjectId selOid;
     std::vector<AcDbObjectId> highlightedOids;  // подсвеченные объекты (снять при следующем Find)
+    bool isExpanding = false;  // guard: COM-вызов качает messages, предотвращаем re-entrancy
+    bool isRefreshing = false; // guard: пересборка дерева не должна обрабатывать TVN_* на старых item'ах
     std::wstring mainHandle;   // handle главного объекта (сохраняется до закрытия pObj)
     AcDbObjectId ownerOid;     // ownerId главного объекта
     HWND hWnd = nullptr;
@@ -5622,6 +5686,162 @@ struct PathExplorerCtx {
 };
 
 static PathExplorerCtx* g_pathExplorerCtx = nullptr;
+static int GetMapiConnectedCount(IMcNativeGate* pGate, const AcDbObjectId& oid);
+static void CollectOwnerClassCounts(const AcDbObjectId& oid, std::map<std::wstring, int>& outCounts);
+static void CollectMapiShape(PathExplorerCtx* ctx);
+static void BuildPathTree(PathExplorerCtx* ctx);
+static bool InitPathCtxForOid(PathExplorerCtx* ctx, const AcDbObjectId& oid);
+
+static void ClearPathHighlights(PathExplorerCtx* ctx)
+{
+    if (!ctx) return;
+    for (const AcDbObjectId& prevOid : ctx->highlightedOids) {
+        mcsWorkID widPrev;
+        if (ctx->pGate &&
+            ctx->pGate->getMcsIdByNative(widPrev, *(int64_t*)&prevOid) == S_OK) {
+            IMcObjectPtr p = ctx->pGate->QueryObject(widPrev);
+            IMcDbEntityPtr pe = p;
+            if (pe) pe->highlight(false);
+        }
+        ads_name enPrev;
+        if (acdbGetAdsName(enPrev, prevOid) == Acad::eOk)
+            acedRedraw(enPrev, 4);
+    }
+    ctx->highlightedOids.clear();
+    acedUpdateDisplay();
+}
+
+static void FreePathNodes(PathExplorerCtx* ctx)
+{
+    if (!ctx) return;
+    for (auto* n : ctx->allNodes) delete n;
+    ctx->allNodes.clear();
+}
+
+static void ResetPathCtxData(PathExplorerCtx* ctx)
+{
+    if (!ctx) return;
+    ClearPathHighlights(ctx);
+    if (ctx->pObj) { ctx->pObj->close(); ctx->pObj = nullptr; }
+    ctx->pIface = nullptr;
+    ctx->pRoot = nullptr;
+    ctx->oid.setNull();
+    ctx->selOid.setNull();
+    ctx->mainHandle.clear();
+    ctx->ownerOid.setNull();
+    ctx->nativeClass.clear();
+    ctx->vtParams.clear();
+    ctx->mapiUiProps.clear();
+    ctx->comElementName.clear();
+    ctx->comElementParams.clear();
+    ctx->axisComName.clear();
+    ctx->axisComParams.clear();
+    ctx->axisComRelations.clear();
+    ctx->connectedCount = -1;
+    ctx->mapiChildCount = -1;
+    ctx->hasMapiParent = false;
+    ctx->ownerClasses.clear();
+}
+
+static void ResetPathSelectionUi(PathExplorerCtx* ctx)
+{
+    if (!ctx) return;
+    ctx->selOid.setNull();
+    if (ctx->hFindBtn) ::EnableWindow(ctx->hFindBtn, FALSE);
+    if (ctx->hHandleLbl) ::SetWindowTextW(ctx->hHandleLbl, L"(информационный узел)");
+}
+
+static bool RebuildPathWindow(PathExplorerCtx* ctx, const AcDbObjectId& oid)
+{
+    if (!ctx || oid.isNull()) return false;
+
+    Log(L"[PATH CMD] rebuild begin");
+    ctx->isRefreshing = true;
+    ResetPathSelectionUi(ctx);
+
+    if (ctx->hTree) {
+        Log(L"[PATH CMD] TreeView_DeleteAllItems begin");
+        TreeView_DeleteAllItems(ctx->hTree);
+        Log(L"[PATH CMD] TreeView_DeleteAllItems done");
+    }
+
+    FreePathNodes(ctx);
+    ResetPathCtxData(ctx);
+
+    const bool ok = InitPathCtxForOid(ctx, oid);
+    if (ok) {
+        Log(L"[PATH CMD] BuildPathTree begin");
+        BuildPathTree(ctx);
+        Log(L"[PATH CMD] BuildPathTree done");
+    } else {
+        Log(L"[PATH CMD] InitPathCtxForOid failed during rebuild");
+    }
+
+    ctx->isRefreshing = false;
+    return ok;
+}
+
+static bool InitPathCtxForOid(PathExplorerCtx* ctx, const AcDbObjectId& oid)
+{
+    if (!ctx || oid.isNull()) return false;
+
+    if (::acdbOpenAcDbObject(ctx->pObj, oid, AcDb::kForRead) != Acad::eOk || !ctx->pObj) {
+        Log(L"[PATH INIT] open object failed");
+        return false;
+    }
+
+    ctx->oid = oid;
+    ctx->nativeClass = NativeClassName(ctx->pObj);
+    ctx->pGate = GetNativeGate();
+    { AcDbHandle h; ctx->pObj->getAcDbHandle(h); wchar_t hb[32]={}; h.getIntoAsciiBuffer(hb,32); ctx->mainHandle=hb; }
+    ctx->ownerOid = ctx->pObj->ownerId();
+    Log(L"Paths init [1] UnitsCS: class=" + ctx->nativeClass);
+    ctx->pIface = SehGetParametricInterface(ctx->api.getParametricInterface, (void*)ctx->pObj);
+    ctx->pRoot  = SehGetRootElementP(ctx->api.getRootElementP, ctx->pIface);
+    Log(L"Paths init [2] pIface=" + Ptr(ctx->pIface) + L" pRoot=" + Ptr(ctx->pRoot));
+    if (ctx->pIface) ctx->vtParams = EnumParamsViaNative(ctx->api, ctx->pIface);
+    Log(L"Paths init [3] vtParams=" + std::to_wstring((int)ctx->vtParams.size()));
+
+    Log(L"Paths init [4] MAPI...");
+    if (ctx->pGate) {
+        mcsWorkID mcid = {};
+        if (SUCCEEDED(ctx->pGate->getMcsIdByNative(mcid, ctx->oid.asOldId()))) {
+            IMcObjectPtr pMcObj = ctx->pGate->QueryObject(mcid);
+            IMcDbObjectPtr pDbObj = pMcObj;
+            if (pDbObj) ctx->mapiUiProps = CollectAllUniqueMapiProps(pDbObj);
+        }
+    }
+    Log(L"Paths init [5] COM element params...");
+    ReadElementComParamsForOid(ctx->oid, &ctx->comElementName, &ctx->comElementParams);
+    Log(L"Paths init [6] COM axis params...");
+    ReadAxisComParamsForOid(ctx->oid, &ctx->axisComName, &ctx->axisComParams);
+    // Обогащаем COM-параметры comment+category из глобального реестра CParamDef
+    {
+        void* pGD = nullptr;
+        SehGetGlobalParamDefs(ctx->api.getGlobalParamDefs, &pGD, false);
+        if (pGD) {
+            for (auto& ps : ctx->comElementParams) FillParamDefInfo(ctx->api, pGD, ps);
+            for (auto& ps : ctx->axisComParams)    FillParamDefInfo(ctx->api, pGD, ps);
+        }
+    }
+    for (const auto& ap : ctx->axisComParams)
+        Log(L"  axis param: name=" + ap.name + L" cat=" + ap.category + L" grp=" + GetAxisComGroup(ap.name));
+    Log(L"Paths init [7] COM axis relations...");
+    if (g_explorerCtx) {
+        Log(L"Paths init [7] ExplorerCtx open, skip COM axis relations (re-entrancy guard)");
+    } else {
+        SehReadAxisComRelations(ctx->oid, &ctx->axisComRelations);
+    }
+    Log(L"Paths init [8] MAPI connected count...");
+    ctx->connectedCount = GetMapiConnectedCount(ctx->pGate, ctx->oid);
+    Log(L"Paths init [9] MAPI shape...");
+    CollectMapiShape(ctx);
+    Log(L"Paths init [10] owner class counts...");
+    CollectOwnerClassCounts(ctx->oid, ctx->ownerClasses);
+    if (ctx->pObj) { ctx->pObj->close(); ctx->pObj = nullptr; }
+    Log(L"Paths init [11] done");
+    return true;
+}
 
 static HTREEITEM AddPathItem(HWND hTree, HTREEITEM hParent,
                              const std::wstring& label, PathNode* node)
@@ -5762,14 +5982,16 @@ static void AddPathGroupedParams(PathExplorerCtx* ctx, HTREEITEM hParent,
 
     std::map<std::wstring, std::vector<const ParamState*>> byCat;
     for (const auto& ps : params) {
-        std::wstring cat = ps.category.empty() ? L"Общие" : ps.category;
+        std::wstring cat = !ps.category.empty() ? ps.category : GetParamGroup(ps.name);
         byCat[cat].push_back(&ps);
     }
 
-    for (const auto& kv : byCat) {
-        const std::wstring catLbl = kv.first + L" (" + std::to_wstring((int)kv.second.size()) + L")";
+    auto addGroup = [&](const std::wstring& gname) {
+        auto it = byCat.find(gname);
+        if (it == byCat.end()) return;
+        const std::wstring catLbl = gname + L" (" + std::to_wstring((int)it->second.size()) + L")";
         HTREEITEM hCat = AddPathItem(ctx->hTree, hParent, catLbl, ctx->alloc(kPN_Leaf));
-        for (const ParamState* ps : kv.second) {
+        for (const ParamState* ps : it->second) {
             std::wstring label;
             if (!ps->comment.empty() && ps->comment != ps->name)
                 label = ps->comment + L" = " + ps->dispValue + L"  [" + ps->name + L"]";
@@ -5778,6 +6000,54 @@ static void AddPathGroupedParams(PathExplorerCtx* ctx, HTREEITEM hParent,
             if (!ps->valueComment.empty())
                 label += L"  {" + ps->valueComment + L"}";
             AddPathItem(ctx->hTree, hCat, label, ctx->alloc(kPN_Leaf));
+        }
+        byCat.erase(it);
+    };
+
+    for (const auto& g : kParamGroupOrder) addGroup(g);
+    for (auto& kv2 : byCat) {
+        const std::wstring catLbl = kv2.first + L" (" + std::to_wstring((int)kv2.second.size()) + L")";
+        HTREEITEM hCat = AddPathItem(ctx->hTree, hParent, catLbl, ctx->alloc(kPN_Leaf));
+        for (const ParamState* ps : kv2.second) {
+            std::wstring label;
+            if (!ps->comment.empty() && ps->comment != ps->name)
+                label = ps->comment + L" = " + ps->dispValue + L"  [" + ps->name + L"]";
+            else
+                label = ps->name + L" = " + ps->dispValue;
+            if (!ps->valueComment.empty())
+                label += L"  {" + ps->valueComment + L"}";
+            AddPathItem(ctx->hTree, hCat, label, ctx->alloc(kPN_Leaf));
+        }
+    }
+}
+
+static void AddPathGroupedAxisComParams(PathExplorerCtx* ctx, HTREEITEM hParent,
+                                        const std::vector<ParamState>& params)
+{
+    if (params.empty()) {
+        PathAddLeaf(ctx, hParent, L"(параметров нет)");
+        return;
+    }
+    static const std::vector<std::wstring> kAxisOrder2 = {
+        L"Изделие", L"Классификация", L"Переменные параметры", L"Общие",
+        L"Параметры линии", L"Параметры системы",
+        L"Условно-графические обозначения", L"Трубопровод", L"Прочие"
+    };
+    std::map<std::wstring, std::vector<const ParamState*>> groups;
+    for (const auto& p : params)
+        groups[GetAxisComGroup(p.name)].push_back(&p);
+    for (const auto& groupName : kAxisOrder2) {
+        auto it = groups.find(groupName);
+        if (it == groups.end()) continue;
+        const std::wstring catLbl = groupName + L" (" + std::to_wstring((int)it->second.size()) + L")";
+        HTREEITEM hGrp = AddPathItem(ctx->hTree, hParent, catLbl, ctx->alloc(kPN_Leaf));
+        for (const ParamState* p : it->second) {
+            std::wstring line;
+            if (!p->comment.empty() && p->comment != p->name)
+                line = p->comment + L" = " + p->dispValue + L"  [" + p->name + L"]";
+            else
+                line = p->name + L" = " + p->dispValue;
+            AddPathItem(ctx->hTree, hGrp, line, ctx->alloc(kPN_Leaf));
         }
     }
 }
@@ -5815,12 +6085,23 @@ static void BuildOidSections(PathExplorerCtx* ctx, HTREEITEM hParent, const AcDb
     Log(L"[BOS 5] ReadElementComParams...");
     ReadElementComParamsForOid(oid, &comElementName, &comElementParams);
     Log(L"[BOS 6] comElementParams=" + std::to_wstring((int)comElementParams.size()));
+    if (!g_pathExplorerCtx) return;  // диалог закрыт во время COM-вызова
 
     std::wstring axisComName;
     std::vector<ParamState> axisComParams;
     Log(L"[BOS 7] ReadAxisComParams...");
     ReadAxisComParamsForOid(oid, &axisComName, &axisComParams);
     Log(L"[BOS 8] axisComParams=" + std::to_wstring((int)axisComParams.size()));
+    if (!g_pathExplorerCtx) return;  // диалог закрыт во время COM-вызова
+    // Обогащаем COM-параметры comment+category из глобального реестра CParamDef
+    {
+        void* pGD = nullptr;
+        SehGetGlobalParamDefs(ctx->api.getGlobalParamDefs, &pGD, false);
+        if (pGD) {
+            for (auto& ps : comElementParams) FillParamDefInfo(ctx->api, pGD, ps);
+            for (auto& ps : axisComParams)    FillParamDefInfo(ctx->api, pGD, ps);
+        }
+    }
 
     HTREEITEM hDwg = AddPathItem(ctx->hTree, hParent, L"DWG / Native", ctx->alloc(kPN_Leaf));
     PathAddLeaf(ctx, hDwg, L"NativeClassName = " + nativeClass + (isProxy ? L"  ⚠ PROXY" : L""));
@@ -5854,7 +6135,7 @@ static void BuildOidSections(PathExplorerCtx* ctx, HTREEITEM hParent, const AcDb
     HTREEITEM hComAxis = AddPathItem(ctx->hTree, hCom, hComAxisLbl, ctx->alloc(kPN_Leaf));
     PathAddLeaf(ctx, hComAxis, L"Name = " + (axisComName.empty() ? L"<empty>" : axisComName));
     if (!axisComParams.empty())
-        AddPathGroupedParams(ctx, hComAxis, axisComParams);
+        AddPathGroupedAxisComParams(ctx, hComAxis, axisComParams);
 
     Log(L"[BOS 11] CollectConnectedOids");
     std::vector<AcDbObjectId> connected;
@@ -6063,9 +6344,13 @@ static LRESULT CALLBACK PathExplorerWndProc(HWND hwnd, UINT msg, WPARAM wParam, 
         if (!ctx) break;
         auto* pnm = (NMHDR*)lParam;
         if (pnm->hwndFrom != ctx->hTree) break;
+        if (ctx->isRefreshing) {
+            Log(L"[PATH TVN] skip during refresh code=" + std::to_wstring((int)pnm->code));
+            break;
+        }
         if (pnm->code == TVN_SELCHANGED) {
             auto* pnmtv = (NMTREEVIEWW*)lParam;
-            PathNode* selNode = (PathNode*)pnmtv->itemNew.lParam;
+            PathNode* selNode = TreeItemNode<PathNode>(ctx->hTree, pnmtv->itemNew.hItem);
             AcDbObjectId foundOid;
             if (selNode && selNode->kind == kPN_OidRef) foundOid = selNode->oid;
             if (selNode && selNode->kind == kPN_Root)   foundOid = ctx->oid;
@@ -6090,15 +6375,32 @@ static LRESULT CALLBACK PathExplorerWndProc(HWND hwnd, UINT msg, WPARAM wParam, 
         if (pnm->code == TVN_ITEMEXPANDING) {
             auto* pnmtv = (NMTREEVIEWW*)lParam;
             if (pnmtv->action != TVE_EXPAND) break;
-            PathNode* node = (PathNode*)pnmtv->itemNew.lParam;
-            if (!node || node->childrenAdded) break;
+            std::wstring itemText = TreeItemText(ctx->hTree, pnmtv->itemNew.hItem);
+            PathNode* node = TreeItemNode<PathNode>(ctx->hTree, pnmtv->itemNew.hItem);
+            Log(L"[PATH TVN] expand text=" + itemText
+                + L" hItem=" + Ptr(pnmtv->itemNew.hItem)
+                + L" node=" + Ptr(node)
+                + L" kind=" + std::to_wstring(node ? (int)node->kind : -1)
+                + L" childrenAdded=" + std::to_wstring(node && node->childrenAdded ? 1 : 0)
+                + L" isExpanding=" + std::to_wstring(ctx->isExpanding ? 1 : 0));
+            if (ctx->isExpanding) {
+                Log(L"[PATH TVN] skip: re-entrant expand blocked");
+                break;
+            }
+            if (!node || node->childrenAdded) {
+                Log(L"[PATH TVN] skip: node missing or already expanded");
+                break;
+            }
             node->childrenAdded = true;
             HTREEITEM hItem = pnmtv->itemNew.hItem;
             RemovePlaceholder(ctx->hTree, hItem);
+            Log(L"[PATH TVN] placeholder removed text=" + itemText);
 
             if (node->kind == kPN_OwnerClass) {
                 std::vector<AcDbObjectId> oids;
                 CollectOwnerClassObjects(node->oid, node->text, oids);
+                Log(L"[PATH TVN] kPN_OwnerClass count=" + std::to_wstring((int)oids.size())
+                    + L" class=" + node->text);
                 if (oids.empty()) {
                     PathAddLeaf(ctx, hItem, L"(объекты класса не найдены)");
                 } else {
@@ -6110,10 +6412,15 @@ static LRESULT CALLBACK PathExplorerWndProc(HWND hwnd, UINT msg, WPARAM wParam, 
                     }
                 }
             } else if (node->kind == kPN_OidRef) {
+                Log(L"[PATH TVN] kPN_OidRef oid=#" + OidHandleStr(node->oid));
+                ctx->isExpanding = true;
                 BuildOidSections(ctx, hItem, node->oid);
+                if (g_pathExplorerCtx) ctx->isExpanding = false;
+                if (!g_pathExplorerCtx) break;
             } else if (node->kind == kPN_MapiConnSection) {
                 std::vector<AcDbObjectId> connected;
                 CollectConnectedOids(ctx->pGate, node->oid, connected);
+                Log(L"[PATH TVN] kPN_MapiConnSection count=" + std::to_wstring((int)connected.size()));
                 if (connected.empty()) {
                     PathAddLeaf(ctx, hItem, L"(прямых MAPI-связей нет)");
                 } else {
@@ -6125,55 +6432,71 @@ static LRESULT CALLBACK PathExplorerWndProc(HWND hwnd, UINT msg, WPARAM wParam, 
                     }
                 }
             } else if (node->kind == kPN_OwnerBlockSection) {
+                Log(L"[PATH TVN] kPN_OwnerBlockSection");
                 BuildOwnerClassSummary(ctx, hItem, node->oid);
             } else if (node->kind == kPN_RootUnitsParams) {
+                Log(L"[PATH TVN] kPN_RootUnitsParams count=" + std::to_wstring((int)ctx->vtParams.size()));
                 AddPathGroupedParams(ctx, hItem, ctx->vtParams);
             } else if (node->kind == kPN_RootComElement) {
+                Log(L"[PATH TVN] kPN_RootComElement count=" + std::to_wstring((int)ctx->comElementParams.size()));
                 AddPathGroupedParams(ctx, hItem, ctx->comElementParams);
             } else if (node->kind == kPN_RootComAxis) {
-                AddPathGroupedParams(ctx, hItem, ctx->axisComParams);
+                Log(L"[PATH TVN] kPN_RootComAxis count=" + std::to_wstring((int)ctx->axisComParams.size()));
+                AddPathGroupedAxisComParams(ctx, hItem, ctx->axisComParams);
+            } else {
+                Log(L"[PATH TVN] unknown kind=" + std::to_wstring((int)node->kind));
             }
+            int childCount = 0;
+            for (HTREEITEM hChild = TreeView_GetChild(ctx->hTree, hItem); hChild; hChild = TreeView_GetNextSibling(ctx->hTree, hChild))
+                ++childCount;
+            Log(L"[PATH TVN] done text=" + itemText + L" childCount=" + std::to_wstring(childCount));
         }
         break;
     }
     case WM_COMMAND:
         if (LOWORD(wParam) == IDC_FIND_BTN && ctx && !ctx->selOid.isNull()) {
-            std::wstring hs = OidHandleStr(ctx->selOid);
+            // Сохраняем данные ДО COM-вызовов, которые качают очередь сообщений
+            AcDbObjectId selOid = ctx->selOid;
+            IMcNativeGate* pGate = ctx->pGate;
+            std::wstring hs = OidHandleStr(selOid);
+            Log(L"[PATH FIND] start sel=#" + hs);
 
             // --- Снять предыдущую подсветку ---
-            for (const AcDbObjectId& prevOid : ctx->highlightedOids) {
-                mcsWorkID widPrev;
-                if (ctx->pGate &&
-                    ctx->pGate->getMcsIdByNative(widPrev, *(int64_t*)&prevOid) == S_OK) {
-                    IMcObjectPtr p = ctx->pGate->QueryObject(widPrev);
-                    IMcDbEntityPtr pe = p;
-                    if (pe) pe->highlight(false);
-                }
-                ads_name enPrev;
-                if (acdbGetAdsName(enPrev, prevOid) == Acad::eOk)
-                    acedRedraw(enPrev, 4);  // 4 = unhighlight
-            }
-            ctx->highlightedOids.clear();
+            ClearPathHighlights(ctx);
+            Log(L"[PATH FIND] previous highlights cleared");
 
             // --- Собрать OID-ы для подсветки ---
-            // Пытаемся получить компоненты оси через COM
             std::vector<AcDbObjectId> toHighlight;
-            IDispatch* pAxisDisp = GetAxisDispatchForOid(ctx->selOid);
+            IDispatch* pAxisDisp = SehGetAxisDispatch(selOid);
+            if (!g_pathExplorerCtx) {
+                Log(L"[PATH FIND] ctx closed during GetAxisDispatch, abort");
+                if (pAxisDisp) pAxisDisp->Release();
+                break;
+            }
             if (pAxisDisp) {
                 toHighlight = CollectAxisComponentOids(pAxisDisp);
                 pAxisDisp->Release();
+                Log(L"[PATH FIND] axis components collected=" + std::to_wstring((int)toHighlight.size()));
+            } else {
+                Log(L"[PATH FIND] axis dispatch not found, fallback to self");
+            }
+            if (!g_pathExplorerCtx) {
+                Log(L"[PATH FIND] ctx closed after CollectAxis, abort");
+                break;
             }
             // Если компоненты не нашли — подсвечиваем сам объект
-            if (toHighlight.empty()) toHighlight.push_back(ctx->selOid);
+            if (toHighlight.empty()) toHighlight.push_back(selOid);
+            Log(L"[PATH FIND] final targets=" + std::to_wstring((int)toHighlight.size()));
 
             // --- Подсветить все ---
             int highlighted = 0;
             for (const AcDbObjectId& hoid : toHighlight) {
+                Log(L"[PATH FIND] target=#" + OidHandleStr(hoid));
                 // MAPI
                 mcsWorkID wid;
-                if (ctx->pGate &&
-                    ctx->pGate->getMcsIdByNative(wid, *(int64_t*)&hoid) == S_OK) {
-                    IMcObjectPtr pM = ctx->pGate->QueryObject(wid);
+                if (pGate &&
+                    pGate->getMcsIdByNative(wid, *(int64_t*)&hoid) == S_OK) {
+                    IMcObjectPtr pM = pGate->QueryObject(wid);
                     IMcDbEntityPtr pE = pM;
                     if (pE) { pE->highlight(true); ++highlighted; }
                 }
@@ -6181,10 +6504,11 @@ static LRESULT CALLBACK PathExplorerWndProc(HWND hwnd, UINT msg, WPARAM wParam, 
                 ads_name en;
                 if (acdbGetAdsName(en, hoid) == Acad::eOk)
                     acedRedraw(en, 3);
-                ctx->highlightedOids.push_back(hoid);
+                if (g_pathExplorerCtx) ctx->highlightedOids.push_back(hoid);
             }
 
             acedUpdateDisplay();
+            Log(L"[PATH FIND] done highlighted=" + std::to_wstring(highlighted));
             acutPrintf(L"\n[MCS Paths] Handle=#%s  highlighted=%d objects\n",
                        hs.c_str(), highlighted);
         }
@@ -6194,6 +6518,8 @@ static LRESULT CALLBACK PathExplorerWndProc(HWND hwnd, UINT msg, WPARAM wParam, 
         return 0;
     case WM_DESTROY:
         if (ctx) {
+            Log(L"[PATH] WM_DESTROY: clear highlights and delete ctx");
+            ClearPathHighlights(ctx);
             delete ctx;
             ::SetWindowLongPtrW(hwnd, GWLP_USERDATA, 0);
             g_pathExplorerCtx = nullptr;
@@ -6206,17 +6532,24 @@ static LRESULT CALLBACK PathExplorerWndProc(HWND hwnd, UINT msg, WPARAM wParam, 
 static void dtmxNrx23PathsCmd()
 {
     LogClear();
+    Log(L"================ PATH SESSION ================");
     Log(L"=== DTMXNRX23PATHS start ===");
-
-    if (g_pathExplorerCtx && ::IsWindow(g_pathExplorerCtx->hWnd)) {
-        ::SetForegroundWindow(g_pathExplorerCtx->hWnd);
-        ::acutPrintf(L"\nDTMXNRX23PATHS: окно уже открыто\n");
-        return;
-    }
 
     std::vector<AcDbObjectId> selected = GetSelectedObjects();
     if (selected.empty()) {
         ::acutPrintf(L"\nDTMXNRX23PATHS: выберите объект Model Studio\n");
+        return;
+    }
+
+    if (g_pathExplorerCtx && ::IsWindow(g_pathExplorerCtx->hWnd)) {
+        Log(L"[PATH CMD] existing window found -> reset and rebuild for current selection");
+        PathExplorerCtx* ctx = g_pathExplorerCtx;
+        if (!RebuildPathWindow(ctx, selected.front())) {
+            ::acutPrintf(L"\nDTMXNRX23PATHS: не удалось обновить объект\n");
+            return;
+        }
+        ::SetForegroundWindow(ctx->hWnd);
+        Log(L"[PATH CMD] rebuild existing window done");
         return;
     }
 
@@ -6226,53 +6559,16 @@ static void dtmxNrx23PathsCmd()
         ::acutPrintf(L"\nDTMXNRX23PATHS: UnitsCS недоступен\n");
         return;
     }
-
-    if (::acdbOpenAcDbObject(ctx->pObj, selected.front(), AcDb::kForRead) != Acad::eOk || !ctx->pObj) {
+    if (!InitPathCtxForOid(ctx, selected.front())) {
         delete ctx;
         ::acutPrintf(L"\nDTMXNRX23PATHS: не удалось открыть объект\n");
         return;
     }
-
-    ctx->oid = selected.front();
-    ctx->nativeClass = NativeClassName(ctx->pObj);
-    ctx->pGate = GetNativeGate();
-    // Сохраняем handle и owner до того как pObj будет закрыт
-    { AcDbHandle h; ctx->pObj->getAcDbHandle(h); wchar_t hb[32]={}; h.getIntoAsciiBuffer(hb,32); ctx->mainHandle=hb; }
-    ctx->ownerOid = ctx->pObj->ownerId();
-    Log(L"Paths init [1] UnitsCS: class=" + ctx->nativeClass);
-    ctx->pIface = SehGetParametricInterface(ctx->api.getParametricInterface, (void*)ctx->pObj);
-    ctx->pRoot  = SehGetRootElementP(ctx->api.getRootElementP, ctx->pIface);
-    Log(L"Paths init [2] pIface=" + Ptr(ctx->pIface) + L" pRoot=" + Ptr(ctx->pRoot));
-    if (ctx->pIface) ctx->vtParams = EnumParamsViaNative(ctx->api, ctx->pIface);
-    Log(L"Paths init [3] vtParams=" + std::to_wstring((int)ctx->vtParams.size()));
-
-    Log(L"Paths init [4] MAPI...");
-    if (ctx->pGate) {
-        mcsWorkID mcid = {};
-        if (SUCCEEDED(ctx->pGate->getMcsIdByNative(mcid, ctx->oid.asOldId()))) {
-            IMcObjectPtr pMcObj = ctx->pGate->QueryObject(mcid);
-            IMcDbObjectPtr pDbObj = pMcObj;
-            if (pDbObj) ctx->mapiUiProps = CollectAllUniqueMapiProps(pDbObj);
-        }
-    }
-    Log(L"Paths init [5] COM element params...");
-    ReadElementComParamsForOid(ctx->oid, &ctx->comElementName, &ctx->comElementParams);
-    Log(L"Paths init [6] COM axis params...");
-    ReadAxisComParamsForOid(ctx->oid, &ctx->axisComName, &ctx->axisComParams);
-    Log(L"Paths init [7] COM axis relations...");
-    ReadAxisComRelationsForOid(ctx->oid, &ctx->axisComRelations);
-    Log(L"Paths init [8] MAPI connected count...");
-    ctx->connectedCount = GetMapiConnectedCount(ctx->pGate, ctx->oid);
-    Log(L"Paths init [9] MAPI shape...");
-    CollectMapiShape(ctx);
-    Log(L"Paths init [10] owner class counts...");
-    CollectOwnerClassCounts(ctx->oid, ctx->ownerClasses);
-    // Закрываем объект — он больше не нужен, данные уже собраны
-    if (ctx->pObj) { ctx->pObj->close(); ctx->pObj = nullptr; }
-    Log(L"Paths init [11] done, building window...");
+    Log(L"Paths init [create] building window...");
 
     std::wstring title = L"MCS Paths — " + ctx->nativeClass;
     HWND hNcadMain = adsw_acadMainWnd();
+    g_pathExplorerCtx = ctx;  // нужен уже во время WM_CREATE: стартовые TreeView_Expand должны сбросить guard
     HWND hWnd = ::CreateWindowExW(
         WS_EX_APPWINDOW,
         L"DtmxNrxPathExplorer",
@@ -6282,11 +6578,11 @@ static void dtmxNrx23PathsCmd()
         hNcadMain, nullptr, g_hInst, ctx);
 
     if (!hWnd) {
+        g_pathExplorerCtx = nullptr;
         delete ctx;
         Log(L"CreateWindowExW DtmxNrxPathExplorer failed err=" + std::to_wstring(::GetLastError()));
         return;
     }
-    g_pathExplorerCtx = ctx;
     ::ShowWindow(hWnd, SW_SHOW);
     ::SetForegroundWindow(hWnd);
     Log(L"=== DTMXNRX23PATHS window shown ===");

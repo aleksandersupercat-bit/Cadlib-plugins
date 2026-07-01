@@ -40,7 +40,7 @@
   </ImportGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release NCAD|x64'">
-    <OutDir>c:\pdf_ingest\DTMXtest\Scripts\</OutDir>
+    <OutDir>C:\Program Files\CSoft\Model Studio CS\NANOWATER\bin\nanoCAD241\</OutDir>
     <IntDir>$(SolutionDir)obj\DtmxNrx\</IntDir>
     <TargetName>DtmxNrx45</TargetName>
   </PropertyGroup>
